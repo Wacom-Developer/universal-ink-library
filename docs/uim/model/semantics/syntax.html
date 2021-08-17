@@ -1,0 +1,1360 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>uim.model.semantics.syntax API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>uim.model.semantics.syntax</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># -*- coding: utf-8 -*-
+# Copyright © 2021 Wacom Authors. All Rights Reserved.
+#
+#  Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an &#34;AS IS&#34; BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+from enum import Enum
+from typing import List, Optional
+
+IS: str = &#39;@&#39;
+WILL_NAMESPACE: str = &#34;will://&#34;
+SEM_NAMESPACE: str = f&#34;{WILL_NAMESPACE}semantic/3.0/&#34;
+# Subject
+INK_INPUT_DEVICE: str = WILL_NAMESPACE + &#34;input/3.0/&#34;
+SEGMENTATION_NAMESPACE: str = WILL_NAMESPACE + &#34;segmentation/3.0/&#34;
+DOCUMENT_NAMESPACE: str = WILL_NAMESPACE + &#34;document/3.0/&#34;
+# Properties
+DEVICE_SERIAL_NUMBER_PROPERTY: str = INK_INPUT_DEVICE + &#34;SerialNumber&#34;
+DEVICE_MANUFACTURER_PROPERTY: str = INK_INPUT_DEVICE + &#34;Manufacturer&#34;
+DEVICE_MODEL_PROPERTY: str = INK_INPUT_DEVICE + &#34;Model&#34;
+# Predicate Syntax
+SEMANTIC_NAMESPACE: str = WILL_NAMESPACE + &#34;semantic/3.0/&#34;
+# HWR Semantics
+SEMANTIC_HAS_ALT: str = SEMANTIC_NAMESPACE + &#34;hasAlt&#34;
+SEMANTIC_IS: str = SEMANTIC_NAMESPACE + &#34;is&#34;
+# Semantic Ink
+SEMANTIC_HAS_CATEGORY: str = SEMANTIC_NAMESPACE + &#34;hasCategory&#34;
+SEMANTIC_HAS_URI: str = SEMANTIC_NAMESPACE + &#34;hasUri&#34;
+SEMANTIC_HAS_TYPE: str = SEMANTIC_NAMESPACE + &#34;hasType&#34;
+SEMANTIC_HAS_RELEVANT_CONCEPT: str = SEMANTIC_NAMESPACE + &#34;hasRelevantConcept&#34;
+SEMANTIC_HAS_ARTICLE: str = SEMANTIC_NAMESPACE + &#34;hasArticle&#34;
+SEMANTIC_HAS_IMAGE: str = SEMANTIC_NAMESPACE + &#34;hasImage&#34;
+SEMANTIC_HAS_THUMB: str = SEMANTIC_NAMESPACE + &#34;hasThumb&#34;
+SEMANTIC_HAS_LABEL: str = SEMANTIC_NAMESPACE + &#34;hasLabel&#34;
+SEMANTIC_HAS_EMAIL: str = SEMANTIC_NAMESPACE + &#34;hasEmail&#34;
+SEMANTIC_HAS_FIRST_NAME: str = SEMANTIC_NAMESPACE + &#34;hasFirstname&#34;
+SEMANTIC_HAS_LAST_NAME: str = SEMANTIC_NAMESPACE + &#34;hasLastname&#34;
+SEMANTIC_HAS_START_DATE: str = SEMANTIC_NAMESPACE + &#34;hasStartDate&#34;
+SEMANTIC_HAS_END_DATE: str = SEMANTIC_NAMESPACE + &#34;hasEndDate&#34;
+SEMANTIC_HAS_CONFIDENCE: str = SEMANTIC_NAMESPACE + &#34;hasConfidence&#34;
+SEMANTIC_HAS_NER_BACKEND: str = SEMANTIC_NAMESPACE + &#34;nerBackend&#34;
+SEMANTIC_HAS_ABSTRACT: str = SEMANTIC_NAMESPACE + &#34;hasAbstract&#34;
+SEMANTIC_HAS_SOURCE: str = SEMANTIC_NAMESPACE + &#34;hasSource&#34;
+SEMANTIC_HAS_GEOLOCATION: str = SEMANTIC_NAMESPACE + &#34;hasGeoLocation&#34;
+SEMANTIC_HAS_LOCATION: str = SEMANTIC_NAMESPACE + &#34;hasLocation&#34;
+
+SEMANTIC_HAS_WEBSITE: str = SEMANTIC_NAMESPACE + &#34;hasWebsite&#34;
+SEMANTIC_HAS_NAMED_ENTITY: str = SEMANTIC_NAMESPACE + &#34;hasNamedEntityDefinition&#34;
+SEMANTIC_HAS_TOPIC_ENTITY: str = SEMANTIC_NAMESPACE + &#34;hasTopicEntity&#34;
+SEMANTIC_HAS_LOCATION_TYPE: str = SEMANTIC_NAMESPACE + &#34;hasLocationType&#34;
+# Document Properties
+DOCUMENT_TITLE_OBJECT: str = DOCUMENT_NAMESPACE + &#39;Title&#39;
+DOCUMENT_CREATION_DATE_OBJECT: str = DOCUMENT_NAMESPACE + &#39;CreationData&#39;
+DOCUMENT_X_MIN_PROPERTY: str = DOCUMENT_NAMESPACE + &#39;hasMinX&#39;
+DOCUMENT_Y_MIN_PROPERTY: str = DOCUMENT_NAMESPACE + &#39;hasMiny&#39;
+DOCUMENT_WIDTH_PROPERTY: str = DOCUMENT_NAMESPACE + &#39;Width&#39;
+DOCUMENT_HEIGHT_PROPERTY: str = DOCUMENT_NAMESPACE + &#39;Height&#39;
+
+# Document Structure
+TEXT_LINE: str = SEGMENTATION_NAMESPACE + &#34;TextLine&#34;
+WORD: str = SEGMENTATION_NAMESPACE + &#34;Word&#34;
+TEXT_REGION: str = SEGMENTATION_NAMESPACE + &#34;TextRegion&#34;
+PARAGRAPH: str = SEGMENTATION_NAMESPACE + &#34;Paragraph&#34;
+SENTENCE: str = SEGMENTATION_NAMESPACE + &#34;Sentence&#34;
+PUNCTUATION: str = SEGMENTATION_NAMESPACE + &#34;Punctuation&#34;
+PHRASE: str = SEGMENTATION_NAMESPACE + &#34;Phrase&#34;
+
+# Graphics semantics
+GRAPHICS_NAMESPACE: str = WILL_NAMESPACE + &#34;shapes/3.0/&#34;
+
+MATH_NAMESPACE: str = &#39;uim://math/&#39;
+# Math
+MATH_BLOCK: str = &#39;will://segmentation/3.0/MathBlock&#39;
+LATEX_REPRESENTATION: str = &#39;will://math/3.0/attr/hasLatexRepresentation&#39;
+MATHML_REPRESENTATION: str = &#39;will://math/3.0/attr/hasMathMLRepresentation&#39;
+# Math schema
+MATH_CONTENT_BLOCK: str = MATH_NAMESPACE + &#39;MathBlock&#39;
+EXPRESSION_BLOCK: str = MATH_NAMESPACE + &#39;Expression&#39;
+GROUP_BLOCK: str = MATH_NAMESPACE + &#39;Group&#39;
+MATRIX_BLOCK: str = MATH_NAMESPACE + &#39;Matrix&#39;
+OPERAND_BLOCK: str = MATH_NAMESPACE + &#39;Operand&#39;
+OPERATOR: str = MATH_NAMESPACE + &#39;Operator&#39;
+SYMBOL: str = MATH_NAMESPACE + &#39;Symbol&#39;
+EQUALITY_SYMBOL: str = MATH_NAMESPACE + &#39;Equals&#39;
+FENCE: str = MATH_NAMESPACE + &#39;Fence&#39;
+SQUARE_ROOT: str = MATH_NAMESPACE + &#39;SquareRoot&#39;
+FRACTION: str = MATH_NAMESPACE + &#39;Fraction&#39;
+NUMBER: str = MATH_NAMESPACE + &#39;Number&#39;
+SUPERSCRIPT: str = MATH_NAMESPACE + &#39;SuperScript&#39;
+SUBSCRIPT: str = MATH_NAMESPACE + &#39;SubScript&#39;
+LATEX_EXPORT: str = MATH_NAMESPACE + &#39;attr/hasLatexRepresentation&#39;
+MATHML_EXPORT: str = MATH_NAMESPACE + &#39;attr/hasMathMLRepresentation&#39;
+
+POLYGON_TYPE: str = GRAPHICS_NAMESPACE + &#39;Polygon&#39;
+CIRCLE_TYPE: str = GRAPHICS_NAMESPACE + &#39;Circle&#39;
+ELLIPSE_TYPE: str = GRAPHICS_NAMESPACE + &#39;Ellipse&#39;
+TRIANGLE_TYPE: str = GRAPHICS_NAMESPACE + &#39;Triangle&#39;
+LINE_TYPE: str = GRAPHICS_NAMESPACE + &#39;Line&#39;
+RECTANGLE_TYPE: str = GRAPHICS_NAMESPACE + &#39;Rectangle&#39;
+
+# URI Templates
+NODE_URI_PREFIX: str = &#39;uim:node/{}&#39;
+NODE_ENTITY_URI_PREFIX: str = &#39;uim:ne/{}&#39;
+
+
+class CommonRDF(object):
+    &#34;&#34;&#34;
+    Contains a list of used RDF types.
+    &#34;&#34;&#34;
+    PRED_RDF_HAS_TYPE: str = &#39;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&#39;  # Type according to RDF 1.1 XML Syntax.
+    LOCALE: str = &#39;http://ogp.me/ns#locale&#39;  # Locale as defined in Open Graph Protocol.
+
+
+class CommonViews(Enum):
+    &#34;&#34;&#34;
+    Contains a list of known ink model views.
+    &#34;&#34;&#34;
+    CUSTOM_TREE = &#39;custom&#39;  # Custom
+    MAIN_INK_TREE = &#39;main&#39;  # Main tree of ink strokes.
+    MAIN_SENSOR_TREE = &#39;sdm&#39;  # Main tree of sensor data objects.
+    HWR_VIEW = &#39;hwr&#39;  # Handwriting Recognition view.
+    NER_VIEW = &#39;ner&#39;  # Named Entity Recognition view.
+    SEGMENTATION_VIEW = &#39;seg&#39;  # Segmentation view.
+    LEGACY_HWR_VIEW = &#39;will://views/3.0/HWR&#39;  # Handwriting Recognition view (legacy constant - v3.0).
+    LEGACY_NER_VIEW = &#39;will://views/3.0/NER&#39;  # Named Entity Recognition view (legacy constant - v3.0).
+
+
+# Mapping the view name to enum
+NAME_TO_VIEW: dict = dict([(view.value, view) for view in CommonViews])
+
+
+class Semantics(object):
+    &#34;&#34;&#34;
+    Contains types and entities that are used to store ontological knowledge definitions into the ink model&#39;s knowledge
+    graph.
+    &#34;&#34;&#34;
+    PRED_HAS_NAMED_ENTITY_DEFINITION: str = &#34;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&#34;
+    PRED_IS: str = f&#39;{SEM_NAMESPACE}is&#39;
+    TYPE: str = &#39;@&#39;
+
+
+class SegmentationSchema(object):
+    &#34;&#34;&#34;
+    UIM content segmentation schema prototype (generic).
+    &#34;&#34;&#34;
+    WODL_CLASS_PREFIX: str = &#39;will:seg/0.3/&#39;
+    BORDER: str = WODL_CLASS_PREFIX + &#39;Border&#39;
+    CONNECTOR: str = WODL_CLASS_PREFIX + &#39;Connector&#39;
+    CORRECTION: str = WODL_CLASS_PREFIX + &#39;Correction&#39;
+    DIAGRAM: str = WODL_CLASS_PREFIX + &#39;Diagram&#39;
+    DIAGRAM_CONNECTOR: str = WODL_CLASS_PREFIX + &#39;DiagramConnector&#39;
+    DRAWING: str = WODL_CLASS_PREFIX + &#39;Drawing&#39;
+    DRAWING_ITEM_GROUP: str = WODL_CLASS_PREFIX + &#39;DrawingItemGroup&#39;
+    DRAWING_ITEM: str = WODL_CLASS_PREFIX + &#39;DrawingItem&#39;
+    GARBAGE: str = WODL_CLASS_PREFIX + &#39;Garbage&#39;
+    LIST: str = WODL_CLASS_PREFIX + &#39;List&#39;
+    LIST_ITEM: str = WODL_CLASS_PREFIX + &#39;ListItem&#39;
+    LIST_ITEM_BODY: str = &#39;body&#39;
+    UNLABELLED: str = WODL_CLASS_PREFIX + &#39;Unlabelled&#39;
+    UNLABELLED_BLOCK: str = WODL_CLASS_PREFIX + &#39;UnlabelledBlock&#39;
+    UNLABELLED_ITEM_GROUP: str = WODL_CLASS_PREFIX + &#39;UnlabelledItemGroup&#39;
+    UNLABELLED_ITEM: str = WODL_CLASS_PREFIX + &#39;UnlabelledItem&#39;
+    MARKING: str = WODL_CLASS_PREFIX + &#39;Marking&#39;
+    MARKING_TYPE_UNDERLINING: str = &#39;underlining&#39;
+    MARKING_TYPE_PREDICATE: str = &#39;markingType&#39;
+    MARKING_TYPE_ENCIRCLING: str = &#39;encircling&#39;
+    MATH_BLOCK: str = WODL_CLASS_PREFIX + &#39;MathBlock&#39;
+    MATH_ITEM_GROUP: str = WODL_CLASS_PREFIX + &#39;MathItemGroup&#39;
+    MATH_ITEM: str = WODL_CLASS_PREFIX + &#39;MathItem&#39;
+    SEGMENTATION_ROOT: str = WODL_CLASS_PREFIX + &#39;Root&#39;
+    TABLE: str = WODL_CLASS_PREFIX + &#39;Table&#39;
+    TEXT_REGION: str = WODL_CLASS_PREFIX + &#39;TextRegion&#39;
+    TEXT_LINE: str = WODL_CLASS_PREFIX + &#39;TextLine&#39;
+    WORD: str = WODL_CLASS_PREFIX + &#39;WordOfStrokes&#39;
+
+
+class SemanticTriple(object):
+    &#34;&#34;&#34;
+    SemanticTriple
+    ==============
+    A semantic triple, or simply triple, is the atomic data entity data model.
+    As its name indicates, a triple is a set of three entities that codifies a statement about semantic data in the
+    form of subject predicate object expressions.
+
+    Parameters
+    ----------
+    subject: str
+        Subject
+    predicate: str
+        Predicate
+    obj: str
+        Object
+    &#34;&#34;&#34;
+
+    def __init__(self, subject: str, predicate: str, obj: str):
+        self.__subject = subject
+        self.__predicate = predicate
+        self.__object = obj
+
+    @property
+    def subject(self) -&gt; str:
+        &#34;&#34;&#34;Subject of the statement. (`str`)&#34;&#34;&#34;
+        return self.__subject
+
+    @subject.setter
+    def subject(self, subject: str):
+        self.__subject = subject
+
+    @property
+    def predicate(self) -&gt; str:
+        &#34;&#34;&#34;Predicate of the statement. (`str`)&#34;&#34;&#34;
+        return self.__predicate
+
+    @predicate.setter
+    def predicate(self, predicate: str):
+        self.__predicate = predicate
+
+    @property
+    def object(self) -&gt; str:
+        &#34;&#34;&#34;Object of the statement. (`str`)&#34;&#34;&#34;
+        return self.__object
+
+    @object.setter
+    def object(self, obj: str):
+        self.__object = obj
+
+    def __repr__(self):
+        return &#39;&lt;Semantic triple : [subject:={}, predicate:={}, object:={}]&gt;&#39;.format(self.__subject, self.__predicate,
+                                                                                     self.__object)
+
+    def __dict__(self):
+        return {&#39;subject&#39;: self.__subject, &#39;predicate&#39;: self.__predicate, &#39;object&#39;: self.__object}
+
+    def __eq__(self, obj):
+        if not isinstance(obj, SemanticTriple):
+            return False
+        return (self.subject == obj.subject and
+                self.predicate == obj.predicate and
+                self.object == obj.object)
+
+    def __json__(self):
+        return {
+            &#39;subject&#39;: self.subject,
+            &#39;predicate&#39;: self.predicate,
+            &#39;object&#39;: self.object,
+        }
+
+
+class TripleStore(object):
+    &#34;&#34;&#34;
+    TripleStore
+    ===========
+
+    Encapsulates a list of triple statements.
+
+    Parameters
+    ----------
+    triple_statements: List[SemanticTriple]
+        List of `SemanticTriple`s
+    &#34;&#34;&#34;
+
+    def __init__(self, triple_statements: List[SemanticTriple] = None):
+        self.__triple_statement: List[SemanticTriple] = triple_statements or []
+
+    def append(self, triple_statement: SemanticTriple):
+        &#34;&#34;&#34;Appending the triple statement.
+
+        Parameters
+        ----------
+        triple_statement: SemanticTriple
+            Triple that needs to be added
+        &#34;&#34;&#34;
+        self.__triple_statement.append(triple_statement)
+
+    def add_semantic_triple(self, subject: str, predicate: str, obj: str):
+        &#34;&#34;&#34;
+        Adding a semantic triple
+        :param subject: subject of the statement
+        :param predicate: predicate of the statement
+        :param obj: object of the statement
+        &#34;&#34;&#34;
+        self.append(SemanticTriple(subject, predicate, obj))
+
+    def remove_semantic_triple(self, triple: SemanticTriple):
+        &#34;&#34;&#34;
+        Removes a semantic triple from list.
+
+        Parameters
+        ----------
+        triple: `SemanticTriple`
+            Triple to be removed
+        &#34;&#34;&#34;
+        self.__triple_statement.remove(triple)
+
+    def clear_statements(self):
+        &#34;&#34;&#34;Remove all statements.&#34;&#34;&#34;
+        self.__triple_statement = []
+
+    @property
+    def statements(self) -&gt; List[SemanticTriple]:
+        &#34;&#34;&#34;List of triple statements. (`List[SemanticTriple]`)&#34;&#34;&#34;
+        return self.__triple_statement
+
+    def all_statements_for(self, subject: str, predicate: str = None) -&gt; List[SemanticTriple]:
+        &#34;&#34;&#34;
+        Returns all statements for a specific subject.
+
+        Parameters
+        ----------
+        subject: `str`
+            Filter for the subject URI
+        predicate: `str`
+            Predicate filter [optional]
+
+        Returns
+        -------
+        statements: `List[SemanticTriple]`
+            List of statements that match the filters.
+        &#34;&#34;&#34;
+        return [s for s in self.statements if s.subject == subject and
+                (predicate is None or s.predicate == predicate)]
+
+    def filter(self, subject: Optional[str] = None, predicate: Optional[str] = None, obj: Optional[str] = None) \
+            -&gt; List[SemanticTriple]:
+        &#34;&#34;&#34;
+        Returns all statements for a specific subject.
+
+        Parameters
+        ----------
+        subject: `Optional[str]`
+            Filter for the subject URI [optional]
+        predicate: `Optional[str]`
+            Predicate filter [optional]
+        obj: `Optional[str]`
+            Object filter [optional]
+
+        Returns
+        -------
+        statements: `List[SemanticTriple]`
+            List of statements that match the filters.
+        &#34;&#34;&#34;
+
+        results: List[SemanticTriple] = []
+        for s in self.statements:
+            if subject is not None and subject != s.subject:
+                continue
+            if predicate is not None and predicate != s.predicate:
+                continue
+            if obj is not None and obj != s.object:
+                continue
+            results.append(s)
+
+        return results
+
+    def determine_sem_type(self, node: &#39;InkNode&#39;, typedef_pred: str = CommonRDF.PRED_RDF_HAS_TYPE) -&gt; Optional[str]:
+        &#34;&#34;&#34;
+        Determine the Semantic Type of node.
+
+        Parameters
+        ----------
+        node: `InkNode`
+            `InkNode` to extract the semantics from
+        typedef_pred: `str`
+            Predicate string
+
+        Returns
+        -------
+        semantic_type: `str`
+             Semantic type of the `InkNode`. None if the node is not found or the predicate statement.
+        &#34;&#34;&#34;
+        triples: List[SemanticTriple] = self.filter(subject=node.uri, predicate=typedef_pred)
+        if len(triples) == 1:
+            return triples[0].object
+        else:
+            return None
+
+    def __iter__(self):
+        return iter(self.__triple_statement)
+
+    def __repr__(self):
+        return &#39;&lt;TripleStore : [statements:={}]&gt;&#39;.format(self.__triple_statement)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="uim.model.semantics.syntax.CommonRDF"><code class="flex name class">
+<span>class <span class="ident">CommonRDF</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Contains a list of used RDF types.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CommonRDF(object):
+    &#34;&#34;&#34;
+    Contains a list of used RDF types.
+    &#34;&#34;&#34;
+    PRED_RDF_HAS_TYPE: str = &#39;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&#39;  # Type according to RDF 1.1 XML Syntax.
+    LOCALE: str = &#39;http://ogp.me/ns#locale&#39;  # Locale as defined in Open Graph Protocol.</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="uim.model.semantics.syntax.CommonRDF.LOCALE"><code class="name">var <span class="ident">LOCALE</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.CommonRDF.PRED_RDF_HAS_TYPE"><code class="name">var <span class="ident">PRED_RDF_HAS_TYPE</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="uim.model.semantics.syntax.CommonViews"><code class="flex name class">
+<span>class <span class="ident">CommonViews</span></span>
+<span>(</span><span>value, names=None, *, module=None, qualname=None, type=None, start=1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Contains a list of known ink model views.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CommonViews(Enum):
+    &#34;&#34;&#34;
+    Contains a list of known ink model views.
+    &#34;&#34;&#34;
+    CUSTOM_TREE = &#39;custom&#39;  # Custom
+    MAIN_INK_TREE = &#39;main&#39;  # Main tree of ink strokes.
+    MAIN_SENSOR_TREE = &#39;sdm&#39;  # Main tree of sensor data objects.
+    HWR_VIEW = &#39;hwr&#39;  # Handwriting Recognition view.
+    NER_VIEW = &#39;ner&#39;  # Named Entity Recognition view.
+    SEGMENTATION_VIEW = &#39;seg&#39;  # Segmentation view.
+    LEGACY_HWR_VIEW = &#39;will://views/3.0/HWR&#39;  # Handwriting Recognition view (legacy constant - v3.0).
+    LEGACY_NER_VIEW = &#39;will://views/3.0/NER&#39;  # Named Entity Recognition view (legacy constant - v3.0).</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="uim.model.semantics.syntax.CommonViews.CUSTOM_TREE"><code class="name">var <span class="ident">CUSTOM_TREE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.CommonViews.HWR_VIEW"><code class="name">var <span class="ident">HWR_VIEW</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.CommonViews.LEGACY_HWR_VIEW"><code class="name">var <span class="ident">LEGACY_HWR_VIEW</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.CommonViews.LEGACY_NER_VIEW"><code class="name">var <span class="ident">LEGACY_NER_VIEW</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.CommonViews.MAIN_INK_TREE"><code class="name">var <span class="ident">MAIN_INK_TREE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.CommonViews.MAIN_SENSOR_TREE"><code class="name">var <span class="ident">MAIN_SENSOR_TREE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.CommonViews.NER_VIEW"><code class="name">var <span class="ident">NER_VIEW</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.CommonViews.SEGMENTATION_VIEW"><code class="name">var <span class="ident">SEGMENTATION_VIEW</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="uim.model.semantics.syntax.SegmentationSchema"><code class="flex name class">
+<span>class <span class="ident">SegmentationSchema</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>UIM content segmentation schema prototype (generic).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class SegmentationSchema(object):
+    &#34;&#34;&#34;
+    UIM content segmentation schema prototype (generic).
+    &#34;&#34;&#34;
+    WODL_CLASS_PREFIX: str = &#39;will:seg/0.3/&#39;
+    BORDER: str = WODL_CLASS_PREFIX + &#39;Border&#39;
+    CONNECTOR: str = WODL_CLASS_PREFIX + &#39;Connector&#39;
+    CORRECTION: str = WODL_CLASS_PREFIX + &#39;Correction&#39;
+    DIAGRAM: str = WODL_CLASS_PREFIX + &#39;Diagram&#39;
+    DIAGRAM_CONNECTOR: str = WODL_CLASS_PREFIX + &#39;DiagramConnector&#39;
+    DRAWING: str = WODL_CLASS_PREFIX + &#39;Drawing&#39;
+    DRAWING_ITEM_GROUP: str = WODL_CLASS_PREFIX + &#39;DrawingItemGroup&#39;
+    DRAWING_ITEM: str = WODL_CLASS_PREFIX + &#39;DrawingItem&#39;
+    GARBAGE: str = WODL_CLASS_PREFIX + &#39;Garbage&#39;
+    LIST: str = WODL_CLASS_PREFIX + &#39;List&#39;
+    LIST_ITEM: str = WODL_CLASS_PREFIX + &#39;ListItem&#39;
+    LIST_ITEM_BODY: str = &#39;body&#39;
+    UNLABELLED: str = WODL_CLASS_PREFIX + &#39;Unlabelled&#39;
+    UNLABELLED_BLOCK: str = WODL_CLASS_PREFIX + &#39;UnlabelledBlock&#39;
+    UNLABELLED_ITEM_GROUP: str = WODL_CLASS_PREFIX + &#39;UnlabelledItemGroup&#39;
+    UNLABELLED_ITEM: str = WODL_CLASS_PREFIX + &#39;UnlabelledItem&#39;
+    MARKING: str = WODL_CLASS_PREFIX + &#39;Marking&#39;
+    MARKING_TYPE_UNDERLINING: str = &#39;underlining&#39;
+    MARKING_TYPE_PREDICATE: str = &#39;markingType&#39;
+    MARKING_TYPE_ENCIRCLING: str = &#39;encircling&#39;
+    MATH_BLOCK: str = WODL_CLASS_PREFIX + &#39;MathBlock&#39;
+    MATH_ITEM_GROUP: str = WODL_CLASS_PREFIX + &#39;MathItemGroup&#39;
+    MATH_ITEM: str = WODL_CLASS_PREFIX + &#39;MathItem&#39;
+    SEGMENTATION_ROOT: str = WODL_CLASS_PREFIX + &#39;Root&#39;
+    TABLE: str = WODL_CLASS_PREFIX + &#39;Table&#39;
+    TEXT_REGION: str = WODL_CLASS_PREFIX + &#39;TextRegion&#39;
+    TEXT_LINE: str = WODL_CLASS_PREFIX + &#39;TextLine&#39;
+    WORD: str = WODL_CLASS_PREFIX + &#39;WordOfStrokes&#39;</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="uim.model.semantics.syntax.SegmentationSchema.BORDER"><code class="name">var <span class="ident">BORDER</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.SegmentationSchema.CONNECTOR"><code class="name">var <span class="ident">CONNECTOR</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.SegmentationSchema.CORRECTION"><code class="name">var <span class="ident">CORRECTION</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.SegmentationSchema.DIAGRAM"><code class="name">var <span class="ident">DIAGRAM</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.SegmentationSchema.DIAGRAM_CONNECTOR"><code class="name">var <span class="ident">DIAGRAM_CONNECTOR</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.SegmentationSchema.DRAWING"><code class="name">var <span class="ident">DRAWING</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.SegmentationSchema.DRAWING_ITEM"><code class="name">var <span class="ident">DRAWING_ITEM</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.SegmentationSchema.DRAWING_ITEM_GROUP"><code class="name">var <span class="ident">DRAWING_ITEM_GROUP</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.SegmentationSchema.GARBAGE"><code class="name">var <span class="ident">GARBAGE</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.SegmentationSchema.LIST"><code class="name">var <span class="ident">LIST</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.SegmentationSchema.LIST_ITEM"><code class="name">var <span class="ident">LIST_ITEM</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.SegmentationSchema.LIST_ITEM_BODY"><code class="name">var <span class="ident">LIST_ITEM_BODY</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.SegmentationSchema.MARKING"><code class="name">var <span class="ident">MARKING</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.SegmentationSchema.MARKING_TYPE_ENCIRCLING"><code class="name">var <span class="ident">MARKING_TYPE_ENCIRCLING</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.SegmentationSchema.MARKING_TYPE_PREDICATE"><code class="name">var <span class="ident">MARKING_TYPE_PREDICATE</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.SegmentationSchema.MARKING_TYPE_UNDERLINING"><code class="name">var <span class="ident">MARKING_TYPE_UNDERLINING</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.SegmentationSchema.MATH_BLOCK"><code class="name">var <span class="ident">MATH_BLOCK</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.SegmentationSchema.MATH_ITEM"><code class="name">var <span class="ident">MATH_ITEM</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.SegmentationSchema.MATH_ITEM_GROUP"><code class="name">var <span class="ident">MATH_ITEM_GROUP</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.SegmentationSchema.SEGMENTATION_ROOT"><code class="name">var <span class="ident">SEGMENTATION_ROOT</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.SegmentationSchema.TABLE"><code class="name">var <span class="ident">TABLE</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.SegmentationSchema.TEXT_LINE"><code class="name">var <span class="ident">TEXT_LINE</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.SegmentationSchema.TEXT_REGION"><code class="name">var <span class="ident">TEXT_REGION</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.SegmentationSchema.UNLABELLED"><code class="name">var <span class="ident">UNLABELLED</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.SegmentationSchema.UNLABELLED_BLOCK"><code class="name">var <span class="ident">UNLABELLED_BLOCK</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.SegmentationSchema.UNLABELLED_ITEM"><code class="name">var <span class="ident">UNLABELLED_ITEM</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.SegmentationSchema.UNLABELLED_ITEM_GROUP"><code class="name">var <span class="ident">UNLABELLED_ITEM_GROUP</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.SegmentationSchema.WODL_CLASS_PREFIX"><code class="name">var <span class="ident">WODL_CLASS_PREFIX</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.SegmentationSchema.WORD"><code class="name">var <span class="ident">WORD</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="uim.model.semantics.syntax.SemanticTriple"><code class="flex name class">
+<span>class <span class="ident">SemanticTriple</span></span>
+<span>(</span><span>subject: str, predicate: str, obj: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><h1 id="semantictriple">SemanticTriple</h1>
+<p>A semantic triple, or simply triple, is the atomic data entity data model.
+As its name indicates, a triple is a set of three entities that codifies a statement about semantic data in the
+form of subject predicate object expressions.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>subject</code></strong> :&ensp;<code>str</code></dt>
+<dd>Subject</dd>
+<dt><strong><code>predicate</code></strong> :&ensp;<code>str</code></dt>
+<dd>Predicate</dd>
+<dt><strong><code>obj</code></strong> :&ensp;<code>str</code></dt>
+<dd>Object</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class SemanticTriple(object):
+    &#34;&#34;&#34;
+    SemanticTriple
+    ==============
+    A semantic triple, or simply triple, is the atomic data entity data model.
+    As its name indicates, a triple is a set of three entities that codifies a statement about semantic data in the
+    form of subject predicate object expressions.
+
+    Parameters
+    ----------
+    subject: str
+        Subject
+    predicate: str
+        Predicate
+    obj: str
+        Object
+    &#34;&#34;&#34;
+
+    def __init__(self, subject: str, predicate: str, obj: str):
+        self.__subject = subject
+        self.__predicate = predicate
+        self.__object = obj
+
+    @property
+    def subject(self) -&gt; str:
+        &#34;&#34;&#34;Subject of the statement. (`str`)&#34;&#34;&#34;
+        return self.__subject
+
+    @subject.setter
+    def subject(self, subject: str):
+        self.__subject = subject
+
+    @property
+    def predicate(self) -&gt; str:
+        &#34;&#34;&#34;Predicate of the statement. (`str`)&#34;&#34;&#34;
+        return self.__predicate
+
+    @predicate.setter
+    def predicate(self, predicate: str):
+        self.__predicate = predicate
+
+    @property
+    def object(self) -&gt; str:
+        &#34;&#34;&#34;Object of the statement. (`str`)&#34;&#34;&#34;
+        return self.__object
+
+    @object.setter
+    def object(self, obj: str):
+        self.__object = obj
+
+    def __repr__(self):
+        return &#39;&lt;Semantic triple : [subject:={}, predicate:={}, object:={}]&gt;&#39;.format(self.__subject, self.__predicate,
+                                                                                     self.__object)
+
+    def __dict__(self):
+        return {&#39;subject&#39;: self.__subject, &#39;predicate&#39;: self.__predicate, &#39;object&#39;: self.__object}
+
+    def __eq__(self, obj):
+        if not isinstance(obj, SemanticTriple):
+            return False
+        return (self.subject == obj.subject and
+                self.predicate == obj.predicate and
+                self.object == obj.object)
+
+    def __json__(self):
+        return {
+            &#39;subject&#39;: self.subject,
+            &#39;predicate&#39;: self.predicate,
+            &#39;object&#39;: self.object,
+        }</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="uim.model.semantics.syntax.SemanticTriple.object"><code class="name">var <span class="ident">object</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Object of the statement. (<code>str</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def object(self) -&gt; str:
+    &#34;&#34;&#34;Object of the statement. (`str`)&#34;&#34;&#34;
+    return self.__object</code></pre>
+</details>
+</dd>
+<dt id="uim.model.semantics.syntax.SemanticTriple.predicate"><code class="name">var <span class="ident">predicate</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Predicate of the statement. (<code>str</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def predicate(self) -&gt; str:
+    &#34;&#34;&#34;Predicate of the statement. (`str`)&#34;&#34;&#34;
+    return self.__predicate</code></pre>
+</details>
+</dd>
+<dt id="uim.model.semantics.syntax.SemanticTriple.subject"><code class="name">var <span class="ident">subject</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Subject of the statement. (<code>str</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def subject(self) -&gt; str:
+    &#34;&#34;&#34;Subject of the statement. (`str`)&#34;&#34;&#34;
+    return self.__subject</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="uim.model.semantics.syntax.Semantics"><code class="flex name class">
+<span>class <span class="ident">Semantics</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Contains types and entities that are used to store ontological knowledge definitions into the ink model's knowledge
+graph.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Semantics(object):
+    &#34;&#34;&#34;
+    Contains types and entities that are used to store ontological knowledge definitions into the ink model&#39;s knowledge
+    graph.
+    &#34;&#34;&#34;
+    PRED_HAS_NAMED_ENTITY_DEFINITION: str = &#34;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&#34;
+    PRED_IS: str = f&#39;{SEM_NAMESPACE}is&#39;
+    TYPE: str = &#39;@&#39;</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="uim.model.semantics.syntax.Semantics.PRED_HAS_NAMED_ENTITY_DEFINITION"><code class="name">var <span class="ident">PRED_HAS_NAMED_ENTITY_DEFINITION</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.Semantics.PRED_IS"><code class="name">var <span class="ident">PRED_IS</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.semantics.syntax.Semantics.TYPE"><code class="name">var <span class="ident">TYPE</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="uim.model.semantics.syntax.TripleStore"><code class="flex name class">
+<span>class <span class="ident">TripleStore</span></span>
+<span>(</span><span>triple_statements: List[<a title="uim.model.semantics.syntax.SemanticTriple" href="#uim.model.semantics.syntax.SemanticTriple">SemanticTriple</a>] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><h1 id="triplestore">TripleStore</h1>
+<p>Encapsulates a list of triple statements.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>triple_statements</code></strong> :&ensp;<code>List[<a title="uim.model.semantics.syntax.SemanticTriple" href="#uim.model.semantics.syntax.SemanticTriple">SemanticTriple</a>]</code></dt>
+<dd>List of <code><a title="uim.model.semantics.syntax.SemanticTriple" href="#uim.model.semantics.syntax.SemanticTriple">SemanticTriple</a></code>s</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TripleStore(object):
+    &#34;&#34;&#34;
+    TripleStore
+    ===========
+
+    Encapsulates a list of triple statements.
+
+    Parameters
+    ----------
+    triple_statements: List[SemanticTriple]
+        List of `SemanticTriple`s
+    &#34;&#34;&#34;
+
+    def __init__(self, triple_statements: List[SemanticTriple] = None):
+        self.__triple_statement: List[SemanticTriple] = triple_statements or []
+
+    def append(self, triple_statement: SemanticTriple):
+        &#34;&#34;&#34;Appending the triple statement.
+
+        Parameters
+        ----------
+        triple_statement: SemanticTriple
+            Triple that needs to be added
+        &#34;&#34;&#34;
+        self.__triple_statement.append(triple_statement)
+
+    def add_semantic_triple(self, subject: str, predicate: str, obj: str):
+        &#34;&#34;&#34;
+        Adding a semantic triple
+        :param subject: subject of the statement
+        :param predicate: predicate of the statement
+        :param obj: object of the statement
+        &#34;&#34;&#34;
+        self.append(SemanticTriple(subject, predicate, obj))
+
+    def remove_semantic_triple(self, triple: SemanticTriple):
+        &#34;&#34;&#34;
+        Removes a semantic triple from list.
+
+        Parameters
+        ----------
+        triple: `SemanticTriple`
+            Triple to be removed
+        &#34;&#34;&#34;
+        self.__triple_statement.remove(triple)
+
+    def clear_statements(self):
+        &#34;&#34;&#34;Remove all statements.&#34;&#34;&#34;
+        self.__triple_statement = []
+
+    @property
+    def statements(self) -&gt; List[SemanticTriple]:
+        &#34;&#34;&#34;List of triple statements. (`List[SemanticTriple]`)&#34;&#34;&#34;
+        return self.__triple_statement
+
+    def all_statements_for(self, subject: str, predicate: str = None) -&gt; List[SemanticTriple]:
+        &#34;&#34;&#34;
+        Returns all statements for a specific subject.
+
+        Parameters
+        ----------
+        subject: `str`
+            Filter for the subject URI
+        predicate: `str`
+            Predicate filter [optional]
+
+        Returns
+        -------
+        statements: `List[SemanticTriple]`
+            List of statements that match the filters.
+        &#34;&#34;&#34;
+        return [s for s in self.statements if s.subject == subject and
+                (predicate is None or s.predicate == predicate)]
+
+    def filter(self, subject: Optional[str] = None, predicate: Optional[str] = None, obj: Optional[str] = None) \
+            -&gt; List[SemanticTriple]:
+        &#34;&#34;&#34;
+        Returns all statements for a specific subject.
+
+        Parameters
+        ----------
+        subject: `Optional[str]`
+            Filter for the subject URI [optional]
+        predicate: `Optional[str]`
+            Predicate filter [optional]
+        obj: `Optional[str]`
+            Object filter [optional]
+
+        Returns
+        -------
+        statements: `List[SemanticTriple]`
+            List of statements that match the filters.
+        &#34;&#34;&#34;
+
+        results: List[SemanticTriple] = []
+        for s in self.statements:
+            if subject is not None and subject != s.subject:
+                continue
+            if predicate is not None and predicate != s.predicate:
+                continue
+            if obj is not None and obj != s.object:
+                continue
+            results.append(s)
+
+        return results
+
+    def determine_sem_type(self, node: &#39;InkNode&#39;, typedef_pred: str = CommonRDF.PRED_RDF_HAS_TYPE) -&gt; Optional[str]:
+        &#34;&#34;&#34;
+        Determine the Semantic Type of node.
+
+        Parameters
+        ----------
+        node: `InkNode`
+            `InkNode` to extract the semantics from
+        typedef_pred: `str`
+            Predicate string
+
+        Returns
+        -------
+        semantic_type: `str`
+             Semantic type of the `InkNode`. None if the node is not found or the predicate statement.
+        &#34;&#34;&#34;
+        triples: List[SemanticTriple] = self.filter(subject=node.uri, predicate=typedef_pred)
+        if len(triples) == 1:
+            return triples[0].object
+        else:
+            return None
+
+    def __iter__(self):
+        return iter(self.__triple_statement)
+
+    def __repr__(self):
+        return &#39;&lt;TripleStore : [statements:={}]&gt;&#39;.format(self.__triple_statement)</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="uim.model.semantics.syntax.TripleStore.statements"><code class="name">var <span class="ident">statements</span> : List[<a title="uim.model.semantics.syntax.SemanticTriple" href="#uim.model.semantics.syntax.SemanticTriple">SemanticTriple</a>]</code></dt>
+<dd>
+<div class="desc"><p>List of triple statements. (<code>List[<a title="uim.model.semantics.syntax.SemanticTriple" href="#uim.model.semantics.syntax.SemanticTriple">SemanticTriple</a>]</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def statements(self) -&gt; List[SemanticTriple]:
+    &#34;&#34;&#34;List of triple statements. (`List[SemanticTriple]`)&#34;&#34;&#34;
+    return self.__triple_statement</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="uim.model.semantics.syntax.TripleStore.add_semantic_triple"><code class="name flex">
+<span>def <span class="ident">add_semantic_triple</span></span>(<span>self, subject: str, predicate: str, obj: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Adding a semantic triple
+:param subject: subject of the statement
+:param predicate: predicate of the statement
+:param obj: object of the statement</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_semantic_triple(self, subject: str, predicate: str, obj: str):
+    &#34;&#34;&#34;
+    Adding a semantic triple
+    :param subject: subject of the statement
+    :param predicate: predicate of the statement
+    :param obj: object of the statement
+    &#34;&#34;&#34;
+    self.append(SemanticTriple(subject, predicate, obj))</code></pre>
+</details>
+</dd>
+<dt id="uim.model.semantics.syntax.TripleStore.all_statements_for"><code class="name flex">
+<span>def <span class="ident">all_statements_for</span></span>(<span>self, subject: str, predicate: str = None) ‑> List[<a title="uim.model.semantics.syntax.SemanticTriple" href="#uim.model.semantics.syntax.SemanticTriple">SemanticTriple</a>]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns all statements for a specific subject.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>subject</code></strong> :&ensp;<code>str</code></dt>
+<dd>Filter for the subject URI</dd>
+<dt><strong><code>predicate</code></strong> :&ensp;<code>str</code></dt>
+<dd>Predicate filter [optional]</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>statements</code></strong> :&ensp;<code>List[<a title="uim.model.semantics.syntax.SemanticTriple" href="#uim.model.semantics.syntax.SemanticTriple">SemanticTriple</a>]</code></dt>
+<dd>List of statements that match the filters.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def all_statements_for(self, subject: str, predicate: str = None) -&gt; List[SemanticTriple]:
+    &#34;&#34;&#34;
+    Returns all statements for a specific subject.
+
+    Parameters
+    ----------
+    subject: `str`
+        Filter for the subject URI
+    predicate: `str`
+        Predicate filter [optional]
+
+    Returns
+    -------
+    statements: `List[SemanticTriple]`
+        List of statements that match the filters.
+    &#34;&#34;&#34;
+    return [s for s in self.statements if s.subject == subject and
+            (predicate is None or s.predicate == predicate)]</code></pre>
+</details>
+</dd>
+<dt id="uim.model.semantics.syntax.TripleStore.append"><code class="name flex">
+<span>def <span class="ident">append</span></span>(<span>self, triple_statement: <a title="uim.model.semantics.syntax.SemanticTriple" href="#uim.model.semantics.syntax.SemanticTriple">SemanticTriple</a>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Appending the triple statement.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>triple_statement</code></strong> :&ensp;<code><a title="uim.model.semantics.syntax.SemanticTriple" href="#uim.model.semantics.syntax.SemanticTriple">SemanticTriple</a></code></dt>
+<dd>Triple that needs to be added</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def append(self, triple_statement: SemanticTriple):
+    &#34;&#34;&#34;Appending the triple statement.
+
+    Parameters
+    ----------
+    triple_statement: SemanticTriple
+        Triple that needs to be added
+    &#34;&#34;&#34;
+    self.__triple_statement.append(triple_statement)</code></pre>
+</details>
+</dd>
+<dt id="uim.model.semantics.syntax.TripleStore.clear_statements"><code class="name flex">
+<span>def <span class="ident">clear_statements</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Remove all statements.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def clear_statements(self):
+    &#34;&#34;&#34;Remove all statements.&#34;&#34;&#34;
+    self.__triple_statement = []</code></pre>
+</details>
+</dd>
+<dt id="uim.model.semantics.syntax.TripleStore.determine_sem_type"><code class="name flex">
+<span>def <span class="ident">determine_sem_type</span></span>(<span>self, node: InkNode, typedef_pred: str = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type') ‑> Optional[str]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Determine the Semantic Type of node.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>node</code></strong> :&ensp;<code>InkNode</code></dt>
+<dd><code>InkNode</code> to extract the semantics from</dd>
+<dt><strong><code>typedef_pred</code></strong> :&ensp;<code>str</code></dt>
+<dd>Predicate string</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>semantic_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>Semantic type of the <code>InkNode</code>. None if the node is not found or the predicate statement.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def determine_sem_type(self, node: &#39;InkNode&#39;, typedef_pred: str = CommonRDF.PRED_RDF_HAS_TYPE) -&gt; Optional[str]:
+    &#34;&#34;&#34;
+    Determine the Semantic Type of node.
+
+    Parameters
+    ----------
+    node: `InkNode`
+        `InkNode` to extract the semantics from
+    typedef_pred: `str`
+        Predicate string
+
+    Returns
+    -------
+    semantic_type: `str`
+         Semantic type of the `InkNode`. None if the node is not found or the predicate statement.
+    &#34;&#34;&#34;
+    triples: List[SemanticTriple] = self.filter(subject=node.uri, predicate=typedef_pred)
+    if len(triples) == 1:
+        return triples[0].object
+    else:
+        return None</code></pre>
+</details>
+</dd>
+<dt id="uim.model.semantics.syntax.TripleStore.filter"><code class="name flex">
+<span>def <span class="ident">filter</span></span>(<span>self, subject: Optional[str] = None, predicate: Optional[str] = None, obj: Optional[str] = None) ‑> List[<a title="uim.model.semantics.syntax.SemanticTriple" href="#uim.model.semantics.syntax.SemanticTriple">SemanticTriple</a>]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns all statements for a specific subject.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>subject</code></strong> :&ensp;<code>Optional[str]</code></dt>
+<dd>Filter for the subject URI [optional]</dd>
+<dt><strong><code>predicate</code></strong> :&ensp;<code>Optional[str]</code></dt>
+<dd>Predicate filter [optional]</dd>
+<dt><strong><code>obj</code></strong> :&ensp;<code>Optional[str]</code></dt>
+<dd>Object filter [optional]</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>statements</code></strong> :&ensp;<code>List[<a title="uim.model.semantics.syntax.SemanticTriple" href="#uim.model.semantics.syntax.SemanticTriple">SemanticTriple</a>]</code></dt>
+<dd>List of statements that match the filters.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def filter(self, subject: Optional[str] = None, predicate: Optional[str] = None, obj: Optional[str] = None) \
+        -&gt; List[SemanticTriple]:
+    &#34;&#34;&#34;
+    Returns all statements for a specific subject.
+
+    Parameters
+    ----------
+    subject: `Optional[str]`
+        Filter for the subject URI [optional]
+    predicate: `Optional[str]`
+        Predicate filter [optional]
+    obj: `Optional[str]`
+        Object filter [optional]
+
+    Returns
+    -------
+    statements: `List[SemanticTriple]`
+        List of statements that match the filters.
+    &#34;&#34;&#34;
+
+    results: List[SemanticTriple] = []
+    for s in self.statements:
+        if subject is not None and subject != s.subject:
+            continue
+        if predicate is not None and predicate != s.predicate:
+            continue
+        if obj is not None and obj != s.object:
+            continue
+        results.append(s)
+
+    return results</code></pre>
+</details>
+</dd>
+<dt id="uim.model.semantics.syntax.TripleStore.remove_semantic_triple"><code class="name flex">
+<span>def <span class="ident">remove_semantic_triple</span></span>(<span>self, triple: <a title="uim.model.semantics.syntax.SemanticTriple" href="#uim.model.semantics.syntax.SemanticTriple">SemanticTriple</a>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Removes a semantic triple from list.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>triple</code></strong> :&ensp;<code><a title="uim.model.semantics.syntax.SemanticTriple" href="#uim.model.semantics.syntax.SemanticTriple">SemanticTriple</a></code></dt>
+<dd>Triple to be removed</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def remove_semantic_triple(self, triple: SemanticTriple):
+    &#34;&#34;&#34;
+    Removes a semantic triple from list.
+
+    Parameters
+    ----------
+    triple: `SemanticTriple`
+        Triple to be removed
+    &#34;&#34;&#34;
+    self.__triple_statement.remove(triple)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="uim.model.semantics" href="index.html">uim.model.semantics</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="uim.model.semantics.syntax.CommonRDF" href="#uim.model.semantics.syntax.CommonRDF">CommonRDF</a></code></h4>
+<ul class="">
+<li><code><a title="uim.model.semantics.syntax.CommonRDF.LOCALE" href="#uim.model.semantics.syntax.CommonRDF.LOCALE">LOCALE</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.CommonRDF.PRED_RDF_HAS_TYPE" href="#uim.model.semantics.syntax.CommonRDF.PRED_RDF_HAS_TYPE">PRED_RDF_HAS_TYPE</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="uim.model.semantics.syntax.CommonViews" href="#uim.model.semantics.syntax.CommonViews">CommonViews</a></code></h4>
+<ul class="two-column">
+<li><code><a title="uim.model.semantics.syntax.CommonViews.CUSTOM_TREE" href="#uim.model.semantics.syntax.CommonViews.CUSTOM_TREE">CUSTOM_TREE</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.CommonViews.HWR_VIEW" href="#uim.model.semantics.syntax.CommonViews.HWR_VIEW">HWR_VIEW</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.CommonViews.LEGACY_HWR_VIEW" href="#uim.model.semantics.syntax.CommonViews.LEGACY_HWR_VIEW">LEGACY_HWR_VIEW</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.CommonViews.LEGACY_NER_VIEW" href="#uim.model.semantics.syntax.CommonViews.LEGACY_NER_VIEW">LEGACY_NER_VIEW</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.CommonViews.MAIN_INK_TREE" href="#uim.model.semantics.syntax.CommonViews.MAIN_INK_TREE">MAIN_INK_TREE</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.CommonViews.MAIN_SENSOR_TREE" href="#uim.model.semantics.syntax.CommonViews.MAIN_SENSOR_TREE">MAIN_SENSOR_TREE</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.CommonViews.NER_VIEW" href="#uim.model.semantics.syntax.CommonViews.NER_VIEW">NER_VIEW</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.CommonViews.SEGMENTATION_VIEW" href="#uim.model.semantics.syntax.CommonViews.SEGMENTATION_VIEW">SEGMENTATION_VIEW</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="uim.model.semantics.syntax.SegmentationSchema" href="#uim.model.semantics.syntax.SegmentationSchema">SegmentationSchema</a></code></h4>
+<ul class="">
+<li><code><a title="uim.model.semantics.syntax.SegmentationSchema.BORDER" href="#uim.model.semantics.syntax.SegmentationSchema.BORDER">BORDER</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.SegmentationSchema.CONNECTOR" href="#uim.model.semantics.syntax.SegmentationSchema.CONNECTOR">CONNECTOR</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.SegmentationSchema.CORRECTION" href="#uim.model.semantics.syntax.SegmentationSchema.CORRECTION">CORRECTION</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.SegmentationSchema.DIAGRAM" href="#uim.model.semantics.syntax.SegmentationSchema.DIAGRAM">DIAGRAM</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.SegmentationSchema.DIAGRAM_CONNECTOR" href="#uim.model.semantics.syntax.SegmentationSchema.DIAGRAM_CONNECTOR">DIAGRAM_CONNECTOR</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.SegmentationSchema.DRAWING" href="#uim.model.semantics.syntax.SegmentationSchema.DRAWING">DRAWING</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.SegmentationSchema.DRAWING_ITEM" href="#uim.model.semantics.syntax.SegmentationSchema.DRAWING_ITEM">DRAWING_ITEM</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.SegmentationSchema.DRAWING_ITEM_GROUP" href="#uim.model.semantics.syntax.SegmentationSchema.DRAWING_ITEM_GROUP">DRAWING_ITEM_GROUP</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.SegmentationSchema.GARBAGE" href="#uim.model.semantics.syntax.SegmentationSchema.GARBAGE">GARBAGE</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.SegmentationSchema.LIST" href="#uim.model.semantics.syntax.SegmentationSchema.LIST">LIST</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.SegmentationSchema.LIST_ITEM" href="#uim.model.semantics.syntax.SegmentationSchema.LIST_ITEM">LIST_ITEM</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.SegmentationSchema.LIST_ITEM_BODY" href="#uim.model.semantics.syntax.SegmentationSchema.LIST_ITEM_BODY">LIST_ITEM_BODY</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.SegmentationSchema.MARKING" href="#uim.model.semantics.syntax.SegmentationSchema.MARKING">MARKING</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.SegmentationSchema.MARKING_TYPE_ENCIRCLING" href="#uim.model.semantics.syntax.SegmentationSchema.MARKING_TYPE_ENCIRCLING">MARKING_TYPE_ENCIRCLING</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.SegmentationSchema.MARKING_TYPE_PREDICATE" href="#uim.model.semantics.syntax.SegmentationSchema.MARKING_TYPE_PREDICATE">MARKING_TYPE_PREDICATE</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.SegmentationSchema.MARKING_TYPE_UNDERLINING" href="#uim.model.semantics.syntax.SegmentationSchema.MARKING_TYPE_UNDERLINING">MARKING_TYPE_UNDERLINING</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.SegmentationSchema.MATH_BLOCK" href="#uim.model.semantics.syntax.SegmentationSchema.MATH_BLOCK">MATH_BLOCK</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.SegmentationSchema.MATH_ITEM" href="#uim.model.semantics.syntax.SegmentationSchema.MATH_ITEM">MATH_ITEM</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.SegmentationSchema.MATH_ITEM_GROUP" href="#uim.model.semantics.syntax.SegmentationSchema.MATH_ITEM_GROUP">MATH_ITEM_GROUP</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.SegmentationSchema.SEGMENTATION_ROOT" href="#uim.model.semantics.syntax.SegmentationSchema.SEGMENTATION_ROOT">SEGMENTATION_ROOT</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.SegmentationSchema.TABLE" href="#uim.model.semantics.syntax.SegmentationSchema.TABLE">TABLE</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.SegmentationSchema.TEXT_LINE" href="#uim.model.semantics.syntax.SegmentationSchema.TEXT_LINE">TEXT_LINE</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.SegmentationSchema.TEXT_REGION" href="#uim.model.semantics.syntax.SegmentationSchema.TEXT_REGION">TEXT_REGION</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.SegmentationSchema.UNLABELLED" href="#uim.model.semantics.syntax.SegmentationSchema.UNLABELLED">UNLABELLED</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.SegmentationSchema.UNLABELLED_BLOCK" href="#uim.model.semantics.syntax.SegmentationSchema.UNLABELLED_BLOCK">UNLABELLED_BLOCK</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.SegmentationSchema.UNLABELLED_ITEM" href="#uim.model.semantics.syntax.SegmentationSchema.UNLABELLED_ITEM">UNLABELLED_ITEM</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.SegmentationSchema.UNLABELLED_ITEM_GROUP" href="#uim.model.semantics.syntax.SegmentationSchema.UNLABELLED_ITEM_GROUP">UNLABELLED_ITEM_GROUP</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.SegmentationSchema.WODL_CLASS_PREFIX" href="#uim.model.semantics.syntax.SegmentationSchema.WODL_CLASS_PREFIX">WODL_CLASS_PREFIX</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.SegmentationSchema.WORD" href="#uim.model.semantics.syntax.SegmentationSchema.WORD">WORD</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="uim.model.semantics.syntax.SemanticTriple" href="#uim.model.semantics.syntax.SemanticTriple">SemanticTriple</a></code></h4>
+<ul class="">
+<li><code><a title="uim.model.semantics.syntax.SemanticTriple.object" href="#uim.model.semantics.syntax.SemanticTriple.object">object</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.SemanticTriple.predicate" href="#uim.model.semantics.syntax.SemanticTriple.predicate">predicate</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.SemanticTriple.subject" href="#uim.model.semantics.syntax.SemanticTriple.subject">subject</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="uim.model.semantics.syntax.Semantics" href="#uim.model.semantics.syntax.Semantics">Semantics</a></code></h4>
+<ul class="">
+<li><code><a title="uim.model.semantics.syntax.Semantics.PRED_HAS_NAMED_ENTITY_DEFINITION" href="#uim.model.semantics.syntax.Semantics.PRED_HAS_NAMED_ENTITY_DEFINITION">PRED_HAS_NAMED_ENTITY_DEFINITION</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.Semantics.PRED_IS" href="#uim.model.semantics.syntax.Semantics.PRED_IS">PRED_IS</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.Semantics.TYPE" href="#uim.model.semantics.syntax.Semantics.TYPE">TYPE</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="uim.model.semantics.syntax.TripleStore" href="#uim.model.semantics.syntax.TripleStore">TripleStore</a></code></h4>
+<ul class="">
+<li><code><a title="uim.model.semantics.syntax.TripleStore.add_semantic_triple" href="#uim.model.semantics.syntax.TripleStore.add_semantic_triple">add_semantic_triple</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.TripleStore.all_statements_for" href="#uim.model.semantics.syntax.TripleStore.all_statements_for">all_statements_for</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.TripleStore.append" href="#uim.model.semantics.syntax.TripleStore.append">append</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.TripleStore.clear_statements" href="#uim.model.semantics.syntax.TripleStore.clear_statements">clear_statements</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.TripleStore.determine_sem_type" href="#uim.model.semantics.syntax.TripleStore.determine_sem_type">determine_sem_type</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.TripleStore.filter" href="#uim.model.semantics.syntax.TripleStore.filter">filter</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.TripleStore.remove_semantic_triple" href="#uim.model.semantics.syntax.TripleStore.remove_semantic_triple">remove_semantic_triple</a></code></li>
+<li><code><a title="uim.model.semantics.syntax.TripleStore.statements" href="#uim.model.semantics.syntax.TripleStore.statements">statements</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,3009 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>uim.model.inkdata.strokes API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>uim.model.inkdata.strokes</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># -*- coding: utf-8 -*-
+# Copyright © 2021 Wacom Authors. All Rights Reserved.
+#
+#  Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an &#34;AS IS&#34; BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+import ctypes
+import uuid
+from abc import ABC
+from enum import Enum
+from typing import Tuple, List, Optional
+
+import numpy as np
+
+from uim.codec.context.scheme import PrecisionScheme
+from uim.model.base import UUIDIdentifier, HashIdentifier
+from uim.model.inkdata.brush import BlendModeURIs
+from uim.model.semantics.structures import BoundingBox
+
+
+class LayoutMask(Enum):
+    &#34;&#34;&#34;
+    Specifies the various geometric and appearance attributes of a path point as bit flags.
+    &#34;&#34;&#34;
+    X = 0x1
+    Y = 0x2
+    Z = 0x4
+    SIZE = 0x8
+    ROTATION = 0x10
+    RED = 0x20
+    GREEN = 0x40
+    BLUE = 0x80
+    ALPHA = 0x100
+    SCALE_X = 0x200
+    SCALE_Y = 0x400
+    SCALE_Z = 0x800
+    OFFSET_X = 0x1000
+    OFFSET_Y = 0x2000
+    OFFSET_Z = 0x4000
+    TANGENT_X = 0x8000
+    TANGENT_Y = 0x10000
+
+
+class PathPointProperties(HashIdentifier):
+    &#34;&#34;&#34;
+    PathPointProperties
+    ===================
+    A simple data model, which may hold size, color components and matrix transformational components.
+    
+    Parameters
+    ----------
+    size: float
+        Size of the brush.
+    red: float
+        Color value [0, 1] for red channel.
+    green: float
+        Color value [0, 1] for green channel.
+    blue: float
+        Color value [0, 1] for blue channel.
+    alpha: float
+        Color value [0, 1] for alpha channel.
+    rotation: float
+        Brush rotation z value.
+    scale_x: float
+        Brush scale x value.
+    scale_y: float
+        Brush scale y value.
+    scale_z: float
+        Brush scale z [for 3D rendering].
+    offset_x: float
+        Brush offset x value.
+    offset_y: float
+        Brush offset y value.
+    offset_z: float
+        Brush offset z [for 3D rendering].
+
+    References
+    ----------
+    [1] WILL SDK for ink - Rendering pipeline URL: https://developer-docs.wacom.com/sdk-for-ink/docs/pipeline
+    [2] Ink Designer to configure rendering pipeline: http://ink-designer.trafficmanager.net/
+    &#34;&#34;&#34;
+
+    def __init__(self, size: float = 0., red: float = 0., green: float = 0., blue: float = 0., alpha: float = 0.,
+                 rotation: float = 0.,
+                 scale_x: float = 0., scale_y: float = 0., scale_z: float = 0.,
+                 offset_x: float = 0., offset_y: float = 0., offset_z: float = 0.):
+        super().__init__()
+        self.__size = size
+        self.__red = red
+        self.__green = green
+        self.__blue = blue
+        self.__alpha = alpha
+        self.__rotation = rotation
+        self.__scale_x = scale_x
+        self.__scale_y = scale_y
+        self.__scale_z = scale_z
+        self.__offset_x = offset_x
+        self.__offset_y = offset_y
+        self.__offset_z = offset_z
+
+    @staticmethod
+    def color(rgba: int) -&gt; Tuple[float, float, float, float]:
+        &#34;&#34;&#34;
+        Decode integer encoded RBGA value into float.
+
+        Parameters
+        ----------
+        rgba: int
+            Color encoded in a single integer value
+
+        Returns
+        -------
+        red - `float`
+            Red value
+        green - `float`
+            Green value
+        blue - `float`
+            Blue value
+        alpha - `float`
+            Alpha value
+        &#34;&#34;&#34;
+        red: float = ((rgba &gt;&gt; 24) &amp; 0xFF) / 255.0
+        green: float = ((rgba &gt;&gt; 16) &amp; 0xFF) / 255.0
+        blue: float = ((rgba &gt;&gt; 8) &amp; 0xFF) / 255.0
+        alpha: float = (rgba &amp; 0xFF) / 255.0
+        return red, green, blue, alpha
+
+    @staticmethod
+    def rgba(red: float, green: float, blue: float, alpha: float) -&gt; int:
+        &#34;&#34;&#34;
+        Encode RGBA values to a single integer value.
+
+        Parameters
+        ----------
+        red: int -
+            Red value
+        green: int -
+            Green value
+        blue: int -
+            Blue value
+        alpha: int -
+            Alpha value
+
+        Returns
+        -------
+        rgba: int
+            Color values encode as one single integer value
+        &#34;&#34;&#34;
+        r: int = int(red * 255)
+        g: int = int(green * 255)
+        b: int = int(blue * 255)
+        a: int = int(alpha * 255)
+        return ctypes.c_int32((r &lt;&lt; 24) | (g &lt;&lt; 16) | (b &lt;&lt; 8) | a).value
+
+    @property
+    def size(self) -&gt; float:
+        &#34;&#34;&#34;Size of the brush; value between [0. - 1.]. (`float`)&#34;&#34;&#34;
+        return self.__size
+
+    @property
+    def red(self) -&gt; float:
+        &#34;&#34;&#34;Color value for red channel; value between [0. - 1.]. (`float`)&#34;&#34;&#34;
+        return self.__red
+
+    @property
+    def green(self) -&gt; float:
+        &#34;&#34;&#34;Color value for green channel; value between [0. - 1.]. (`float`)&#34;&#34;&#34;
+        return self.__green
+
+    @property
+    def blue(self) -&gt; float:
+        &#34;&#34;&#34;Color value for blue channel; value between [0. - 1.]. (`float`)&#34;&#34;&#34;
+        return self.__blue
+
+    @property
+    def alpha(self) -&gt; float:
+        &#34;&#34;&#34;Alpha value for channel; value between [0. - 1.]. (`float`)&#34;&#34;&#34;
+        return self.__alpha
+
+    @property
+    def rotation(self) -&gt; float:
+        &#34;&#34;&#34;Brush rotation. (`float`)&#34;&#34;&#34;
+        return self.__rotation
+
+    @property
+    def scale_x(self) -&gt; float:
+        &#34;&#34;&#34;Brush scale x value. (`float`)&#34;&#34;&#34;
+        return self.__scale_x
+
+    @property
+    def scale_y(self) -&gt; float:
+        &#34;&#34;&#34;Brush scale y value. (`float`)&#34;&#34;&#34;
+        return self.__scale_y
+
+    @property
+    def scale_z(self) -&gt; float:
+        &#34;&#34;&#34;Brush scale z value. (`float`)&#34;&#34;&#34;
+        return self.__scale_z
+
+    @property
+    def offset_x(self) -&gt; float:
+        &#34;&#34;&#34;Offset x value. (`float`)&#34;&#34;&#34;
+        return self.__offset_x
+
+    @property
+    def offset_y(self) -&gt; float:
+        &#34;&#34;&#34;Offset y value. (`float`)&#34;&#34;&#34;
+        return self.__offset_y
+
+    @property
+    def offset_z(self) -&gt; float:
+        &#34;&#34;&#34;Offset z value. (`float`)&#34;&#34;&#34;
+        return self.__offset_z
+
+    @size.setter
+    def size(self, size: float):
+        self.__size = size
+
+    @red.setter
+    def red(self, red: float):
+        self.__red = red
+
+    @green.setter
+    def green(self, green: float):
+        self.__green = green
+
+    @blue.setter
+    def blue(self, blue: float):
+        self.__blue = blue
+
+    @alpha.setter
+    def alpha(self, alpha: float):
+        self.__alpha = alpha
+
+    @rotation.setter
+    def rotation(self, rotation: float):
+        self.__rotation = rotation
+
+    @scale_x.setter
+    def scale_x(self, scale_x: float):
+        self.__scale_x = scale_x
+
+    @scale_y.setter
+    def scale_y(self, scale_y: float):
+        self.__scale_y = scale_y
+
+    @scale_z.setter
+    def scale_z(self, scale_z: float):
+        self.__scale_z = scale_z
+
+    @offset_x.setter
+    def offset_x(self, offset_x: float):
+        self.__offset_x = offset_x
+
+    @offset_y.setter
+    def offset_y(self, offset_y: float):
+        self.__offset_y = offset_y
+
+    @offset_z.setter
+    def offset_z(self, offset_z: float):
+        self.__offset_z = offset_z
+
+    def __tokenize__(self) -&gt; list:
+        return [self.size, self.red, self.green, self.blue, self.alpha, self.rotation, self.scale_x, self.scale_y,
+                self.scale_z, self.offset_x, self.offset_y, self.offset_z]
+
+    def __repr__(self):
+        return &#39;&lt;PathPointProperties: [size:={}, red:={}, green:={}, blue:={}, alpha:={}, rotation:={},&#39; \
+               &#39;scale x:={}, scale y:={}, scale z:={}, offset x:={}, offset y:={}, offset z:={}]&gt;&#39; \
+            .format(self.size,
+                    self.red, self.green, self.blue, self.alpha,
+                    self.rotation,
+                    self.scale_x, self.scale_y, self.scale_z,
+                    self.offset_x, self.offset_y, self.offset_z)
+
+
+class Style(ABC):
+    &#34;&#34;&#34;
+    Style
+    =====
+    The `Style` is defined as a combination of a `PathPointProperties` configuration, reference to a Brush,
+    a random number generator seed value and rendering method type. Setting the Style property allows overriding of
+    specific path point properties, color components and/or matrix transformational components.
+    A `Style` with `PathPointProperties` configuration should be normally used to define constant path components.
+
+    Parameters
+    ----------
+    properties: `PathPointProperties`
+        Static values of properties which do not exist per per path point
+    brush_uri: str
+        Reference to Brush used for stroke rasterization
+    particles_random_seed: int
+        Particles random seed, required for particle strokes
+    render_mode_uri: str
+        Render mode URI
+    &#34;&#34;&#34;
+
+    def __init__(self, properties: PathPointProperties = None, brush_uri: str = None, particles_random_seed: int = 0,
+                 render_mode_uri: str = BlendModeURIs.SOURCE_OVER):
+        self.__properties = properties if properties is not None else PathPointProperties()
+        self.__brush_uri = brush_uri
+        self.__particles_random_seed = particles_random_seed
+        self.__render_mode_URI = render_mode_uri if render_mode_uri is not None and render_mode_uri != &#39;&#39; \
+            else BlendModeURIs.SOURCE_OVER
+
+    @property
+    def path_point_properties(self) -&gt; PathPointProperties:
+        &#34;&#34;&#34;Static values of properties which do not exist per per path point. (`PathPointProperties`, read-only)&#34;&#34;&#34;
+        return self.__properties
+
+    @property
+    def brush_uri(self) -&gt; str:
+        &#34;&#34;&#34;Reference to Brush used for stroke rasterization using the URI. (`str`, read-only)&#34;&#34;&#34;
+        return self.__brush_uri
+
+    @property
+    def particles_random_seed(self):
+        &#34;&#34;&#34;Particles random seed, required for particle strokes.  (`int`, read-only) &#34;&#34;&#34;
+        return self.__particles_random_seed
+
+    @property
+    def render_mode_uri(self):
+        &#34;&#34;&#34;Defines additional information about stroke visualisation, such as ERASER. (`str`)&#34;&#34;&#34;
+        return self.__render_mode_URI
+
+    @render_mode_uri.setter
+    def render_mode_uri(self, uri: str):
+        self.__render_mode_URI = uri
+
+    def __repr__(self):
+        return &#39;&lt;Style : [id:={}, particles_random_seed:={}, render mode:={}&gt;&#39; \
+            .format(self.__brush_uri,
+                    self.__particles_random_seed,
+                    self.__render_mode_URI)
+
+
+class Spline(ABC):
+    &#34;&#34;&#34;
+    Spline
+    ======
+    The Catmull-Rom spline is defined in the scope of the Stroke using the following properties:
+
+    - **ts, tf** - Spline start and end parameters
+    - **spline** - a sequence of spline data points
+    - **color** - a sequence of color values (per spline data point; if provided, the length of this sequence must be
+                  equal to the spline points count)
+
+    Parameters
+    ----------
+    layout_mask: int
+        Configured layout mask
+    data: List[float]
+        List of spline values
+    ts: float
+        Start parameter
+    tf: float
+        Final parameter
+    &#34;&#34;&#34;
+
+    def __init__(self, layout_mask: int, data: List[float], ts: float = 0., tf: float = 1.):
+        self.__layout_mask: int = layout_mask
+        self.__data: List[float] = data
+        self.__ts: float = ts
+        self.__tf: float = tf
+
+    @property
+    def data(self) -&gt; List[float]:
+        &#34;&#34;&#34;Gets or sets a list of spline values. (`List[float]`, read-only)&#34;&#34;&#34;
+        return self.__data
+
+    @property
+    def layout_mask(self) -&gt; int:
+        &#34;&#34;&#34;Gets a bitmask representation of the spline&#39;s data layout. (`int`, read-only)&#34;&#34;&#34;
+        return self.__layout_mask
+
+    @property
+    def ts(self) -&gt; float:
+        &#34;&#34;&#34;Start parameter for the first Catmull-Rom segment. (`float`, read-only)&#34;&#34;&#34;
+        return self.__ts
+
+    @property
+    def tf(self) -&gt; float:
+        &#34;&#34;&#34;Final parameter for the last Catmull-Rom segment. (`float`, read-only)&#34;&#34;&#34;
+        return self.__tf
+
+    def __repr__(self):
+        return f&#39;&lt;Spline : [mask:={self.layout_mask}]&gt;&#39;
+
+
+class Stroke(UUIDIdentifier):
+    &#34;&#34;&#34;
+    Stroke Geometry
+    ---------------
+    The geometry of an ink stroke is represented by its Stroke.
+    A Stroke is defined as a combination of:
+
+        - A Catmull-Rom spline in the form of a sequence of data points (mandatory), including per-point
+          transformational data (optional)
+        - Rendering configuration about how the spline should be visualized (optional)
+        - Reference to raw input data (SensorData instance), which the path originates from (optional)
+
+    Parameters
+    ----------
+     sid: `UUID`
+        Stroke unique identifier
+    sensor_data_offset: `int`
+        Index of points mapping between raw and processed paths.
+    sensor_data_id: `UUID`
+        Reference UUID of sensor data.
+    sensor_data_mapping: list
+        Explicit mapping between indices of Path and SensorData, used when input rate is very high and
+        provides unwanted points.
+    style: `Style`
+        The Style object associated with this stroke.
+    random_seed: `int`
+        A random seed used for randomly generated attributes of a stroke.
+    spline: `Spline`
+        The stroke&#39;s Catmull-Rom spline.
+
+    Examples
+    --------
+    &gt;&gt;&gt; from uim.model.inkdata.brush import BrushPolygon, BrushPolygonUri, RasterBrush, RotationMode, BlendMode
+    &gt;&gt;&gt; from uim.model.inkdata.strokes import Spline, Style, Stroke, LayoutMask
+    &gt;&gt;&gt;
+    &gt;&gt;&gt; raster_brush_0: RasterBrush = RasterBrush(
+    &gt;&gt;&gt; name=&#34;app://qa-test-app/raster-brush/MyRasterBrush&#34;,
+    &gt;&gt;&gt; spacing=10., scattering=5., rotation=RotationMode.TRAJECTORY, shape_textures=[bytes([10, 20]),
+    &gt;&gt;&gt;                                                                               bytes([30, 20])],
+    &gt;&gt;&gt; fill_width=2.0, fill_height=0.3,
+    &gt;&gt;&gt; fill_texture=bytes([10, 10, 20, 15, 17, 20, 25, 16, 34, 255, 23, 0, 34, 255, 23, 255]),
+    &gt;&gt;&gt; randomize_fill=False, blend_mode=BlendMode.SOURCE_OVER)
+    &gt;&gt;&gt; # Create a spline object - 9 data points, each consisting of X, Y, Size, Red, Green, Blue, Alpha
+    &gt;&gt;&gt; spline_1: Spline = Spline(
+    &gt;&gt;&gt;     LayoutMask.X.value | LayoutMask.Y.value | LayoutMask.SIZE.value | LayoutMask.RED.value | LayoutMask.GREEN.value
+    &gt;&gt;&gt;     | LayoutMask.BLUE.value | LayoutMask.ALPHA.value,
+    &gt;&gt;&gt;     [10.0, 10.7, 1.0, 0.5, 0.0, 0.1, 1.0,
+    &gt;&gt;&gt;      21.0, 20.2, 2.0, 0.9, 0.4, 0.2, 0.8,
+    &gt;&gt;&gt;      30.0, 12.4, 2.1, 0.7, 0.1, 0.1, 0.7,
+    &gt;&gt;&gt;      40.0, 15.0, 1.5, 0.3, 0.5, 0.4, 1.0,
+    &gt;&gt;&gt;      50.0, 45.0, 1.0, 0.3, 0.5, 0.4, 1.0,
+    &gt;&gt;&gt;      41.0, 53.0, 1.1, 0.2, 0.3, 0.5, 0.9,
+    &gt;&gt;&gt;      33.0, 73.0, 1.2, 0.6, 0.7, 0.4, 0.8,
+    &gt;&gt;&gt;      20.0, 84.0, 1.3, 0.7, 0.8, 0.3, 0.7,
+    &gt;&gt;&gt;      10.0, 91.0, 1.1, 0.7, 0.9, 0.2, 0.6]
+    &gt;&gt;&gt; )
+    &gt;&gt;&gt;
+    &gt;&gt;&gt; # Create a style
+    &gt;&gt;&gt; style_1: Style = Style(brush_uri=raster_brush_0.name)
+    &gt;&gt;&gt; style_1.path_point_properties.rotation = 0.35
+    &gt;&gt;&gt;
+    &gt;&gt;&gt; # The render mode URI can also be app specific like app://blabla
+    &gt;&gt;&gt; # The URI will://rasterization/3.0/blend-mode/SourceOver is assumed and must not be set.
+    &gt;&gt;&gt; style_1.render_mode_uri = &#34;will://rasterization/3.0/blend-mode/DestinationOver&#34;
+    &gt;&gt;&gt;
+    &gt;&gt;&gt; # Create a stroke object. Note that it just exists, but is not in the model yet.
+    &gt;&gt;&gt; stroke_1: Stroke = Stroke(UUIDIdentifier.id_generator(), spline=spline_1, style=style_1)
+    &#34;&#34;&#34;
+
+    def __init__(self, sid: uuid.UUID = None, sensor_data_offset: int = None, sensor_data_id: uuid.UUID = None,
+                 sensor_data_mapping: list = None, style: Style = None, random_seed: int = 0, property_index: int = 0,
+                 spline: Spline = None):
+        super().__init__(sid)
+        self.__start_parameter: float = 0.
+        self.__end_parameter: float = 0.
+        self.__spline_x: List[float] = []
+        self.__spline_y: List[float] = []
+        self.__spline_z: List[float] = []
+        self.__size: List[float] = []
+        self.__rotation: List[float] = []
+        self.__scale_x: List[float] = []
+        self.__scale_y: List[float] = []
+        self.__scale_z: List[float] = []
+        self.__offset_x: List[float] = []
+        self.__offset_y: List[float] = []
+        self.__offset_z: List[float] = []
+        self.__red: List[int] = []
+        self.__green: List[int] = []
+        self.__blue: List[int] = []
+        self.__alpha: List[int] = []
+        self.__tangent_x: List[float] = []
+        self.__tangent_y: List[float] = []
+        self.__sensor_data_id: uuid.UUID = sensor_data_id
+        self.__sensor_data_offset: int = sensor_data_offset or 0
+        self._sensor_data_mapping: list = sensor_data_mapping or []
+        self.__style: Style = style
+        self.__random_seed: int = random_seed
+        self.__properties_index: int = property_index
+        self.__timestamp_cache = None
+        self.__pressure_cache = None
+        self.__precision_scheme: Optional[PrecisionScheme] = None
+        if spline is not None:
+            self.__import__(spline)
+
+    def set_timestamp_values(self, timestamp_values):
+        self.__timestamp_cache = timestamp_values
+
+    def get_timestamp_values(self):
+        return self.__timestamp_cache
+
+    def set_pressure_values(self, pressure_values):
+        self.__pressure_cache = pressure_values
+
+    def get_pressure_values(self):
+        return self.__pressure_cache
+
+    @property
+    def layout_mask(self) -&gt; int:
+        &#34;&#34;&#34;Layout mask for the stroke. (`int`)&#34;&#34;&#34;
+        mask: int = 0
+        if len(self.__spline_x) &gt; 0:
+            mask |= LayoutMask.X.value
+        if len(self.__spline_y) &gt; 0:
+            mask |= LayoutMask.Y.value
+        if len(self.__spline_z) &gt; 0:
+            mask |= LayoutMask.Z.value
+        if len(self.__size) &gt; 0:
+            mask |= LayoutMask.SIZE.value
+        if len(self.__rotation) &gt; 0:
+            mask |= LayoutMask.ROTATION.value
+        if len(self.__red) &gt; 0:
+            mask |= LayoutMask.RED.value
+        if len(self.__green) &gt; 0:
+            mask |= LayoutMask.GREEN.value
+        if len(self.__blue) &gt; 0:
+            mask |= LayoutMask.BLUE.value
+        if len(self.__alpha) &gt; 0:
+            mask |= LayoutMask.ALPHA.value
+        if len(self.__scale_x) &gt; 0:
+            mask |= LayoutMask.SCALE_X.value
+        if len(self.__scale_y) &gt; 0:
+            mask |= LayoutMask.SCALE_Y.value
+        if len(self.__scale_z) &gt; 0:
+            mask |= LayoutMask.SCALE_Z.value
+        if len(self.__offset_x) &gt; 0:
+            mask |= LayoutMask.OFFSET_X.value
+        if len(self.__offset_y) &gt; 0:
+            mask |= LayoutMask.OFFSET_Y.value
+        if len(self.__offset_z) &gt; 0:
+            mask |= LayoutMask.OFFSET_Z.value
+        if len(self.__tangent_x) &gt; 0:
+            mask |= LayoutMask.TANGENT_X.value
+        if len(self.__tangent_y) &gt; 0:
+            mask |= LayoutMask.TANGENT_Y.value
+        return mask
+
+    @property
+    def properties_index(self) -&gt; int:
+        &#34;&#34;&#34;Setting the properties index. (`int`)&#34;&#34;&#34;
+        return self.__properties_index
+
+    @properties_index.setter
+    def properties_index(self, properties_index: int):
+        self.__properties_index = properties_index
+
+    @property
+    def start_parameter(self) -&gt; float:
+        &#34;&#34;&#34;Start parameter of the stroke. (`float`)&#34;&#34;&#34;
+        return self.__start_parameter
+
+    @start_parameter.setter
+    def start_parameter(self, s: float):
+        self.__start_parameter = s
+
+    @property
+    def end_parameter(self) -&gt; float:
+        &#34;&#34;&#34;End parameter of the stroke. (`float`)&#34;&#34;&#34;
+        return self.__end_parameter
+
+    @end_parameter.setter
+    def end_parameter(self, e: float):
+        self.__end_parameter = e
+
+    @property
+    def precision_scheme(self) -&gt; PrecisionScheme:
+        &#34;&#34;&#34;An object that defines the precisions used for storing the stroke data. If set to None, stroke data is stored
+        using floating point values. (`PrecisionScheme`)&#34;&#34;&#34;
+        return self.__precision_scheme
+
+    @precision_scheme.setter
+    def precision_scheme(self, precision_scheme: PrecisionScheme):
+        self.__precision_scheme = precision_scheme
+
+    @property
+    def sizes(self) -&gt; List[float]:
+        &#34;&#34;&#34;List of size values. (`List[float]`)&#34;&#34;&#34;
+        return self.__size
+
+    @sizes.setter
+    def sizes(self, size: list):
+        self.__size = size
+
+    @property
+    def red(self) -&gt; List[int]:
+        &#34;&#34;&#34;List of color values [0, 255] for red channel. (`List[int]`)&#34;&#34;&#34;
+        return self.__red
+
+    @red.setter
+    def red(self, values: List[int]):
+        self.__red = values
+
+    @property
+    def green(self) -&gt; List[int]:
+        &#34;&#34;&#34;Color values [0, 255] for green channel. (`List[int]`)&#34;&#34;&#34;
+        return self.__green
+
+    @green.setter
+    def green(self, values: List[int]):
+        self.__green = values
+
+    @property
+    def blue(self) -&gt; List[int]:
+        &#34;&#34;&#34;Color values [0, 255] for blue channel. (`List[int]`)&#34;&#34;&#34;
+        return self.__blue
+
+    @blue.setter
+    def blue(self, values: List[int]):
+        self.__blue = values
+
+    @property
+    def alpha(self) -&gt; List[int]:
+        &#34;&#34;&#34;Color values [0, 255] for alpha channel. (`List[int]`)&#34;&#34;&#34;
+        return self.__alpha
+
+    @alpha.setter
+    def alpha(self, values: List[int]):
+        self.__alpha = values
+
+    @property
+    def rotations(self) -&gt; List[float]:
+        &#34;&#34;&#34;List of rotations. (`List[float]`)&#34;&#34;&#34;
+        return self.__rotation
+
+    @rotations.setter
+    def rotations(self, values: List[float]):
+        self.__rotation = values
+
+    @property
+    def splines_x(self) -&gt; List[float]:
+        &#34;&#34;&#34;List of splines x. (`List[float]`)&#34;&#34;&#34;
+        return self.__spline_x
+
+    @splines_x.setter
+    def splines_x(self, spline_x: List[float]):
+        self.__spline_x = spline_x
+
+    @property
+    def splines_y(self) -&gt; List[float]:
+        &#34;&#34;&#34;List of splines y. (`List[float]`)&#34;&#34;&#34;
+        return self.__spline_y
+
+    @splines_y.setter
+    def splines_y(self, spline_y: List[float]):
+        self.__spline_y = spline_y
+
+    @property
+    def splines_z(self) -&gt; List[float]:
+        &#34;&#34;&#34;List of splines z. (`List[float]`)&#34;&#34;&#34;
+        return self.__spline_z
+
+    @splines_z.setter
+    def splines_z(self, spline_z: List[float]):
+        self.__spline_z = spline_z
+
+    @property
+    def scales_x(self) -&gt; List[float]:
+        &#34;&#34;&#34;List of x scales. (`List[float]`)&#34;&#34;&#34;
+        return self.__scale_x
+
+    @scales_x.setter
+    def scales_x(self, scale: List[float]):
+        self.__scale_x = scale
+
+    @property
+    def scales_y(self) -&gt; List[float]:
+        &#34;&#34;&#34;List of y scales. (`List[float]`)&#34;&#34;&#34;
+        return self.__scale_y
+
+    @scales_y.setter
+    def scales_y(self, scale: List[float]):
+        self.__scale_y = scale
+
+    @property
+    def scales_z(self) -&gt; List[float]:
+        &#34;&#34;&#34;List of z scales. (`List[float]`)&#34;&#34;&#34;
+        return self.__scale_z
+
+    @scales_z.setter
+    def scales_z(self, scale: list):
+        self.__scale_z = scale
+
+    @property
+    def offsets_x(self) -&gt; List[float]:
+        &#34;&#34;&#34;List of x offsets.&#34;&#34;&#34;
+        return self.__offset_x
+
+    @offsets_x.setter
+    def offsets_x(self, offset: List[float]):
+        self.__offset_x = offset
+
+    @property
+    def offsets_y(self) -&gt; List[float]:
+        &#34;&#34;&#34;List of y offsets. (`List[float]`)&#34;&#34;&#34;
+        return self.__offset_y
+
+    @offsets_y.setter
+    def offsets_y(self, offset: List[float]):
+        self.__offset_y = offset
+
+    @property
+    def offsets_z(self) -&gt; List[float]:
+        &#34;&#34;&#34;List of z offsets. (`List[float]`)&#34;&#34;&#34;
+        return self.__offset_z
+
+    @offsets_z.setter
+    def offsets_z(self, offset: List[float]):
+        self.__offset_z = offset
+
+    @property
+    def sensor_data_offset(self) -&gt; int:
+        &#34;&#34;&#34;Index of points mapping between raw and processed paths. (`int`)&#34;&#34;&#34;
+        return self.__sensor_data_offset
+
+    @property
+    def sensor_data_id(self) -&gt; uuid.UUID:
+        &#34;&#34;&#34;Reference id sensor data. (`UUID`)&#34;&#34;&#34;
+        return self.__sensor_data_id
+
+    @property
+    def sensor_data_mapping(self) -&gt; List[int]:
+        &#34;&#34;&#34;Explicit mapping between indices of Path and SensorData, used when input rate is very high and
+        provides unwanted points. (`List[int]`)&#34;&#34;&#34;
+        return self._sensor_data_mapping
+
+    @property
+    def style(self) -&gt; Style:
+        &#34;&#34;&#34;Style that is applied to the path of the stroke. (`Style`)&#34;&#34;&#34;
+        return self.__style
+
+    @style.setter
+    def style(self, style: Style):
+        self.__style = style
+
+    @property
+    def spline_min_x(self) -&gt; float:
+        &#34;&#34;&#34;Minimum value of x spline. (`float`)&#34;&#34;&#34;
+        return np.min(self.__spline_x)
+
+    @property
+    def spline_min_y(self) -&gt; float:
+        &#34;&#34;&#34;Minimum value of y spline. (`float`)&#34;&#34;&#34;
+        return np.min(self.__spline_y)
+
+    @property
+    def spline_max_x(self) -&gt; float:
+        &#34;&#34;&#34;Maximum value of x spline. (`float`)&#34;&#34;&#34;
+        return np.max(self.__spline_x)
+
+    @property
+    def spline_max_y(self) -&gt; float:
+        &#34;&#34;&#34;Maximum value of y spline. (`float`)&#34;&#34;&#34;
+        return np.max(self.__spline_y)
+
+    @property
+    def points_count(self) -&gt; int:
+        &#34;&#34;&#34;Number of points of sample points. (`int`)&#34;&#34;&#34;
+        return len(self.__spline_x)
+
+    @property
+    def bounding_box(self) -&gt; BoundingBox:
+        &#34;&#34;&#34;Bounding box for path stroke. (`BoundingBox`)&#34;&#34;&#34;
+        x_min = self.spline_min_x
+        x_max = self.spline_max_x
+        y_min = self.spline_min_y
+        y_max = self.spline_max_y
+        return BoundingBox(x=x_min, y=y_min, width=x_max - x_min, height=y_max - y_min)
+
+    def __import__(self, spline: Spline):
+        # The content from spline is imported with the appropriate Layout mask being set.
+        self.__start_parameter = spline.ts
+        self.__end_parameter = spline.tf
+        idx: int = 0
+        while idx &lt; len(spline.data):
+            if spline.layout_mask &amp; LayoutMask.X.value:
+                self.__spline_x.append(spline.data[idx])
+                idx += 1
+            if spline.layout_mask &amp; LayoutMask.Y.value:
+                self.__spline_y.append(spline.data[idx])
+                idx += 1
+            if spline.layout_mask &amp; LayoutMask.Z.value:
+                self.__spline_z.append(spline.data[idx])
+                idx += 1
+            if spline.layout_mask &amp; LayoutMask.SIZE.value:
+                self.__size.append(spline.data[idx])
+                idx += 1
+            if spline.layout_mask &amp; LayoutMask.ROTATION.value:
+                self.__rotation.append(spline.data[idx])
+                idx += 1
+            if spline.layout_mask &amp; LayoutMask.RED.value:
+                self.__red.append(int(spline.data[idx] * 255))
+                idx += 1
+            if spline.layout_mask &amp; LayoutMask.GREEN.value:
+                self.__green.append(int(spline.data[idx] * 255))
+                idx += 1
+            if spline.layout_mask &amp; LayoutMask.BLUE.value:
+                self.__blue.append(int(spline.data[idx] * 255))
+                idx += 1
+            if spline.layout_mask &amp; LayoutMask.ALPHA.value:
+                self.__alpha.append(int(spline.data[idx] * 255))
+                idx += 1
+            if spline.layout_mask &amp; LayoutMask.SCALE_X.value:
+                self.__scale_x.append(spline.data[idx])
+                idx += 1
+            if spline.layout_mask &amp; LayoutMask.SCALE_Y.value:
+                self.__scale_y.append(spline.data[idx])
+                idx += 1
+            if spline.layout_mask &amp; LayoutMask.SCALE_Z.value:
+                self.__scale_z.append(spline.data[idx])
+                idx += 1
+            if spline.layout_mask &amp; LayoutMask.OFFSET_X.value:
+                self.__offset_x.append(spline.data[idx])
+                idx += 1
+            if spline.layout_mask &amp; LayoutMask.OFFSET_Y.value:
+                self.__offset_y.append(spline.data[idx])
+                idx += 1
+            if spline.layout_mask &amp; LayoutMask.OFFSET_Z.value:
+                self.__offset_z.append(spline.data[idx])
+                idx += 1
+            if spline.layout_mask &amp; LayoutMask.TANGENT_X.value:
+                self.__tangent_x.append(spline.data[idx])
+                idx += 1
+            if spline.layout_mask &amp; LayoutMask.TANGENT_Y.value:
+                self.__tangent_y.append(spline.data[idx])
+                idx += 1
+
+    def __repr__(self):
+        return f&#39;&lt;Stroke : [id:={self.id_h_form}], [num points:={self.points_count}, layout mask:={self.layout_mask}]&gt;&#39;</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="uim.model.inkdata.strokes.LayoutMask"><code class="flex name class">
+<span>class <span class="ident">LayoutMask</span></span>
+<span>(</span><span>value, names=None, *, module=None, qualname=None, type=None, start=1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Specifies the various geometric and appearance attributes of a path point as bit flags.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class LayoutMask(Enum):
+    &#34;&#34;&#34;
+    Specifies the various geometric and appearance attributes of a path point as bit flags.
+    &#34;&#34;&#34;
+    X = 0x1
+    Y = 0x2
+    Z = 0x4
+    SIZE = 0x8
+    ROTATION = 0x10
+    RED = 0x20
+    GREEN = 0x40
+    BLUE = 0x80
+    ALPHA = 0x100
+    SCALE_X = 0x200
+    SCALE_Y = 0x400
+    SCALE_Z = 0x800
+    OFFSET_X = 0x1000
+    OFFSET_Y = 0x2000
+    OFFSET_Z = 0x4000
+    TANGENT_X = 0x8000
+    TANGENT_Y = 0x10000</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="uim.model.inkdata.strokes.LayoutMask.ALPHA"><code class="name">var <span class="ident">ALPHA</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.inkdata.strokes.LayoutMask.BLUE"><code class="name">var <span class="ident">BLUE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.inkdata.strokes.LayoutMask.GREEN"><code class="name">var <span class="ident">GREEN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.inkdata.strokes.LayoutMask.OFFSET_X"><code class="name">var <span class="ident">OFFSET_X</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.inkdata.strokes.LayoutMask.OFFSET_Y"><code class="name">var <span class="ident">OFFSET_Y</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.inkdata.strokes.LayoutMask.OFFSET_Z"><code class="name">var <span class="ident">OFFSET_Z</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.inkdata.strokes.LayoutMask.RED"><code class="name">var <span class="ident">RED</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.inkdata.strokes.LayoutMask.ROTATION"><code class="name">var <span class="ident">ROTATION</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.inkdata.strokes.LayoutMask.SCALE_X"><code class="name">var <span class="ident">SCALE_X</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.inkdata.strokes.LayoutMask.SCALE_Y"><code class="name">var <span class="ident">SCALE_Y</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.inkdata.strokes.LayoutMask.SCALE_Z"><code class="name">var <span class="ident">SCALE_Z</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.inkdata.strokes.LayoutMask.SIZE"><code class="name">var <span class="ident">SIZE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.inkdata.strokes.LayoutMask.TANGENT_X"><code class="name">var <span class="ident">TANGENT_X</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.inkdata.strokes.LayoutMask.TANGENT_Y"><code class="name">var <span class="ident">TANGENT_Y</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.inkdata.strokes.LayoutMask.X"><code class="name">var <span class="ident">X</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.inkdata.strokes.LayoutMask.Y"><code class="name">var <span class="ident">Y</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.inkdata.strokes.LayoutMask.Z"><code class="name">var <span class="ident">Z</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="uim.model.inkdata.strokes.PathPointProperties"><code class="flex name class">
+<span>class <span class="ident">PathPointProperties</span></span>
+<span>(</span><span>size: float = 0.0, red: float = 0.0, green: float = 0.0, blue: float = 0.0, alpha: float = 0.0, rotation: float = 0.0, scale_x: float = 0.0, scale_y: float = 0.0, scale_z: float = 0.0, offset_x: float = 0.0, offset_y: float = 0.0, offset_z: float = 0.0)</span>
+</code></dt>
+<dd>
+<div class="desc"><h1 id="pathpointproperties">PathPointProperties</h1>
+<p>A simple data model, which may hold size, color components and matrix transformational components.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>size</code></strong> :&ensp;<code>float</code></dt>
+<dd>Size of the brush.</dd>
+<dt><strong><code>red</code></strong> :&ensp;<code>float</code></dt>
+<dd>Color value [0, 1] for red channel.</dd>
+<dt><strong><code>green</code></strong> :&ensp;<code>float</code></dt>
+<dd>Color value [0, 1] for green channel.</dd>
+<dt><strong><code>blue</code></strong> :&ensp;<code>float</code></dt>
+<dd>Color value [0, 1] for blue channel.</dd>
+<dt><strong><code>alpha</code></strong> :&ensp;<code>float</code></dt>
+<dd>Color value [0, 1] for alpha channel.</dd>
+<dt><strong><code>rotation</code></strong> :&ensp;<code>float</code></dt>
+<dd>Brush rotation z value.</dd>
+<dt><strong><code>scale_x</code></strong> :&ensp;<code>float</code></dt>
+<dd>Brush scale x value.</dd>
+<dt><strong><code>scale_y</code></strong> :&ensp;<code>float</code></dt>
+<dd>Brush scale y value.</dd>
+<dt><strong><code>scale_z</code></strong> :&ensp;<code>float</code></dt>
+<dd>Brush scale z [for 3D rendering].</dd>
+<dt><strong><code>offset_x</code></strong> :&ensp;<code>float</code></dt>
+<dd>Brush offset x value.</dd>
+<dt><strong><code>offset_y</code></strong> :&ensp;<code>float</code></dt>
+<dd>Brush offset y value.</dd>
+<dt><strong><code>offset_z</code></strong> :&ensp;<code>float</code></dt>
+<dd>Brush offset z [for 3D rendering].</dd>
+</dl>
+<h2 id="references">References</h2>
+<p>[1] WILL SDK for ink - Rendering pipeline URL: <a href="https://developer-docs.wacom.com/sdk-for-ink/docs/pipeline">https://developer-docs.wacom.com/sdk-for-ink/docs/pipeline</a>
+[2] Ink Designer to configure rendering pipeline: <a href="http://ink-designer.trafficmanager.net/">http://ink-designer.trafficmanager.net/</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PathPointProperties(HashIdentifier):
+    &#34;&#34;&#34;
+    PathPointProperties
+    ===================
+    A simple data model, which may hold size, color components and matrix transformational components.
+    
+    Parameters
+    ----------
+    size: float
+        Size of the brush.
+    red: float
+        Color value [0, 1] for red channel.
+    green: float
+        Color value [0, 1] for green channel.
+    blue: float
+        Color value [0, 1] for blue channel.
+    alpha: float
+        Color value [0, 1] for alpha channel.
+    rotation: float
+        Brush rotation z value.
+    scale_x: float
+        Brush scale x value.
+    scale_y: float
+        Brush scale y value.
+    scale_z: float
+        Brush scale z [for 3D rendering].
+    offset_x: float
+        Brush offset x value.
+    offset_y: float
+        Brush offset y value.
+    offset_z: float
+        Brush offset z [for 3D rendering].
+
+    References
+    ----------
+    [1] WILL SDK for ink - Rendering pipeline URL: https://developer-docs.wacom.com/sdk-for-ink/docs/pipeline
+    [2] Ink Designer to configure rendering pipeline: http://ink-designer.trafficmanager.net/
+    &#34;&#34;&#34;
+
+    def __init__(self, size: float = 0., red: float = 0., green: float = 0., blue: float = 0., alpha: float = 0.,
+                 rotation: float = 0.,
+                 scale_x: float = 0., scale_y: float = 0., scale_z: float = 0.,
+                 offset_x: float = 0., offset_y: float = 0., offset_z: float = 0.):
+        super().__init__()
+        self.__size = size
+        self.__red = red
+        self.__green = green
+        self.__blue = blue
+        self.__alpha = alpha
+        self.__rotation = rotation
+        self.__scale_x = scale_x
+        self.__scale_y = scale_y
+        self.__scale_z = scale_z
+        self.__offset_x = offset_x
+        self.__offset_y = offset_y
+        self.__offset_z = offset_z
+
+    @staticmethod
+    def color(rgba: int) -&gt; Tuple[float, float, float, float]:
+        &#34;&#34;&#34;
+        Decode integer encoded RBGA value into float.
+
+        Parameters
+        ----------
+        rgba: int
+            Color encoded in a single integer value
+
+        Returns
+        -------
+        red - `float`
+            Red value
+        green - `float`
+            Green value
+        blue - `float`
+            Blue value
+        alpha - `float`
+            Alpha value
+        &#34;&#34;&#34;
+        red: float = ((rgba &gt;&gt; 24) &amp; 0xFF) / 255.0
+        green: float = ((rgba &gt;&gt; 16) &amp; 0xFF) / 255.0
+        blue: float = ((rgba &gt;&gt; 8) &amp; 0xFF) / 255.0
+        alpha: float = (rgba &amp; 0xFF) / 255.0
+        return red, green, blue, alpha
+
+    @staticmethod
+    def rgba(red: float, green: float, blue: float, alpha: float) -&gt; int:
+        &#34;&#34;&#34;
+        Encode RGBA values to a single integer value.
+
+        Parameters
+        ----------
+        red: int -
+            Red value
+        green: int -
+            Green value
+        blue: int -
+            Blue value
+        alpha: int -
+            Alpha value
+
+        Returns
+        -------
+        rgba: int
+            Color values encode as one single integer value
+        &#34;&#34;&#34;
+        r: int = int(red * 255)
+        g: int = int(green * 255)
+        b: int = int(blue * 255)
+        a: int = int(alpha * 255)
+        return ctypes.c_int32((r &lt;&lt; 24) | (g &lt;&lt; 16) | (b &lt;&lt; 8) | a).value
+
+    @property
+    def size(self) -&gt; float:
+        &#34;&#34;&#34;Size of the brush; value between [0. - 1.]. (`float`)&#34;&#34;&#34;
+        return self.__size
+
+    @property
+    def red(self) -&gt; float:
+        &#34;&#34;&#34;Color value for red channel; value between [0. - 1.]. (`float`)&#34;&#34;&#34;
+        return self.__red
+
+    @property
+    def green(self) -&gt; float:
+        &#34;&#34;&#34;Color value for green channel; value between [0. - 1.]. (`float`)&#34;&#34;&#34;
+        return self.__green
+
+    @property
+    def blue(self) -&gt; float:
+        &#34;&#34;&#34;Color value for blue channel; value between [0. - 1.]. (`float`)&#34;&#34;&#34;
+        return self.__blue
+
+    @property
+    def alpha(self) -&gt; float:
+        &#34;&#34;&#34;Alpha value for channel; value between [0. - 1.]. (`float`)&#34;&#34;&#34;
+        return self.__alpha
+
+    @property
+    def rotation(self) -&gt; float:
+        &#34;&#34;&#34;Brush rotation. (`float`)&#34;&#34;&#34;
+        return self.__rotation
+
+    @property
+    def scale_x(self) -&gt; float:
+        &#34;&#34;&#34;Brush scale x value. (`float`)&#34;&#34;&#34;
+        return self.__scale_x
+
+    @property
+    def scale_y(self) -&gt; float:
+        &#34;&#34;&#34;Brush scale y value. (`float`)&#34;&#34;&#34;
+        return self.__scale_y
+
+    @property
+    def scale_z(self) -&gt; float:
+        &#34;&#34;&#34;Brush scale z value. (`float`)&#34;&#34;&#34;
+        return self.__scale_z
+
+    @property
+    def offset_x(self) -&gt; float:
+        &#34;&#34;&#34;Offset x value. (`float`)&#34;&#34;&#34;
+        return self.__offset_x
+
+    @property
+    def offset_y(self) -&gt; float:
+        &#34;&#34;&#34;Offset y value. (`float`)&#34;&#34;&#34;
+        return self.__offset_y
+
+    @property
+    def offset_z(self) -&gt; float:
+        &#34;&#34;&#34;Offset z value. (`float`)&#34;&#34;&#34;
+        return self.__offset_z
+
+    @size.setter
+    def size(self, size: float):
+        self.__size = size
+
+    @red.setter
+    def red(self, red: float):
+        self.__red = red
+
+    @green.setter
+    def green(self, green: float):
+        self.__green = green
+
+    @blue.setter
+    def blue(self, blue: float):
+        self.__blue = blue
+
+    @alpha.setter
+    def alpha(self, alpha: float):
+        self.__alpha = alpha
+
+    @rotation.setter
+    def rotation(self, rotation: float):
+        self.__rotation = rotation
+
+    @scale_x.setter
+    def scale_x(self, scale_x: float):
+        self.__scale_x = scale_x
+
+    @scale_y.setter
+    def scale_y(self, scale_y: float):
+        self.__scale_y = scale_y
+
+    @scale_z.setter
+    def scale_z(self, scale_z: float):
+        self.__scale_z = scale_z
+
+    @offset_x.setter
+    def offset_x(self, offset_x: float):
+        self.__offset_x = offset_x
+
+    @offset_y.setter
+    def offset_y(self, offset_y: float):
+        self.__offset_y = offset_y
+
+    @offset_z.setter
+    def offset_z(self, offset_z: float):
+        self.__offset_z = offset_z
+
+    def __tokenize__(self) -&gt; list:
+        return [self.size, self.red, self.green, self.blue, self.alpha, self.rotation, self.scale_x, self.scale_y,
+                self.scale_z, self.offset_x, self.offset_y, self.offset_z]
+
+    def __repr__(self):
+        return &#39;&lt;PathPointProperties: [size:={}, red:={}, green:={}, blue:={}, alpha:={}, rotation:={},&#39; \
+               &#39;scale x:={}, scale y:={}, scale z:={}, offset x:={}, offset y:={}, offset z:={}]&gt;&#39; \
+            .format(self.size,
+                    self.red, self.green, self.blue, self.alpha,
+                    self.rotation,
+                    self.scale_x, self.scale_y, self.scale_z,
+                    self.offset_x, self.offset_y, self.offset_z)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="uim.model.base.HashIdentifier" href="../base.html#uim.model.base.HashIdentifier">HashIdentifier</a></li>
+<li><a title="uim.model.base.Identifier" href="../base.html#uim.model.base.Identifier">Identifier</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="uim.model.inkdata.strokes.PathPointProperties.SEPARATOR"><code class="name">var <span class="ident">SEPARATOR</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Static methods</h3>
+<dl>
+<dt id="uim.model.inkdata.strokes.PathPointProperties.color"><code class="name flex">
+<span>def <span class="ident">color</span></span>(<span>rgba: int) ‑> Tuple[float, float, float, float]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Decode integer encoded RBGA value into float.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>rgba</code></strong> :&ensp;<code>int</code></dt>
+<dd>Color encoded in a single integer value</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>red - <code>float</code>
+Red value
+green - <code>float</code>
+Green value
+blue - <code>float</code>
+Blue value
+alpha - <code>float</code>
+Alpha value</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def color(rgba: int) -&gt; Tuple[float, float, float, float]:
+    &#34;&#34;&#34;
+    Decode integer encoded RBGA value into float.
+
+    Parameters
+    ----------
+    rgba: int
+        Color encoded in a single integer value
+
+    Returns
+    -------
+    red - `float`
+        Red value
+    green - `float`
+        Green value
+    blue - `float`
+        Blue value
+    alpha - `float`
+        Alpha value
+    &#34;&#34;&#34;
+    red: float = ((rgba &gt;&gt; 24) &amp; 0xFF) / 255.0
+    green: float = ((rgba &gt;&gt; 16) &amp; 0xFF) / 255.0
+    blue: float = ((rgba &gt;&gt; 8) &amp; 0xFF) / 255.0
+    alpha: float = (rgba &amp; 0xFF) / 255.0
+    return red, green, blue, alpha</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.PathPointProperties.rgba"><code class="name flex">
+<span>def <span class="ident">rgba</span></span>(<span>red: float, green: float, blue: float, alpha: float) ‑> int</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Encode RGBA values to a single integer value.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>red</code></strong> :&ensp;<code>int -</code></dt>
+<dd>Red value</dd>
+<dt><strong><code>green</code></strong> :&ensp;<code>int -</code></dt>
+<dd>Green value</dd>
+<dt><strong><code>blue</code></strong> :&ensp;<code>int -</code></dt>
+<dd>Blue value</dd>
+<dt><strong><code>alpha</code></strong> :&ensp;<code>int -</code></dt>
+<dd>Alpha value</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>rgba</code></strong> :&ensp;<code>int</code></dt>
+<dd>Color values encode as one single integer value</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def rgba(red: float, green: float, blue: float, alpha: float) -&gt; int:
+    &#34;&#34;&#34;
+    Encode RGBA values to a single integer value.
+
+    Parameters
+    ----------
+    red: int -
+        Red value
+    green: int -
+        Green value
+    blue: int -
+        Blue value
+    alpha: int -
+        Alpha value
+
+    Returns
+    -------
+    rgba: int
+        Color values encode as one single integer value
+    &#34;&#34;&#34;
+    r: int = int(red * 255)
+    g: int = int(green * 255)
+    b: int = int(blue * 255)
+    a: int = int(alpha * 255)
+    return ctypes.c_int32((r &lt;&lt; 24) | (g &lt;&lt; 16) | (b &lt;&lt; 8) | a).value</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="uim.model.inkdata.strokes.PathPointProperties.alpha"><code class="name">var <span class="ident">alpha</span> : float</code></dt>
+<dd>
+<div class="desc"><p>Alpha value for channel; value between [0. - 1.]. (<code>float</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def alpha(self) -&gt; float:
+    &#34;&#34;&#34;Alpha value for channel; value between [0. - 1.]. (`float`)&#34;&#34;&#34;
+    return self.__alpha</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.PathPointProperties.blue"><code class="name">var <span class="ident">blue</span> : float</code></dt>
+<dd>
+<div class="desc"><p>Color value for blue channel; value between [0. - 1.]. (<code>float</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def blue(self) -&gt; float:
+    &#34;&#34;&#34;Color value for blue channel; value between [0. - 1.]. (`float`)&#34;&#34;&#34;
+    return self.__blue</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.PathPointProperties.green"><code class="name">var <span class="ident">green</span> : float</code></dt>
+<dd>
+<div class="desc"><p>Color value for green channel; value between [0. - 1.]. (<code>float</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def green(self) -&gt; float:
+    &#34;&#34;&#34;Color value for green channel; value between [0. - 1.]. (`float`)&#34;&#34;&#34;
+    return self.__green</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.PathPointProperties.offset_x"><code class="name">var <span class="ident">offset_x</span> : float</code></dt>
+<dd>
+<div class="desc"><p>Offset x value. (<code>float</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def offset_x(self) -&gt; float:
+    &#34;&#34;&#34;Offset x value. (`float`)&#34;&#34;&#34;
+    return self.__offset_x</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.PathPointProperties.offset_y"><code class="name">var <span class="ident">offset_y</span> : float</code></dt>
+<dd>
+<div class="desc"><p>Offset y value. (<code>float</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def offset_y(self) -&gt; float:
+    &#34;&#34;&#34;Offset y value. (`float`)&#34;&#34;&#34;
+    return self.__offset_y</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.PathPointProperties.offset_z"><code class="name">var <span class="ident">offset_z</span> : float</code></dt>
+<dd>
+<div class="desc"><p>Offset z value. (<code>float</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def offset_z(self) -&gt; float:
+    &#34;&#34;&#34;Offset z value. (`float`)&#34;&#34;&#34;
+    return self.__offset_z</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.PathPointProperties.red"><code class="name">var <span class="ident">red</span> : float</code></dt>
+<dd>
+<div class="desc"><p>Color value for red channel; value between [0. - 1.]. (<code>float</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def red(self) -&gt; float:
+    &#34;&#34;&#34;Color value for red channel; value between [0. - 1.]. (`float`)&#34;&#34;&#34;
+    return self.__red</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.PathPointProperties.rotation"><code class="name">var <span class="ident">rotation</span> : float</code></dt>
+<dd>
+<div class="desc"><p>Brush rotation. (<code>float</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def rotation(self) -&gt; float:
+    &#34;&#34;&#34;Brush rotation. (`float`)&#34;&#34;&#34;
+    return self.__rotation</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.PathPointProperties.scale_x"><code class="name">var <span class="ident">scale_x</span> : float</code></dt>
+<dd>
+<div class="desc"><p>Brush scale x value. (<code>float</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def scale_x(self) -&gt; float:
+    &#34;&#34;&#34;Brush scale x value. (`float`)&#34;&#34;&#34;
+    return self.__scale_x</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.PathPointProperties.scale_y"><code class="name">var <span class="ident">scale_y</span> : float</code></dt>
+<dd>
+<div class="desc"><p>Brush scale y value. (<code>float</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def scale_y(self) -&gt; float:
+    &#34;&#34;&#34;Brush scale y value. (`float`)&#34;&#34;&#34;
+    return self.__scale_y</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.PathPointProperties.scale_z"><code class="name">var <span class="ident">scale_z</span> : float</code></dt>
+<dd>
+<div class="desc"><p>Brush scale z value. (<code>float</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def scale_z(self) -&gt; float:
+    &#34;&#34;&#34;Brush scale z value. (`float`)&#34;&#34;&#34;
+    return self.__scale_z</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.PathPointProperties.size"><code class="name">var <span class="ident">size</span> : float</code></dt>
+<dd>
+<div class="desc"><p>Size of the brush; value between [0. - 1.]. (<code>float</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def size(self) -&gt; float:
+    &#34;&#34;&#34;Size of the brush; value between [0. - 1.]. (`float`)&#34;&#34;&#34;
+    return self.__size</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="uim.model.base.HashIdentifier" href="../base.html#uim.model.base.HashIdentifier">HashIdentifier</a></b></code>:
+<ul class="hlist">
+<li><code><a title="uim.model.base.HashIdentifier.from_bytes" href="../base.html#uim.model.base.Identifier.from_bytes">from_bytes</a></code></li>
+<li><code><a title="uim.model.base.HashIdentifier.id" href="../base.html#uim.model.base.Identifier.id">id</a></code></li>
+<li><code><a title="uim.model.base.HashIdentifier.id_h_form" href="../base.html#uim.model.base.Identifier.id_h_form">id_h_form</a></code></li>
+<li><code><a title="uim.model.base.HashIdentifier.id_s_form" href="../base.html#uim.model.base.Identifier.id_s_form">id_s_form</a></code></li>
+<li><code><a title="uim.model.base.HashIdentifier.str_to_uimid" href="../base.html#uim.model.base.Identifier.str_to_uimid">str_to_uimid</a></code></li>
+<li><code><a title="uim.model.base.HashIdentifier.uimid_to_h_form" href="../base.html#uim.model.base.Identifier.uimid_to_h_form">uimid_to_h_form</a></code></li>
+<li><code><a title="uim.model.base.HashIdentifier.uimid_to_s_form" href="../base.html#uim.model.base.Identifier.uimid_to_s_form">uimid_to_s_form</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="uim.model.inkdata.strokes.Spline"><code class="flex name class">
+<span>class <span class="ident">Spline</span></span>
+<span>(</span><span>layout_mask: int, data: List[float], ts: float = 0.0, tf: float = 1.0)</span>
+</code></dt>
+<dd>
+<div class="desc"><h1 id="spline">Spline</h1>
+<p>The Catmull-Rom spline is defined in the scope of the Stroke using the following properties:</p>
+<ul>
+<li><strong>ts, tf</strong> - Spline start and end parameters</li>
+<li><strong>spline</strong> - a sequence of spline data points</li>
+<li><strong>color</strong> - a sequence of color values (per spline data point; if provided, the length of this sequence must be
+equal to the spline points count)</li>
+</ul>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>layout_mask</code></strong> :&ensp;<code>int</code></dt>
+<dd>Configured layout mask</dd>
+<dt><strong><code>data</code></strong> :&ensp;<code>List[float]</code></dt>
+<dd>List of spline values</dd>
+<dt><strong><code>ts</code></strong> :&ensp;<code>float</code></dt>
+<dd>Start parameter</dd>
+<dt><strong><code>tf</code></strong> :&ensp;<code>float</code></dt>
+<dd>Final parameter</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Spline(ABC):
+    &#34;&#34;&#34;
+    Spline
+    ======
+    The Catmull-Rom spline is defined in the scope of the Stroke using the following properties:
+
+    - **ts, tf** - Spline start and end parameters
+    - **spline** - a sequence of spline data points
+    - **color** - a sequence of color values (per spline data point; if provided, the length of this sequence must be
+                  equal to the spline points count)
+
+    Parameters
+    ----------
+    layout_mask: int
+        Configured layout mask
+    data: List[float]
+        List of spline values
+    ts: float
+        Start parameter
+    tf: float
+        Final parameter
+    &#34;&#34;&#34;
+
+    def __init__(self, layout_mask: int, data: List[float], ts: float = 0., tf: float = 1.):
+        self.__layout_mask: int = layout_mask
+        self.__data: List[float] = data
+        self.__ts: float = ts
+        self.__tf: float = tf
+
+    @property
+    def data(self) -&gt; List[float]:
+        &#34;&#34;&#34;Gets or sets a list of spline values. (`List[float]`, read-only)&#34;&#34;&#34;
+        return self.__data
+
+    @property
+    def layout_mask(self) -&gt; int:
+        &#34;&#34;&#34;Gets a bitmask representation of the spline&#39;s data layout. (`int`, read-only)&#34;&#34;&#34;
+        return self.__layout_mask
+
+    @property
+    def ts(self) -&gt; float:
+        &#34;&#34;&#34;Start parameter for the first Catmull-Rom segment. (`float`, read-only)&#34;&#34;&#34;
+        return self.__ts
+
+    @property
+    def tf(self) -&gt; float:
+        &#34;&#34;&#34;Final parameter for the last Catmull-Rom segment. (`float`, read-only)&#34;&#34;&#34;
+        return self.__tf
+
+    def __repr__(self):
+        return f&#39;&lt;Spline : [mask:={self.layout_mask}]&gt;&#39;</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>abc.ABC</li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="uim.model.inkdata.strokes.Spline.data"><code class="name">var <span class="ident">data</span> : List[float]</code></dt>
+<dd>
+<div class="desc"><p>Gets or sets a list of spline values. (<code>List[float]</code>, read-only)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def data(self) -&gt; List[float]:
+    &#34;&#34;&#34;Gets or sets a list of spline values. (`List[float]`, read-only)&#34;&#34;&#34;
+    return self.__data</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Spline.layout_mask"><code class="name">var <span class="ident">layout_mask</span> : int</code></dt>
+<dd>
+<div class="desc"><p>Gets a bitmask representation of the spline's data layout. (<code>int</code>, read-only)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def layout_mask(self) -&gt; int:
+    &#34;&#34;&#34;Gets a bitmask representation of the spline&#39;s data layout. (`int`, read-only)&#34;&#34;&#34;
+    return self.__layout_mask</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Spline.tf"><code class="name">var <span class="ident">tf</span> : float</code></dt>
+<dd>
+<div class="desc"><p>Final parameter for the last Catmull-Rom segment. (<code>float</code>, read-only)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def tf(self) -&gt; float:
+    &#34;&#34;&#34;Final parameter for the last Catmull-Rom segment. (`float`, read-only)&#34;&#34;&#34;
+    return self.__tf</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Spline.ts"><code class="name">var <span class="ident">ts</span> : float</code></dt>
+<dd>
+<div class="desc"><p>Start parameter for the first Catmull-Rom segment. (<code>float</code>, read-only)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def ts(self) -&gt; float:
+    &#34;&#34;&#34;Start parameter for the first Catmull-Rom segment. (`float`, read-only)&#34;&#34;&#34;
+    return self.__ts</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="uim.model.inkdata.strokes.Stroke"><code class="flex name class">
+<span>class <span class="ident">Stroke</span></span>
+<span>(</span><span>sid: uuid.UUID = None, sensor_data_offset: int = None, sensor_data_id: uuid.UUID = None, sensor_data_mapping: list = None, style: <a title="uim.model.inkdata.strokes.Style" href="#uim.model.inkdata.strokes.Style">Style</a> = None, random_seed: int = 0, property_index: int = 0, spline: <a title="uim.model.inkdata.strokes.Spline" href="#uim.model.inkdata.strokes.Spline">Spline</a> = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><h2 id="stroke-geometry">Stroke Geometry</h2>
+<p>The geometry of an ink stroke is represented by its Stroke.
+A Stroke is defined as a combination of:</p>
+<pre><code>- A Catmull-Rom spline in the form of a sequence of data points (mandatory), including per-point
+  transformational data (optional)
+- Rendering configuration about how the spline should be visualized (optional)
+- Reference to raw input data (SensorData instance), which the path originates from (optional)
+</code></pre>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt>sid: <code>UUID</code></dt>
+<dt>Stroke unique identifier</dt>
+<dt><strong><code>sensor_data_offset</code></strong> :&ensp;<code>int</code></dt>
+<dd>Index of points mapping between raw and processed paths.</dd>
+<dt><strong><code>sensor_data_id</code></strong> :&ensp;<code>UUID</code></dt>
+<dd>Reference UUID of sensor data.</dd>
+<dt><strong><code>sensor_data_mapping</code></strong> :&ensp;<code>list</code></dt>
+<dd>Explicit mapping between indices of Path and SensorData, used when input rate is very high and
+provides unwanted points.</dd>
+<dt><strong><code>style</code></strong> :&ensp;<code><a title="uim.model.inkdata.strokes.Style" href="#uim.model.inkdata.strokes.Style">Style</a></code></dt>
+<dd>The Style object associated with this stroke.</dd>
+<dt><strong><code>random_seed</code></strong> :&ensp;<code>int</code></dt>
+<dd>A random seed used for randomly generated attributes of a stroke.</dd>
+<dt><strong><code>spline</code></strong> :&ensp;<code><a title="uim.model.inkdata.strokes.Spline" href="#uim.model.inkdata.strokes.Spline">Spline</a></code></dt>
+<dd>The stroke's Catmull-Rom spline.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; from uim.model.inkdata.brush import BrushPolygon, BrushPolygonUri, RasterBrush, RotationMode, BlendMode
+&gt;&gt;&gt; from uim.model.inkdata.strokes import Spline, Style, Stroke, LayoutMask
+&gt;&gt;&gt;
+&gt;&gt;&gt; raster_brush_0: RasterBrush = RasterBrush(
+&gt;&gt;&gt; name=&quot;app://qa-test-app/raster-brush/MyRasterBrush&quot;,
+&gt;&gt;&gt; spacing=10., scattering=5., rotation=RotationMode.TRAJECTORY, shape_textures=[bytes([10, 20]),
+&gt;&gt;&gt;                                                                               bytes([30, 20])],
+&gt;&gt;&gt; fill_width=2.0, fill_height=0.3,
+&gt;&gt;&gt; fill_texture=bytes([10, 10, 20, 15, 17, 20, 25, 16, 34, 255, 23, 0, 34, 255, 23, 255]),
+&gt;&gt;&gt; randomize_fill=False, blend_mode=BlendMode.SOURCE_OVER)
+&gt;&gt;&gt; # Create a spline object - 9 data points, each consisting of X, Y, Size, Red, Green, Blue, Alpha
+&gt;&gt;&gt; spline_1: Spline = Spline(
+&gt;&gt;&gt;     LayoutMask.X.value | LayoutMask.Y.value | LayoutMask.SIZE.value | LayoutMask.RED.value | LayoutMask.GREEN.value
+&gt;&gt;&gt;     | LayoutMask.BLUE.value | LayoutMask.ALPHA.value,
+&gt;&gt;&gt;     [10.0, 10.7, 1.0, 0.5, 0.0, 0.1, 1.0,
+&gt;&gt;&gt;      21.0, 20.2, 2.0, 0.9, 0.4, 0.2, 0.8,
+&gt;&gt;&gt;      30.0, 12.4, 2.1, 0.7, 0.1, 0.1, 0.7,
+&gt;&gt;&gt;      40.0, 15.0, 1.5, 0.3, 0.5, 0.4, 1.0,
+&gt;&gt;&gt;      50.0, 45.0, 1.0, 0.3, 0.5, 0.4, 1.0,
+&gt;&gt;&gt;      41.0, 53.0, 1.1, 0.2, 0.3, 0.5, 0.9,
+&gt;&gt;&gt;      33.0, 73.0, 1.2, 0.6, 0.7, 0.4, 0.8,
+&gt;&gt;&gt;      20.0, 84.0, 1.3, 0.7, 0.8, 0.3, 0.7,
+&gt;&gt;&gt;      10.0, 91.0, 1.1, 0.7, 0.9, 0.2, 0.6]
+&gt;&gt;&gt; )
+&gt;&gt;&gt;
+&gt;&gt;&gt; # Create a style
+&gt;&gt;&gt; style_1: Style = Style(brush_uri=raster_brush_0.name)
+&gt;&gt;&gt; style_1.path_point_properties.rotation = 0.35
+&gt;&gt;&gt;
+&gt;&gt;&gt; # The render mode URI can also be app specific like app://blabla
+&gt;&gt;&gt; # The URI will://rasterization/3.0/blend-mode/SourceOver is assumed and must not be set.
+&gt;&gt;&gt; style_1.render_mode_uri = &quot;will://rasterization/3.0/blend-mode/DestinationOver&quot;
+&gt;&gt;&gt;
+&gt;&gt;&gt; # Create a stroke object. Note that it just exists, but is not in the model yet.
+&gt;&gt;&gt; stroke_1: Stroke = Stroke(UUIDIdentifier.id_generator(), spline=spline_1, style=style_1)
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Stroke(UUIDIdentifier):
+    &#34;&#34;&#34;
+    Stroke Geometry
+    ---------------
+    The geometry of an ink stroke is represented by its Stroke.
+    A Stroke is defined as a combination of:
+
+        - A Catmull-Rom spline in the form of a sequence of data points (mandatory), including per-point
+          transformational data (optional)
+        - Rendering configuration about how the spline should be visualized (optional)
+        - Reference to raw input data (SensorData instance), which the path originates from (optional)
+
+    Parameters
+    ----------
+     sid: `UUID`
+        Stroke unique identifier
+    sensor_data_offset: `int`
+        Index of points mapping between raw and processed paths.
+    sensor_data_id: `UUID`
+        Reference UUID of sensor data.
+    sensor_data_mapping: list
+        Explicit mapping between indices of Path and SensorData, used when input rate is very high and
+        provides unwanted points.
+    style: `Style`
+        The Style object associated with this stroke.
+    random_seed: `int`
+        A random seed used for randomly generated attributes of a stroke.
+    spline: `Spline`
+        The stroke&#39;s Catmull-Rom spline.
+
+    Examples
+    --------
+    &gt;&gt;&gt; from uim.model.inkdata.brush import BrushPolygon, BrushPolygonUri, RasterBrush, RotationMode, BlendMode
+    &gt;&gt;&gt; from uim.model.inkdata.strokes import Spline, Style, Stroke, LayoutMask
+    &gt;&gt;&gt;
+    &gt;&gt;&gt; raster_brush_0: RasterBrush = RasterBrush(
+    &gt;&gt;&gt; name=&#34;app://qa-test-app/raster-brush/MyRasterBrush&#34;,
+    &gt;&gt;&gt; spacing=10., scattering=5., rotation=RotationMode.TRAJECTORY, shape_textures=[bytes([10, 20]),
+    &gt;&gt;&gt;                                                                               bytes([30, 20])],
+    &gt;&gt;&gt; fill_width=2.0, fill_height=0.3,
+    &gt;&gt;&gt; fill_texture=bytes([10, 10, 20, 15, 17, 20, 25, 16, 34, 255, 23, 0, 34, 255, 23, 255]),
+    &gt;&gt;&gt; randomize_fill=False, blend_mode=BlendMode.SOURCE_OVER)
+    &gt;&gt;&gt; # Create a spline object - 9 data points, each consisting of X, Y, Size, Red, Green, Blue, Alpha
+    &gt;&gt;&gt; spline_1: Spline = Spline(
+    &gt;&gt;&gt;     LayoutMask.X.value | LayoutMask.Y.value | LayoutMask.SIZE.value | LayoutMask.RED.value | LayoutMask.GREEN.value
+    &gt;&gt;&gt;     | LayoutMask.BLUE.value | LayoutMask.ALPHA.value,
+    &gt;&gt;&gt;     [10.0, 10.7, 1.0, 0.5, 0.0, 0.1, 1.0,
+    &gt;&gt;&gt;      21.0, 20.2, 2.0, 0.9, 0.4, 0.2, 0.8,
+    &gt;&gt;&gt;      30.0, 12.4, 2.1, 0.7, 0.1, 0.1, 0.7,
+    &gt;&gt;&gt;      40.0, 15.0, 1.5, 0.3, 0.5, 0.4, 1.0,
+    &gt;&gt;&gt;      50.0, 45.0, 1.0, 0.3, 0.5, 0.4, 1.0,
+    &gt;&gt;&gt;      41.0, 53.0, 1.1, 0.2, 0.3, 0.5, 0.9,
+    &gt;&gt;&gt;      33.0, 73.0, 1.2, 0.6, 0.7, 0.4, 0.8,
+    &gt;&gt;&gt;      20.0, 84.0, 1.3, 0.7, 0.8, 0.3, 0.7,
+    &gt;&gt;&gt;      10.0, 91.0, 1.1, 0.7, 0.9, 0.2, 0.6]
+    &gt;&gt;&gt; )
+    &gt;&gt;&gt;
+    &gt;&gt;&gt; # Create a style
+    &gt;&gt;&gt; style_1: Style = Style(brush_uri=raster_brush_0.name)
+    &gt;&gt;&gt; style_1.path_point_properties.rotation = 0.35
+    &gt;&gt;&gt;
+    &gt;&gt;&gt; # The render mode URI can also be app specific like app://blabla
+    &gt;&gt;&gt; # The URI will://rasterization/3.0/blend-mode/SourceOver is assumed and must not be set.
+    &gt;&gt;&gt; style_1.render_mode_uri = &#34;will://rasterization/3.0/blend-mode/DestinationOver&#34;
+    &gt;&gt;&gt;
+    &gt;&gt;&gt; # Create a stroke object. Note that it just exists, but is not in the model yet.
+    &gt;&gt;&gt; stroke_1: Stroke = Stroke(UUIDIdentifier.id_generator(), spline=spline_1, style=style_1)
+    &#34;&#34;&#34;
+
+    def __init__(self, sid: uuid.UUID = None, sensor_data_offset: int = None, sensor_data_id: uuid.UUID = None,
+                 sensor_data_mapping: list = None, style: Style = None, random_seed: int = 0, property_index: int = 0,
+                 spline: Spline = None):
+        super().__init__(sid)
+        self.__start_parameter: float = 0.
+        self.__end_parameter: float = 0.
+        self.__spline_x: List[float] = []
+        self.__spline_y: List[float] = []
+        self.__spline_z: List[float] = []
+        self.__size: List[float] = []
+        self.__rotation: List[float] = []
+        self.__scale_x: List[float] = []
+        self.__scale_y: List[float] = []
+        self.__scale_z: List[float] = []
+        self.__offset_x: List[float] = []
+        self.__offset_y: List[float] = []
+        self.__offset_z: List[float] = []
+        self.__red: List[int] = []
+        self.__green: List[int] = []
+        self.__blue: List[int] = []
+        self.__alpha: List[int] = []
+        self.__tangent_x: List[float] = []
+        self.__tangent_y: List[float] = []
+        self.__sensor_data_id: uuid.UUID = sensor_data_id
+        self.__sensor_data_offset: int = sensor_data_offset or 0
+        self._sensor_data_mapping: list = sensor_data_mapping or []
+        self.__style: Style = style
+        self.__random_seed: int = random_seed
+        self.__properties_index: int = property_index
+        self.__timestamp_cache = None
+        self.__pressure_cache = None
+        self.__precision_scheme: Optional[PrecisionScheme] = None
+        if spline is not None:
+            self.__import__(spline)
+
+    def set_timestamp_values(self, timestamp_values):
+        self.__timestamp_cache = timestamp_values
+
+    def get_timestamp_values(self):
+        return self.__timestamp_cache
+
+    def set_pressure_values(self, pressure_values):
+        self.__pressure_cache = pressure_values
+
+    def get_pressure_values(self):
+        return self.__pressure_cache
+
+    @property
+    def layout_mask(self) -&gt; int:
+        &#34;&#34;&#34;Layout mask for the stroke. (`int`)&#34;&#34;&#34;
+        mask: int = 0
+        if len(self.__spline_x) &gt; 0:
+            mask |= LayoutMask.X.value
+        if len(self.__spline_y) &gt; 0:
+            mask |= LayoutMask.Y.value
+        if len(self.__spline_z) &gt; 0:
+            mask |= LayoutMask.Z.value
+        if len(self.__size) &gt; 0:
+            mask |= LayoutMask.SIZE.value
+        if len(self.__rotation) &gt; 0:
+            mask |= LayoutMask.ROTATION.value
+        if len(self.__red) &gt; 0:
+            mask |= LayoutMask.RED.value
+        if len(self.__green) &gt; 0:
+            mask |= LayoutMask.GREEN.value
+        if len(self.__blue) &gt; 0:
+            mask |= LayoutMask.BLUE.value
+        if len(self.__alpha) &gt; 0:
+            mask |= LayoutMask.ALPHA.value
+        if len(self.__scale_x) &gt; 0:
+            mask |= LayoutMask.SCALE_X.value
+        if len(self.__scale_y) &gt; 0:
+            mask |= LayoutMask.SCALE_Y.value
+        if len(self.__scale_z) &gt; 0:
+            mask |= LayoutMask.SCALE_Z.value
+        if len(self.__offset_x) &gt; 0:
+            mask |= LayoutMask.OFFSET_X.value
+        if len(self.__offset_y) &gt; 0:
+            mask |= LayoutMask.OFFSET_Y.value
+        if len(self.__offset_z) &gt; 0:
+            mask |= LayoutMask.OFFSET_Z.value
+        if len(self.__tangent_x) &gt; 0:
+            mask |= LayoutMask.TANGENT_X.value
+        if len(self.__tangent_y) &gt; 0:
+            mask |= LayoutMask.TANGENT_Y.value
+        return mask
+
+    @property
+    def properties_index(self) -&gt; int:
+        &#34;&#34;&#34;Setting the properties index. (`int`)&#34;&#34;&#34;
+        return self.__properties_index
+
+    @properties_index.setter
+    def properties_index(self, properties_index: int):
+        self.__properties_index = properties_index
+
+    @property
+    def start_parameter(self) -&gt; float:
+        &#34;&#34;&#34;Start parameter of the stroke. (`float`)&#34;&#34;&#34;
+        return self.__start_parameter
+
+    @start_parameter.setter
+    def start_parameter(self, s: float):
+        self.__start_parameter = s
+
+    @property
+    def end_parameter(self) -&gt; float:
+        &#34;&#34;&#34;End parameter of the stroke. (`float`)&#34;&#34;&#34;
+        return self.__end_parameter
+
+    @end_parameter.setter
+    def end_parameter(self, e: float):
+        self.__end_parameter = e
+
+    @property
+    def precision_scheme(self) -&gt; PrecisionScheme:
+        &#34;&#34;&#34;An object that defines the precisions used for storing the stroke data. If set to None, stroke data is stored
+        using floating point values. (`PrecisionScheme`)&#34;&#34;&#34;
+        return self.__precision_scheme
+
+    @precision_scheme.setter
+    def precision_scheme(self, precision_scheme: PrecisionScheme):
+        self.__precision_scheme = precision_scheme
+
+    @property
+    def sizes(self) -&gt; List[float]:
+        &#34;&#34;&#34;List of size values. (`List[float]`)&#34;&#34;&#34;
+        return self.__size
+
+    @sizes.setter
+    def sizes(self, size: list):
+        self.__size = size
+
+    @property
+    def red(self) -&gt; List[int]:
+        &#34;&#34;&#34;List of color values [0, 255] for red channel. (`List[int]`)&#34;&#34;&#34;
+        return self.__red
+
+    @red.setter
+    def red(self, values: List[int]):
+        self.__red = values
+
+    @property
+    def green(self) -&gt; List[int]:
+        &#34;&#34;&#34;Color values [0, 255] for green channel. (`List[int]`)&#34;&#34;&#34;
+        return self.__green
+
+    @green.setter
+    def green(self, values: List[int]):
+        self.__green = values
+
+    @property
+    def blue(self) -&gt; List[int]:
+        &#34;&#34;&#34;Color values [0, 255] for blue channel. (`List[int]`)&#34;&#34;&#34;
+        return self.__blue
+
+    @blue.setter
+    def blue(self, values: List[int]):
+        self.__blue = values
+
+    @property
+    def alpha(self) -&gt; List[int]:
+        &#34;&#34;&#34;Color values [0, 255] for alpha channel. (`List[int]`)&#34;&#34;&#34;
+        return self.__alpha
+
+    @alpha.setter
+    def alpha(self, values: List[int]):
+        self.__alpha = values
+
+    @property
+    def rotations(self) -&gt; List[float]:
+        &#34;&#34;&#34;List of rotations. (`List[float]`)&#34;&#34;&#34;
+        return self.__rotation
+
+    @rotations.setter
+    def rotations(self, values: List[float]):
+        self.__rotation = values
+
+    @property
+    def splines_x(self) -&gt; List[float]:
+        &#34;&#34;&#34;List of splines x. (`List[float]`)&#34;&#34;&#34;
+        return self.__spline_x
+
+    @splines_x.setter
+    def splines_x(self, spline_x: List[float]):
+        self.__spline_x = spline_x
+
+    @property
+    def splines_y(self) -&gt; List[float]:
+        &#34;&#34;&#34;List of splines y. (`List[float]`)&#34;&#34;&#34;
+        return self.__spline_y
+
+    @splines_y.setter
+    def splines_y(self, spline_y: List[float]):
+        self.__spline_y = spline_y
+
+    @property
+    def splines_z(self) -&gt; List[float]:
+        &#34;&#34;&#34;List of splines z. (`List[float]`)&#34;&#34;&#34;
+        return self.__spline_z
+
+    @splines_z.setter
+    def splines_z(self, spline_z: List[float]):
+        self.__spline_z = spline_z
+
+    @property
+    def scales_x(self) -&gt; List[float]:
+        &#34;&#34;&#34;List of x scales. (`List[float]`)&#34;&#34;&#34;
+        return self.__scale_x
+
+    @scales_x.setter
+    def scales_x(self, scale: List[float]):
+        self.__scale_x = scale
+
+    @property
+    def scales_y(self) -&gt; List[float]:
+        &#34;&#34;&#34;List of y scales. (`List[float]`)&#34;&#34;&#34;
+        return self.__scale_y
+
+    @scales_y.setter
+    def scales_y(self, scale: List[float]):
+        self.__scale_y = scale
+
+    @property
+    def scales_z(self) -&gt; List[float]:
+        &#34;&#34;&#34;List of z scales. (`List[float]`)&#34;&#34;&#34;
+        return self.__scale_z
+
+    @scales_z.setter
+    def scales_z(self, scale: list):
+        self.__scale_z = scale
+
+    @property
+    def offsets_x(self) -&gt; List[float]:
+        &#34;&#34;&#34;List of x offsets.&#34;&#34;&#34;
+        return self.__offset_x
+
+    @offsets_x.setter
+    def offsets_x(self, offset: List[float]):
+        self.__offset_x = offset
+
+    @property
+    def offsets_y(self) -&gt; List[float]:
+        &#34;&#34;&#34;List of y offsets. (`List[float]`)&#34;&#34;&#34;
+        return self.__offset_y
+
+    @offsets_y.setter
+    def offsets_y(self, offset: List[float]):
+        self.__offset_y = offset
+
+    @property
+    def offsets_z(self) -&gt; List[float]:
+        &#34;&#34;&#34;List of z offsets. (`List[float]`)&#34;&#34;&#34;
+        return self.__offset_z
+
+    @offsets_z.setter
+    def offsets_z(self, offset: List[float]):
+        self.__offset_z = offset
+
+    @property
+    def sensor_data_offset(self) -&gt; int:
+        &#34;&#34;&#34;Index of points mapping between raw and processed paths. (`int`)&#34;&#34;&#34;
+        return self.__sensor_data_offset
+
+    @property
+    def sensor_data_id(self) -&gt; uuid.UUID:
+        &#34;&#34;&#34;Reference id sensor data. (`UUID`)&#34;&#34;&#34;
+        return self.__sensor_data_id
+
+    @property
+    def sensor_data_mapping(self) -&gt; List[int]:
+        &#34;&#34;&#34;Explicit mapping between indices of Path and SensorData, used when input rate is very high and
+        provides unwanted points. (`List[int]`)&#34;&#34;&#34;
+        return self._sensor_data_mapping
+
+    @property
+    def style(self) -&gt; Style:
+        &#34;&#34;&#34;Style that is applied to the path of the stroke. (`Style`)&#34;&#34;&#34;
+        return self.__style
+
+    @style.setter
+    def style(self, style: Style):
+        self.__style = style
+
+    @property
+    def spline_min_x(self) -&gt; float:
+        &#34;&#34;&#34;Minimum value of x spline. (`float`)&#34;&#34;&#34;
+        return np.min(self.__spline_x)
+
+    @property
+    def spline_min_y(self) -&gt; float:
+        &#34;&#34;&#34;Minimum value of y spline. (`float`)&#34;&#34;&#34;
+        return np.min(self.__spline_y)
+
+    @property
+    def spline_max_x(self) -&gt; float:
+        &#34;&#34;&#34;Maximum value of x spline. (`float`)&#34;&#34;&#34;
+        return np.max(self.__spline_x)
+
+    @property
+    def spline_max_y(self) -&gt; float:
+        &#34;&#34;&#34;Maximum value of y spline. (`float`)&#34;&#34;&#34;
+        return np.max(self.__spline_y)
+
+    @property
+    def points_count(self) -&gt; int:
+        &#34;&#34;&#34;Number of points of sample points. (`int`)&#34;&#34;&#34;
+        return len(self.__spline_x)
+
+    @property
+    def bounding_box(self) -&gt; BoundingBox:
+        &#34;&#34;&#34;Bounding box for path stroke. (`BoundingBox`)&#34;&#34;&#34;
+        x_min = self.spline_min_x
+        x_max = self.spline_max_x
+        y_min = self.spline_min_y
+        y_max = self.spline_max_y
+        return BoundingBox(x=x_min, y=y_min, width=x_max - x_min, height=y_max - y_min)
+
+    def __import__(self, spline: Spline):
+        # The content from spline is imported with the appropriate Layout mask being set.
+        self.__start_parameter = spline.ts
+        self.__end_parameter = spline.tf
+        idx: int = 0
+        while idx &lt; len(spline.data):
+            if spline.layout_mask &amp; LayoutMask.X.value:
+                self.__spline_x.append(spline.data[idx])
+                idx += 1
+            if spline.layout_mask &amp; LayoutMask.Y.value:
+                self.__spline_y.append(spline.data[idx])
+                idx += 1
+            if spline.layout_mask &amp; LayoutMask.Z.value:
+                self.__spline_z.append(spline.data[idx])
+                idx += 1
+            if spline.layout_mask &amp; LayoutMask.SIZE.value:
+                self.__size.append(spline.data[idx])
+                idx += 1
+            if spline.layout_mask &amp; LayoutMask.ROTATION.value:
+                self.__rotation.append(spline.data[idx])
+                idx += 1
+            if spline.layout_mask &amp; LayoutMask.RED.value:
+                self.__red.append(int(spline.data[idx] * 255))
+                idx += 1
+            if spline.layout_mask &amp; LayoutMask.GREEN.value:
+                self.__green.append(int(spline.data[idx] * 255))
+                idx += 1
+            if spline.layout_mask &amp; LayoutMask.BLUE.value:
+                self.__blue.append(int(spline.data[idx] * 255))
+                idx += 1
+            if spline.layout_mask &amp; LayoutMask.ALPHA.value:
+                self.__alpha.append(int(spline.data[idx] * 255))
+                idx += 1
+            if spline.layout_mask &amp; LayoutMask.SCALE_X.value:
+                self.__scale_x.append(spline.data[idx])
+                idx += 1
+            if spline.layout_mask &amp; LayoutMask.SCALE_Y.value:
+                self.__scale_y.append(spline.data[idx])
+                idx += 1
+            if spline.layout_mask &amp; LayoutMask.SCALE_Z.value:
+                self.__scale_z.append(spline.data[idx])
+                idx += 1
+            if spline.layout_mask &amp; LayoutMask.OFFSET_X.value:
+                self.__offset_x.append(spline.data[idx])
+                idx += 1
+            if spline.layout_mask &amp; LayoutMask.OFFSET_Y.value:
+                self.__offset_y.append(spline.data[idx])
+                idx += 1
+            if spline.layout_mask &amp; LayoutMask.OFFSET_Z.value:
+                self.__offset_z.append(spline.data[idx])
+                idx += 1
+            if spline.layout_mask &amp; LayoutMask.TANGENT_X.value:
+                self.__tangent_x.append(spline.data[idx])
+                idx += 1
+            if spline.layout_mask &amp; LayoutMask.TANGENT_Y.value:
+                self.__tangent_y.append(spline.data[idx])
+                idx += 1
+
+    def __repr__(self):
+        return f&#39;&lt;Stroke : [id:={self.id_h_form}], [num points:={self.points_count}, layout mask:={self.layout_mask}]&gt;&#39;</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="uim.model.base.UUIDIdentifier" href="../base.html#uim.model.base.UUIDIdentifier">UUIDIdentifier</a></li>
+<li><a title="uim.model.base.Identifier" href="../base.html#uim.model.base.Identifier">Identifier</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="uim.model.inkdata.strokes.Stroke.SEPARATOR"><code class="name">var <span class="ident">SEPARATOR</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="uim.model.inkdata.strokes.Stroke.alpha"><code class="name">var <span class="ident">alpha</span> : List[int]</code></dt>
+<dd>
+<div class="desc"><p>Color values [0, 255] for alpha channel. (<code>List[int]</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def alpha(self) -&gt; List[int]:
+    &#34;&#34;&#34;Color values [0, 255] for alpha channel. (`List[int]`)&#34;&#34;&#34;
+    return self.__alpha</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Stroke.blue"><code class="name">var <span class="ident">blue</span> : List[int]</code></dt>
+<dd>
+<div class="desc"><p>Color values [0, 255] for blue channel. (<code>List[int]</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def blue(self) -&gt; List[int]:
+    &#34;&#34;&#34;Color values [0, 255] for blue channel. (`List[int]`)&#34;&#34;&#34;
+    return self.__blue</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Stroke.bounding_box"><code class="name">var <span class="ident">bounding_box</span> : <a title="uim.model.semantics.structures.BoundingBox" href="../semantics/structures.html#uim.model.semantics.structures.BoundingBox">BoundingBox</a></code></dt>
+<dd>
+<div class="desc"><p>Bounding box for path stroke. (<code>BoundingBox</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def bounding_box(self) -&gt; BoundingBox:
+    &#34;&#34;&#34;Bounding box for path stroke. (`BoundingBox`)&#34;&#34;&#34;
+    x_min = self.spline_min_x
+    x_max = self.spline_max_x
+    y_min = self.spline_min_y
+    y_max = self.spline_max_y
+    return BoundingBox(x=x_min, y=y_min, width=x_max - x_min, height=y_max - y_min)</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Stroke.end_parameter"><code class="name">var <span class="ident">end_parameter</span> : float</code></dt>
+<dd>
+<div class="desc"><p>End parameter of the stroke. (<code>float</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def end_parameter(self) -&gt; float:
+    &#34;&#34;&#34;End parameter of the stroke. (`float`)&#34;&#34;&#34;
+    return self.__end_parameter</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Stroke.green"><code class="name">var <span class="ident">green</span> : List[int]</code></dt>
+<dd>
+<div class="desc"><p>Color values [0, 255] for green channel. (<code>List[int]</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def green(self) -&gt; List[int]:
+    &#34;&#34;&#34;Color values [0, 255] for green channel. (`List[int]`)&#34;&#34;&#34;
+    return self.__green</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Stroke.layout_mask"><code class="name">var <span class="ident">layout_mask</span> : int</code></dt>
+<dd>
+<div class="desc"><p>Layout mask for the stroke. (<code>int</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def layout_mask(self) -&gt; int:
+    &#34;&#34;&#34;Layout mask for the stroke. (`int`)&#34;&#34;&#34;
+    mask: int = 0
+    if len(self.__spline_x) &gt; 0:
+        mask |= LayoutMask.X.value
+    if len(self.__spline_y) &gt; 0:
+        mask |= LayoutMask.Y.value
+    if len(self.__spline_z) &gt; 0:
+        mask |= LayoutMask.Z.value
+    if len(self.__size) &gt; 0:
+        mask |= LayoutMask.SIZE.value
+    if len(self.__rotation) &gt; 0:
+        mask |= LayoutMask.ROTATION.value
+    if len(self.__red) &gt; 0:
+        mask |= LayoutMask.RED.value
+    if len(self.__green) &gt; 0:
+        mask |= LayoutMask.GREEN.value
+    if len(self.__blue) &gt; 0:
+        mask |= LayoutMask.BLUE.value
+    if len(self.__alpha) &gt; 0:
+        mask |= LayoutMask.ALPHA.value
+    if len(self.__scale_x) &gt; 0:
+        mask |= LayoutMask.SCALE_X.value
+    if len(self.__scale_y) &gt; 0:
+        mask |= LayoutMask.SCALE_Y.value
+    if len(self.__scale_z) &gt; 0:
+        mask |= LayoutMask.SCALE_Z.value
+    if len(self.__offset_x) &gt; 0:
+        mask |= LayoutMask.OFFSET_X.value
+    if len(self.__offset_y) &gt; 0:
+        mask |= LayoutMask.OFFSET_Y.value
+    if len(self.__offset_z) &gt; 0:
+        mask |= LayoutMask.OFFSET_Z.value
+    if len(self.__tangent_x) &gt; 0:
+        mask |= LayoutMask.TANGENT_X.value
+    if len(self.__tangent_y) &gt; 0:
+        mask |= LayoutMask.TANGENT_Y.value
+    return mask</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Stroke.offsets_x"><code class="name">var <span class="ident">offsets_x</span> : List[float]</code></dt>
+<dd>
+<div class="desc"><p>List of x offsets.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def offsets_x(self) -&gt; List[float]:
+    &#34;&#34;&#34;List of x offsets.&#34;&#34;&#34;
+    return self.__offset_x</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Stroke.offsets_y"><code class="name">var <span class="ident">offsets_y</span> : List[float]</code></dt>
+<dd>
+<div class="desc"><p>List of y offsets. (<code>List[float]</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def offsets_y(self) -&gt; List[float]:
+    &#34;&#34;&#34;List of y offsets. (`List[float]`)&#34;&#34;&#34;
+    return self.__offset_y</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Stroke.offsets_z"><code class="name">var <span class="ident">offsets_z</span> : List[float]</code></dt>
+<dd>
+<div class="desc"><p>List of z offsets. (<code>List[float]</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def offsets_z(self) -&gt; List[float]:
+    &#34;&#34;&#34;List of z offsets. (`List[float]`)&#34;&#34;&#34;
+    return self.__offset_z</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Stroke.points_count"><code class="name">var <span class="ident">points_count</span> : int</code></dt>
+<dd>
+<div class="desc"><p>Number of points of sample points. (<code>int</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def points_count(self) -&gt; int:
+    &#34;&#34;&#34;Number of points of sample points. (`int`)&#34;&#34;&#34;
+    return len(self.__spline_x)</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Stroke.precision_scheme"><code class="name">var <span class="ident">precision_scheme</span> : <a title="uim.codec.context.scheme.PrecisionScheme" href="../../codec/context/scheme.html#uim.codec.context.scheme.PrecisionScheme">PrecisionScheme</a></code></dt>
+<dd>
+<div class="desc"><p>An object that defines the precisions used for storing the stroke data. If set to None, stroke data is stored
+using floating point values. (<code>PrecisionScheme</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def precision_scheme(self) -&gt; PrecisionScheme:
+    &#34;&#34;&#34;An object that defines the precisions used for storing the stroke data. If set to None, stroke data is stored
+    using floating point values. (`PrecisionScheme`)&#34;&#34;&#34;
+    return self.__precision_scheme</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Stroke.properties_index"><code class="name">var <span class="ident">properties_index</span> : int</code></dt>
+<dd>
+<div class="desc"><p>Setting the properties index. (<code>int</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def properties_index(self) -&gt; int:
+    &#34;&#34;&#34;Setting the properties index. (`int`)&#34;&#34;&#34;
+    return self.__properties_index</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Stroke.red"><code class="name">var <span class="ident">red</span> : List[int]</code></dt>
+<dd>
+<div class="desc"><p>List of color values [0, 255] for red channel. (<code>List[int]</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def red(self) -&gt; List[int]:
+    &#34;&#34;&#34;List of color values [0, 255] for red channel. (`List[int]`)&#34;&#34;&#34;
+    return self.__red</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Stroke.rotations"><code class="name">var <span class="ident">rotations</span> : List[float]</code></dt>
+<dd>
+<div class="desc"><p>List of rotations. (<code>List[float]</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def rotations(self) -&gt; List[float]:
+    &#34;&#34;&#34;List of rotations. (`List[float]`)&#34;&#34;&#34;
+    return self.__rotation</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Stroke.scales_x"><code class="name">var <span class="ident">scales_x</span> : List[float]</code></dt>
+<dd>
+<div class="desc"><p>List of x scales. (<code>List[float]</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def scales_x(self) -&gt; List[float]:
+    &#34;&#34;&#34;List of x scales. (`List[float]`)&#34;&#34;&#34;
+    return self.__scale_x</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Stroke.scales_y"><code class="name">var <span class="ident">scales_y</span> : List[float]</code></dt>
+<dd>
+<div class="desc"><p>List of y scales. (<code>List[float]</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def scales_y(self) -&gt; List[float]:
+    &#34;&#34;&#34;List of y scales. (`List[float]`)&#34;&#34;&#34;
+    return self.__scale_y</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Stroke.scales_z"><code class="name">var <span class="ident">scales_z</span> : List[float]</code></dt>
+<dd>
+<div class="desc"><p>List of z scales. (<code>List[float]</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def scales_z(self) -&gt; List[float]:
+    &#34;&#34;&#34;List of z scales. (`List[float]`)&#34;&#34;&#34;
+    return self.__scale_z</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Stroke.sensor_data_id"><code class="name">var <span class="ident">sensor_data_id</span> : uuid.UUID</code></dt>
+<dd>
+<div class="desc"><p>Reference id sensor data. (<code>UUID</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def sensor_data_id(self) -&gt; uuid.UUID:
+    &#34;&#34;&#34;Reference id sensor data. (`UUID`)&#34;&#34;&#34;
+    return self.__sensor_data_id</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Stroke.sensor_data_mapping"><code class="name">var <span class="ident">sensor_data_mapping</span> : List[int]</code></dt>
+<dd>
+<div class="desc"><p>Explicit mapping between indices of Path and SensorData, used when input rate is very high and
+provides unwanted points. (<code>List[int]</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def sensor_data_mapping(self) -&gt; List[int]:
+    &#34;&#34;&#34;Explicit mapping between indices of Path and SensorData, used when input rate is very high and
+    provides unwanted points. (`List[int]`)&#34;&#34;&#34;
+    return self._sensor_data_mapping</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Stroke.sensor_data_offset"><code class="name">var <span class="ident">sensor_data_offset</span> : int</code></dt>
+<dd>
+<div class="desc"><p>Index of points mapping between raw and processed paths. (<code>int</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def sensor_data_offset(self) -&gt; int:
+    &#34;&#34;&#34;Index of points mapping between raw and processed paths. (`int`)&#34;&#34;&#34;
+    return self.__sensor_data_offset</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Stroke.sizes"><code class="name">var <span class="ident">sizes</span> : List[float]</code></dt>
+<dd>
+<div class="desc"><p>List of size values. (<code>List[float]</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def sizes(self) -&gt; List[float]:
+    &#34;&#34;&#34;List of size values. (`List[float]`)&#34;&#34;&#34;
+    return self.__size</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Stroke.spline_max_x"><code class="name">var <span class="ident">spline_max_x</span> : float</code></dt>
+<dd>
+<div class="desc"><p>Maximum value of x spline. (<code>float</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def spline_max_x(self) -&gt; float:
+    &#34;&#34;&#34;Maximum value of x spline. (`float`)&#34;&#34;&#34;
+    return np.max(self.__spline_x)</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Stroke.spline_max_y"><code class="name">var <span class="ident">spline_max_y</span> : float</code></dt>
+<dd>
+<div class="desc"><p>Maximum value of y spline. (<code>float</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def spline_max_y(self) -&gt; float:
+    &#34;&#34;&#34;Maximum value of y spline. (`float`)&#34;&#34;&#34;
+    return np.max(self.__spline_y)</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Stroke.spline_min_x"><code class="name">var <span class="ident">spline_min_x</span> : float</code></dt>
+<dd>
+<div class="desc"><p>Minimum value of x spline. (<code>float</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def spline_min_x(self) -&gt; float:
+    &#34;&#34;&#34;Minimum value of x spline. (`float`)&#34;&#34;&#34;
+    return np.min(self.__spline_x)</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Stroke.spline_min_y"><code class="name">var <span class="ident">spline_min_y</span> : float</code></dt>
+<dd>
+<div class="desc"><p>Minimum value of y spline. (<code>float</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def spline_min_y(self) -&gt; float:
+    &#34;&#34;&#34;Minimum value of y spline. (`float`)&#34;&#34;&#34;
+    return np.min(self.__spline_y)</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Stroke.splines_x"><code class="name">var <span class="ident">splines_x</span> : List[float]</code></dt>
+<dd>
+<div class="desc"><p>List of splines x. (<code>List[float]</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def splines_x(self) -&gt; List[float]:
+    &#34;&#34;&#34;List of splines x. (`List[float]`)&#34;&#34;&#34;
+    return self.__spline_x</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Stroke.splines_y"><code class="name">var <span class="ident">splines_y</span> : List[float]</code></dt>
+<dd>
+<div class="desc"><p>List of splines y. (<code>List[float]</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def splines_y(self) -&gt; List[float]:
+    &#34;&#34;&#34;List of splines y. (`List[float]`)&#34;&#34;&#34;
+    return self.__spline_y</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Stroke.splines_z"><code class="name">var <span class="ident">splines_z</span> : List[float]</code></dt>
+<dd>
+<div class="desc"><p>List of splines z. (<code>List[float]</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def splines_z(self) -&gt; List[float]:
+    &#34;&#34;&#34;List of splines z. (`List[float]`)&#34;&#34;&#34;
+    return self.__spline_z</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Stroke.start_parameter"><code class="name">var <span class="ident">start_parameter</span> : float</code></dt>
+<dd>
+<div class="desc"><p>Start parameter of the stroke. (<code>float</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def start_parameter(self) -&gt; float:
+    &#34;&#34;&#34;Start parameter of the stroke. (`float`)&#34;&#34;&#34;
+    return self.__start_parameter</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Stroke.style"><code class="name">var <span class="ident">style</span> : <a title="uim.model.inkdata.strokes.Style" href="#uim.model.inkdata.strokes.Style">Style</a></code></dt>
+<dd>
+<div class="desc"><p>Style that is applied to the path of the stroke. (<code><a title="uim.model.inkdata.strokes.Style" href="#uim.model.inkdata.strokes.Style">Style</a></code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def style(self) -&gt; Style:
+    &#34;&#34;&#34;Style that is applied to the path of the stroke. (`Style`)&#34;&#34;&#34;
+    return self.__style</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="uim.model.inkdata.strokes.Stroke.get_pressure_values"><code class="name flex">
+<span>def <span class="ident">get_pressure_values</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_pressure_values(self):
+    return self.__pressure_cache</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Stroke.get_timestamp_values"><code class="name flex">
+<span>def <span class="ident">get_timestamp_values</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_timestamp_values(self):
+    return self.__timestamp_cache</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Stroke.set_pressure_values"><code class="name flex">
+<span>def <span class="ident">set_pressure_values</span></span>(<span>self, pressure_values)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_pressure_values(self, pressure_values):
+    self.__pressure_cache = pressure_values</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Stroke.set_timestamp_values"><code class="name flex">
+<span>def <span class="ident">set_timestamp_values</span></span>(<span>self, timestamp_values)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_timestamp_values(self, timestamp_values):
+    self.__timestamp_cache = timestamp_values</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="uim.model.base.UUIDIdentifier" href="../base.html#uim.model.base.UUIDIdentifier">UUIDIdentifier</a></b></code>:
+<ul class="hlist">
+<li><code><a title="uim.model.base.UUIDIdentifier.from_bytes" href="../base.html#uim.model.base.Identifier.from_bytes">from_bytes</a></code></li>
+<li><code><a title="uim.model.base.UUIDIdentifier.id" href="../base.html#uim.model.base.Identifier.id">id</a></code></li>
+<li><code><a title="uim.model.base.UUIDIdentifier.id_generator" href="../base.html#uim.model.base.UUIDIdentifier.id_generator">id_generator</a></code></li>
+<li><code><a title="uim.model.base.UUIDIdentifier.id_h_form" href="../base.html#uim.model.base.Identifier.id_h_form">id_h_form</a></code></li>
+<li><code><a title="uim.model.base.UUIDIdentifier.id_s_form" href="../base.html#uim.model.base.Identifier.id_s_form">id_s_form</a></code></li>
+<li><code><a title="uim.model.base.UUIDIdentifier.str_to_uimid" href="../base.html#uim.model.base.Identifier.str_to_uimid">str_to_uimid</a></code></li>
+<li><code><a title="uim.model.base.UUIDIdentifier.uimid_to_h_form" href="../base.html#uim.model.base.Identifier.uimid_to_h_form">uimid_to_h_form</a></code></li>
+<li><code><a title="uim.model.base.UUIDIdentifier.uimid_to_s_form" href="../base.html#uim.model.base.Identifier.uimid_to_s_form">uimid_to_s_form</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="uim.model.inkdata.strokes.Style"><code class="flex name class">
+<span>class <span class="ident">Style</span></span>
+<span>(</span><span>properties: <a title="uim.model.inkdata.strokes.PathPointProperties" href="#uim.model.inkdata.strokes.PathPointProperties">PathPointProperties</a> = None, brush_uri: str = None, particles_random_seed: int = 0, render_mode_uri: str = 'will://rasterization/3.0/blend-mode/SourceOver')</span>
+</code></dt>
+<dd>
+<div class="desc"><h1 id="style">Style</h1>
+<p>The <code><a title="uim.model.inkdata.strokes.Style" href="#uim.model.inkdata.strokes.Style">Style</a></code> is defined as a combination of a <code><a title="uim.model.inkdata.strokes.PathPointProperties" href="#uim.model.inkdata.strokes.PathPointProperties">PathPointProperties</a></code> configuration, reference to a Brush,
+a random number generator seed value and rendering method type. Setting the Style property allows overriding of
+specific path point properties, color components and/or matrix transformational components.
+A <code><a title="uim.model.inkdata.strokes.Style" href="#uim.model.inkdata.strokes.Style">Style</a></code> with <code><a title="uim.model.inkdata.strokes.PathPointProperties" href="#uim.model.inkdata.strokes.PathPointProperties">PathPointProperties</a></code> configuration should be normally used to define constant path components.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>properties</code></strong> :&ensp;<code><a title="uim.model.inkdata.strokes.PathPointProperties" href="#uim.model.inkdata.strokes.PathPointProperties">PathPointProperties</a></code></dt>
+<dd>Static values of properties which do not exist per per path point</dd>
+<dt><strong><code>brush_uri</code></strong> :&ensp;<code>str</code></dt>
+<dd>Reference to Brush used for stroke rasterization</dd>
+<dt><strong><code>particles_random_seed</code></strong> :&ensp;<code>int</code></dt>
+<dd>Particles random seed, required for particle strokes</dd>
+<dt><strong><code>render_mode_uri</code></strong> :&ensp;<code>str</code></dt>
+<dd>Render mode URI</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Style(ABC):
+    &#34;&#34;&#34;
+    Style
+    =====
+    The `Style` is defined as a combination of a `PathPointProperties` configuration, reference to a Brush,
+    a random number generator seed value and rendering method type. Setting the Style property allows overriding of
+    specific path point properties, color components and/or matrix transformational components.
+    A `Style` with `PathPointProperties` configuration should be normally used to define constant path components.
+
+    Parameters
+    ----------
+    properties: `PathPointProperties`
+        Static values of properties which do not exist per per path point
+    brush_uri: str
+        Reference to Brush used for stroke rasterization
+    particles_random_seed: int
+        Particles random seed, required for particle strokes
+    render_mode_uri: str
+        Render mode URI
+    &#34;&#34;&#34;
+
+    def __init__(self, properties: PathPointProperties = None, brush_uri: str = None, particles_random_seed: int = 0,
+                 render_mode_uri: str = BlendModeURIs.SOURCE_OVER):
+        self.__properties = properties if properties is not None else PathPointProperties()
+        self.__brush_uri = brush_uri
+        self.__particles_random_seed = particles_random_seed
+        self.__render_mode_URI = render_mode_uri if render_mode_uri is not None and render_mode_uri != &#39;&#39; \
+            else BlendModeURIs.SOURCE_OVER
+
+    @property
+    def path_point_properties(self) -&gt; PathPointProperties:
+        &#34;&#34;&#34;Static values of properties which do not exist per per path point. (`PathPointProperties`, read-only)&#34;&#34;&#34;
+        return self.__properties
+
+    @property
+    def brush_uri(self) -&gt; str:
+        &#34;&#34;&#34;Reference to Brush used for stroke rasterization using the URI. (`str`, read-only)&#34;&#34;&#34;
+        return self.__brush_uri
+
+    @property
+    def particles_random_seed(self):
+        &#34;&#34;&#34;Particles random seed, required for particle strokes.  (`int`, read-only) &#34;&#34;&#34;
+        return self.__particles_random_seed
+
+    @property
+    def render_mode_uri(self):
+        &#34;&#34;&#34;Defines additional information about stroke visualisation, such as ERASER. (`str`)&#34;&#34;&#34;
+        return self.__render_mode_URI
+
+    @render_mode_uri.setter
+    def render_mode_uri(self, uri: str):
+        self.__render_mode_URI = uri
+
+    def __repr__(self):
+        return &#39;&lt;Style : [id:={}, particles_random_seed:={}, render mode:={}&gt;&#39; \
+            .format(self.__brush_uri,
+                    self.__particles_random_seed,
+                    self.__render_mode_URI)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>abc.ABC</li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="uim.model.inkdata.strokes.Style.brush_uri"><code class="name">var <span class="ident">brush_uri</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Reference to Brush used for stroke rasterization using the URI. (<code>str</code>, read-only)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def brush_uri(self) -&gt; str:
+    &#34;&#34;&#34;Reference to Brush used for stroke rasterization using the URI. (`str`, read-only)&#34;&#34;&#34;
+    return self.__brush_uri</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Style.particles_random_seed"><code class="name">var <span class="ident">particles_random_seed</span></code></dt>
+<dd>
+<div class="desc"><p>Particles random seed, required for particle strokes.
+(<code>int</code>, read-only)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def particles_random_seed(self):
+    &#34;&#34;&#34;Particles random seed, required for particle strokes.  (`int`, read-only) &#34;&#34;&#34;
+    return self.__particles_random_seed</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Style.path_point_properties"><code class="name">var <span class="ident">path_point_properties</span> : <a title="uim.model.inkdata.strokes.PathPointProperties" href="#uim.model.inkdata.strokes.PathPointProperties">PathPointProperties</a></code></dt>
+<dd>
+<div class="desc"><p>Static values of properties which do not exist per per path point. (<code><a title="uim.model.inkdata.strokes.PathPointProperties" href="#uim.model.inkdata.strokes.PathPointProperties">PathPointProperties</a></code>, read-only)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def path_point_properties(self) -&gt; PathPointProperties:
+    &#34;&#34;&#34;Static values of properties which do not exist per per path point. (`PathPointProperties`, read-only)&#34;&#34;&#34;
+    return self.__properties</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.strokes.Style.render_mode_uri"><code class="name">var <span class="ident">render_mode_uri</span></code></dt>
+<dd>
+<div class="desc"><p>Defines additional information about stroke visualisation, such as ERASER. (<code>str</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def render_mode_uri(self):
+    &#34;&#34;&#34;Defines additional information about stroke visualisation, such as ERASER. (`str`)&#34;&#34;&#34;
+    return self.__render_mode_URI</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="uim.model.inkdata" href="index.html">uim.model.inkdata</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="uim.model.inkdata.strokes.LayoutMask" href="#uim.model.inkdata.strokes.LayoutMask">LayoutMask</a></code></h4>
+<ul class="two-column">
+<li><code><a title="uim.model.inkdata.strokes.LayoutMask.ALPHA" href="#uim.model.inkdata.strokes.LayoutMask.ALPHA">ALPHA</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.LayoutMask.BLUE" href="#uim.model.inkdata.strokes.LayoutMask.BLUE">BLUE</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.LayoutMask.GREEN" href="#uim.model.inkdata.strokes.LayoutMask.GREEN">GREEN</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.LayoutMask.OFFSET_X" href="#uim.model.inkdata.strokes.LayoutMask.OFFSET_X">OFFSET_X</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.LayoutMask.OFFSET_Y" href="#uim.model.inkdata.strokes.LayoutMask.OFFSET_Y">OFFSET_Y</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.LayoutMask.OFFSET_Z" href="#uim.model.inkdata.strokes.LayoutMask.OFFSET_Z">OFFSET_Z</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.LayoutMask.RED" href="#uim.model.inkdata.strokes.LayoutMask.RED">RED</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.LayoutMask.ROTATION" href="#uim.model.inkdata.strokes.LayoutMask.ROTATION">ROTATION</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.LayoutMask.SCALE_X" href="#uim.model.inkdata.strokes.LayoutMask.SCALE_X">SCALE_X</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.LayoutMask.SCALE_Y" href="#uim.model.inkdata.strokes.LayoutMask.SCALE_Y">SCALE_Y</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.LayoutMask.SCALE_Z" href="#uim.model.inkdata.strokes.LayoutMask.SCALE_Z">SCALE_Z</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.LayoutMask.SIZE" href="#uim.model.inkdata.strokes.LayoutMask.SIZE">SIZE</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.LayoutMask.TANGENT_X" href="#uim.model.inkdata.strokes.LayoutMask.TANGENT_X">TANGENT_X</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.LayoutMask.TANGENT_Y" href="#uim.model.inkdata.strokes.LayoutMask.TANGENT_Y">TANGENT_Y</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.LayoutMask.X" href="#uim.model.inkdata.strokes.LayoutMask.X">X</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.LayoutMask.Y" href="#uim.model.inkdata.strokes.LayoutMask.Y">Y</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.LayoutMask.Z" href="#uim.model.inkdata.strokes.LayoutMask.Z">Z</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="uim.model.inkdata.strokes.PathPointProperties" href="#uim.model.inkdata.strokes.PathPointProperties">PathPointProperties</a></code></h4>
+<ul class="two-column">
+<li><code><a title="uim.model.inkdata.strokes.PathPointProperties.SEPARATOR" href="#uim.model.inkdata.strokes.PathPointProperties.SEPARATOR">SEPARATOR</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.PathPointProperties.alpha" href="#uim.model.inkdata.strokes.PathPointProperties.alpha">alpha</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.PathPointProperties.blue" href="#uim.model.inkdata.strokes.PathPointProperties.blue">blue</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.PathPointProperties.color" href="#uim.model.inkdata.strokes.PathPointProperties.color">color</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.PathPointProperties.green" href="#uim.model.inkdata.strokes.PathPointProperties.green">green</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.PathPointProperties.offset_x" href="#uim.model.inkdata.strokes.PathPointProperties.offset_x">offset_x</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.PathPointProperties.offset_y" href="#uim.model.inkdata.strokes.PathPointProperties.offset_y">offset_y</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.PathPointProperties.offset_z" href="#uim.model.inkdata.strokes.PathPointProperties.offset_z">offset_z</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.PathPointProperties.red" href="#uim.model.inkdata.strokes.PathPointProperties.red">red</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.PathPointProperties.rgba" href="#uim.model.inkdata.strokes.PathPointProperties.rgba">rgba</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.PathPointProperties.rotation" href="#uim.model.inkdata.strokes.PathPointProperties.rotation">rotation</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.PathPointProperties.scale_x" href="#uim.model.inkdata.strokes.PathPointProperties.scale_x">scale_x</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.PathPointProperties.scale_y" href="#uim.model.inkdata.strokes.PathPointProperties.scale_y">scale_y</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.PathPointProperties.scale_z" href="#uim.model.inkdata.strokes.PathPointProperties.scale_z">scale_z</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.PathPointProperties.size" href="#uim.model.inkdata.strokes.PathPointProperties.size">size</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="uim.model.inkdata.strokes.Spline" href="#uim.model.inkdata.strokes.Spline">Spline</a></code></h4>
+<ul class="">
+<li><code><a title="uim.model.inkdata.strokes.Spline.data" href="#uim.model.inkdata.strokes.Spline.data">data</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Spline.layout_mask" href="#uim.model.inkdata.strokes.Spline.layout_mask">layout_mask</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Spline.tf" href="#uim.model.inkdata.strokes.Spline.tf">tf</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Spline.ts" href="#uim.model.inkdata.strokes.Spline.ts">ts</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="uim.model.inkdata.strokes.Stroke" href="#uim.model.inkdata.strokes.Stroke">Stroke</a></code></h4>
+<ul class="">
+<li><code><a title="uim.model.inkdata.strokes.Stroke.SEPARATOR" href="#uim.model.inkdata.strokes.Stroke.SEPARATOR">SEPARATOR</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Stroke.alpha" href="#uim.model.inkdata.strokes.Stroke.alpha">alpha</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Stroke.blue" href="#uim.model.inkdata.strokes.Stroke.blue">blue</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Stroke.bounding_box" href="#uim.model.inkdata.strokes.Stroke.bounding_box">bounding_box</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Stroke.end_parameter" href="#uim.model.inkdata.strokes.Stroke.end_parameter">end_parameter</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Stroke.get_pressure_values" href="#uim.model.inkdata.strokes.Stroke.get_pressure_values">get_pressure_values</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Stroke.get_timestamp_values" href="#uim.model.inkdata.strokes.Stroke.get_timestamp_values">get_timestamp_values</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Stroke.green" href="#uim.model.inkdata.strokes.Stroke.green">green</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Stroke.layout_mask" href="#uim.model.inkdata.strokes.Stroke.layout_mask">layout_mask</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Stroke.offsets_x" href="#uim.model.inkdata.strokes.Stroke.offsets_x">offsets_x</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Stroke.offsets_y" href="#uim.model.inkdata.strokes.Stroke.offsets_y">offsets_y</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Stroke.offsets_z" href="#uim.model.inkdata.strokes.Stroke.offsets_z">offsets_z</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Stroke.points_count" href="#uim.model.inkdata.strokes.Stroke.points_count">points_count</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Stroke.precision_scheme" href="#uim.model.inkdata.strokes.Stroke.precision_scheme">precision_scheme</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Stroke.properties_index" href="#uim.model.inkdata.strokes.Stroke.properties_index">properties_index</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Stroke.red" href="#uim.model.inkdata.strokes.Stroke.red">red</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Stroke.rotations" href="#uim.model.inkdata.strokes.Stroke.rotations">rotations</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Stroke.scales_x" href="#uim.model.inkdata.strokes.Stroke.scales_x">scales_x</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Stroke.scales_y" href="#uim.model.inkdata.strokes.Stroke.scales_y">scales_y</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Stroke.scales_z" href="#uim.model.inkdata.strokes.Stroke.scales_z">scales_z</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Stroke.sensor_data_id" href="#uim.model.inkdata.strokes.Stroke.sensor_data_id">sensor_data_id</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Stroke.sensor_data_mapping" href="#uim.model.inkdata.strokes.Stroke.sensor_data_mapping">sensor_data_mapping</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Stroke.sensor_data_offset" href="#uim.model.inkdata.strokes.Stroke.sensor_data_offset">sensor_data_offset</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Stroke.set_pressure_values" href="#uim.model.inkdata.strokes.Stroke.set_pressure_values">set_pressure_values</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Stroke.set_timestamp_values" href="#uim.model.inkdata.strokes.Stroke.set_timestamp_values">set_timestamp_values</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Stroke.sizes" href="#uim.model.inkdata.strokes.Stroke.sizes">sizes</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Stroke.spline_max_x" href="#uim.model.inkdata.strokes.Stroke.spline_max_x">spline_max_x</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Stroke.spline_max_y" href="#uim.model.inkdata.strokes.Stroke.spline_max_y">spline_max_y</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Stroke.spline_min_x" href="#uim.model.inkdata.strokes.Stroke.spline_min_x">spline_min_x</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Stroke.spline_min_y" href="#uim.model.inkdata.strokes.Stroke.spline_min_y">spline_min_y</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Stroke.splines_x" href="#uim.model.inkdata.strokes.Stroke.splines_x">splines_x</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Stroke.splines_y" href="#uim.model.inkdata.strokes.Stroke.splines_y">splines_y</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Stroke.splines_z" href="#uim.model.inkdata.strokes.Stroke.splines_z">splines_z</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Stroke.start_parameter" href="#uim.model.inkdata.strokes.Stroke.start_parameter">start_parameter</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Stroke.style" href="#uim.model.inkdata.strokes.Stroke.style">style</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="uim.model.inkdata.strokes.Style" href="#uim.model.inkdata.strokes.Style">Style</a></code></h4>
+<ul class="">
+<li><code><a title="uim.model.inkdata.strokes.Style.brush_uri" href="#uim.model.inkdata.strokes.Style.brush_uri">brush_uri</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Style.particles_random_seed" href="#uim.model.inkdata.strokes.Style.particles_random_seed">particles_random_seed</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Style.path_point_properties" href="#uim.model.inkdata.strokes.Style.path_point_properties">path_point_properties</a></code></li>
+<li><code><a title="uim.model.inkdata.strokes.Style.render_mode_uri" href="#uim.model.inkdata.strokes.Style.render_mode_uri">render_mode_uri</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

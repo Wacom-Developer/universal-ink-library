@@ -1,0 +1,12 @@
+include CHANGELOG.md
+include LICENSE
+include README.md
+include CONTRIBUTORS
+recursive-include uim *.py
+recursive-include samples *.py
+include run_tests.py
+graft tests
+graft docs
+graft ink
+graft assets
+global-exclude *.pyc *$py.class
