@@ -1,9 +1,9 @@
 
 # Universal Ink Library
 
-**`Documentation`** |
-------------------- |
-[![Documentation](https://img.shields.io/badge/api-reference-blue.svg)](https://developer-docs.wacom.com/sdk-for-ink/docs/model) |
+[![PyPI](https://img.shields.io/pypi/v/universal-ink-library.svg)](https://pypi.python.org/pypi/universal-ink-library)
+[![PyPI](https://img.shields.io/pypi/pyversions/universal-ink-library.svg)](https://pypi.python.org/pypi/universal-ink-library)
+[![Documentation](https://img.shields.io/badge/api-reference-blue.svg)](https://developer-docs.wacom.com/sdk-for-ink/docs/model) 
 
 Universal Ink Library is a pure Python package for working with Universal Ink Models ([UIM](https://developer.wacom.com/products/universal-ink-model)).
 The UIM defines a language-neutral and platform-neutral data model for representing and manipulating digital ink data captured using an electronic pen or stylus, or using touch input.
