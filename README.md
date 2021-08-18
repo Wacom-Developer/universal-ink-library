@@ -34,10 +34,10 @@ The *Universal Ink Model* has five fundamental categories:
 - **Semantic triple store**: An RDF compliant triple store, holding semantic information, such as text structure, handwriting recognition results, and semantic entities
 
 The diagram below illustrates the different logical parts of the ink model.
-![Logical Parts of Ink Model.](./assets/uim-v1.png)
+![Logical Parts of Ink Model.](https://github.com/Wacom-Developer/universal-ink-library/raw/main/assets/uim-v1.png)
 
 This UML diagram illustrates the complete Ink Model in terms of logical models and class dependencies.
-![UML Diagram](./assets/uim-uml-all-v9.png)
+![UML Diagram](https://github.com/Wacom-Developer/universal-ink-library/raw/main/assets/uim-uml-all-v9.png)
 
 The *Universal Ink Model* provides the flexibility required for a variety of applications, since the display of pen data is only one aspect.
 For example, the same data can be used for data mining or even signature comparison, while the ink display can be on a range of platforms potentially requiring different scaling and presentation.
@@ -46,7 +46,7 @@ For example, the same data can be used for data mining or even signature compari
 
 In reality, pen data is captured from a pen device as a set of positional points:
 
-![Digital-ink-w](./assets/overview_ink_device_sensor_channels.png)
+![Digital-ink-w](https://github.com/Wacom-Developer/universal-ink-library/raw/main/assets/overview_ink_device_sensor_channels.png)
 
 Depending on the type of hardware, in addition to the X/Y positional coordinates, the points can contain further information such as pen tip force and angle.
 Collectively, this information is referred to as sensor data and the *Universal Ink Model* provides a means of storing all the available data.
@@ -61,7 +61,7 @@ For example, writing the letter ‘w', as illustrated below.
 The process converts each pen stroke into a mathematical representation, which can then be used to render the shape on a display.
 Steps in the so-called Ink Geometry pipeline are illustrated below where each step is configured by an application to generate the desired output:
 
-![Digital-ink-rendering](./assets/pen-data-w-rendering.png)
+![Digital-ink-rendering](https://github.com/Wacom-Developer/universal-ink-library/raw/main/assets/pen-data-w-rendering.png)
 
 As a result, the data points are smoothed and shaped to produce the desired representation. 
 For example, simulating the appearance of a felt-tip ink pen.
@@ -76,7 +76,7 @@ The *Universal Ink Model* allows for administrative information such as author n
 Further metadata is computed by analysis of the pen data.
 An example of digital ink is annotated below:
 
-![Digital-ink-annotated](./assets/pen-data-annotated.png)
+![Digital-ink-annotated](https://github.com/Wacom-Developer/universal-ink-library/raw/main/assets/pen-data-annotated.png)
 
 The labels identify pen strokes *s1, s2, s3*, etc.
 In addition, groups of strokes are identified as *g1, g2, g3*, etc.
