@@ -37,7 +37,13 @@ if __name__ == '__main__':
         print('--------')
         # Iterate over strokes
         for stroke in ink_model.strokes:
-            print(f'|- Stroke. ID:={stroke.id} | Points count: {stroke.points_count}')
+            print(f'|- Stroke (id:={stroke.id} | points count: {stroke.points_count})')
+            if stroke.style and stroke.style.path_point_properties:
+                print(f'|   |- Style (render mode:={stroke.style.render_mode_uri} | color:=('
+                      f'red: {stroke.style.path_point_properties.red}, '
+                      f'green: {stroke.style.path_point_properties.green}, '
+                      f'blue: {stroke.style.path_point_properties.green}, '
+                      f'alpha: {stroke.style.path_point_properties.alpha}))')
             # Stroke is produced by sensor data being processed by the ink geometry pipeline
             sd: SensorData = ink_model.sensor_data.sensor_data_by_id(stroke.sensor_data_id)
             # Get InputContext for the sensor data
@@ -48,9 +54,11 @@ if __name__ == '__main__':
             for scc in sensor_context.sensor_channels_contexts:
                 # Sensor channel context is referencing input device
                 input_device: InputDevice = ink_model.input_configuration.get_input_device(scc.input_device_id)
-                print(f'|   |- Input device: {input_device.id} ({mapping_type[scc.input_provider_id]})')
+                print(f'|   |- Input device (id:={input_device.id} | type:=({mapping_type[scc.input_provider_id]})')
                 # Iterate over sensor channels
                 for c in scc.channels:
-                    print(f'|   |     |- Sensor channel. ID:={c.id} - {c.type.name} - {sd.get_data_by_id(c.id).values}')
+                    print(f'|   |     |- Sensor channel (iid:={c.id} | name: {c.type.name} '
+                          f'| values: {sd.get_data_by_id(c.id).values}')
+            print('|')
 
 

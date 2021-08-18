@@ -1,5 +1,11 @@
+
 # Universal Ink Library
-This Python library is designed to work with Universal Ink Models (UIM).
+
+**`Documentation`** |
+------------------- |
+[![Documentation](https://img.shields.io/badge/api-reference-blue.svg)](https://developer-docs.wacom.com/sdk-for-ink/docs/model) |
+
+Universal Ink Library is a pure Python package for working with Universal Ink Models ([UIM](https://developer.wacom.com/products/universal-ink-model)).
 The UIM defines a language-neutral and platform-neutral data model for representing and manipulating digital ink data captured using an electronic pen or stylus, or using touch input.
 
 The main aspects of the UIM are:
@@ -10,7 +16,7 @@ The main aspects of the UIM are:
 - Rendering configurations storage mechanism
 - Ability to compose spline/raw-input based logical trees, which are contained within the ink model
 - Portability, by enabling conversion to common industry standards
-- Extensibility, by enabling the description of ink data related semantic metadata
+- Extensibility, by enabling the description of ink data related semantic meta-data
 - Standardized serialization mechanism
 
 This reference document defines a RIFF container and Protocol Buffers schema for serialization of ink models as well as 
@@ -29,7 +35,7 @@ The *Universal Ink Model* has five fundamental categories:
 
 - **Input data**: A collection of data repositories, holding raw sensor input, input device/provider configurations, sensor channel configurations, etc. Each data repository keeps certain data-sets isolated and is responsible for specific type(s) of data
 - **Ink data**: The visual appearance of the digital ink, presented as ink geometry with rendering configurations
-- **Metadata**: Related meta-data about the environment, input devices, etc.
+- **Meta-data**: Related meta-data about the environment, input devices, etc.
 - **Ink Trees / Views**: A collection of logical trees, representing structures of hierarchically organized paths or raw input data-frames
 - **Semantic triple store**: An RDF compliant triple store, holding semantic information, such as text structure, handwriting recognition results, and semantic entities
 
@@ -48,17 +54,17 @@ In reality, pen data is captured from a pen device as a set of positional points
 
 ![Digital-ink-w](https://github.com/Wacom-Developer/universal-ink-library/raw/main/assets/overview_ink_device_sensor_channels.png)
 
-Depending on the type of hardware, in addition to the X/Y positional coordinates, the points can contain further information such as pen tip force and angle.
+Depending on the type of hardware, in addition to the x/y positional coordinates, the points can contain further information such as pen tip force and angle.
 Collectively, this information is referred to as sensor data and the *Universal Ink Model* provides a means of storing all the available data.
 For example, with some types of hardware, pen hover coordinates can be captured while the pen is not in contact with the surface.
 The information is saved in the *Universal Ink Model* and can be used when required.
 
 ## Ink data
 
-A significant function of WILL processing is the rendering of pen data.
+Ink data is the result of the [ink geometry pipeline](https://developer-docs.wacom.com/sdk-for-ink/docs/pipeline) of the [WILL SDK for ink](https://developer.wacom.com/products/will-sdk-for-ink).
 Pen strokes are identified as continuous sets of pen coordinates captured while the pen is in contact with the surface. 
 For example, writing the letter ‘w', as illustrated below.
-The process converts each pen stroke into a mathematical representation, which can then be used to render the shape on a display.
+The process converts each pen stroke into a matmeta-datahematical representation, which can then be used to render the shape on a display.
 Steps in the so-called Ink Geometry pipeline are illustrated below where each step is configured by an application to generate the desired output:
 
 ![Digital-ink-rendering](https://github.com/Wacom-Developer/universal-ink-library/raw/main/assets/pen-data-w-rendering.png)
@@ -69,71 +75,181 @@ Raster and vector rendering is supported with a selection of rendering brush typ
 
 The results are saved as Ink data, containing ink geometry and rendering information.
 
-## Metadata
+## Meta-data
 
-Metadata is added as data about the pen data.
+Meta-data is added as data about the pen data.
 The *Universal Ink Model* allows for administrative information such as author name, location, pen data source, etc.
-Further metadata is computed by analysis of the pen data.
+Further meta-data is computed by analysis of the pen data.
 An example of digital ink is annotated below:
 
 ![Digital-ink-annotated](https://github.com/Wacom-Developer/universal-ink-library/raw/main/assets/pen-data-annotated.png)
 
 The labels identify pen strokes *s1, s2, s3*, etc.
 In addition, groups of strokes are identified as *g1, g2, g3*, etc.
-Pen strokes are passed to a handwriting recognition engine, and the results are stored as additional metadata, generally referred to as semantic data.
+Pen strokes are passed to a handwriting recognition engine, and the results are stored as additional meta-data, generally referred to as semantic data.
 The semantic data is stored with reference to the groups, categorized as single characters, individual words, lines of text, and so on.
 
-# Remarks
-
-The libary is used for machine learning experiments based on digital ink using the Universal Ink Model. 
-Its is still under development, so **we do not recommend to use it yet for production environments**.
-Moreover, it is not following any formal QA and release process.
 
 # Installation
 
 Our Universal Ink Library can be installed using pip.
 
-``bash
+``
     $ pip install universal-ink-library
 ``
 
-# Documentation
-You can find more detailed technical documentation, [here](https://developer-docs.wacom.com/sdk-for-ink/docs/model).
-API documenation is available [here](docs/uim/index.html).
 
-# Library
+# Quick Start
 
-## Format
-Contains generated format parser stubs for Universal Ink Model.
+## File handling
+###  Loading UIM
 
-### Codec
-The writer serialises the internal *Universal Ink Model* structure in different serialisation formats.
-
-
-### Parser
-The parsers use the format stubs to convert data from the files into internal *InkModel* structure.
-
-
-## Model
-Memory model *InkModel* of Universal Ink Model.
-
-## Data format support
-
-### Universal Ink Model
-Parsing of UIM file.
+The `UIMParser` is be used to load a serialized Universal Ink Model in version 3.0.0 or 3.1.0 and you receive the memory model `InkModel` which can be used for extracting the relevant data.
 
 ```python
 from uim.codec.parser.uim import UIMParser
 from uim.model.ink import InkModel
 
 parser: UIMParser = UIMParser()
+# ---------------------------------------------------------------------------------
 # Parse a UIM file version 3.0.0
+# ---------------------------------------------------------------------------------
 ink_model_1: InkModel = UIMParser().parse('../ink/uim_3.0.0/1) Value of Ink 1.uim')
+# ---------------------------------------------------------------------------------
 # Parse a UIM file version 3.1.0
+# ---------------------------------------------------------------------------------
 ink_model_2: InkModel = UIMParser().parse('../ink/uim_3.1.0/1) Value of Ink 1.uim')
 
 ```
-Or manually build model
+###  Loading WILL 2.0 file
+
+The `WILL2Parser` is be used to load a serialized Wacom Ink Layer Language (WILL), e.g., from [Wacom's Inkspace](https://inkspace.wacom.com/).
+
+```python
+from uim.codec.parser.will import WILL2Parser
+from uim.model.ink import InkModel
+
+parser: WILL2Parser = WILL2Parser()
+ink_model: InkModel = parser.parse('../ink/will/elephant.will')
+```
+
+### Saving of UIM
+
+Saving the `InkModel` as a Universal Ink Model file.
+
+```python
+from uim.codec.writer.encoder.encoder_3_1_0 import UIMEncoder310
+from uim.model.ink import InkModel
+
+ink_model: InkModel = InkModel()
+... 
+
+# Save the model, this will overwrite an existing file
+with io.open('3_1_0.uim', 'wb') as uim:
+    # unicode(data) auto-decodes data to unicode if str
+    uim.write(UIMEncoder310().encode(ink_model))
+```
+
+Find the sample, [here](./samples/sample_file_handling.py)
+
+## InkModel
+
+### Iterate over semantics
+
+If the `InkModel` is enriched with semantics from handwriting recognition and named entity recognition, or named entity linking.
+The semantics an be access with a helper function `uim_extract_text_and_semantics_from` or by iterating the views, like shown in `uim_extract_text_and_semantics_from` function:
+
+```python
+    if ink_model.has_knowledge_graph() \
+            and ink_model.has_tree(CommonViews.HWR_VIEW.value) \
+            and ink_model.has_tree(CommonViews.NER_VIEW.value):
+        # The sample
+        text_lines, entities = uim_extract_text_and_semantics_from(ink_model, 
+                                                                   hwr_view=CommonViews.HWR_VIEW.value,
+                                                                   ner_view=CommonViews.NER_VIEW.value)
+        line_number: int = 1
+        print('-------------------------------------------------------------------------')
+        print(' Text lines:')
+        print('-------------------------------------------------------------------------')
+        for line in text_lines:
+            print(f'{line_number}. Text line: {line["line"]} | {line["box"]}')
+            word_num: int = 1
+            for word in line['words']:
+                print(f' {word_num}. Word: {word["word"]} | {word["box"]}')
+                print(f'  -> Stroke UUIDs: {[str(w) for w in word["strokes"]]}')
+                word_num += 1
+            line_number += 1
+        print()
+        entity_number: int = 1
+        print('-------------------------------------------------------------------------')
+        print(' Entities:')
+        print('-------------------------------------------------------------------------')
+        for entity in entities:
+            print(f'{entity_number}. URI: {entity["statements"][SEMANTIC_HAS_URI]} - '
+                  f'{entity["statements"][SEMANTIC_HAS_LABEL]} '
+                  f'({entity["statements"][SEMANTIC_HAS_TYPE]})')
+            entity_number += 1
+```
+
+### Accessing input and ink data
+In order to access ink input configuration data, sensor data, or stroke data from `InkModel`, you can use the following functions:
+
+```python
+from typing import Dict
+from uuid import UUID
+
+from uim.codec.parser.uim import UIMParser
+from uim.model.ink import InkModel
+from uim.model.inkinput.inputdata import InkInputType, InputContext, SensorContext, InputDevice
+from uim.model.inkinput.sensordata import SensorData
+
+if __name__ == '__main__':
+    parser: UIMParser = UIMParser()
+    # This file contains ink from different providers: PEN, TOUCH, MOUSE
+    ink_model: InkModel = parser.parse('../ink/uim_3.1.0/6) Different Input Providers.uim')
+    
+    mapping_type: Dict[UUID, InkInputType] = {}
+    if ink_model.has_ink_structure():
+        print('InkInputProviders:')
+        print('-------------------')
+        # Iterate Ink input providers
+        for ink_input_provider in ink_model.input_configuration.ink_input_providers:
+            print(f' InkInputProvider. ID: {ink_input_provider.id} | type: {ink_input_provider.type}')
+            mapping_type[ink_input_provider.id] = ink_input_provider.type
+        print()
+        print('Strokes:')
+        print('--------')
+        # Iterate over strokes
+        for stroke in ink_model.strokes:
+            print(f'|- Stroke (id:={stroke.id} | points count: {stroke.points_count})')
+            if stroke.style and stroke.style.path_point_properties:
+                print(f'|   |- Style (render mode:={stroke.style.render_mode_uri} | color:=('
+                      f'red: {stroke.style.path_point_properties.red}, '
+                      f'green: {stroke.style.path_point_properties.green}, '
+                      f'blue: {stroke.style.path_point_properties.green}, '
+                      f'alpha: {stroke.style.path_point_properties.alpha}))')
+            # Stroke is produced by sensor data being processed by the ink geometry pipeline
+            sd: SensorData = ink_model.sensor_data.sensor_data_by_id(stroke.sensor_data_id)
+            # Get InputContext for the sensor data
+            input_context: InputContext = ink_model.input_configuration.get_input_context(sd.input_context_id)
+            # Retrieve SensorContext
+            sensor_context: SensorContext = ink_model.input_configuration\
+                .get_sensor_context(input_context.sensor_context_id)
+            for scc in sensor_context.sensor_channels_contexts:
+                # Sensor channel context is referencing input device
+                input_device: InputDevice = ink_model.input_configuration.get_input_device(scc.input_device_id)
+                print(f'|   |- Input device (id:={input_device.id} | type:=({mapping_type[scc.input_provider_id]})')
+                # Iterate over sensor channels
+                for c in scc.channels:
+                    print(f'|   |     |- Sensor channel (iid:={c.id} | name: {c.type.name} '
+                          f'| values: {sd.get_data_by_id(c.id).values}')
+            print('|')
+```
+
+Find the sample, [here](./samples/sample_input_and_ink.py)
+
+## Creating a Ink Model 
+Creating an `InkModel` from the scratch:
 
 ```python
 from uim.model.base import UUIDIdentifier
@@ -387,20 +503,29 @@ if __name__ == '__main__':
         uim.write(UIMEncoder310().encode(ink_model))
 ```
 
+Find the sample, [here](./samples/sample_create_model.py)
 
-Serialising *InkModel* as a Universal Ink Model file.
+# Web Demos
+The following web demos can be used to produce Universal Ink Model files: 
 
-```python
-from uim.codec.writer.encoder.encoder_3_1_0 import UIMEncoder310
-from uim.model.ink import InkModel
+- [Universal Ink Model Viewer](https://universal-ink-model-viewer.azurewebsites.net/) - producing UIM 3.0.0 files,
+- [WILL SDK for ink - Demo](https://will3-web-ink-demo.azurewebsites.net/) - producing UIM 3.1.0 files.
 
-ink_model: InkModel = InkModel()
-... 
 
-# Save the model, this will overwrite an existing file
-with io.open('3_1_0.uim', 'wb') as uim:
-    # unicode(data) auto-decodes data to unicode if str
-    uim.write(UIMEncoder310().encode(ink_model))
-```
+# Documentation
+You can find more detailed technical documentation, [here](https://developer-docs.wacom.com/sdk-for-ink/docs/model).
+API documenation is available [here](docs/uim/index.html).
 
+# Usage
+
+The libary is used for machine learning experiments based on digital ink using the Universal Ink Model. 
+
+> :warning:  Its is still under development, so **we do not recommend to use it yet for production environments**. Moreover, it is not following any formal QA and release process, yet.
+
+## Contributing
+Contribution guidelines are still work in progress.
+
+## License
+
+[Apache License 2.0](LICENSE)
 
