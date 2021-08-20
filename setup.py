@@ -51,7 +51,8 @@ setup(
         "bitstring>=3.1.7",
         "protobuf>=3.15.3",
         "varint>=1.0.2",
-        "python-dateutil>=2.8.1"
+        "python-dateutil>=2.8.1",
+        "lxml==4.6.2"
     ],
     extras_require={
     },
