@@ -57,7 +57,7 @@ if __name__ == '__main__':
                 print(f'|   |- Input device (id:={input_device.id} | type:=({mapping_type[scc.input_provider_id]})')
                 # Iterate over sensor channels
                 for c in scc.channels:
-                    print(f'|   |     |- Sensor channel (iid:={c.id} | name: {c.type.name} '
+                    print(f'|   |     |- Sensor channel (id:={c.id} | name: {c.type.name} '
                           f'| values: {sd.get_data_by_id(c.id).values}')
             print('|')
 
