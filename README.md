@@ -150,7 +150,7 @@ with io.open('3_1_0.uim', 'wb') as uim:
     uim.write(UIMEncoder310().encode(ink_model))
 ```
 
-Find the sample, [here](./samples/sample_file_handling.py)
+Find the sample, [here](https://github.com/Wacom-Developer/universal-ink-library/blob/main/samples/sample_file_handling.py)
 
 ## InkModel
 
@@ -246,7 +246,7 @@ if __name__ == '__main__':
             print('|')
 ```
 
-Find the sample, [here](./samples/sample_input_and_ink.py)
+Find the sample, [here](https://github.com/Wacom-Developer/universal-ink-library/blob/main/samples/sample_input_and_ink.py)
 
 ## Creating a Ink Model 
 Creating an `InkModel` from the scratch:
@@ -503,7 +503,7 @@ if __name__ == '__main__':
         uim.write(UIMEncoder310().encode(ink_model))
 ```
 
-Find the sample, [here](./samples/sample_create_model.py)
+Find the sample, [here](https://github.com/Wacom-Developer/universal-ink-library/blob/main/samples/sample_create_model.py)
 
 # Web Demos
 The following web demos can be used to produce Universal Ink Model files: 
