@@ -248,7 +248,7 @@ if __name__ == '__main__':
 
 Find the sample, [here](https://github.com/Wacom-Developer/universal-ink-library/blob/main/samples/sample_input_and_ink.py)
 
-## Creating a Ink Model 
+## Creating an Ink Model 
 Creating an `InkModel` from the scratch:
 
 ```python
@@ -514,18 +514,17 @@ The following web demos can be used to produce Universal Ink Model files:
 
 # Documentation
 You can find more detailed technical documentation, [here](https://developer-docs.wacom.com/sdk-for-ink/docs/model).
-API documenation is available [here](docs/uim/index.html).
+API documentation is available [here](docs/uim/index.html).
 
 # Usage
 
-The libary is used for machine learning experiments based on digital ink using the Universal Ink Model. 
+The library is used for machine learning experiments based on digital ink using the Universal Ink Model. 
 
-> :warning:  Its is still under development, so **we do not recommend to use it yet for production environments**. Moreover, it is not following any formal QA and release process, yet.
+> :warning:  Its is still under development, so **we do not recommend using it yet for production environments**. Moreover, it is not following any formal QA and release process, yet.
 
-## Contributing
+# Contributing
 Contribution guidelines are still work in progress.
 
-## License
-
+# License
 [Apache License 2.0](LICENSE)
 
