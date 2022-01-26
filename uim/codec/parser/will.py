@@ -152,7 +152,7 @@ class WILL2Parser(Parser):
             raise TypeError(
                 'parse() accepts Path, path (str) or stream (bytes, BytesIO), got {}'.format(type(path_or_stream)))
 
-        version: SupportedFormats = WILL2Parser.__get_version_from_stream__(stream)
+        version: Version = WILL2Parser.__get_version_from_stream__(stream)
         if version == SupportedFormats.WILL_DATA_VERSION_2_0_0:  # Data format
             paths: List = self.__parse_will_data__(stream)
         else:  # File codec (OPC)
@@ -371,7 +371,7 @@ class WILL2Parser(Parser):
         return protobuf_stream
 
     @staticmethod
-    def __get_version_from_stream__(stream: BytesIO) -> SupportedFormats:
+    def __get_version_from_stream__(stream: BytesIO) -> Version:
         header: bytes = stream.read(4)
         stream.seek(0)
         if header == RIFF_HEADER:

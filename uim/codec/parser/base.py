@@ -29,13 +29,13 @@ class SupportedFormats(Enum):
     All formats that are currently support by the libary.
     """
     # Not supported Format
-    NOT_SUPPORTED = Version(0, 0, 0, "Not supported")
+    NOT_SUPPORTED: Version = Version(0, 0, 0, "Not supported")
     # Universal Ink Model - Version constants
-    UIM_VERSION_3_0_0 = Version(3, 0, 0, UIM)
-    UIM_VERSION_3_1_0 = Version(3, 1, 0, UIM)
+    UIM_VERSION_3_0_0: Version = Version(3, 0, 0, UIM)
+    UIM_VERSION_3_1_0: Version = Version(3, 1, 0, UIM)
     # Wacom Ink Layer Language
-    WILL_DATA_VERSION_2_0_0 = Version(2, 0, 0, WILL_DATA)
-    WILL_FILE_VERSION_2_0_0 = Version(2, 0, 0, WILL_FILE)
+    WILL_DATA_VERSION_2_0_0: Version = Version(2, 0, 0, WILL_DATA)
+    WILL_FILE_VERSION_2_0_0: Version = Version(2, 0, 0, WILL_FILE)
 
 
 class FormatException(Exception):

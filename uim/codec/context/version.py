@@ -44,7 +44,7 @@ class Version(object):
 
     @property
     def ink_format(self) -> str:
-        """Version is associated to the this format. (`str`)"""
+        """Version is associated to this format. (`str`)"""
         return self.__ink_format
 
     @property
@@ -65,8 +65,9 @@ class Version(object):
     def __eq__(self, other: Any):
         """Overrides the default implementation"""
         if isinstance(other, Version):
-            return self.major == other.major and self.minor == other.minor and self.patch == self.patch
+            return self.major == other.major and self.minor == other.minor and self.patch == other.patch \
+                   and self.ink_format == other.ink_format
         return False
 
     def __repr__(self):
-        return f'Version: {self.ink_format} {self.major}.{self.minor}.{self.patch}'
+        return f'Version: {self.ink_format} {self.major}.{self.minor}.{self.patch} ({self.ink_format})'
