@@ -2,7 +2,6 @@
 import pathlib
 
 from setuptools import setup, find_packages
-from uim import __version__
 
 import sys
 CURRENT_PYTHON = sys.version_info[:2]
@@ -28,6 +27,7 @@ if CURRENT_PYTHON < REQUIRED_PYTHON:
 
 # The directory containing this file
 HERE = pathlib.Path(__file__).parent
+VERSION: str = "1.0.4"
 
 # The text of the README file
 README = (HERE / "README.md").read_text()
@@ -35,7 +35,7 @@ README = (HERE / "README.md").read_text()
 # the setup
 setup(
     name='universal_ink_library',
-    version=__version__,
+    version=VERSION,
     description='Library to parse and write Universal Ink Model data files.',
     long_description=README,
     long_description_content_type="text/markdown",

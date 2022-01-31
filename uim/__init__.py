@@ -26,12 +26,11 @@ __author__ = "Markus Weber"
 __copyright__ = "Copyright 2021 Wacom. All rights reserved."
 __credits__ = ["Markus Weber"]
 __license__ = "Apache 2.0 License"
-__version__ = "1.0.4"
 __maintainer__ = ["Markus Weber"]
 __email__ = "markus.weber@wacom.com"
 __status__ = "alpha"
 
-__all__ = ['codec', 'model', 'utils', '__version__']
+__all__ = ['codec', 'model', 'utils']
 
 from uim import model
 from uim import codec
