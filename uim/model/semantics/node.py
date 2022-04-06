@@ -177,13 +177,13 @@ c
         Bounding box (Group nodes only)
     """
 
-    def __init__(self, node_id: uuid.UUID, group_bounding_box: BoundingBox = None):
+    def __init__(self, node_id: uuid.UUID, group_bounding_box: Optional[BoundingBox] = None):
         super(UUIDIdentifier, self).__init__(node_id)
         self.__id: uuid.UUID = node_id
-        self.__group_bounding_box: BoundingBox = group_bounding_box
+        self.__group_bounding_box: Optional[BoundingBox] = group_bounding_box
         self.__parent: Optional[StrokeGroupNode] = None
-        self.__tree: 'InkTree' = None
-        self.__transient_tag = None
+        self.__tree: Optional['InkTree'] = None
+        self.__transient_tag: Optional[str] = None
 
     @property
     def transient_tag(self) -> str:
@@ -212,8 +212,8 @@ c
         return self.__tree.root
 
     @property
-    def parent(self):
-        """Reference to the parent node (`InkNode`) of the `InkTree`. (`InkNode`, read-only)"""
+    def parent(self) -> 'StrokeGroupNode':
+        """Reference to the parent node (`StrokeGroupNode`) of the `InkTree`. (`InkNode`, read-only)"""
         return self.__parent
 
     def is_root(self) -> bool:
@@ -305,7 +305,7 @@ c
             raise InkModelException("Node not yet assigned to a tree.")
 
     def __repr__(self):
-        return '<Node: [id:={},  uri:={}]>'.format(self.id, self.uri)
+        return f'<Node: [id:={self.id},  uri:={self.uri}]>'
 
 
 class StrokeFragment(ABC):
@@ -506,6 +506,17 @@ class StrokeGroupNode(InkNode):
             self.tree.register_sub_tree(node)
 
         return node
+
+    def remove(self, node: InkNode):
+        """
+        Remove child node.
+
+        Parameters
+        ----------
+        node: `InkNode`
+            The child node to be removed.
+        """
+        self.__children.remove(node)
 
     def child_nodes_count(self) -> int:
         """

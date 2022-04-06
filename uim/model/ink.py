@@ -1267,6 +1267,25 @@ class InkModel(ABC):
 
         del self.__map[node.uri]
 
+    def remove_node(self, node: InkNode):
+        """
+        Remove a node.
+
+        Parameters
+        ----------
+        node: `InkNode`
+           Node to be remove
+
+        Notes
+        -----
+        This function removes the triples and the node as well.
+
+       """
+        # First remove the triples
+        self.unregister_node(node)
+        if node.parent is not None:
+            node.parent.remove(node)
+
     def __eq__(self, other: Any):
         if not isinstance(other, InkModel):
             return False
