@@ -106,8 +106,8 @@ if __name__ == '__main__':
                                            state=InkState.PLANE)
 
     sensor_data_0.add_timestamp_data(sensor_channels_tablet[0], [0, 1, 2, 4, 5])
-    sensor_data_0.add_data(sensor_channels_tablet[1],  [100.4, 103.7, 110.1])
-    sensor_data_0.add_data(sensor_channels_tablet[2],  [200.1, 202.0, 207.0])
+    sensor_data_0.add_data(sensor_channels_tablet[1],  [100.4, 103.7, 103.7, 110.1])
+    sensor_data_0.add_data(sensor_channels_tablet[2],  [200.1, 202.0, 202.0, 207.0])
 
     sensor_data_0.add_timestamp_data(sensor_channels_bluetooth[0], [0, 1, 2])
 
@@ -117,7 +117,7 @@ if __name__ == '__main__':
     ink_model.sensor_data.add(sensor_data_0)
 
     # We need to define a brush polygon
-    points: list = [(10, 10), (0, 10), (0, 0)]
+    points: list = [(10, 10), (0, 10), (0, 0), (10, 0)]
     brush_polygons: list = [BrushPolygon(min_scale=0., points=points)]
 
     # Create the brush object using polygons
