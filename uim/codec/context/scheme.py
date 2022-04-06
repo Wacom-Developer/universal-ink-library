@@ -14,7 +14,7 @@
 #  limitations under the License.
 
 
-class PrecisionScheme(object):
+class PrecisionScheme:
     """
     Contains information for the decimal precision of data in different channels.
 

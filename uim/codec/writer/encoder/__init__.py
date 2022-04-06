@@ -10,4 +10,3 @@ __all__ = ['encoder_3_1_0', 'base']
 
 from uim.codec.writer.encoder import base
 from uim.codec.writer.encoder import encoder_3_1_0
-

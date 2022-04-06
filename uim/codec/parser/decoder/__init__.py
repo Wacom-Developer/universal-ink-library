@@ -13,4 +13,3 @@ __all__ = ['base', 'decoder_3_0_0', 'decoder_3_1_0']
 from uim.codec.parser.decoder import base
 from uim.codec.parser.decoder import decoder_3_0_0
 from uim.codec.parser.decoder import decoder_3_1_0
-

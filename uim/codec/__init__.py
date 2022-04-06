@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-
+Codec parser.
 """
 __all__ = ['context', 'parser', 'writer']
 

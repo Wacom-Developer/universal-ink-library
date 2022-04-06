@@ -72,7 +72,7 @@ class CompressionType(Enum):
     """LZMA compression for particular chunk"""
 
 
-class MimeTypes(object):
+class MimeTypes:
     """Mime types for ink formats."""
     UNIVERSAL_INK_MODEL: str = "application/vnd.wacom-ink.model"  # Mime type for Universal Ink Models.
     WILL3_DOCUMENT: str = "application/vnd.wacom-will3.document"  # Mime type for WILL 3 documents.
@@ -80,7 +80,7 @@ class MimeTypes(object):
     WILL2_STROKES_FORMAT: str = "application/vnd.wacom-will2.strokes"  # Mime type for WILL 2 strokes
 
 
-class FileExtension(object):
+class FileExtension:
     """File extension of ink content files."""
     JSON_FORMAT_EXTENSION: str = '.json'
     """JSON file encoding."""

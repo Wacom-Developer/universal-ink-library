@@ -15,7 +15,7 @@
 from typing import Any
 
 
-class Version(object):
+class Version:
     """
     Version encodes the semantic versioning concept a version number MAJOR.MINOR.PATCH, increment the:
 

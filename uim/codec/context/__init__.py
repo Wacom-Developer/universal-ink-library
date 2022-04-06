@@ -15,4 +15,3 @@ from uim.codec.context import scheme
 from uim.codec.context import encoder
 from uim.codec.context import version
 from uim.codec.context import decoder
-
