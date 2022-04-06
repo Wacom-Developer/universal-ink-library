@@ -33,7 +33,7 @@ jobs:
 
       - name: "Build API documentation"
         run: |
-          pdoc -f knowledge -o docs
+          pdoc -f uim -o docs
 
       # Build and upload to PyPI
       - name: "Builds and uploads to PyPI"
