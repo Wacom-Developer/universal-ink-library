@@ -1,3 +1,8 @@
+2022/10/7 - RELEASE 1.0.6
+==========================
+Minor fix: 
+Set protobuf dependency to fixed tested version number
+
 2022/04/6 - RELEASE 1.0.5
 ==========================
 Helper function:
