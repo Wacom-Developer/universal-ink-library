@@ -49,7 +49,7 @@ setup(
     install_requires=[
         "numpy>=1.16.4",
         "bitstring>=3.1.7",
-        "protobuf>=3.15.3",
+        "protobuf==3.15.3",
         "varint>=1.0.2",
         "python-dateutil>=2.8.1",
         "lxml>=4.6.3"
