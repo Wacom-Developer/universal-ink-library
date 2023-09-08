@@ -15,96 +15,44 @@
 from enum import Enum
 from typing import List, Optional
 
+# Class tag
 IS: str = '@'
-WILL_NAMESPACE: str = "will://"
-SEM_NAMESPACE: str = f"{WILL_NAMESPACE}semantic/3.0/"
-# Subject
-INK_INPUT_DEVICE: str = WILL_NAMESPACE + "input/3.0/"
-SEGMENTATION_NAMESPACE: str = WILL_NAMESPACE + "segmentation/3.0/"
-DOCUMENT_NAMESPACE: str = WILL_NAMESPACE + "document/3.0/"
-# Properties
-DEVICE_SERIAL_NUMBER_PROPERTY: str = INK_INPUT_DEVICE + "SerialNumber"
-DEVICE_MANUFACTURER_PROPERTY: str = INK_INPUT_DEVICE + "Manufacturer"
-DEVICE_MODEL_PROPERTY: str = INK_INPUT_DEVICE + "Model"
-# Predicate Syntax
-SEMANTIC_NAMESPACE: str = WILL_NAMESPACE + "semantic/3.0/"
-# HWR Semantics
-SEMANTIC_HAS_ALT: str = SEMANTIC_NAMESPACE + "hasAlt"
-SEMANTIC_IS: str = SEMANTIC_NAMESPACE + "is"
-# Semantic Ink
-SEMANTIC_HAS_CATEGORY: str = SEMANTIC_NAMESPACE + "hasCategory"
-SEMANTIC_HAS_URI: str = SEMANTIC_NAMESPACE + "hasUri"
-SEMANTIC_HAS_TYPE: str = SEMANTIC_NAMESPACE + "hasType"
-SEMANTIC_HAS_RELEVANT_CONCEPT: str = SEMANTIC_NAMESPACE + "hasRelevantConcept"
-SEMANTIC_HAS_ARTICLE: str = SEMANTIC_NAMESPACE + "hasArticle"
-SEMANTIC_HAS_IMAGE: str = SEMANTIC_NAMESPACE + "hasImage"
-SEMANTIC_HAS_THUMB: str = SEMANTIC_NAMESPACE + "hasThumb"
-SEMANTIC_HAS_LABEL: str = SEMANTIC_NAMESPACE + "hasLabel"
-SEMANTIC_HAS_EMAIL: str = SEMANTIC_NAMESPACE + "hasEmail"
-SEMANTIC_HAS_FIRST_NAME: str = SEMANTIC_NAMESPACE + "hasFirstname"
-SEMANTIC_HAS_LAST_NAME: str = SEMANTIC_NAMESPACE + "hasLastname"
-SEMANTIC_HAS_START_DATE: str = SEMANTIC_NAMESPACE + "hasStartDate"
-SEMANTIC_HAS_END_DATE: str = SEMANTIC_NAMESPACE + "hasEndDate"
-SEMANTIC_HAS_CONFIDENCE: str = SEMANTIC_NAMESPACE + "hasConfidence"
-SEMANTIC_HAS_NER_BACKEND: str = SEMANTIC_NAMESPACE + "nerBackend"
-SEMANTIC_HAS_ABSTRACT: str = SEMANTIC_NAMESPACE + "hasAbstract"
-SEMANTIC_HAS_SOURCE: str = SEMANTIC_NAMESPACE + "hasSource"
-SEMANTIC_HAS_GEOLOCATION: str = SEMANTIC_NAMESPACE + "hasGeoLocation"
-SEMANTIC_HAS_LOCATION: str = SEMANTIC_NAMESPACE + "hasLocation"
+# Content segmentation schema
+SEGMENTATION_SCHEMA_VERSION: str = '0.3'
+SEGMENTATION_SCHEMA: str = f'will:seg/{SEGMENTATION_SCHEMA_VERSION}'
 
-SEMANTIC_HAS_WEBSITE: str = SEMANTIC_NAMESPACE + "hasWebsite"
-SEMANTIC_HAS_NAMED_ENTITY: str = SEMANTIC_NAMESPACE + "hasNamedEntityDefinition"
-SEMANTIC_HAS_TOPIC_ENTITY: str = SEMANTIC_NAMESPACE + "hasTopicEntity"
-SEMANTIC_HAS_LOCATION_TYPE: str = SEMANTIC_NAMESPACE + "hasLocationType"
-# Document Properties
-DOCUMENT_TITLE_OBJECT: str = DOCUMENT_NAMESPACE + 'Title'
-DOCUMENT_CREATION_DATE_OBJECT: str = DOCUMENT_NAMESPACE + 'CreationData'
-DOCUMENT_X_MIN_PROPERTY: str = DOCUMENT_NAMESPACE + 'hasMinX'
-DOCUMENT_Y_MIN_PROPERTY: str = DOCUMENT_NAMESPACE + 'hasMiny'
-DOCUMENT_WIDTH_PROPERTY: str = DOCUMENT_NAMESPACE + 'Width'
-DOCUMENT_HEIGHT_PROPERTY: str = DOCUMENT_NAMESPACE + 'Height'
+ROOT: str = f'{SEGMENTATION_SCHEMA}/Root'
+TEXT_REGION: str = f'{SEGMENTATION_SCHEMA}/TextRegion'
+TEXT_LINE: str = f'{SEGMENTATION_SCHEMA}/TextLine'
+WORD: str = f'{SEGMENTATION_SCHEMA}/WordOfStrokes'
 
-# Document Structure
-TEXT_LINE: str = SEGMENTATION_NAMESPACE + "TextLine"
-WORD: str = SEGMENTATION_NAMESPACE + "Word"
-TEXT_REGION: str = SEGMENTATION_NAMESPACE + "TextRegion"
-PARAGRAPH: str = SEGMENTATION_NAMESPACE + "Paragraph"
-SENTENCE: str = SEGMENTATION_NAMESPACE + "Sentence"
-PUNCTUATION: str = SEGMENTATION_NAMESPACE + "Punctuation"
-PHRASE: str = SEGMENTATION_NAMESPACE + "Phrase"
+PART_OF_NAMED_ENTITY: str = "isPartOfNamedEntity"
+PART_OF_POS_ENTITY: str = "isPartOfPOSEntity"
+REPRESENTS: str = 'representsView'
 
-# Graphics semantics
-GRAPHICS_NAMESPACE: str = WILL_NAMESPACE + "shapes/3.0/"
-
-MATH_NAMESPACE: str = 'uim://math/'
-# Math
-MATH_BLOCK: str = 'will://segmentation/3.0/MathBlock'
-LATEX_REPRESENTATION: str = 'will://math/3.0/attr/hasLatexRepresentation'
-MATHML_REPRESENTATION: str = 'will://math/3.0/attr/hasMathMLRepresentation'
-# Math schema
-MATH_CONTENT_BLOCK: str = MATH_NAMESPACE + 'MathBlock'
-EXPRESSION_BLOCK: str = MATH_NAMESPACE + 'Expression'
-GROUP_BLOCK: str = MATH_NAMESPACE + 'Group'
-MATRIX_BLOCK: str = MATH_NAMESPACE + 'Matrix'
-OPERAND_BLOCK: str = MATH_NAMESPACE + 'Operand'
-OPERATOR: str = MATH_NAMESPACE + 'Operator'
-SYMBOL: str = MATH_NAMESPACE + 'Symbol'
-EQUALITY_SYMBOL: str = MATH_NAMESPACE + 'Equals'
-FENCE: str = MATH_NAMESPACE + 'Fence'
-SQUARE_ROOT: str = MATH_NAMESPACE + 'SquareRoot'
-FRACTION: str = MATH_NAMESPACE + 'Fraction'
-NUMBER: str = MATH_NAMESPACE + 'Number'
-SUPERSCRIPT: str = MATH_NAMESPACE + 'SuperScript'
-SUBSCRIPT: str = MATH_NAMESPACE + 'SubScript'
-LATEX_EXPORT: str = MATH_NAMESPACE + 'attr/hasLatexRepresentation'
-MATHML_EXPORT: str = MATH_NAMESPACE + 'attr/hasMathMLRepresentation'
-
-POLYGON_TYPE: str = GRAPHICS_NAMESPACE + 'Polygon'
-CIRCLE_TYPE: str = GRAPHICS_NAMESPACE + 'Circle'
-ELLIPSE_TYPE: str = GRAPHICS_NAMESPACE + 'Ellipse'
-TRIANGLE_TYPE: str = GRAPHICS_NAMESPACE + 'Triangle'
-LINE_TYPE: str = GRAPHICS_NAMESPACE + 'Line'
-RECTANGLE_TYPE: str = GRAPHICS_NAMESPACE + 'Rectangle'
+# Named Entity Recognition schema
+NER_SCHEMA_VERSION: str = '0.1'
+NER_SCHEMA: str = f"will:ner/{NER_SCHEMA_VERSION}"
+NAMED_ENTITY: str = f'{NER_SCHEMA}/NamedEntity'
+HAS_TOPIC_ENTITY: str = 'hasDocumentCategory'
+HAS_ARTICLE_URL: str = "hasArticleUrl"
+HAS_URI: str = "hasURI"
+HAS_SOURCE: str = "hasSource"
+HAS_CONTENT: str = "hasContent"
+HAS_LANGUAGE: str = "hasLanguage"
+HAS_LABEL: str = "hasLabel"
+HAS_ALTERNATIVE: str = "hasAltContent"
+HAS_ABSTRACT: str = "hasAbstractText"
+HAS_CREATION_DATE: str = "hasCreationDate"
+HAS_PROVIDER: str = "hasProvider"
+HAS_ONTOLOGY_TYPE: str = "hasProvidedOntologyType"
+HAS_NAMED_ENTITY: str = "hasNamedEntity"
+HAS_ARTICLE: str = "hasAbstractText"
+HAS_THUMB: str = "hasThumbnailUrl"
+HAS_IMAGE: str = "hasImageUrl"
+HAS_TYPE: str = "hasProvidedEntityType"
+HAS_CONFIDENCE: str = "hasConfidence"
+HAS_UNIQUE_ID: str = "hasUniqueId"
 
 # URI Templates
 NODE_URI_PREFIX: str = 'uim:node/{}'
@@ -135,52 +83,6 @@ class CommonViews(Enum):
 
 # Mapping the view name to enum
 NAME_TO_VIEW: dict = dict([(view.value, view) for view in CommonViews])
-
-
-class Semantics(object):
-    """
-    Contains types and entities that are used to store ontological knowledge definitions into the ink model's knowledge
-    graph.
-    """
-    PRED_HAS_NAMED_ENTITY_DEFINITION: str = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-    PRED_IS: str = f'{SEM_NAMESPACE}is'
-    TYPE: str = '@'
-
-
-class SegmentationSchema(object):
-    """
-    UIM content segmentation schema prototype (generic).
-    """
-    WODL_CLASS_PREFIX: str = 'will:seg/0.3/'
-    BORDER: str = WODL_CLASS_PREFIX + 'Border'
-    CONNECTOR: str = WODL_CLASS_PREFIX + 'Connector'
-    CORRECTION: str = WODL_CLASS_PREFIX + 'Correction'
-    DIAGRAM: str = WODL_CLASS_PREFIX + 'Diagram'
-    DIAGRAM_CONNECTOR: str = WODL_CLASS_PREFIX + 'DiagramConnector'
-    DRAWING: str = WODL_CLASS_PREFIX + 'Drawing'
-    DRAWING_ITEM_GROUP: str = WODL_CLASS_PREFIX + 'DrawingItemGroup'
-    DRAWING_ITEM: str = WODL_CLASS_PREFIX + 'DrawingItem'
-    GARBAGE: str = WODL_CLASS_PREFIX + 'Garbage'
-    LIST: str = WODL_CLASS_PREFIX + 'List'
-    LIST_ITEM: str = WODL_CLASS_PREFIX + 'ListItem'
-    LIST_ITEM_BODY: str = 'body'
-    UNLABELLED: str = WODL_CLASS_PREFIX + 'Unlabelled'
-    UNLABELLED_BLOCK: str = WODL_CLASS_PREFIX + 'UnlabelledBlock'
-    UNLABELLED_ITEM_GROUP: str = WODL_CLASS_PREFIX + 'UnlabelledItemGroup'
-    UNLABELLED_ITEM: str = WODL_CLASS_PREFIX + 'UnlabelledItem'
-    MARKING: str = WODL_CLASS_PREFIX + 'Marking'
-    MARKING_TYPE_UNDERLINING: str = 'underlining'
-    MARKING_TYPE_PREDICATE: str = 'markingType'
-    MARKING_TYPE_ENCIRCLING: str = 'encircling'
-    MATH_BLOCK: str = WODL_CLASS_PREFIX + 'MathBlock'
-    MATH_ITEM_GROUP: str = WODL_CLASS_PREFIX + 'MathItemGroup'
-    MATH_ITEM: str = WODL_CLASS_PREFIX + 'MathItem'
-    SEGMENTATION_ROOT: str = WODL_CLASS_PREFIX + 'Root'
-    TABLE: str = WODL_CLASS_PREFIX + 'Table'
-    TEXT_REGION: str = WODL_CLASS_PREFIX + 'TextRegion'
-    TEXT_LINE: str = WODL_CLASS_PREFIX + 'TextLine'
-    WORD: str = WODL_CLASS_PREFIX + 'WordOfStrokes'
-
 
 class SemanticTriple(object):
     """
