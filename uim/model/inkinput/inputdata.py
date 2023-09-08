@@ -208,9 +208,9 @@ class InkSensorType(Enum):
     """Touch radius by X"""
     RADIUS_Y = 'will://input/3.0/channel/RadiusY'
     """Touch radius by Y"""
-    AZIMUTH = 'will://input/3.0/channel/Altitude'
+    AZIMUTH = 'will://input/3.0/channel/Azimuth'
     """Azimuth angle of the pen (yaw)"""
-    ALTITUDE = 'will://input/3.0/channel/Azimuth'
+    ALTITUDE = 'will://input/3.0/channel/Altitude'
     """Elevation angle of the pen (pitch)"""
     ROTATION = 'will://input/3.0/channel/Rotation'
     """Rotation (counter-clockwise rotation about pen axis)"""
