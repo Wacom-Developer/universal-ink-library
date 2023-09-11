@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright © 2021 Wacom Authors. All Rights Reserved.
+# Copyright © 2021-2023 Wacom Authors. All Rights Reserved.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -25,3 +25,5 @@ class HandleMissingDataPolicy(Enum):
     """Skip the stroke"""
     THROW_EXCEPTION = 3
     """Raise an exception"""
+    FILL_WITH_NAN = 4
+    """Fill missing data with NaNs"""
