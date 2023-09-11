@@ -27,7 +27,7 @@ if CURRENT_PYTHON < REQUIRED_PYTHON:
 
 # The directory containing this file
 HERE = pathlib.Path(__file__).parent
-VERSION: str = "1.0.6"
+VERSION: str = "1.1.0"
 
 # The text of the README file
 README = (HERE / "README.md").read_text()
@@ -49,10 +49,11 @@ setup(
     install_requires=[
         "numpy>=1.16.4",
         "bitstring>=3.1.7",
-        "protobuf==3.20.3",
+        "protobuf<4.0.0",
         "varint>=1.0.2",
         "python-dateutil>=2.8.1",
-        "lxml>=4.6.3"
+        "lxml>=4.6.3",
+        "Jinja2==3.1.2"
     ],
     extras_require={
     },

@@ -1,3 +1,10 @@
+2023/09/11 - RELEASE 1.1.0
+==========================
+- Fix: Azimuth and Altitude values are now correctly set in the UIM model
+- Rename syntax package to schema and using new naming convention for the schema
+- Add a analysis package to provide a set of functions to analyze the UIM model
+
+
 2022/10/7 - RELEASE 1.0.6
 ==========================
 Minor fix: 
