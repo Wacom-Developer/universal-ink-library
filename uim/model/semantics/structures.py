@@ -35,10 +35,10 @@ class BoundingBox(ABC):
     """
 
     def __init__(self, x: float, y: float, width: float, height: float):
-        self.__x = x
-        self.__y = y
-        self.__width = width
-        self.__height = height
+        self.__x: float = x
+        self.__y: float = y
+        self.__width: float = width
+        self.__height: float = height
 
     @property
     def x(self) -> float:

@@ -2,7 +2,7 @@
 """
 Context
 =======
-This package contains structures to handle the encoding an decoding context, with information such as:
+This package contains structures to handle the encoding a decoding context, with information such as:
 
 - Version of format
 - Encoding scheme

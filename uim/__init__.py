@@ -28,7 +28,8 @@ __credits__ = ["Markus Weber"]
 __license__ = "Apache 2.0 License"
 __maintainer__ = ["Markus Weber"]
 __email__ = "markus.weber@wacom.com"
-__status__ = "alpha"
+__status__ = "beta"
+__version__ = "1.1.0"
 
 __all__ = ['codec', 'model', 'utils']
 
