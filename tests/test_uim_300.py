@@ -24,7 +24,7 @@ from uim.model.ink import InkModel
 from uim.model.helpers.text_extractor import uim_extract_text_and_semantics_from
 
 # Test data directory
-from uim.model.semantics.syntax import CommonViews
+from uim.model.semantics.schema import CommonViews
 
 test_data_dir: Path = Path(__file__).parent / '../ink/uim_3.0.0/'
 
@@ -44,8 +44,5 @@ def test_uim_3_0_0(path: Path):
     assert len(ink_model.strokes) > 0
     assert len(ink_model.sensor_data.sensor_data) > 0
     assert len(ink_model.strokes) == len(ink_model.sensor_data.sensor_data)
-    if ink_model.has_knowledge_graph():
-        uim_extract_text_and_semantics_from(ink_model, hwr_view=CommonViews.LEGACY_HWR_VIEW.value,
-                                            ner_view=CommonViews.LEGACY_NER_VIEW.value)
     # Validate encoding
     assert ink_model == parser.parse(UIMEncoder310().encode(ink_model))

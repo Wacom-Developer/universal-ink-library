@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright © 2021 Wacom Authors. All Rights Reserved.
+# Copyright © 2021-23 Wacom Authors. All Rights Reserved.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -40,9 +40,9 @@ from uim.model.inkdata.strokes import Stroke, PathPointProperties
 from uim.model.inkdata.strokes import Style
 from uim.model.inkinput import inputdata as device
 from uim.model.inkinput import sensordata as sensor
-from uim.model.semantics import syntax
+from uim.model.semantics import schema
 from uim.model.semantics.node import StrokeGroupNode, StrokeNode
-from uim.model.semantics.syntax import CommonViews
+from uim.model.semantics.schema import CommonViews
 
 
 class WILL2Parser(Parser):
@@ -329,17 +329,17 @@ class WILL2Parser(Parser):
             ink_model.ink_tree.root.add(StrokeNode(path_obj))
 
         ink_model.knowledge_graph.add_semantic_triple(WILL2Parser.NODE_URI_PREFIX.format(root_node_id),
-                                                      syntax.CommonRDF.PRED_RDF_HAS_TYPE, 'WILL 2.0 - File')
+                                                      schema.CommonRDF.PRED_RDF_HAS_TYPE, 'WILL 2.0 - File')
         ink_model.brushes.add_vector_brush(self.__default_brush__())
 
     def __setup_document_properties__(self, ink_model: InkModel):
         statements: list = [
-            (syntax.DOCUMENT_TITLE_OBJECT, self.__document_title),
-            (syntax.DOCUMENT_CREATION_DATE_OBJECT, self.__document_creation_datetime),
-            (syntax.DOCUMENT_X_MIN_PROPERTY, str(self.__viewport_x)),
-            (syntax.DOCUMENT_Y_MIN_PROPERTY, str(self.__viewport_y)),
-            (syntax.DOCUMENT_WIDTH_PROPERTY, str(self.__viewport_width)),
-            (syntax.DOCUMENT_HEIGHT_PROPERTY, str(self.__viewport_height))
+            (schema.DOCUMENT_TITLE_OBJECT, self.__document_title),
+            (schema.DOCUMENT_CREATION_DATE_OBJECT, self.__document_creation_datetime),
+            (schema.DOCUMENT_X_MIN_PROPERTY, str(self.__viewport_x)),
+            (schema.DOCUMENT_Y_MIN_PROPERTY, str(self.__viewport_y)),
+            (schema.DOCUMENT_WIDTH_PROPERTY, str(self.__viewport_width)),
+            (schema.DOCUMENT_HEIGHT_PROPERTY, str(self.__viewport_height))
         ]
         ink_model.properties = statements
 

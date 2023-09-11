@@ -3,4 +3,4 @@
 
 """
 
-__all__ = ['node', 'structures', 'syntax']
+__all__ = ['node', 'structures', 'schema']

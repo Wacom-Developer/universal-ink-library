@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright © 2021 Wacom Authors. All Rights Reserved.
+# Copyright © 2021-23 Wacom Authors. All Rights Reserved.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ from uim.codec.parser.base import SupportedFormats, FormatException
 from uim.model.ink import InkModel
 from uim.model.inkdata.strokes import PathPointProperties
 from uim.model.semantics.node import StrokeGroupNode
-from uim.model.semantics.syntax import CommonViews
+from uim.model.semantics.schema import CommonViews
 
 
 class EncoderContext(object):

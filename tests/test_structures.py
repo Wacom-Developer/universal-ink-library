@@ -26,9 +26,9 @@ from uim.model.inkdata.strokes import Spline, Style, Stroke, LayoutMask, PathPoi
 from uim.model.inkinput.inputdata import Environment, InkInputProvider, InkInputType, InputDevice, SensorChannel, \
     InkSensorType, InkSensorMetricType, SensorChannelsContext, SensorContext, InputContext
 from uim.model.inkinput.sensordata import SensorData, InkState
-from uim.model.semantics import syntax
+from uim.model.semantics import schema
 from uim.model.semantics.node import StrokeGroupNode, StrokeNode, StrokeFragment, URIBuilder
-from uim.model.semantics.syntax import SemanticTriple, CommonViews
+from uim.model.semantics.schema import SemanticTriple, CommonViews, HAS_NAMED_ENTITY
 from uim.utils.matrix import Matrix4x4
 
 
@@ -289,17 +289,16 @@ def test_create_ink_model():
     hwr_root.add(StrokeNode(stroke_1, StrokeFragment(0, 1, 0.0, 1.0)))
 
     # The hwr root denotes a word
-    ink_model.knowledge_graph.append(SemanticTriple(hwr_root.uri, syntax.CommonRDF.PRED_RDF_HAS_TYPE,
-                                                    syntax.WORD))
-    ink_model.knowledge_graph.append(SemanticTriple(hwr_root.uri, syntax.Semantics.PRED_IS, "Wacom"))
+    ink_model.knowledge_graph.append(SemanticTriple(hwr_root.uri, schema.CommonRDF.PRED_RDF_HAS_TYPE,
+                                                    schema.WORD))
+    ink_model.knowledge_graph.append(SemanticTriple(hwr_root.uri, schema.IS, "Wacom"))
 
     # We need an URI builder
     uri_builder: URIBuilder = URIBuilder()
 
     # Create a named entity
     named_entity_uri = uri_builder.build_named_entity_uri(UUIDIdentifier.id_generator())
-    ink_model.knowledge_graph.append(SemanticTriple(hwr_root.uri, syntax.Semantics.PRED_HAS_NAMED_ENTITY_DEFINITION,
-                                                    named_entity_uri))
+    ink_model.knowledge_graph.append(SemanticTriple(hwr_root.uri, HAS_NAMED_ENTITY, named_entity_uri))
 
     # Add knowledge for the named entity
     ink_model.knowledge_graph.append(SemanticTriple(named_entity_uri, "entityType", "Organization"))

@@ -26,9 +26,11 @@ TEXT_REGION: str = f'{SEGMENTATION_SCHEMA}/TextRegion'
 TEXT_LINE: str = f'{SEGMENTATION_SCHEMA}/TextLine'
 WORD: str = f'{SEGMENTATION_SCHEMA}/WordOfStrokes'
 
+HAS_NAMED_ENTITY_DEFINITION: str = "hasNamedEntity"
 PART_OF_NAMED_ENTITY: str = "isPartOfNamedEntity"
 PART_OF_POS_ENTITY: str = "isPartOfPOSEntity"
-REPRESENTS: str = 'representsView'
+REPRESENTS_VIEW: str = 'representsView'
+GENERATED_BY: str = 'generatedBy'
 
 # Named Entity Recognition schema
 NER_SCHEMA_VERSION: str = '0.1'
@@ -57,6 +59,16 @@ HAS_UNIQUE_ID: str = "hasUniqueId"
 # URI Templates
 NODE_URI_PREFIX: str = 'uim:node/{}'
 NODE_ENTITY_URI_PREFIX: str = 'uim:ne/{}'
+
+# Document Properties
+WILL_NAMESPACE: str = "will://"
+DOCUMENT_NAMESPACE: str = WILL_NAMESPACE + "document/3.0/"
+DOCUMENT_TITLE_OBJECT: str = DOCUMENT_NAMESPACE + 'Title'
+DOCUMENT_CREATION_DATE_OBJECT: str = DOCUMENT_NAMESPACE + 'CreationData'
+DOCUMENT_X_MIN_PROPERTY: str = DOCUMENT_NAMESPACE + 'hasMinX'
+DOCUMENT_Y_MIN_PROPERTY: str = DOCUMENT_NAMESPACE + 'hasMiny'
+DOCUMENT_WIDTH_PROPERTY: str = DOCUMENT_NAMESPACE + 'Width'
+DOCUMENT_HEIGHT_PROPERTY: str = DOCUMENT_NAMESPACE + 'Height'
 
 
 class CommonRDF(object):

@@ -21,7 +21,7 @@ from uim.codec.parser.base import SupportedFormats
 from uim.model.base import UUIDIdentifier, InkModelException
 from uim.model.inkdata.strokes import Stroke
 from uim.model.semantics.structures import BoundingBox
-from uim.model.semantics.syntax import CommonViews
+from uim.model.semantics.schema import CommonViews
 
 
 class URIBuilder(ABC):

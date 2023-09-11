@@ -15,36 +15,37 @@
 from uim.codec.parser.uim import UIMParser
 from uim.model.helpers.text_extractor import uim_extract_text_and_semantics_from
 from uim.model.ink import InkModel
-from uim.model.semantics.syntax import CommonViews, SEMANTIC_HAS_URI, SEMANTIC_HAS_LABEL, \
-    SEMANTIC_HAS_TYPE
+from uim.model.semantics.schema import CommonViews, IS
 
 if __name__ == '__main__':
     parser: UIMParser = UIMParser()
     ink_model: InkModel = parser.parse('../ink/uim_3.1.0/2) Digital Ink is processable 1 (3.1 delta).uim')
-    if ink_model.has_knowledge_graph() and ink_model.has_tree(CommonViews.HWR_VIEW.value) \
-            and ink_model.has_tree(CommonViews.NER_VIEW.value):
+    if ink_model.has_knowledge_graph() and ink_model.has_tree(CommonViews.HWR_VIEW.value):
         # The sample
-        text_lines, entities = uim_extract_text_and_semantics_from(ink_model, hwr_view=CommonViews.HWR_VIEW.value,
-                                                                   ner_view=CommonViews.NER_VIEW.value)
-        line_number: int = 1
-        print('-------------------------------------------------------------------------------------------------------')
-        print(' Text lines:')
-        print('-------------------------------------------------------------------------------------------------------')
-        for line in text_lines:
-            print(f'{line_number}. Text line: {line["line"]} | {line["box"]}')
-            word_num: int = 1
-            for word in line['words']:
-                print(f' {word_num}. Word: {word["word"]} | {word["box"]}')
-                print(f'  -> Stroke UUIDs: {[str(w) for w in word["strokes"]]}')
-                word_num += 1
-            line_number += 1
-        print()
-        entity_number: int = 1
-        print('-------------------------------------------------------------------------------------------------------')
+        words, entities, text = uim_extract_text_and_semantics_from(ink_model, hwr_view=CommonViews.HWR_VIEW.value)
+        print('=' * 100)
+        print(' Recognised text: ')
+        print(text)
+        print('=' * 100)
+        print(' Words:')
+        print('=' * 100)
+        for word_idx, word in enumerate(words):
+            print(f' Word #{word_idx + 1}:')
+            print(f'  Text: {word["text"]}')
+            print(f'  Alternatives: {word["alternatives"]}')
+            print(f'  Bounding box: x:={word["bounding_box"]["x"]}, y:={word["bounding_box"]["y"]}, '
+                  f'width:={word["bounding_box"]["width"]}, height:={word["bounding_box"]["height"]}')
+            print('')
+        print('=' * 100)
         print(' Entities:')
-        print('-------------------------------------------------------------------------------------------------------')
-        for entity in entities:
-            print(f'{entity_number}. URI: {entity["statements"][SEMANTIC_HAS_URI]} - '
-                  f'{entity["statements"][SEMANTIC_HAS_LABEL]} '
-                  f'({entity["statements"][SEMANTIC_HAS_TYPE]})')
-            entity_number += 1
+        print('=' * 100)
+        entity_idx: int = 1
+        for entity_uri, entity_mappings in entities.items():
+            print(f' Entity #{entity_idx}: URI: {entity_uri}')
+            print("-" * 100)
+            print(f" Label: {entity_mappings[0]['label']}")
+            print(f' Ink Stroke IDs:')
+            for word_idx, entity in enumerate(entity_mappings):
+                print(f"  #{word_idx + 1}: Word match: {entity['path_id']}")
+            print('=' * 100)
+            entity_idx += 1

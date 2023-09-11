@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright © 2021 Wacom Authors. All Rights Reserved.
+# Copyright © 2021-23 Wacom Authors. All Rights Reserved.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ from uim.model.inkinput.inputdata import InkSensorType, InputContext, SensorCont
     InkSensorMetricType, InkInputType, InputDevice, InkInputProvider, Environment, SensorChannelsContext, DataType
 from uim.model.inkinput.sensordata import SensorData, ChannelData, InkState
 from uim.model.semantics.node import BoundingBox, StrokeGroupNode, StrokeNode, StrokeFragment
-from uim.model.semantics.syntax import CommonViews
+from uim.model.semantics.schema import CommonViews
 
 
 class UIMDecoder310(CodecDecoder):

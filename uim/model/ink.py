@@ -29,9 +29,9 @@ from uim.model.inkdata.strokes import Stroke
 from uim.model.inkinput.inputdata import SensorChannel, \
     InkSensorType, InkSensorMetricType, SensorChannelsContext, SensorContext, InputContext, InputContextRepository
 from uim.model.inkinput.sensordata import SensorData
-from uim.model.semantics import syntax
+from uim.model.semantics import schema
 from uim.model.semantics.node import InkNode, BoundingBox, StrokeNode, StrokeGroupNode, StrokeFragment
-from uim.model.semantics.syntax import CommonViews, SemanticTriple
+from uim.model.semantics.schema import CommonViews, SemanticTriple
 from uim.model.helpers.treeiterator import PreOrderEnumerator
 
 # Create the Logger
@@ -285,9 +285,9 @@ class InkModel(ABC):
     >>> from uim.model.inkinput.inputdata import Environment, InkInputProvider, InkInputType, InputDevice,\
     >>>    SensorChannel, InkSensorType, InkSensorMetricType, SensorChannelsContext, SensorContext, InputContext
     >>> from uim.model.inkinput.sensordata import SensorData, InkState
-    >>> from uim.model.semantics import syntax
+    >>> from uim.model.semantics import schema
     >>> from uim.model.semantics.node import StrokeGroupNode, StrokeNode, StrokeFragment, URIBuilder
-    >>> from uim.model.semantics.syntax import SemanticTriple, CommonViews
+    >>> from uim.model.semantics.schema import SemanticTriple, CommonViews
     >>> from uim.utils.matrix import Matrix4x4
     >>> # Creates an ink model from the scratch.
     >>> ink_model: InkModel = InkModel()
@@ -511,7 +511,7 @@ class InkModel(ABC):
     >>>
     >>> # Create a named entity
     >>> named_entity_uri: str = uri_builder.build_named_entity_uri(UUIDIdentifier.id_generator())
-    >>> ink_model.knowledge_graph.append(SemanticTriple(hwr_root.uri, syntax.Semantics.PRED_HAS_NAMED_ENTITY_DEFINITION,
+    >>> ink_model.knowledge_graph.append(SemanticTriple(hwr_root.uri, schema.HAS_NAMED_ENTITY,
     >>>                                                 named_entity_uri))
     >>>
     >>> # Add knowledge for the named entity
@@ -526,7 +526,7 @@ class InkModel(ABC):
         self.__brushes: Brushes = Brushes()
         self.__ink_tree: Optional[InkTree] = None
         self.__views: List[InkTree] = []
-        self.__knowledge_graph: syntax.TripleStore = syntax.TripleStore()
+        self.__knowledge_graph: schema.TripleStore = schema.TripleStore()
         self.__transform: numpy.ndarray = numpy.identity(4, dtype=float)
         self.__default_transform: bool = True
         self.__properties: List[Tuple[str, str]] = []
@@ -684,7 +684,7 @@ class InkModel(ABC):
         self.__views = []
 
     @property
-    def knowledge_graph(self) -> syntax.TripleStore:
+    def knowledge_graph(self) -> schema.TripleStore:
         """Knowledge graph encoding all knowledge about the ink strokes."""
         return self.__knowledge_graph
 
@@ -764,9 +764,9 @@ class InkModel(ABC):
         :param predicate:
         :param obj:
         """
-        self.__knowledge_graph.remove_semantic_triple(syntax.SemanticTriple(subject, predicate, obj))
+        self.__knowledge_graph.remove_semantic_triple(schema.SemanticTriple(subject, predicate, obj))
 
-    def get_semantic_statement(self, subject: str) -> syntax.SemanticTriple:
+    def get_semantic_statement(self, subject: str) -> schema.SemanticTriple:
         """Returns the document property (or the optional default value).
 
         :param subject: str -
@@ -1332,20 +1332,20 @@ class InkModel(ABC):
         parts: str = ''
         prefix: str = ''
         if self.has_properties():
-            parts += 'Properties (properties:={})'.format(len(self.properties))
+            parts += f'Properties (properties:={len(self.properties)})'
             prefix = ', '
         if self.has_input_data():
-            parts += prefix + 'Input Data (sensor data:={})'.format(len(self.sensor_data.sensor_data))
+            parts += prefix + f'Input Data (sensor data:={len(self.sensor_data.sensor_data)})'
             prefix = ', '
         if self.has_brushes():
-            parts += prefix + 'Brushes (vector:={}, raster:={})'.format(len(self.brushes.vector_brushes),
-                                                                        len(self.brushes.raster_brushes))
+            parts += prefix + f'Brushes (vector:={len(self.brushes.vector_brushes)}, '
+            parts += f'raster:={len(self.brushes.raster_brushes)})'
             prefix = ', '
         if self.has_ink_data():
-            parts += prefix + 'Ink Data (ink data:={})'.format(len(self.strokes))
+            parts += prefix + f'Ink Data (ink data:={len(self.strokes)})'
             prefix = ', '
         if self.has_knowledge_graph():
-            parts += prefix + 'Knowledge graph (statements:={})'.format(len(self.knowledge_graph.statements))
+            parts += prefix + f'Knowledge graph (statements:={len(self.knowledge_graph.statements)})'
             prefix = ', '
         if self.has_ink_structure():
             parts += prefix + f'Ink Structure (main:={1 if self.ink_tree is not None else 0},views:={len(self.views)})'

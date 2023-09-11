@@ -24,7 +24,7 @@ from uim.model.inkinput.inputdata import Environment, InkInputProvider, InkInput
     InkSensorType, InkSensorMetricType, SensorChannelsContext, SensorContext, InputContext
 from uim.model.inkinput.sensordata import SensorData, InkState
 from uim.model.semantics.node import StrokeGroupNode, StrokeNode, URIBuilder
-from uim.model.semantics.syntax import SemanticTriple, CommonViews
+import uim.model.semantics.schema as schema
 from uim.utils.matrix import Matrix4x4
 
 if __name__ == '__main__':
@@ -276,33 +276,34 @@ if __name__ == '__main__':
     root.add(stroke_node_3)
 
     # Adding view for handwriting recognition results
-    hwr_tree: InkTree = InkTree(CommonViews.HWR_VIEW.value)
+    hwr_tree: InkTree = InkTree(str(schema.CommonViews.HWR_VIEW.value))
     # Add view right after creation, to avoid warnings that tree is not yet attached
     ink_model.add_view(hwr_tree)
 
     hwr_root: StrokeGroupNode = StrokeGroupNode(UUIDIdentifier.id_generator())
     hwr_tree.root = hwr_root
-    ink_model.knowledge_graph.append(SemanticTriple(hwr_root.uri, '@', 'will:seg/0.3/Root'))
-    ink_model.knowledge_graph.append(SemanticTriple(hwr_root.uri, 'representsView', 'hwr'))
+    ink_model.knowledge_graph.append(schema.SemanticTriple(hwr_root.uri, schema.IS, 'will:seg/0.3/Root'))
+    ink_model.knowledge_graph.append(schema.SemanticTriple(hwr_root.uri, schema.REPRESENTS_VIEW,
+                                                           schema.CommonViews.HWR_VIEW.value))
 
     # Here you can add the same strokes as in the main tree, but you can organize them in a different way
     # (put them in different groups)
     # You are not supposed to add strokes that are not already in the main tree.
     text_region: StrokeGroupNode = StrokeGroupNode(UUIDIdentifier.id_generator())
     hwr_root.add(text_region)
-    ink_model.knowledge_graph.append(SemanticTriple(text_region.uri, '@', 'will:seg/0.3/TextRegion'))
+    ink_model.knowledge_graph.append(schema.SemanticTriple(text_region.uri, schema.IS, schema.TEXT_REGION))
 
     # The text_line root denotes the text line
     text_line: StrokeGroupNode = StrokeGroupNode(UUIDIdentifier.id_generator())
     text_region.add(text_line)
-    ink_model.knowledge_graph.append(SemanticTriple(text_line.uri, '@', 'will:seg/0.3/TextLine'))
+    ink_model.knowledge_graph.append(schema.SemanticTriple(text_line.uri, schema.IS, schema.TEXT_LINE))
 
     # The word node denotes a word
     word: StrokeGroupNode = StrokeGroupNode(UUIDIdentifier.id_generator())
     text_line.add(word)
-    ink_model.knowledge_graph.append(SemanticTriple(word.uri, '@', 'will:seg/0.3/WordOfStrokes'))
-    ink_model.knowledge_graph.append(SemanticTriple(word.uri, 'hasContent', "ink"))
-    ink_model.knowledge_graph.append(SemanticTriple(word.uri, 'hasLanguage', "en_US"))
+    ink_model.knowledge_graph.append(schema.SemanticTriple(word.uri, schema.IS, schema.WORD))
+    ink_model.knowledge_graph.append(schema.SemanticTriple(word.uri, schema.HAS_CONTENT, "ink"))
+    ink_model.knowledge_graph.append(schema.SemanticTriple(word.uri, schema.HAS_LANGUAGE, "en_US"))
     word.add(StrokeNode(stroke_0))
     word.add(StrokeNode(stroke_1))
     word.add(StrokeNode(stroke_2))
@@ -313,18 +314,17 @@ if __name__ == '__main__':
 
     # Create a named entity
     named_entity_uri: str = uri_builder.build_named_entity_uri(UUIDIdentifier.id_generator())
-    ink_model.knowledge_graph.append(SemanticTriple(word.uri, 'isPartOfNamedEntity',
-                                                    named_entity_uri))
+    ink_model.knowledge_graph.append(schema.SemanticTriple(word.uri, schema.PART_OF_NAMED_ENTITY, named_entity_uri))
 
     # Add knowledge for the named entity
-    ink_model.knowledge_graph.append(SemanticTriple(named_entity_uri, "hasPart-0", word.uri))
-    ink_model.knowledge_graph.append(SemanticTriple(named_entity_uri, "hasLabel", "Ink"))
-    ink_model.knowledge_graph.append(SemanticTriple(named_entity_uri, "hasLanguage", "en_US"))
-    ink_model.knowledge_graph.append(SemanticTriple(named_entity_uri, "hasConfidence", "0.95"))
-    ink_model.knowledge_graph.append(SemanticTriple(named_entity_uri, "hasArticleUrl",
+    ink_model.knowledge_graph.append(schema.SemanticTriple(named_entity_uri, "hasPart-0", word.uri))
+    ink_model.knowledge_graph.append(schema.SemanticTriple(named_entity_uri, schema.HAS_LABEL, "Ink"))
+    ink_model.knowledge_graph.append(schema.SemanticTriple(named_entity_uri, schema.HAS_LANGUAGE, "en_US"))
+    ink_model.knowledge_graph.append(schema.SemanticTriple(named_entity_uri, schema.HAS_CONFIDENCE, "0.95"))
+    ink_model.knowledge_graph.append(schema.SemanticTriple(named_entity_uri, schema.HAS_ARTICLE_URL,
                                                     'https://en.wikipedia.org/wiki/Ink'))
-    ink_model.knowledge_graph.append(SemanticTriple(named_entity_uri, "hasUniqueId", 'Q127418'))
+    ink_model.knowledge_graph.append(schema.SemanticTriple(named_entity_uri, schema.HAS_UNIQUE_ID, 'Q127418'))
     # Save the model, this will overwrite an existing file
-    with io.open('3_1_0.uim', 'wb') as uim:
+    with io.open('3_1_0_vector.uim', 'wb') as uim:
         # unicode(data) auto-decodes data to unicode if str
         uim.write(UIMEncoder310().encode(ink_model))
