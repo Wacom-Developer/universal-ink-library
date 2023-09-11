@@ -1,0 +1,1189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>uim.model.base API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>uim.model.base</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># -*- coding: utf-8 -*-
+# Copyright © 2021 Wacom Authors. All Rights Reserved.
+#
+#  Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an &#34;AS IS&#34; BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
+import hashlib
+import uuid
+from abc import ABC, abstractmethod
+from enum import Enum
+
+from typing import List, Any
+
+# Global configuration
+node_registration_debug: bool = False
+
+
+class InkModelException(Exception):
+    pass
+
+
+class IdentifiableMethod(Enum):
+    &#34;&#34;&#34;Different ID encoding methods &#34;&#34;&#34;
+    UUID = 0
+    MD5 = 1
+
+
+class Identifier(ABC):
+    &#34;&#34;&#34;
+    Internal UIM 128bit Identifier (UimID)
+    --------------------------------------
+    UimID is a 128-bit number used internally by the implementations.
+
+    It can be parsed from strings in the following formats:
+
+    Simple Hexadecimal String Representation (S-Form)
+    -------------------------------------------------
+    The representation of a UimID value is the hex-decimal string representation of the 128-bit number,
+    assuming that it&#39;s encoded using Big Endian byte ordering.
+
+    For example: fa70390871c84d91b83c9b56549043ca
+
+    Hyphenated Hexadecimal String Representation (H-Form)
+    -----------------------------------------------------
+    This representation of a UimID value has the following codec: &lt;part1&gt;-&lt;part2&gt;-&lt;part3&gt;-&lt;part4&gt;-&lt;part5&gt;
+
+    Assuming that the UimID 128-bit value is encoded using Big Endian byte ordering, it is split into 5 groups of
+    bytes and each group is formatted as hexadecimal number.
+
+    ---------------------------------------------------------------------------
+    |       |  Part 1    | Part 2 | Part 3 | Part 4 | Part 5                  |
+    ---------------------------------------------------------------------------
+    | Bytes | 0, 1, 2, 3 | 4, 5   | 6,7    | 8, 9   | 10, 11, 12, 13, 14, 15  |
+    ---------------------------------------------------------------------------
+
+    -----------------------------------------------------------------------------
+    | S  | 32 digits: 00000000000000000000000000000000                          |
+    |    | E.g., fa70390871c84d91b83c9b56549043ca                               |
+    -----------------------------------------------------------------------------
+    | H  | 32 digits separated by hyphens: 00000000-0000-0000-0000-000000000000 |
+    |    | E.g.,  fa703908-71c8-4d91-b83c-9b56549043ca                          |
+    -----------------------------------------------------------------------------
+
+    The identifier&#39;s string representation varies based on the domain:
+     - For MD5 hashes - &#34;N&#34; form
+     - For Ink Model Internals (Strokes, Nodes, Group Nodes etc.) - &#34;D&#34; form
+    &#34;&#34;&#34;
+    SEPARATOR: str = &#34;\n&#34;
+
+    def __init__(self, identifier: uuid.UUID, method: IdentifiableMethod = IdentifiableMethod.MD5):
+        self.__identifier: uuid.UUID = identifier
+        self.__method: IdentifiableMethod = method
+        if identifier is not None and type(identifier) is not uuid.UUID:
+            raise TypeError(&#39;Identifier must be of type UUID. [Type: {}]&#39;.format(type(identifier)))
+
+    @property
+    def id(self) -&gt; uuid.UUID:
+        &#34;&#34;&#34;Identifier of object. (`UUID`, read-only)&#34;&#34;&#34;
+        if self.__identifier is None:
+            self.__identifier = self.__generate_id__()
+        return self.__identifier
+
+    @property
+    def id_h_form(self) -&gt; str:
+        &#34;&#34;&#34;
+        Hyphenated Hexadecimal String Representation (H-Form) (`str`, read-only)
+
+        Examples
+        --------
+        32 digits separated by hyphens: 00000000-0000-0000-0000-000000000000, e.g., fa703908-71c8-4d91-b83c-9b56549043ca
+        &#34;&#34;&#34;
+        return Identifier.uimid_to_h_form(self.id)
+
+    @property
+    def id_s_form(self):
+        &#34;&#34;&#34;
+        Simple Hexadecimal String Representation (S-Form). (`str`, read-only)
+
+        Examples
+        --------
+         32 digits: 00000000000000000000000000000000, e.g., fa70390871c84d91b83c9b56549043ca
+        &#34;&#34;&#34;
+        return Identifier.uimid_to_s_form(self.id)
+
+    @abstractmethod
+    def __generate_id__(self) -&gt; uuid.UUID:
+        pass
+
+    @classmethod
+    def str_to_uimid(cls, uuid_str: str) -&gt; uuid.UUID:
+        &#34;&#34;&#34;
+        Convert from string to UimID (UUID).
+
+        Parameters
+        ----------
+        uuid_str: `str`
+            UimID as s-form
+
+        Returns
+        -------
+        uuid: `UUID`
+            UUID from string
+
+        Raises
+        ------
+        FormatException
+            If UUID string is not valid.
+        &#34;&#34;&#34;
+        try:
+            return uuid.UUID(uuid_str)
+        except ValueError as e:
+            raise InkModelException(f&#39;{uuid_str} is not a valid UUID. [Exception:= {str(e)}]&#39;)
+
+    @classmethod
+    def uimid_to_h_form(cls, uimid: uuid.UUID) -&gt; str:
+        &#34;&#34;&#34;
+        Convert Uim-ID in h-form.
+
+        Parameters
+        ----------
+        uimid: `UUID`
+            UUID
+
+        Returns
+        -------
+        h_form: str
+            h-form of UimID
+
+        Raises
+        ------
+        FormatException
+            If UUID string is not valid.
+        &#34;&#34;&#34;
+        if uimid is None:
+            return &#39;&#39;
+        uuid_str: str = uimid.hex
+        return f&#39;{uuid_str[:4]}-{uuid_str[4:6]}-{uuid_str[6:8]}-{uuid_str[8:10]}-{uuid_str[10:]}&#39;
+
+    @classmethod
+    def uimid_to_s_form(cls, uimid: uuid.UUID) -&gt; str:
+        &#34;&#34;&#34;
+        Convert Uim-ID in s-form.
+
+        Parameters
+        ----------
+        uimid: `UUID`
+            UUID
+
+        Returns
+        -------
+        s_form: `str`
+            s-form of UimID
+        &#34;&#34;&#34;
+        return uimid.hex
+
+    @classmethod
+    def from_bytes(cls, from_bytes: bytes) -&gt; uuid.UUID:
+        &#34;&#34;&#34;
+        Convert bytes array to UUID.
+
+        Parameters
+        ----------
+        from_bytes: `bytes`
+            Byte array encoding the UUID
+
+        Returns
+        -------
+        uuid: `UUID`
+            Valid UUID
+
+        Raises
+        ------
+        InkModelException
+            Bytes cannot be converted to UUID
+        &#34;&#34;&#34;
+        try:
+            return uuid.UUID(bytes_le=from_bytes)
+        except ValueError as e:
+            raise InkModelException(f&#39;Bytes: {from_bytes} cannot be converted to UUID. [Exception:= {str(e)}]&#39;)
+
+
+class HashIdentifier(Identifier):
+    &#34;&#34;&#34;
+    MD5-hash based Unique Identifier Generation Algorithm
+    -----------------------------------------------------
+    The described algorithm allows generation of unique identifiers based on a tag (encoded as string value) and
+    a collection of components.
+
+    The supported component types are:
+        - Integer number
+        - Floating-point number
+        - String
+
+    List of properties defined as key-value pairs; the key and value of a pair are considered to be of type string.
+    The described method takes a tag value and a list of components as arguments and generates a unique MD5 hash as
+    an 8-byte array.
+
+    Parameters
+    ----------
+    identifier: `UUID`
+        Identifier
+
+    &#34;&#34;&#34;
+
+    def __init__(self, identifier: uuid.UUID = None):
+        super().__init__(identifier=identifier, method=IdentifiableMethod.MD5)
+
+    @abstractmethod
+    def __tokenize__(self) -&gt; List[Any]:
+        &#34;&#34;&#34;
+        Generates a list of tokens which are identify the object. The subclass defines the order of tokens.
+
+        Returns
+        -------
+        tokens: `List[Any]`
+            List of tokenized items
+        &#34;&#34;&#34;
+        pass
+
+    def __generate_id__(self) -&gt; uuid.UUID:
+        token: list = self.__tokenize__()
+        message: str = &#39;&#39;
+        for t in token:
+            if t is None:
+                message += &#39;&#39;
+            elif isinstance(t, float):
+                message += &#39;{:.4f}&#39;.format(t)
+            elif isinstance(t, int):
+                message += str(t)
+            elif isinstance(t, Enum):
+                message += str(t.name)
+            elif isinstance(t, uuid.UUID):
+                message += Identifier.uimid_to_s_form(t)
+            elif isinstance(t, list):
+                for val in sorted(t, key=lambda value: value[0]):
+                    message += val[0]
+                    message += Identifier.SEPARATOR
+                    message += val[1]
+                    message += Identifier.SEPARATOR
+            else:
+                message += str(t)
+            message += Identifier.SEPARATOR
+        md5_hash: str = hashlib.md5(message.encode(encoding=&#39;UTF-8&#39;, errors=&#39;strict&#39;)).hexdigest()
+        return uuid.UUID(md5_hash)
+
+    def __invalidate__(self):
+        &#34;&#34;&#34;Invalidate the hashed id if an internal value has changed.&#34;&#34;&#34;
+        self.__id = None
+
+
+class UUIDIdentifier(Identifier):
+    &#34;&#34;&#34;
+    UUID Identifier.
+
+    Parameters
+    ----------
+    identifier: `UUID`
+        Identifier
+    &#34;&#34;&#34;
+
+    def __init__(self, identifier: uuid.UUID):
+        super().__init__(identifier=identifier, method=IdentifiableMethod.UUID)
+
+    @staticmethod
+    def id_generator() -&gt; uuid.UUID:
+        &#34;&#34;&#34;
+        UUID generator function.
+
+        Returns
+        -------
+        random: UUID
+            Random generated UUID
+        &#34;&#34;&#34;
+        return uuid.uuid4()
+
+    def __generate_id__(self) -&gt; uuid.UUID:
+        return UUIDIdentifier.id_generator()
+
+    def __repr__(self):
+        return f&#39;&lt;UUIDIdentifiable : [s-form:={self.id_s_form}, h-form:={self.id_h_form}]&gt;&#39;</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="uim.model.base.HashIdentifier"><code class="flex name class">
+<span>class <span class="ident">HashIdentifier</span></span>
+<span>(</span><span>identifier: uuid.UUID = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><h2 id="md5-hash-based-unique-identifier-generation-algorithm">MD5-hash based Unique Identifier Generation Algorithm</h2>
+<p>The described algorithm allows generation of unique identifiers based on a tag (encoded as string value) and
+a collection of components.</p>
+<p>The supported component types are:
+- Integer number
+- Floating-point number
+- String</p>
+<p>List of properties defined as key-value pairs; the key and value of a pair are considered to be of type string.
+The described method takes a tag value and a list of components as arguments and generates a unique MD5 hash as
+an 8-byte array.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>identifier</code></strong> :&ensp;<code>UUID</code></dt>
+<dd>Identifier</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class HashIdentifier(Identifier):
+    &#34;&#34;&#34;
+    MD5-hash based Unique Identifier Generation Algorithm
+    -----------------------------------------------------
+    The described algorithm allows generation of unique identifiers based on a tag (encoded as string value) and
+    a collection of components.
+
+    The supported component types are:
+        - Integer number
+        - Floating-point number
+        - String
+
+    List of properties defined as key-value pairs; the key and value of a pair are considered to be of type string.
+    The described method takes a tag value and a list of components as arguments and generates a unique MD5 hash as
+    an 8-byte array.
+
+    Parameters
+    ----------
+    identifier: `UUID`
+        Identifier
+
+    &#34;&#34;&#34;
+
+    def __init__(self, identifier: uuid.UUID = None):
+        super().__init__(identifier=identifier, method=IdentifiableMethod.MD5)
+
+    @abstractmethod
+    def __tokenize__(self) -&gt; List[Any]:
+        &#34;&#34;&#34;
+        Generates a list of tokens which are identify the object. The subclass defines the order of tokens.
+
+        Returns
+        -------
+        tokens: `List[Any]`
+            List of tokenized items
+        &#34;&#34;&#34;
+        pass
+
+    def __generate_id__(self) -&gt; uuid.UUID:
+        token: list = self.__tokenize__()
+        message: str = &#39;&#39;
+        for t in token:
+            if t is None:
+                message += &#39;&#39;
+            elif isinstance(t, float):
+                message += &#39;{:.4f}&#39;.format(t)
+            elif isinstance(t, int):
+                message += str(t)
+            elif isinstance(t, Enum):
+                message += str(t.name)
+            elif isinstance(t, uuid.UUID):
+                message += Identifier.uimid_to_s_form(t)
+            elif isinstance(t, list):
+                for val in sorted(t, key=lambda value: value[0]):
+                    message += val[0]
+                    message += Identifier.SEPARATOR
+                    message += val[1]
+                    message += Identifier.SEPARATOR
+            else:
+                message += str(t)
+            message += Identifier.SEPARATOR
+        md5_hash: str = hashlib.md5(message.encode(encoding=&#39;UTF-8&#39;, errors=&#39;strict&#39;)).hexdigest()
+        return uuid.UUID(md5_hash)
+
+    def __invalidate__(self):
+        &#34;&#34;&#34;Invalidate the hashed id if an internal value has changed.&#34;&#34;&#34;
+        self.__id = None</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="uim.model.base.Identifier" href="#uim.model.base.Identifier">Identifier</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="uim.model.inkdata.strokes.PathPointProperties" href="inkdata/strokes.html#uim.model.inkdata.strokes.PathPointProperties">PathPointProperties</a></li>
+<li><a title="uim.model.inkinput.inputdata.Environment" href="inkinput/inputdata.html#uim.model.inkinput.inputdata.Environment">Environment</a></li>
+<li><a title="uim.model.inkinput.inputdata.InkInputProvider" href="inkinput/inputdata.html#uim.model.inkinput.inputdata.InkInputProvider">InkInputProvider</a></li>
+<li><a title="uim.model.inkinput.inputdata.InputContext" href="inkinput/inputdata.html#uim.model.inkinput.inputdata.InputContext">InputContext</a></li>
+<li><a title="uim.model.inkinput.inputdata.InputDevice" href="inkinput/inputdata.html#uim.model.inkinput.inputdata.InputDevice">InputDevice</a></li>
+<li><a title="uim.model.inkinput.inputdata.SensorChannel" href="inkinput/inputdata.html#uim.model.inkinput.inputdata.SensorChannel">SensorChannel</a></li>
+<li><a title="uim.model.inkinput.inputdata.SensorChannelsContext" href="inkinput/inputdata.html#uim.model.inkinput.inputdata.SensorChannelsContext">SensorChannelsContext</a></li>
+<li><a title="uim.model.inkinput.inputdata.SensorContext" href="inkinput/inputdata.html#uim.model.inkinput.inputdata.SensorContext">SensorContext</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="uim.model.base.HashIdentifier.SEPARATOR"><code class="name">var <span class="ident">SEPARATOR</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="uim.model.base.Identifier" href="#uim.model.base.Identifier">Identifier</a></b></code>:
+<ul class="hlist">
+<li><code><a title="uim.model.base.Identifier.from_bytes" href="#uim.model.base.Identifier.from_bytes">from_bytes</a></code></li>
+<li><code><a title="uim.model.base.Identifier.id" href="#uim.model.base.Identifier.id">id</a></code></li>
+<li><code><a title="uim.model.base.Identifier.id_h_form" href="#uim.model.base.Identifier.id_h_form">id_h_form</a></code></li>
+<li><code><a title="uim.model.base.Identifier.id_s_form" href="#uim.model.base.Identifier.id_s_form">id_s_form</a></code></li>
+<li><code><a title="uim.model.base.Identifier.str_to_uimid" href="#uim.model.base.Identifier.str_to_uimid">str_to_uimid</a></code></li>
+<li><code><a title="uim.model.base.Identifier.uimid_to_h_form" href="#uim.model.base.Identifier.uimid_to_h_form">uimid_to_h_form</a></code></li>
+<li><code><a title="uim.model.base.Identifier.uimid_to_s_form" href="#uim.model.base.Identifier.uimid_to_s_form">uimid_to_s_form</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="uim.model.base.IdentifiableMethod"><code class="flex name class">
+<span>class <span class="ident">IdentifiableMethod</span></span>
+<span>(</span><span>value, names=None, *, module=None, qualname=None, type=None, start=1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Different ID encoding methods</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class IdentifiableMethod(Enum):
+    &#34;&#34;&#34;Different ID encoding methods &#34;&#34;&#34;
+    UUID = 0
+    MD5 = 1</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="uim.model.base.IdentifiableMethod.MD5"><code class="name">var <span class="ident">MD5</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.model.base.IdentifiableMethod.UUID"><code class="name">var <span class="ident">UUID</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="uim.model.base.Identifier"><code class="flex name class">
+<span>class <span class="ident">Identifier</span></span>
+<span>(</span><span>identifier: uuid.UUID, method: <a title="uim.model.base.IdentifiableMethod" href="#uim.model.base.IdentifiableMethod">IdentifiableMethod</a> = IdentifiableMethod.MD5)</span>
+</code></dt>
+<dd>
+<div class="desc"><h2 id="internal-uim-128bit-identifier-uimid">Internal UIM 128bit Identifier (UimID)</h2>
+<p>UimID is a 128-bit number used internally by the implementations.</p>
+<p>It can be parsed from strings in the following formats:</p>
+<h2 id="simple-hexadecimal-string-representation-s-form">Simple Hexadecimal String Representation (S-Form)</h2>
+<p>The representation of a UimID value is the hex-decimal string representation of the 128-bit number,
+assuming that it's encoded using Big Endian byte ordering.</p>
+<p>For example: fa70390871c84d91b83c9b56549043ca</p>
+<h2 id="hyphenated-hexadecimal-string-representation-h-form">Hyphenated Hexadecimal String Representation (H-Form)</h2>
+<p>This representation of a UimID value has the following codec: <part1>-<part2>-<part3>-<part4>-<part5></p>
+<p>Assuming that the UimID 128-bit value is encoded using Big Endian byte ordering, it is split into 5 groups of
+bytes and each group is formatted as hexadecimal number.</p>
+<hr>
+<h2 id="part-1-part-2-part-3-part-4-part-5">|
+|
+Part 1
+| Part 2 | Part 3 | Part 4 | Part 5
+|</h2>
+<h2 id="bytes-0-1-2-3-4-5-67-8-9-10-11-12-13-14-15">| Bytes | 0, 1, 2, 3 | 4, 5
+| 6,7
+| 8, 9
+| 10, 11, 12, 13, 14, 15
+|</h2>
+<hr>
+<p>| S
+| 32 digits: 00000000000000000000000000000000
+|
+|
+| E.g., fa70390871c84d91b83c9b56549043ca
+|</p>
+<hr>
+<p>| H
+| 32 digits separated by hyphens: 00000000-0000-0000-0000-000000000000 |
+|
+| E.g.,
+fa703908-71c8-4d91-b83c-9b56549043ca
+|</p>
+<hr>
+<p>The identifier's string representation varies based on the domain:
+- For MD5 hashes - "N" form
+- For Ink Model Internals (Strokes, Nodes, Group Nodes etc.) - "D" form</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Identifier(ABC):
+    &#34;&#34;&#34;
+    Internal UIM 128bit Identifier (UimID)
+    --------------------------------------
+    UimID is a 128-bit number used internally by the implementations.
+
+    It can be parsed from strings in the following formats:
+
+    Simple Hexadecimal String Representation (S-Form)
+    -------------------------------------------------
+    The representation of a UimID value is the hex-decimal string representation of the 128-bit number,
+    assuming that it&#39;s encoded using Big Endian byte ordering.
+
+    For example: fa70390871c84d91b83c9b56549043ca
+
+    Hyphenated Hexadecimal String Representation (H-Form)
+    -----------------------------------------------------
+    This representation of a UimID value has the following codec: &lt;part1&gt;-&lt;part2&gt;-&lt;part3&gt;-&lt;part4&gt;-&lt;part5&gt;
+
+    Assuming that the UimID 128-bit value is encoded using Big Endian byte ordering, it is split into 5 groups of
+    bytes and each group is formatted as hexadecimal number.
+
+    ---------------------------------------------------------------------------
+    |       |  Part 1    | Part 2 | Part 3 | Part 4 | Part 5                  |
+    ---------------------------------------------------------------------------
+    | Bytes | 0, 1, 2, 3 | 4, 5   | 6,7    | 8, 9   | 10, 11, 12, 13, 14, 15  |
+    ---------------------------------------------------------------------------
+
+    -----------------------------------------------------------------------------
+    | S  | 32 digits: 00000000000000000000000000000000                          |
+    |    | E.g., fa70390871c84d91b83c9b56549043ca                               |
+    -----------------------------------------------------------------------------
+    | H  | 32 digits separated by hyphens: 00000000-0000-0000-0000-000000000000 |
+    |    | E.g.,  fa703908-71c8-4d91-b83c-9b56549043ca                          |
+    -----------------------------------------------------------------------------
+
+    The identifier&#39;s string representation varies based on the domain:
+     - For MD5 hashes - &#34;N&#34; form
+     - For Ink Model Internals (Strokes, Nodes, Group Nodes etc.) - &#34;D&#34; form
+    &#34;&#34;&#34;
+    SEPARATOR: str = &#34;\n&#34;
+
+    def __init__(self, identifier: uuid.UUID, method: IdentifiableMethod = IdentifiableMethod.MD5):
+        self.__identifier: uuid.UUID = identifier
+        self.__method: IdentifiableMethod = method
+        if identifier is not None and type(identifier) is not uuid.UUID:
+            raise TypeError(&#39;Identifier must be of type UUID. [Type: {}]&#39;.format(type(identifier)))
+
+    @property
+    def id(self) -&gt; uuid.UUID:
+        &#34;&#34;&#34;Identifier of object. (`UUID`, read-only)&#34;&#34;&#34;
+        if self.__identifier is None:
+            self.__identifier = self.__generate_id__()
+        return self.__identifier
+
+    @property
+    def id_h_form(self) -&gt; str:
+        &#34;&#34;&#34;
+        Hyphenated Hexadecimal String Representation (H-Form) (`str`, read-only)
+
+        Examples
+        --------
+        32 digits separated by hyphens: 00000000-0000-0000-0000-000000000000, e.g., fa703908-71c8-4d91-b83c-9b56549043ca
+        &#34;&#34;&#34;
+        return Identifier.uimid_to_h_form(self.id)
+
+    @property
+    def id_s_form(self):
+        &#34;&#34;&#34;
+        Simple Hexadecimal String Representation (S-Form). (`str`, read-only)
+
+        Examples
+        --------
+         32 digits: 00000000000000000000000000000000, e.g., fa70390871c84d91b83c9b56549043ca
+        &#34;&#34;&#34;
+        return Identifier.uimid_to_s_form(self.id)
+
+    @abstractmethod
+    def __generate_id__(self) -&gt; uuid.UUID:
+        pass
+
+    @classmethod
+    def str_to_uimid(cls, uuid_str: str) -&gt; uuid.UUID:
+        &#34;&#34;&#34;
+        Convert from string to UimID (UUID).
+
+        Parameters
+        ----------
+        uuid_str: `str`
+            UimID as s-form
+
+        Returns
+        -------
+        uuid: `UUID`
+            UUID from string
+
+        Raises
+        ------
+        FormatException
+            If UUID string is not valid.
+        &#34;&#34;&#34;
+        try:
+            return uuid.UUID(uuid_str)
+        except ValueError as e:
+            raise InkModelException(f&#39;{uuid_str} is not a valid UUID. [Exception:= {str(e)}]&#39;)
+
+    @classmethod
+    def uimid_to_h_form(cls, uimid: uuid.UUID) -&gt; str:
+        &#34;&#34;&#34;
+        Convert Uim-ID in h-form.
+
+        Parameters
+        ----------
+        uimid: `UUID`
+            UUID
+
+        Returns
+        -------
+        h_form: str
+            h-form of UimID
+
+        Raises
+        ------
+        FormatException
+            If UUID string is not valid.
+        &#34;&#34;&#34;
+        if uimid is None:
+            return &#39;&#39;
+        uuid_str: str = uimid.hex
+        return f&#39;{uuid_str[:4]}-{uuid_str[4:6]}-{uuid_str[6:8]}-{uuid_str[8:10]}-{uuid_str[10:]}&#39;
+
+    @classmethod
+    def uimid_to_s_form(cls, uimid: uuid.UUID) -&gt; str:
+        &#34;&#34;&#34;
+        Convert Uim-ID in s-form.
+
+        Parameters
+        ----------
+        uimid: `UUID`
+            UUID
+
+        Returns
+        -------
+        s_form: `str`
+            s-form of UimID
+        &#34;&#34;&#34;
+        return uimid.hex
+
+    @classmethod
+    def from_bytes(cls, from_bytes: bytes) -&gt; uuid.UUID:
+        &#34;&#34;&#34;
+        Convert bytes array to UUID.
+
+        Parameters
+        ----------
+        from_bytes: `bytes`
+            Byte array encoding the UUID
+
+        Returns
+        -------
+        uuid: `UUID`
+            Valid UUID
+
+        Raises
+        ------
+        InkModelException
+            Bytes cannot be converted to UUID
+        &#34;&#34;&#34;
+        try:
+            return uuid.UUID(bytes_le=from_bytes)
+        except ValueError as e:
+            raise InkModelException(f&#39;Bytes: {from_bytes} cannot be converted to UUID. [Exception:= {str(e)}]&#39;)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>abc.ABC</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="uim.model.base.HashIdentifier" href="#uim.model.base.HashIdentifier">HashIdentifier</a></li>
+<li><a title="uim.model.base.UUIDIdentifier" href="#uim.model.base.UUIDIdentifier">UUIDIdentifier</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="uim.model.base.Identifier.SEPARATOR"><code class="name">var <span class="ident">SEPARATOR</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Static methods</h3>
+<dl>
+<dt id="uim.model.base.Identifier.from_bytes"><code class="name flex">
+<span>def <span class="ident">from_bytes</span></span>(<span>from_bytes: bytes) ‑> uuid.UUID</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Convert bytes array to UUID.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>from_bytes</code></strong> :&ensp;<code>bytes</code></dt>
+<dd>Byte array encoding the UUID</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>uuid</code></strong> :&ensp;<code>UUID</code></dt>
+<dd>Valid UUID</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code><a title="uim.model.base.InkModelException" href="#uim.model.base.InkModelException">InkModelException</a></code></dt>
+<dd>Bytes cannot be converted to UUID</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def from_bytes(cls, from_bytes: bytes) -&gt; uuid.UUID:
+    &#34;&#34;&#34;
+    Convert bytes array to UUID.
+
+    Parameters
+    ----------
+    from_bytes: `bytes`
+        Byte array encoding the UUID
+
+    Returns
+    -------
+    uuid: `UUID`
+        Valid UUID
+
+    Raises
+    ------
+    InkModelException
+        Bytes cannot be converted to UUID
+    &#34;&#34;&#34;
+    try:
+        return uuid.UUID(bytes_le=from_bytes)
+    except ValueError as e:
+        raise InkModelException(f&#39;Bytes: {from_bytes} cannot be converted to UUID. [Exception:= {str(e)}]&#39;)</code></pre>
+</details>
+</dd>
+<dt id="uim.model.base.Identifier.str_to_uimid"><code class="name flex">
+<span>def <span class="ident">str_to_uimid</span></span>(<span>uuid_str: str) ‑> uuid.UUID</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Convert from string to UimID (UUID).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>uuid_str</code></strong> :&ensp;<code>str</code></dt>
+<dd>UimID as s-form</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>uuid</code></strong> :&ensp;<code>UUID</code></dt>
+<dd>UUID from string</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>FormatException</code></dt>
+<dd>If UUID string is not valid.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def str_to_uimid(cls, uuid_str: str) -&gt; uuid.UUID:
+    &#34;&#34;&#34;
+    Convert from string to UimID (UUID).
+
+    Parameters
+    ----------
+    uuid_str: `str`
+        UimID as s-form
+
+    Returns
+    -------
+    uuid: `UUID`
+        UUID from string
+
+    Raises
+    ------
+    FormatException
+        If UUID string is not valid.
+    &#34;&#34;&#34;
+    try:
+        return uuid.UUID(uuid_str)
+    except ValueError as e:
+        raise InkModelException(f&#39;{uuid_str} is not a valid UUID. [Exception:= {str(e)}]&#39;)</code></pre>
+</details>
+</dd>
+<dt id="uim.model.base.Identifier.uimid_to_h_form"><code class="name flex">
+<span>def <span class="ident">uimid_to_h_form</span></span>(<span>uimid: uuid.UUID) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Convert Uim-ID in h-form.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>uimid</code></strong> :&ensp;<code>UUID</code></dt>
+<dd>UUID</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>h_form</code></strong> :&ensp;<code>str</code></dt>
+<dd>h-form of UimID</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>FormatException</code></dt>
+<dd>If UUID string is not valid.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def uimid_to_h_form(cls, uimid: uuid.UUID) -&gt; str:
+    &#34;&#34;&#34;
+    Convert Uim-ID in h-form.
+
+    Parameters
+    ----------
+    uimid: `UUID`
+        UUID
+
+    Returns
+    -------
+    h_form: str
+        h-form of UimID
+
+    Raises
+    ------
+    FormatException
+        If UUID string is not valid.
+    &#34;&#34;&#34;
+    if uimid is None:
+        return &#39;&#39;
+    uuid_str: str = uimid.hex
+    return f&#39;{uuid_str[:4]}-{uuid_str[4:6]}-{uuid_str[6:8]}-{uuid_str[8:10]}-{uuid_str[10:]}&#39;</code></pre>
+</details>
+</dd>
+<dt id="uim.model.base.Identifier.uimid_to_s_form"><code class="name flex">
+<span>def <span class="ident">uimid_to_s_form</span></span>(<span>uimid: uuid.UUID) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Convert Uim-ID in s-form.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>uimid</code></strong> :&ensp;<code>UUID</code></dt>
+<dd>UUID</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>s_form</code></strong> :&ensp;<code>str</code></dt>
+<dd>s-form of UimID</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def uimid_to_s_form(cls, uimid: uuid.UUID) -&gt; str:
+    &#34;&#34;&#34;
+    Convert Uim-ID in s-form.
+
+    Parameters
+    ----------
+    uimid: `UUID`
+        UUID
+
+    Returns
+    -------
+    s_form: `str`
+        s-form of UimID
+    &#34;&#34;&#34;
+    return uimid.hex</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="uim.model.base.Identifier.id"><code class="name">var <span class="ident">id</span> : uuid.UUID</code></dt>
+<dd>
+<div class="desc"><p>Identifier of object. (<code>UUID</code>, read-only)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def id(self) -&gt; uuid.UUID:
+    &#34;&#34;&#34;Identifier of object. (`UUID`, read-only)&#34;&#34;&#34;
+    if self.__identifier is None:
+        self.__identifier = self.__generate_id__()
+    return self.__identifier</code></pre>
+</details>
+</dd>
+<dt id="uim.model.base.Identifier.id_h_form"><code class="name">var <span class="ident">id_h_form</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Hyphenated Hexadecimal String Representation (H-Form) (<code>str</code>, read-only)</p>
+<h2 id="examples">Examples</h2>
+<p>32 digits separated by hyphens: 00000000-0000-0000-0000-000000000000, e.g., fa703908-71c8-4d91-b83c-9b56549043ca</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def id_h_form(self) -&gt; str:
+    &#34;&#34;&#34;
+    Hyphenated Hexadecimal String Representation (H-Form) (`str`, read-only)
+
+    Examples
+    --------
+    32 digits separated by hyphens: 00000000-0000-0000-0000-000000000000, e.g., fa703908-71c8-4d91-b83c-9b56549043ca
+    &#34;&#34;&#34;
+    return Identifier.uimid_to_h_form(self.id)</code></pre>
+</details>
+</dd>
+<dt id="uim.model.base.Identifier.id_s_form"><code class="name">var <span class="ident">id_s_form</span></code></dt>
+<dd>
+<div class="desc"><p>Simple Hexadecimal String Representation (S-Form). (<code>str</code>, read-only)</p>
+<h2 id="examples">Examples</h2>
+<p>32 digits: 00000000000000000000000000000000, e.g., fa70390871c84d91b83c9b56549043ca</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def id_s_form(self):
+    &#34;&#34;&#34;
+    Simple Hexadecimal String Representation (S-Form). (`str`, read-only)
+
+    Examples
+    --------
+     32 digits: 00000000000000000000000000000000, e.g., fa70390871c84d91b83c9b56549043ca
+    &#34;&#34;&#34;
+    return Identifier.uimid_to_s_form(self.id)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="uim.model.base.InkModelException"><code class="flex name class">
+<span>class <span class="ident">InkModelException</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Common base class for all non-exit exceptions.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class InkModelException(Exception):
+    pass</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>builtins.Exception</li>
+<li>builtins.BaseException</li>
+</ul>
+</dd>
+<dt id="uim.model.base.UUIDIdentifier"><code class="flex name class">
+<span>class <span class="ident">UUIDIdentifier</span></span>
+<span>(</span><span>identifier: uuid.UUID)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>UUID Identifier.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>identifier</code></strong> :&ensp;<code>UUID</code></dt>
+<dd>Identifier</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class UUIDIdentifier(Identifier):
+    &#34;&#34;&#34;
+    UUID Identifier.
+
+    Parameters
+    ----------
+    identifier: `UUID`
+        Identifier
+    &#34;&#34;&#34;
+
+    def __init__(self, identifier: uuid.UUID):
+        super().__init__(identifier=identifier, method=IdentifiableMethod.UUID)
+
+    @staticmethod
+    def id_generator() -&gt; uuid.UUID:
+        &#34;&#34;&#34;
+        UUID generator function.
+
+        Returns
+        -------
+        random: UUID
+            Random generated UUID
+        &#34;&#34;&#34;
+        return uuid.uuid4()
+
+    def __generate_id__(self) -&gt; uuid.UUID:
+        return UUIDIdentifier.id_generator()
+
+    def __repr__(self):
+        return f&#39;&lt;UUIDIdentifiable : [s-form:={self.id_s_form}, h-form:={self.id_h_form}]&gt;&#39;</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="uim.model.base.Identifier" href="#uim.model.base.Identifier">Identifier</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="uim.model.inkdata.strokes.Stroke" href="inkdata/strokes.html#uim.model.inkdata.strokes.Stroke">Stroke</a></li>
+<li><a title="uim.model.inkinput.sensordata.ChannelData" href="inkinput/sensordata.html#uim.model.inkinput.sensordata.ChannelData">ChannelData</a></li>
+<li><a title="uim.model.inkinput.sensordata.SensorData" href="inkinput/sensordata.html#uim.model.inkinput.sensordata.SensorData">SensorData</a></li>
+<li><a title="uim.model.semantics.node.InkNode" href="semantics/node.html#uim.model.semantics.node.InkNode">InkNode</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="uim.model.base.UUIDIdentifier.SEPARATOR"><code class="name">var <span class="ident">SEPARATOR</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Static methods</h3>
+<dl>
+<dt id="uim.model.base.UUIDIdentifier.id_generator"><code class="name flex">
+<span>def <span class="ident">id_generator</span></span>(<span>) ‑> uuid.UUID</span>
+</code></dt>
+<dd>
+<div class="desc"><p>UUID generator function.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>random</code></strong> :&ensp;<code>UUID</code></dt>
+<dd>Random generated UUID</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def id_generator() -&gt; uuid.UUID:
+    &#34;&#34;&#34;
+    UUID generator function.
+
+    Returns
+    -------
+    random: UUID
+        Random generated UUID
+    &#34;&#34;&#34;
+    return uuid.uuid4()</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="uim.model.base.Identifier" href="#uim.model.base.Identifier">Identifier</a></b></code>:
+<ul class="hlist">
+<li><code><a title="uim.model.base.Identifier.from_bytes" href="#uim.model.base.Identifier.from_bytes">from_bytes</a></code></li>
+<li><code><a title="uim.model.base.Identifier.id" href="#uim.model.base.Identifier.id">id</a></code></li>
+<li><code><a title="uim.model.base.Identifier.id_h_form" href="#uim.model.base.Identifier.id_h_form">id_h_form</a></code></li>
+<li><code><a title="uim.model.base.Identifier.id_s_form" href="#uim.model.base.Identifier.id_s_form">id_s_form</a></code></li>
+<li><code><a title="uim.model.base.Identifier.str_to_uimid" href="#uim.model.base.Identifier.str_to_uimid">str_to_uimid</a></code></li>
+<li><code><a title="uim.model.base.Identifier.uimid_to_h_form" href="#uim.model.base.Identifier.uimid_to_h_form">uimid_to_h_form</a></code></li>
+<li><code><a title="uim.model.base.Identifier.uimid_to_s_form" href="#uim.model.base.Identifier.uimid_to_s_form">uimid_to_s_form</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="uim.model" href="index.html">uim.model</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="uim.model.base.HashIdentifier" href="#uim.model.base.HashIdentifier">HashIdentifier</a></code></h4>
+<ul class="">
+<li><code><a title="uim.model.base.HashIdentifier.SEPARATOR" href="#uim.model.base.HashIdentifier.SEPARATOR">SEPARATOR</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="uim.model.base.IdentifiableMethod" href="#uim.model.base.IdentifiableMethod">IdentifiableMethod</a></code></h4>
+<ul class="">
+<li><code><a title="uim.model.base.IdentifiableMethod.MD5" href="#uim.model.base.IdentifiableMethod.MD5">MD5</a></code></li>
+<li><code><a title="uim.model.base.IdentifiableMethod.UUID" href="#uim.model.base.IdentifiableMethod.UUID">UUID</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="uim.model.base.Identifier" href="#uim.model.base.Identifier">Identifier</a></code></h4>
+<ul class="two-column">
+<li><code><a title="uim.model.base.Identifier.SEPARATOR" href="#uim.model.base.Identifier.SEPARATOR">SEPARATOR</a></code></li>
+<li><code><a title="uim.model.base.Identifier.from_bytes" href="#uim.model.base.Identifier.from_bytes">from_bytes</a></code></li>
+<li><code><a title="uim.model.base.Identifier.id" href="#uim.model.base.Identifier.id">id</a></code></li>
+<li><code><a title="uim.model.base.Identifier.id_h_form" href="#uim.model.base.Identifier.id_h_form">id_h_form</a></code></li>
+<li><code><a title="uim.model.base.Identifier.id_s_form" href="#uim.model.base.Identifier.id_s_form">id_s_form</a></code></li>
+<li><code><a title="uim.model.base.Identifier.str_to_uimid" href="#uim.model.base.Identifier.str_to_uimid">str_to_uimid</a></code></li>
+<li><code><a title="uim.model.base.Identifier.uimid_to_h_form" href="#uim.model.base.Identifier.uimid_to_h_form">uimid_to_h_form</a></code></li>
+<li><code><a title="uim.model.base.Identifier.uimid_to_s_form" href="#uim.model.base.Identifier.uimid_to_s_form">uimid_to_s_form</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="uim.model.base.InkModelException" href="#uim.model.base.InkModelException">InkModelException</a></code></h4>
+</li>
+<li>
+<h4><code><a title="uim.model.base.UUIDIdentifier" href="#uim.model.base.UUIDIdentifier">UUIDIdentifier</a></code></h4>
+<ul class="">
+<li><code><a title="uim.model.base.UUIDIdentifier.SEPARATOR" href="#uim.model.base.UUIDIdentifier.SEPARATOR">SEPARATOR</a></code></li>
+<li><code><a title="uim.model.base.UUIDIdentifier.id_generator" href="#uim.model.base.UUIDIdentifier.id_generator">id_generator</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

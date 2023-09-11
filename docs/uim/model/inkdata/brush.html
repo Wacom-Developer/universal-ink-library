@@ -1,0 +1,1776 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>uim.model.inkdata.brush API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>uim.model.inkdata.brush</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># -*- coding: utf-8 -*-
+# Copyright © 2021 Wacom Authors. All Rights Reserved.
+#
+#  Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an &#34;AS IS&#34; BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+from abc import ABC
+from enum import Enum
+from typing import List, Tuple, Any
+
+import uim.codec.format.UIM_3_0_0_pb2 as uim
+
+
+class RotationMode(Enum):
+    &#34;&#34;&#34;Brush rotation modes.&#34;&#34;&#34;
+    NONE = 0
+    &#34;&#34;&#34;Indicates that the shape will not be rotated.&#34;&#34;&#34;
+    RANDOM = 1
+    &#34;&#34;&#34;Indicates that the shape will be rotated randomly before it renders.&#34;&#34;&#34;
+    TRAJECTORY = 2
+    &#34;&#34;&#34;Indicates that the shape will be rotated to match the path trajectory.&#34;&#34;&#34;
+
+
+class BlendMode(Enum):
+    &#34;&#34;&#34;The blend mode enum lists the different blend modes which can be applied to raster brushes.&#34;&#34;&#34;
+
+    SOURCE_OVER = uim.SOURCE_OVER
+    &#34;&#34;&#34;This is the default setting and draws new shapes on top of the existing canvas content. Also known as NORMAL.&#34;&#34;&#34;
+    DESTINATION_OVER = uim.DESTINATION_OVER
+    &#34;&#34;&#34;New shapes are drawn behind the existing canvas content. Also known as NORMAL_REVERSE.&#34;&#34;&#34;
+    DESTINATION_OUT = uim.DESTINATION_OUT
+    &#34;&#34;&#34;The existing content is kept where it doesn&#39;t overlap the new shape. Also known as ERASE.&#34;&#34;&#34;
+    LIGHTER = uim.LIGHTER
+    &#34;&#34;&#34;Where both shapes overlap the color is determined by adding color values. Also known as ADD.&#34;&#34;&#34;
+    COPY = uim.COPY
+    &#34;&#34;&#34;Only the new shape is shown. Also known as NONE.&#34;&#34;&#34;
+    MIN = uim.MIN
+    &#34;&#34;&#34;The result is the minimum of both color. The result is a darker color.&#34;&#34;&#34;
+    MAX = uim.MAX
+    &#34;&#34;&#34;The result is the maximum of both color. The result is a lighter color.&#34;&#34;&#34;
+
+
+class BlendModeURIs(ABC):
+    &#34;&#34;&#34;
+    URIs for the different blend modes.
+    &#34;&#34;&#34;
+    SOURCE_OVER: str = &#34;will://rasterization/3.0/blend-mode/SourceOver&#34;
+    &#34;&#34;&#34;URI for BlendMode.SourceOver&#34;&#34;&#34;
+    DESTINATION_OVER: str = &#34;will://rasterization/3.0/blend-mode/DestinationOver&#34;
+    &#34;&#34;&#34;URI for BlendMode.DestinationOver&#34;&#34;&#34;
+    DESTINATION_OUT: str = &#34;will://rasterization/3.0/blend-mode/DestinationOut&#34;
+    &#34;&#34;&#34;URI for BlendMode.DestinationOut&#34;&#34;&#34;
+    LIGHTER: str = &#34;will://rasterization/3.0/blend-mode/Lighter&#34;
+    &#34;&#34;&#34;URI for BlendMode.Lighter&#34;&#34;&#34;
+    COPY: str = &#34;will://rasterization/3.0/blend-mode/Copy&#34;
+    &#34;&#34;&#34;URI for BlendMode.Copy&#34;&#34;&#34;
+    MIN: str = &#34;will://rasterization/3.0/blend-mode/Min&#34;
+    &#34;&#34;&#34;URI for BlendMode.Min&#34;&#34;&#34;
+    MAX: str = &#34;will://rasterization/3.0/blend-mode/Max&#34;
+    &#34;&#34;&#34;URI for BlendMode.Max&#34;&#34;&#34;
+
+
+class BrushPolygonUri(ABC):
+    &#34;&#34;&#34;
+    Represents a vector brush shape that is specified with a URI.
+
+    Parameters
+    ----------
+    uri: ´str´
+        URI string that identifies the shape.
+    min_scale: ´float´
+        Minimum scale of the brush sample, after which this shape is applied.
+    &#34;&#34;&#34;
+
+    def __init__(self, uri: str, min_scale: float):
+        self.__uri: str = uri
+        self.__min_scale: float = min_scale
+
+    @property
+    def shape_uri(self) -&gt; str:
+        &#34;&#34;&#34;
+        URI string that identifies the shape. (´str´)
+        &#34;&#34;&#34;
+        return self.__uri
+
+    @property
+    def min_scale(self) -&gt; float:
+        &#34;&#34;&#34;
+        Minimum scale of the brush sample, after which this shape is applied. (´float´)
+
+        Notes
+        -----
+        This value is used by the brush applier in order to pick the proper shape according to the actual brush scale.
+        &#34;&#34;&#34;
+        return self.__min_scale
+
+
+class BrushPolygon(ABC):
+    &#34;&#34;&#34;
+    Describes vector brush prototype.
+
+    Parameters
+    ----------
+    points: list
+        List of points for polygon
+    indices: list
+        List of indexes
+    &#34;&#34;&#34;
+
+    def __init__(self, min_scale: float, points: list = None, indices: list = None):
+        self.__min_scale: float = min_scale
+        self.__points: List[Tuple[float, float]] = points or []
+        self.__indices: List[int] = indices or []
+
+    @property
+    def points(self) -&gt; List[Tuple[float, float]]:
+        &#34;&#34;&#34;List of coordinates for x value. (`List[Tuple[float, float]]`, read-only)&#34;&#34;&#34;
+        return self.__points
+
+    @property
+    def coord_x(self) -&gt; List[float]:
+        &#34;&#34;&#34;List of coordinates for x value. (`List[float]`, read-only)&#34;&#34;&#34;
+        if len(self.__points) == 0:
+            return []
+        if len(self.__points[0]) &gt; 0:
+            return [p[0] for p in self.points]
+
+    @property
+    def coord_y(self) -&gt; List[float]:
+        &#34;&#34;&#34;List of coordinates for y value. (`List[float]`, read-only)&#34;&#34;&#34;
+        if len(self.__points) == 0:
+            return []
+        if len(self.__points[0]) &gt; 1:
+            return [p[1] for p in self.points]
+
+    @property
+    def coord_z(self) -&gt; List[float]:
+        &#34;&#34;&#34;List of coordinates for z value. (`List[float]`, read-only)&#34;&#34;&#34;
+        if len(self.__points) == 0:
+            return []
+        if len(self.__points[0]) &gt; 2:
+            return [p[2] for p in self.points]
+        return []
+
+    @property
+    def indices(self) -&gt; List[int]:
+        &#34;&#34;&#34;List of indices of brush prototype [for 3D rendering]. (`List[int]`, read-only)&#34;&#34;&#34;
+        return self.__indices
+
+    @property
+    def min_scale(self) -&gt; float:
+        &#34;&#34;&#34;
+        Minimum scale of the brush sample, after which this shape is applied. (`float`, read-only)
+
+        Notes
+        -----
+        This value is used by the brush applier in order to pick the proper shape according to the actual brush scale.
+        &#34;&#34;&#34;
+        return self.__min_scale
+
+    def __repr__(self):
+        return &#39;&lt;VectorBrushPrototype : [#points:={}]&gt;&#39;.format(len(self.__points))
+
+
+class Brush(ABC):
+    &#34;&#34;&#34;Abstract class for brushes.&#34;&#34;&#34;
+    pass
+
+
+class VectorBrush(Brush):
+    &#34;&#34;&#34;
+    VectorBrush
+    -----------
+    A configuration which allows rendering of an interpolated Catmull-Rom spline as a vector spline by applying a
+    specific polygon for each interpolated point, depending on its size and merging result afterwards.
+
+    Parameters
+    ----------
+    name: str
+        Name of the brush
+    prototypes: list
+        Prototypes for brush
+    spacing: float
+        Spacing value
+    &#34;&#34;&#34;
+
+    def __init__(self, name: str, prototypes: List[Any] = None, spacing: float = 1.):
+        self.__name: str = name
+        self.__prototypes: List[Any] = prototypes or []
+        self.__spacing: float = spacing
+
+    @property
+    def name(self) -&gt; str:
+        &#34;&#34;&#34;Name of the vector brush. (`str`, read-only)&#34;&#34;&#34;
+        return self.__name
+
+    @property
+    def prototypes(self) -&gt; List[Any]:
+        &#34;&#34;&#34; Polygon prototype for the brush. (`List[Any]`,  read-only).
+
+        Notes
+        -----
+        The prototype can be either URI-based for prototype with a defined polygon geometry.
+
+        See also
+        --------
+        - `BrushPolygon` - List of polygon sample points
+        - `BrushPolygonUri` - List of URI polygon prototype
+        &#34;&#34;&#34;
+        return self.__prototypes
+
+    @property
+    def spacing(self) -&gt; float:
+        &#34;&#34;&#34;Spacing value. (`float`, read-only)&#34;&#34;&#34;
+        return self.__spacing
+
+    def __repr__(self):
+        return &#39;&lt;VectorBrush : [name:={}]&gt;&#39;.format(self.__name)
+
+
+class RasterBrush(Brush):
+    &#34;&#34;&#34;
+    RasterBrush
+    -----------
+    A configuration which allows rendering of an interpolated Catmull-Rom spline as a raster image by applying a
+    specific sprite for each interpolated point, depending on its size.
+
+    Parameters
+    ----------
+    name: `str`
+        Brush descriptor
+    spacing: `float`
+        Distance between neighbour particles.
+    scattering: `float`
+        The scattering along the curve normal.
+    rotation: `RotationMode`
+        The particle rotation mode of the brush.
+    shape_textures: list
+        List of png images that contains the shape texture.
+    shape_texture_uris: list
+        List of URIs that contains the shape texture.
+    fill_texture: `bytes`
+        List of png image that contains the fill texture.
+    fill_texture_uri: `list`
+        List of URIs that describes the fill textures.
+    fill_width: `float`
+        Width of the fill tile.
+    fill_height: `float`
+        Height of the fill tile.
+    randomize_fill: `bool`
+        Specifies whether the fill texture is randomly displaced.
+    blend_mode: `BlendMode`
+        The applied blend mode.
+    &#34;&#34;&#34;
+
+    def __init__(self, name: str, spacing: float, scattering: float, rotation: RotationMode,
+                 shape_textures: List[bytes] = None, shape_texture_uris: List[str] = None,
+                 fill_texture: bytes = None, fill_texture_uri: str = None,
+                 fill_width: float = 0., fill_height: float = 0.,
+                 randomize_fill: bool = False, blend_mode: BlendMode = BlendMode.SOURCE_OVER):
+        self.__name: str = name
+        self.__spacing: float = spacing
+        self.__scattering: float = scattering
+        self.__rotation: RotationMode = rotation
+        self.__shape_textures: List[bytes] = shape_textures if shape_textures is not None else []
+        self.__shape_texture_uri: List[str] = shape_texture_uris if shape_texture_uris is not None else []
+        self.__fill_texture: bytes = fill_texture if fill_texture is not None else b&#39;&#39;
+        self.__fill_texture_uri: str = fill_texture_uri if fill_texture_uri is not None else &#39;&#39;
+        self.__fill_width: float = fill_width
+        self.__fill_height: float = fill_height
+        self.__randomize_fill: bool = randomize_fill
+        self.__blend_mode: BlendMode = blend_mode
+
+    @property
+    def name(self) -&gt; str:
+        &#34;&#34;&#34; Brush descriptor
+        :return : name of brush
+        &#34;&#34;&#34;
+        return self.__name
+
+    @property
+    def spacing(self) -&gt; float:
+        &#34;&#34;&#34;Distance between neighbour particles. (`float`, read-only)&#34;&#34;&#34;
+        return self.__spacing
+
+    @property
+    def scattering(self) -&gt; float:
+        &#34;&#34;&#34;The scattering along the curve normal. (`float`, read-only)&#34;&#34;&#34;
+        return self.__scattering
+
+    @property
+    def rotation(self) -&gt; RotationMode:
+        &#34;&#34;&#34;The particle rotation mode of the brush. (`float`, read-only)&#34;&#34;&#34;
+        return self.__rotation
+
+    @property
+    def shape_textures(self) -&gt; List[bytes]:
+        &#34;&#34;&#34;List of png images that contains the shape texture; byte array with PNG content.
+        (`List[bytes]`, read-only)&#34;&#34;&#34;
+        return self.__shape_textures
+
+    @property
+    def shape_texture_uris(self) -&gt; List[str]:
+        &#34;&#34;&#34;URI identifying the fillTexture. (`List[str]`, read-only)&#34;&#34;&#34;
+        return self.__shape_texture_uri
+
+    @property
+    def fill_texture(self) -&gt; bytes:
+        &#34;&#34;&#34;List of png image that contains the fill texture. (`bytes`, read-only)&#34;&#34;&#34;
+        return self.__fill_texture
+
+    @property
+    def fill_texture_uri(self) -&gt; str:
+        &#34;&#34;&#34;URIs identifying the fillTexture.
+        :return : list of URIs
+        &#34;&#34;&#34;
+        return self.__fill_texture_uri
+
+    @property
+    def fill_width(self) -&gt; float:
+        &#34;&#34;&#34;Width of the fill tile.
+        :return : width
+        &#34;&#34;&#34;
+        return self.__fill_width
+
+    @property
+    def fill_height(self) -&gt; float:
+        &#34;&#34;&#34;Height of the fill tile.
+        :return : height
+        &#34;&#34;&#34;
+        return self.__fill_height
+
+    @property
+    def randomize_fill(self) -&gt; bool:
+        &#34;&#34;&#34;Specifies whether the fill texture is randomly displaced.
+        :return : bool - flag
+        &#34;&#34;&#34;
+        return self.__randomize_fill
+
+    def __repr__(self):
+        return &#39;&lt;RasterBrush : [name:={}]&gt;&#39;.format(self.name)
+
+
+class Brushes(object):
+    &#34;&#34;&#34;
+        Brush descriptions, needed for uim rasterization.
+    &#34;&#34;&#34;
+
+    def __init__(self, vector_brushes: List[VectorBrush] = None, raster_brushes: List[RasterBrush] = None):
+        &#34;&#34;&#34;
+        Constructor.
+        :param vector_brushes: List of defined vector brushes.
+        :param raster_brushes: List of defined raster brushes.
+        &#34;&#34;&#34;
+        self.__vector_brushes: List[VectorBrush] = vector_brushes or []
+        self.__raster_brushes: List[RasterBrush] = raster_brushes or []
+
+    @property
+    def vector_brushes(self) -&gt; List[VectorBrush]:
+        &#34;&#34;&#34;
+        List of defined vector brushes.
+        :return: list
+        &#34;&#34;&#34;
+        return self.__vector_brushes
+
+    @property
+    def raster_brushes(self) -&gt; List[RasterBrush]:
+        &#34;&#34;&#34;
+        List of defined raster brushes.
+        :return: list
+        &#34;&#34;&#34;
+        return self.__raster_brushes
+
+    def add_vector_brush(self, brush: VectorBrush):
+        &#34;&#34;&#34;
+        Adding a vector brush.
+
+        Parameters
+        ----------
+        brush: `VectorBrush`
+            Vector brush
+        &#34;&#34;&#34;
+        self.vector_brushes.append(brush)
+
+    def add_raster_brush(self, brush: RasterBrush):
+        &#34;&#34;&#34;
+        Adding raster brush.
+
+        Parameters
+        ----------
+        brush: `RasterBrush`
+            Raster brush
+        &#34;&#34;&#34;
+        self.raster_brushes.append(brush)
+
+    def remove_vector_brush(self, name: str):
+        &#34;&#34;&#34;
+        Remove vector brush from brushes.
+        If the brush with the name does not exist, no operation is performed.
+
+        Parameters
+        ----------
+        name: `str`
+            Name of brush that should be remove.
+        &#34;&#34;&#34;
+        for v_i in range(len(self.__vector_brushes)):
+            if self.__vector_brushes[v_i].name == name:
+                del self.__vector_brushes[v_i]
+                break
+
+    def remove_raster_brush(self, name: str):
+        &#34;&#34;&#34;
+        Remove raster brush from brushes. If the brush with the name does not exist, no operation is performed.
+
+        Parameter
+        ---------
+        name: str
+            Name of brush that should be remove
+        &#34;&#34;&#34;
+        for v_i in range(len(self.__raster_brushes)):
+            if self.__raster_brushes[v_i].name == name:
+                del self.__raster_brushes[v_i]
+                break
+
+    def __repr__(self):
+        return &#39;&lt;Brushes : [raster brush:=#{}, vector brush:=#{}]&gt;&#39;.format(len(self.__raster_brushes),
+                                                                           len(self.__vector_brushes))</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="uim.model.inkdata.brush.BlendMode"><code class="flex name class">
+<span>class <span class="ident">BlendMode</span></span>
+<span>(</span><span>value, names=None, *, module=None, qualname=None, type=None, start=1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The blend mode enum lists the different blend modes which can be applied to raster brushes.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class BlendMode(Enum):
+    &#34;&#34;&#34;The blend mode enum lists the different blend modes which can be applied to raster brushes.&#34;&#34;&#34;
+
+    SOURCE_OVER = uim.SOURCE_OVER
+    &#34;&#34;&#34;This is the default setting and draws new shapes on top of the existing canvas content. Also known as NORMAL.&#34;&#34;&#34;
+    DESTINATION_OVER = uim.DESTINATION_OVER
+    &#34;&#34;&#34;New shapes are drawn behind the existing canvas content. Also known as NORMAL_REVERSE.&#34;&#34;&#34;
+    DESTINATION_OUT = uim.DESTINATION_OUT
+    &#34;&#34;&#34;The existing content is kept where it doesn&#39;t overlap the new shape. Also known as ERASE.&#34;&#34;&#34;
+    LIGHTER = uim.LIGHTER
+    &#34;&#34;&#34;Where both shapes overlap the color is determined by adding color values. Also known as ADD.&#34;&#34;&#34;
+    COPY = uim.COPY
+    &#34;&#34;&#34;Only the new shape is shown. Also known as NONE.&#34;&#34;&#34;
+    MIN = uim.MIN
+    &#34;&#34;&#34;The result is the minimum of both color. The result is a darker color.&#34;&#34;&#34;
+    MAX = uim.MAX
+    &#34;&#34;&#34;The result is the maximum of both color. The result is a lighter color.&#34;&#34;&#34;</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="uim.model.inkdata.brush.BlendMode.COPY"><code class="name">var <span class="ident">COPY</span></code></dt>
+<dd>
+<div class="desc"><p>Only the new shape is shown. Also known as NONE.</p></div>
+</dd>
+<dt id="uim.model.inkdata.brush.BlendMode.DESTINATION_OUT"><code class="name">var <span class="ident">DESTINATION_OUT</span></code></dt>
+<dd>
+<div class="desc"><p>The existing content is kept where it doesn't overlap the new shape. Also known as ERASE.</p></div>
+</dd>
+<dt id="uim.model.inkdata.brush.BlendMode.DESTINATION_OVER"><code class="name">var <span class="ident">DESTINATION_OVER</span></code></dt>
+<dd>
+<div class="desc"><p>New shapes are drawn behind the existing canvas content. Also known as NORMAL_REVERSE.</p></div>
+</dd>
+<dt id="uim.model.inkdata.brush.BlendMode.LIGHTER"><code class="name">var <span class="ident">LIGHTER</span></code></dt>
+<dd>
+<div class="desc"><p>Where both shapes overlap the color is determined by adding color values. Also known as ADD.</p></div>
+</dd>
+<dt id="uim.model.inkdata.brush.BlendMode.MAX"><code class="name">var <span class="ident">MAX</span></code></dt>
+<dd>
+<div class="desc"><p>The result is the maximum of both color. The result is a lighter color.</p></div>
+</dd>
+<dt id="uim.model.inkdata.brush.BlendMode.MIN"><code class="name">var <span class="ident">MIN</span></code></dt>
+<dd>
+<div class="desc"><p>The result is the minimum of both color. The result is a darker color.</p></div>
+</dd>
+<dt id="uim.model.inkdata.brush.BlendMode.SOURCE_OVER"><code class="name">var <span class="ident">SOURCE_OVER</span></code></dt>
+<dd>
+<div class="desc"><p>This is the default setting and draws new shapes on top of the existing canvas content. Also known as NORMAL.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="uim.model.inkdata.brush.BlendModeURIs"><code class="flex name class">
+<span>class <span class="ident">BlendModeURIs</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>URIs for the different blend modes.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class BlendModeURIs(ABC):
+    &#34;&#34;&#34;
+    URIs for the different blend modes.
+    &#34;&#34;&#34;
+    SOURCE_OVER: str = &#34;will://rasterization/3.0/blend-mode/SourceOver&#34;
+    &#34;&#34;&#34;URI for BlendMode.SourceOver&#34;&#34;&#34;
+    DESTINATION_OVER: str = &#34;will://rasterization/3.0/blend-mode/DestinationOver&#34;
+    &#34;&#34;&#34;URI for BlendMode.DestinationOver&#34;&#34;&#34;
+    DESTINATION_OUT: str = &#34;will://rasterization/3.0/blend-mode/DestinationOut&#34;
+    &#34;&#34;&#34;URI for BlendMode.DestinationOut&#34;&#34;&#34;
+    LIGHTER: str = &#34;will://rasterization/3.0/blend-mode/Lighter&#34;
+    &#34;&#34;&#34;URI for BlendMode.Lighter&#34;&#34;&#34;
+    COPY: str = &#34;will://rasterization/3.0/blend-mode/Copy&#34;
+    &#34;&#34;&#34;URI for BlendMode.Copy&#34;&#34;&#34;
+    MIN: str = &#34;will://rasterization/3.0/blend-mode/Min&#34;
+    &#34;&#34;&#34;URI for BlendMode.Min&#34;&#34;&#34;
+    MAX: str = &#34;will://rasterization/3.0/blend-mode/Max&#34;
+    &#34;&#34;&#34;URI for BlendMode.Max&#34;&#34;&#34;</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>abc.ABC</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="uim.model.inkdata.brush.BlendModeURIs.COPY"><code class="name">var <span class="ident">COPY</span> : str</code></dt>
+<dd>
+<div class="desc"><p>URI for BlendMode.Copy</p></div>
+</dd>
+<dt id="uim.model.inkdata.brush.BlendModeURIs.DESTINATION_OUT"><code class="name">var <span class="ident">DESTINATION_OUT</span> : str</code></dt>
+<dd>
+<div class="desc"><p>URI for BlendMode.DestinationOut</p></div>
+</dd>
+<dt id="uim.model.inkdata.brush.BlendModeURIs.DESTINATION_OVER"><code class="name">var <span class="ident">DESTINATION_OVER</span> : str</code></dt>
+<dd>
+<div class="desc"><p>URI for BlendMode.DestinationOver</p></div>
+</dd>
+<dt id="uim.model.inkdata.brush.BlendModeURIs.LIGHTER"><code class="name">var <span class="ident">LIGHTER</span> : str</code></dt>
+<dd>
+<div class="desc"><p>URI for BlendMode.Lighter</p></div>
+</dd>
+<dt id="uim.model.inkdata.brush.BlendModeURIs.MAX"><code class="name">var <span class="ident">MAX</span> : str</code></dt>
+<dd>
+<div class="desc"><p>URI for BlendMode.Max</p></div>
+</dd>
+<dt id="uim.model.inkdata.brush.BlendModeURIs.MIN"><code class="name">var <span class="ident">MIN</span> : str</code></dt>
+<dd>
+<div class="desc"><p>URI for BlendMode.Min</p></div>
+</dd>
+<dt id="uim.model.inkdata.brush.BlendModeURIs.SOURCE_OVER"><code class="name">var <span class="ident">SOURCE_OVER</span> : str</code></dt>
+<dd>
+<div class="desc"><p>URI for BlendMode.SourceOver</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="uim.model.inkdata.brush.Brush"><code class="flex name class">
+<span>class <span class="ident">Brush</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Abstract class for brushes.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Brush(ABC):
+    &#34;&#34;&#34;Abstract class for brushes.&#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>abc.ABC</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="uim.model.inkdata.brush.RasterBrush" href="#uim.model.inkdata.brush.RasterBrush">RasterBrush</a></li>
+<li><a title="uim.model.inkdata.brush.VectorBrush" href="#uim.model.inkdata.brush.VectorBrush">VectorBrush</a></li>
+</ul>
+</dd>
+<dt id="uim.model.inkdata.brush.BrushPolygon"><code class="flex name class">
+<span>class <span class="ident">BrushPolygon</span></span>
+<span>(</span><span>min_scale: float, points: list = None, indices: list = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Describes vector brush prototype.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>points</code></strong> :&ensp;<code>list</code></dt>
+<dd>List of points for polygon</dd>
+<dt><strong><code>indices</code></strong> :&ensp;<code>list</code></dt>
+<dd>List of indexes</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class BrushPolygon(ABC):
+    &#34;&#34;&#34;
+    Describes vector brush prototype.
+
+    Parameters
+    ----------
+    points: list
+        List of points for polygon
+    indices: list
+        List of indexes
+    &#34;&#34;&#34;
+
+    def __init__(self, min_scale: float, points: list = None, indices: list = None):
+        self.__min_scale: float = min_scale
+        self.__points: List[Tuple[float, float]] = points or []
+        self.__indices: List[int] = indices or []
+
+    @property
+    def points(self) -&gt; List[Tuple[float, float]]:
+        &#34;&#34;&#34;List of coordinates for x value. (`List[Tuple[float, float]]`, read-only)&#34;&#34;&#34;
+        return self.__points
+
+    @property
+    def coord_x(self) -&gt; List[float]:
+        &#34;&#34;&#34;List of coordinates for x value. (`List[float]`, read-only)&#34;&#34;&#34;
+        if len(self.__points) == 0:
+            return []
+        if len(self.__points[0]) &gt; 0:
+            return [p[0] for p in self.points]
+
+    @property
+    def coord_y(self) -&gt; List[float]:
+        &#34;&#34;&#34;List of coordinates for y value. (`List[float]`, read-only)&#34;&#34;&#34;
+        if len(self.__points) == 0:
+            return []
+        if len(self.__points[0]) &gt; 1:
+            return [p[1] for p in self.points]
+
+    @property
+    def coord_z(self) -&gt; List[float]:
+        &#34;&#34;&#34;List of coordinates for z value. (`List[float]`, read-only)&#34;&#34;&#34;
+        if len(self.__points) == 0:
+            return []
+        if len(self.__points[0]) &gt; 2:
+            return [p[2] for p in self.points]
+        return []
+
+    @property
+    def indices(self) -&gt; List[int]:
+        &#34;&#34;&#34;List of indices of brush prototype [for 3D rendering]. (`List[int]`, read-only)&#34;&#34;&#34;
+        return self.__indices
+
+    @property
+    def min_scale(self) -&gt; float:
+        &#34;&#34;&#34;
+        Minimum scale of the brush sample, after which this shape is applied. (`float`, read-only)
+
+        Notes
+        -----
+        This value is used by the brush applier in order to pick the proper shape according to the actual brush scale.
+        &#34;&#34;&#34;
+        return self.__min_scale
+
+    def __repr__(self):
+        return &#39;&lt;VectorBrushPrototype : [#points:={}]&gt;&#39;.format(len(self.__points))</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>abc.ABC</li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="uim.model.inkdata.brush.BrushPolygon.coord_x"><code class="name">var <span class="ident">coord_x</span> : List[float]</code></dt>
+<dd>
+<div class="desc"><p>List of coordinates for x value. (<code>List[float]</code>, read-only)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def coord_x(self) -&gt; List[float]:
+    &#34;&#34;&#34;List of coordinates for x value. (`List[float]`, read-only)&#34;&#34;&#34;
+    if len(self.__points) == 0:
+        return []
+    if len(self.__points[0]) &gt; 0:
+        return [p[0] for p in self.points]</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.brush.BrushPolygon.coord_y"><code class="name">var <span class="ident">coord_y</span> : List[float]</code></dt>
+<dd>
+<div class="desc"><p>List of coordinates for y value. (<code>List[float]</code>, read-only)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def coord_y(self) -&gt; List[float]:
+    &#34;&#34;&#34;List of coordinates for y value. (`List[float]`, read-only)&#34;&#34;&#34;
+    if len(self.__points) == 0:
+        return []
+    if len(self.__points[0]) &gt; 1:
+        return [p[1] for p in self.points]</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.brush.BrushPolygon.coord_z"><code class="name">var <span class="ident">coord_z</span> : List[float]</code></dt>
+<dd>
+<div class="desc"><p>List of coordinates for z value. (<code>List[float]</code>, read-only)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def coord_z(self) -&gt; List[float]:
+    &#34;&#34;&#34;List of coordinates for z value. (`List[float]`, read-only)&#34;&#34;&#34;
+    if len(self.__points) == 0:
+        return []
+    if len(self.__points[0]) &gt; 2:
+        return [p[2] for p in self.points]
+    return []</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.brush.BrushPolygon.indices"><code class="name">var <span class="ident">indices</span> : List[int]</code></dt>
+<dd>
+<div class="desc"><p>List of indices of brush prototype [for 3D rendering]. (<code>List[int]</code>, read-only)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def indices(self) -&gt; List[int]:
+    &#34;&#34;&#34;List of indices of brush prototype [for 3D rendering]. (`List[int]`, read-only)&#34;&#34;&#34;
+    return self.__indices</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.brush.BrushPolygon.min_scale"><code class="name">var <span class="ident">min_scale</span> : float</code></dt>
+<dd>
+<div class="desc"><p>Minimum scale of the brush sample, after which this shape is applied. (<code>float</code>, read-only)</p>
+<h2 id="notes">Notes</h2>
+<p>This value is used by the brush applier in order to pick the proper shape according to the actual brush scale.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def min_scale(self) -&gt; float:
+    &#34;&#34;&#34;
+    Minimum scale of the brush sample, after which this shape is applied. (`float`, read-only)
+
+    Notes
+    -----
+    This value is used by the brush applier in order to pick the proper shape according to the actual brush scale.
+    &#34;&#34;&#34;
+    return self.__min_scale</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.brush.BrushPolygon.points"><code class="name">var <span class="ident">points</span> : List[Tuple[float, float]]</code></dt>
+<dd>
+<div class="desc"><p>List of coordinates for x value. (<code>List[Tuple[float, float]]</code>, read-only)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def points(self) -&gt; List[Tuple[float, float]]:
+    &#34;&#34;&#34;List of coordinates for x value. (`List[Tuple[float, float]]`, read-only)&#34;&#34;&#34;
+    return self.__points</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="uim.model.inkdata.brush.BrushPolygonUri"><code class="flex name class">
+<span>class <span class="ident">BrushPolygonUri</span></span>
+<span>(</span><span>uri: str, min_scale: float)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Represents a vector brush shape that is specified with a URI.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>uri</code></strong> :&ensp;<code>´str´</code></dt>
+<dd>URI string that identifies the shape.</dd>
+<dt><strong><code>min_scale</code></strong> :&ensp;<code>´float´</code></dt>
+<dd>Minimum scale of the brush sample, after which this shape is applied.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class BrushPolygonUri(ABC):
+    &#34;&#34;&#34;
+    Represents a vector brush shape that is specified with a URI.
+
+    Parameters
+    ----------
+    uri: ´str´
+        URI string that identifies the shape.
+    min_scale: ´float´
+        Minimum scale of the brush sample, after which this shape is applied.
+    &#34;&#34;&#34;
+
+    def __init__(self, uri: str, min_scale: float):
+        self.__uri: str = uri
+        self.__min_scale: float = min_scale
+
+    @property
+    def shape_uri(self) -&gt; str:
+        &#34;&#34;&#34;
+        URI string that identifies the shape. (´str´)
+        &#34;&#34;&#34;
+        return self.__uri
+
+    @property
+    def min_scale(self) -&gt; float:
+        &#34;&#34;&#34;
+        Minimum scale of the brush sample, after which this shape is applied. (´float´)
+
+        Notes
+        -----
+        This value is used by the brush applier in order to pick the proper shape according to the actual brush scale.
+        &#34;&#34;&#34;
+        return self.__min_scale</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>abc.ABC</li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="uim.model.inkdata.brush.BrushPolygonUri.min_scale"><code class="name">var <span class="ident">min_scale</span> : float</code></dt>
+<dd>
+<div class="desc"><p>Minimum scale of the brush sample, after which this shape is applied. (´float´)</p>
+<h2 id="notes">Notes</h2>
+<p>This value is used by the brush applier in order to pick the proper shape according to the actual brush scale.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def min_scale(self) -&gt; float:
+    &#34;&#34;&#34;
+    Minimum scale of the brush sample, after which this shape is applied. (´float´)
+
+    Notes
+    -----
+    This value is used by the brush applier in order to pick the proper shape according to the actual brush scale.
+    &#34;&#34;&#34;
+    return self.__min_scale</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.brush.BrushPolygonUri.shape_uri"><code class="name">var <span class="ident">shape_uri</span> : str</code></dt>
+<dd>
+<div class="desc"><p>URI string that identifies the shape. (´str´)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def shape_uri(self) -&gt; str:
+    &#34;&#34;&#34;
+    URI string that identifies the shape. (´str´)
+    &#34;&#34;&#34;
+    return self.__uri</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="uim.model.inkdata.brush.Brushes"><code class="flex name class">
+<span>class <span class="ident">Brushes</span></span>
+<span>(</span><span>vector_brushes: List[<a title="uim.model.inkdata.brush.VectorBrush" href="#uim.model.inkdata.brush.VectorBrush">VectorBrush</a>] = None, raster_brushes: List[<a title="uim.model.inkdata.brush.RasterBrush" href="#uim.model.inkdata.brush.RasterBrush">RasterBrush</a>] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Brush descriptions, needed for uim rasterization.</p>
+<p>Constructor.
+:param vector_brushes: List of defined vector brushes.
+:param raster_brushes: List of defined raster brushes.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Brushes(object):
+    &#34;&#34;&#34;
+        Brush descriptions, needed for uim rasterization.
+    &#34;&#34;&#34;
+
+    def __init__(self, vector_brushes: List[VectorBrush] = None, raster_brushes: List[RasterBrush] = None):
+        &#34;&#34;&#34;
+        Constructor.
+        :param vector_brushes: List of defined vector brushes.
+        :param raster_brushes: List of defined raster brushes.
+        &#34;&#34;&#34;
+        self.__vector_brushes: List[VectorBrush] = vector_brushes or []
+        self.__raster_brushes: List[RasterBrush] = raster_brushes or []
+
+    @property
+    def vector_brushes(self) -&gt; List[VectorBrush]:
+        &#34;&#34;&#34;
+        List of defined vector brushes.
+        :return: list
+        &#34;&#34;&#34;
+        return self.__vector_brushes
+
+    @property
+    def raster_brushes(self) -&gt; List[RasterBrush]:
+        &#34;&#34;&#34;
+        List of defined raster brushes.
+        :return: list
+        &#34;&#34;&#34;
+        return self.__raster_brushes
+
+    def add_vector_brush(self, brush: VectorBrush):
+        &#34;&#34;&#34;
+        Adding a vector brush.
+
+        Parameters
+        ----------
+        brush: `VectorBrush`
+            Vector brush
+        &#34;&#34;&#34;
+        self.vector_brushes.append(brush)
+
+    def add_raster_brush(self, brush: RasterBrush):
+        &#34;&#34;&#34;
+        Adding raster brush.
+
+        Parameters
+        ----------
+        brush: `RasterBrush`
+            Raster brush
+        &#34;&#34;&#34;
+        self.raster_brushes.append(brush)
+
+    def remove_vector_brush(self, name: str):
+        &#34;&#34;&#34;
+        Remove vector brush from brushes.
+        If the brush with the name does not exist, no operation is performed.
+
+        Parameters
+        ----------
+        name: `str`
+            Name of brush that should be remove.
+        &#34;&#34;&#34;
+        for v_i in range(len(self.__vector_brushes)):
+            if self.__vector_brushes[v_i].name == name:
+                del self.__vector_brushes[v_i]
+                break
+
+    def remove_raster_brush(self, name: str):
+        &#34;&#34;&#34;
+        Remove raster brush from brushes. If the brush with the name does not exist, no operation is performed.
+
+        Parameter
+        ---------
+        name: str
+            Name of brush that should be remove
+        &#34;&#34;&#34;
+        for v_i in range(len(self.__raster_brushes)):
+            if self.__raster_brushes[v_i].name == name:
+                del self.__raster_brushes[v_i]
+                break
+
+    def __repr__(self):
+        return &#39;&lt;Brushes : [raster brush:=#{}, vector brush:=#{}]&gt;&#39;.format(len(self.__raster_brushes),
+                                                                           len(self.__vector_brushes))</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="uim.model.inkdata.brush.Brushes.raster_brushes"><code class="name">var <span class="ident">raster_brushes</span> : List[<a title="uim.model.inkdata.brush.RasterBrush" href="#uim.model.inkdata.brush.RasterBrush">RasterBrush</a>]</code></dt>
+<dd>
+<div class="desc"><p>List of defined raster brushes.
+:return: list</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def raster_brushes(self) -&gt; List[RasterBrush]:
+    &#34;&#34;&#34;
+    List of defined raster brushes.
+    :return: list
+    &#34;&#34;&#34;
+    return self.__raster_brushes</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.brush.Brushes.vector_brushes"><code class="name">var <span class="ident">vector_brushes</span> : List[<a title="uim.model.inkdata.brush.VectorBrush" href="#uim.model.inkdata.brush.VectorBrush">VectorBrush</a>]</code></dt>
+<dd>
+<div class="desc"><p>List of defined vector brushes.
+:return: list</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def vector_brushes(self) -&gt; List[VectorBrush]:
+    &#34;&#34;&#34;
+    List of defined vector brushes.
+    :return: list
+    &#34;&#34;&#34;
+    return self.__vector_brushes</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="uim.model.inkdata.brush.Brushes.add_raster_brush"><code class="name flex">
+<span>def <span class="ident">add_raster_brush</span></span>(<span>self, brush: <a title="uim.model.inkdata.brush.RasterBrush" href="#uim.model.inkdata.brush.RasterBrush">RasterBrush</a>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Adding raster brush.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>brush</code></strong> :&ensp;<code><a title="uim.model.inkdata.brush.RasterBrush" href="#uim.model.inkdata.brush.RasterBrush">RasterBrush</a></code></dt>
+<dd>Raster brush</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_raster_brush(self, brush: RasterBrush):
+    &#34;&#34;&#34;
+    Adding raster brush.
+
+    Parameters
+    ----------
+    brush: `RasterBrush`
+        Raster brush
+    &#34;&#34;&#34;
+    self.raster_brushes.append(brush)</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.brush.Brushes.add_vector_brush"><code class="name flex">
+<span>def <span class="ident">add_vector_brush</span></span>(<span>self, brush: <a title="uim.model.inkdata.brush.VectorBrush" href="#uim.model.inkdata.brush.VectorBrush">VectorBrush</a>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Adding a vector brush.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>brush</code></strong> :&ensp;<code><a title="uim.model.inkdata.brush.VectorBrush" href="#uim.model.inkdata.brush.VectorBrush">VectorBrush</a></code></dt>
+<dd>Vector brush</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_vector_brush(self, brush: VectorBrush):
+    &#34;&#34;&#34;
+    Adding a vector brush.
+
+    Parameters
+    ----------
+    brush: `VectorBrush`
+        Vector brush
+    &#34;&#34;&#34;
+    self.vector_brushes.append(brush)</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.brush.Brushes.remove_raster_brush"><code class="name flex">
+<span>def <span class="ident">remove_raster_brush</span></span>(<span>self, name: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Remove raster brush from brushes. If the brush with the name does not exist, no operation is performed.</p>
+<h2 id="parameter">Parameter</h2>
+<p>name: str
+Name of brush that should be remove</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def remove_raster_brush(self, name: str):
+    &#34;&#34;&#34;
+    Remove raster brush from brushes. If the brush with the name does not exist, no operation is performed.
+
+    Parameter
+    ---------
+    name: str
+        Name of brush that should be remove
+    &#34;&#34;&#34;
+    for v_i in range(len(self.__raster_brushes)):
+        if self.__raster_brushes[v_i].name == name:
+            del self.__raster_brushes[v_i]
+            break</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.brush.Brushes.remove_vector_brush"><code class="name flex">
+<span>def <span class="ident">remove_vector_brush</span></span>(<span>self, name: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Remove vector brush from brushes.
+If the brush with the name does not exist, no operation is performed.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>Name of brush that should be remove.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def remove_vector_brush(self, name: str):
+    &#34;&#34;&#34;
+    Remove vector brush from brushes.
+    If the brush with the name does not exist, no operation is performed.
+
+    Parameters
+    ----------
+    name: `str`
+        Name of brush that should be remove.
+    &#34;&#34;&#34;
+    for v_i in range(len(self.__vector_brushes)):
+        if self.__vector_brushes[v_i].name == name:
+            del self.__vector_brushes[v_i]
+            break</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="uim.model.inkdata.brush.RasterBrush"><code class="flex name class">
+<span>class <span class="ident">RasterBrush</span></span>
+<span>(</span><span>name: str, spacing: float, scattering: float, rotation: <a title="uim.model.inkdata.brush.RotationMode" href="#uim.model.inkdata.brush.RotationMode">RotationMode</a>, shape_textures: List[bytes] = None, shape_texture_uris: List[str] = None, fill_texture: bytes = None, fill_texture_uri: str = None, fill_width: float = 0.0, fill_height: float = 0.0, randomize_fill: bool = False, blend_mode: <a title="uim.model.inkdata.brush.BlendMode" href="#uim.model.inkdata.brush.BlendMode">BlendMode</a> = BlendMode.SOURCE_OVER)</span>
+</code></dt>
+<dd>
+<div class="desc"><h2 id="rasterbrush">Rasterbrush</h2>
+<p>A configuration which allows rendering of an interpolated Catmull-Rom spline as a raster image by applying a
+specific sprite for each interpolated point, depending on its size.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>Brush descriptor</dd>
+<dt><strong><code>spacing</code></strong> :&ensp;<code>float</code></dt>
+<dd>Distance between neighbour particles.</dd>
+<dt><strong><code>scattering</code></strong> :&ensp;<code>float</code></dt>
+<dd>The scattering along the curve normal.</dd>
+<dt><strong><code>rotation</code></strong> :&ensp;<code><a title="uim.model.inkdata.brush.RotationMode" href="#uim.model.inkdata.brush.RotationMode">RotationMode</a></code></dt>
+<dd>The particle rotation mode of the brush.</dd>
+<dt><strong><code>shape_textures</code></strong> :&ensp;<code>list</code></dt>
+<dd>List of png images that contains the shape texture.</dd>
+<dt><strong><code>shape_texture_uris</code></strong> :&ensp;<code>list</code></dt>
+<dd>List of URIs that contains the shape texture.</dd>
+<dt><strong><code>fill_texture</code></strong> :&ensp;<code>bytes</code></dt>
+<dd>List of png image that contains the fill texture.</dd>
+<dt><strong><code>fill_texture_uri</code></strong> :&ensp;<code>list</code></dt>
+<dd>List of URIs that describes the fill textures.</dd>
+<dt><strong><code>fill_width</code></strong> :&ensp;<code>float</code></dt>
+<dd>Width of the fill tile.</dd>
+<dt><strong><code>fill_height</code></strong> :&ensp;<code>float</code></dt>
+<dd>Height of the fill tile.</dd>
+<dt><strong><code>randomize_fill</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Specifies whether the fill texture is randomly displaced.</dd>
+<dt><strong><code>blend_mode</code></strong> :&ensp;<code><a title="uim.model.inkdata.brush.BlendMode" href="#uim.model.inkdata.brush.BlendMode">BlendMode</a></code></dt>
+<dd>The applied blend mode.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class RasterBrush(Brush):
+    &#34;&#34;&#34;
+    RasterBrush
+    -----------
+    A configuration which allows rendering of an interpolated Catmull-Rom spline as a raster image by applying a
+    specific sprite for each interpolated point, depending on its size.
+
+    Parameters
+    ----------
+    name: `str`
+        Brush descriptor
+    spacing: `float`
+        Distance between neighbour particles.
+    scattering: `float`
+        The scattering along the curve normal.
+    rotation: `RotationMode`
+        The particle rotation mode of the brush.
+    shape_textures: list
+        List of png images that contains the shape texture.
+    shape_texture_uris: list
+        List of URIs that contains the shape texture.
+    fill_texture: `bytes`
+        List of png image that contains the fill texture.
+    fill_texture_uri: `list`
+        List of URIs that describes the fill textures.
+    fill_width: `float`
+        Width of the fill tile.
+    fill_height: `float`
+        Height of the fill tile.
+    randomize_fill: `bool`
+        Specifies whether the fill texture is randomly displaced.
+    blend_mode: `BlendMode`
+        The applied blend mode.
+    &#34;&#34;&#34;
+
+    def __init__(self, name: str, spacing: float, scattering: float, rotation: RotationMode,
+                 shape_textures: List[bytes] = None, shape_texture_uris: List[str] = None,
+                 fill_texture: bytes = None, fill_texture_uri: str = None,
+                 fill_width: float = 0., fill_height: float = 0.,
+                 randomize_fill: bool = False, blend_mode: BlendMode = BlendMode.SOURCE_OVER):
+        self.__name: str = name
+        self.__spacing: float = spacing
+        self.__scattering: float = scattering
+        self.__rotation: RotationMode = rotation
+        self.__shape_textures: List[bytes] = shape_textures if shape_textures is not None else []
+        self.__shape_texture_uri: List[str] = shape_texture_uris if shape_texture_uris is not None else []
+        self.__fill_texture: bytes = fill_texture if fill_texture is not None else b&#39;&#39;
+        self.__fill_texture_uri: str = fill_texture_uri if fill_texture_uri is not None else &#39;&#39;
+        self.__fill_width: float = fill_width
+        self.__fill_height: float = fill_height
+        self.__randomize_fill: bool = randomize_fill
+        self.__blend_mode: BlendMode = blend_mode
+
+    @property
+    def name(self) -&gt; str:
+        &#34;&#34;&#34; Brush descriptor
+        :return : name of brush
+        &#34;&#34;&#34;
+        return self.__name
+
+    @property
+    def spacing(self) -&gt; float:
+        &#34;&#34;&#34;Distance between neighbour particles. (`float`, read-only)&#34;&#34;&#34;
+        return self.__spacing
+
+    @property
+    def scattering(self) -&gt; float:
+        &#34;&#34;&#34;The scattering along the curve normal. (`float`, read-only)&#34;&#34;&#34;
+        return self.__scattering
+
+    @property
+    def rotation(self) -&gt; RotationMode:
+        &#34;&#34;&#34;The particle rotation mode of the brush. (`float`, read-only)&#34;&#34;&#34;
+        return self.__rotation
+
+    @property
+    def shape_textures(self) -&gt; List[bytes]:
+        &#34;&#34;&#34;List of png images that contains the shape texture; byte array with PNG content.
+        (`List[bytes]`, read-only)&#34;&#34;&#34;
+        return self.__shape_textures
+
+    @property
+    def shape_texture_uris(self) -&gt; List[str]:
+        &#34;&#34;&#34;URI identifying the fillTexture. (`List[str]`, read-only)&#34;&#34;&#34;
+        return self.__shape_texture_uri
+
+    @property
+    def fill_texture(self) -&gt; bytes:
+        &#34;&#34;&#34;List of png image that contains the fill texture. (`bytes`, read-only)&#34;&#34;&#34;
+        return self.__fill_texture
+
+    @property
+    def fill_texture_uri(self) -&gt; str:
+        &#34;&#34;&#34;URIs identifying the fillTexture.
+        :return : list of URIs
+        &#34;&#34;&#34;
+        return self.__fill_texture_uri
+
+    @property
+    def fill_width(self) -&gt; float:
+        &#34;&#34;&#34;Width of the fill tile.
+        :return : width
+        &#34;&#34;&#34;
+        return self.__fill_width
+
+    @property
+    def fill_height(self) -&gt; float:
+        &#34;&#34;&#34;Height of the fill tile.
+        :return : height
+        &#34;&#34;&#34;
+        return self.__fill_height
+
+    @property
+    def randomize_fill(self) -&gt; bool:
+        &#34;&#34;&#34;Specifies whether the fill texture is randomly displaced.
+        :return : bool - flag
+        &#34;&#34;&#34;
+        return self.__randomize_fill
+
+    def __repr__(self):
+        return &#39;&lt;RasterBrush : [name:={}]&gt;&#39;.format(self.name)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="uim.model.inkdata.brush.Brush" href="#uim.model.inkdata.brush.Brush">Brush</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="uim.model.inkdata.brush.RasterBrush.fill_height"><code class="name">var <span class="ident">fill_height</span> : float</code></dt>
+<dd>
+<div class="desc"><p>Height of the fill tile.
+:return : height</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def fill_height(self) -&gt; float:
+    &#34;&#34;&#34;Height of the fill tile.
+    :return : height
+    &#34;&#34;&#34;
+    return self.__fill_height</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.brush.RasterBrush.fill_texture"><code class="name">var <span class="ident">fill_texture</span> : bytes</code></dt>
+<dd>
+<div class="desc"><p>List of png image that contains the fill texture. (<code>bytes</code>, read-only)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def fill_texture(self) -&gt; bytes:
+    &#34;&#34;&#34;List of png image that contains the fill texture. (`bytes`, read-only)&#34;&#34;&#34;
+    return self.__fill_texture</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.brush.RasterBrush.fill_texture_uri"><code class="name">var <span class="ident">fill_texture_uri</span> : str</code></dt>
+<dd>
+<div class="desc"><p>URIs identifying the fillTexture.
+:return : list of URIs</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def fill_texture_uri(self) -&gt; str:
+    &#34;&#34;&#34;URIs identifying the fillTexture.
+    :return : list of URIs
+    &#34;&#34;&#34;
+    return self.__fill_texture_uri</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.brush.RasterBrush.fill_width"><code class="name">var <span class="ident">fill_width</span> : float</code></dt>
+<dd>
+<div class="desc"><p>Width of the fill tile.
+:return : width</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def fill_width(self) -&gt; float:
+    &#34;&#34;&#34;Width of the fill tile.
+    :return : width
+    &#34;&#34;&#34;
+    return self.__fill_width</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.brush.RasterBrush.name"><code class="name">var <span class="ident">name</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Brush descriptor
+:return : name of brush</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def name(self) -&gt; str:
+    &#34;&#34;&#34; Brush descriptor
+    :return : name of brush
+    &#34;&#34;&#34;
+    return self.__name</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.brush.RasterBrush.randomize_fill"><code class="name">var <span class="ident">randomize_fill</span> : bool</code></dt>
+<dd>
+<div class="desc"><p>Specifies whether the fill texture is randomly displaced.
+:return : bool - flag</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def randomize_fill(self) -&gt; bool:
+    &#34;&#34;&#34;Specifies whether the fill texture is randomly displaced.
+    :return : bool - flag
+    &#34;&#34;&#34;
+    return self.__randomize_fill</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.brush.RasterBrush.rotation"><code class="name">var <span class="ident">rotation</span> : <a title="uim.model.inkdata.brush.RotationMode" href="#uim.model.inkdata.brush.RotationMode">RotationMode</a></code></dt>
+<dd>
+<div class="desc"><p>The particle rotation mode of the brush. (<code>float</code>, read-only)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def rotation(self) -&gt; RotationMode:
+    &#34;&#34;&#34;The particle rotation mode of the brush. (`float`, read-only)&#34;&#34;&#34;
+    return self.__rotation</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.brush.RasterBrush.scattering"><code class="name">var <span class="ident">scattering</span> : float</code></dt>
+<dd>
+<div class="desc"><p>The scattering along the curve normal. (<code>float</code>, read-only)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def scattering(self) -&gt; float:
+    &#34;&#34;&#34;The scattering along the curve normal. (`float`, read-only)&#34;&#34;&#34;
+    return self.__scattering</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.brush.RasterBrush.shape_texture_uris"><code class="name">var <span class="ident">shape_texture_uris</span> : List[str]</code></dt>
+<dd>
+<div class="desc"><p>URI identifying the fillTexture. (<code>List[str]</code>, read-only)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def shape_texture_uris(self) -&gt; List[str]:
+    &#34;&#34;&#34;URI identifying the fillTexture. (`List[str]`, read-only)&#34;&#34;&#34;
+    return self.__shape_texture_uri</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.brush.RasterBrush.shape_textures"><code class="name">var <span class="ident">shape_textures</span> : List[bytes]</code></dt>
+<dd>
+<div class="desc"><p>List of png images that contains the shape texture; byte array with PNG content.
+(<code>List[bytes]</code>, read-only)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def shape_textures(self) -&gt; List[bytes]:
+    &#34;&#34;&#34;List of png images that contains the shape texture; byte array with PNG content.
+    (`List[bytes]`, read-only)&#34;&#34;&#34;
+    return self.__shape_textures</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.brush.RasterBrush.spacing"><code class="name">var <span class="ident">spacing</span> : float</code></dt>
+<dd>
+<div class="desc"><p>Distance between neighbour particles. (<code>float</code>, read-only)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def spacing(self) -&gt; float:
+    &#34;&#34;&#34;Distance between neighbour particles. (`float`, read-only)&#34;&#34;&#34;
+    return self.__spacing</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="uim.model.inkdata.brush.RotationMode"><code class="flex name class">
+<span>class <span class="ident">RotationMode</span></span>
+<span>(</span><span>value, names=None, *, module=None, qualname=None, type=None, start=1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Brush rotation modes.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class RotationMode(Enum):
+    &#34;&#34;&#34;Brush rotation modes.&#34;&#34;&#34;
+    NONE = 0
+    &#34;&#34;&#34;Indicates that the shape will not be rotated.&#34;&#34;&#34;
+    RANDOM = 1
+    &#34;&#34;&#34;Indicates that the shape will be rotated randomly before it renders.&#34;&#34;&#34;
+    TRAJECTORY = 2
+    &#34;&#34;&#34;Indicates that the shape will be rotated to match the path trajectory.&#34;&#34;&#34;</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="uim.model.inkdata.brush.RotationMode.NONE"><code class="name">var <span class="ident">NONE</span></code></dt>
+<dd>
+<div class="desc"><p>Indicates that the shape will not be rotated.</p></div>
+</dd>
+<dt id="uim.model.inkdata.brush.RotationMode.RANDOM"><code class="name">var <span class="ident">RANDOM</span></code></dt>
+<dd>
+<div class="desc"><p>Indicates that the shape will be rotated randomly before it renders.</p></div>
+</dd>
+<dt id="uim.model.inkdata.brush.RotationMode.TRAJECTORY"><code class="name">var <span class="ident">TRAJECTORY</span></code></dt>
+<dd>
+<div class="desc"><p>Indicates that the shape will be rotated to match the path trajectory.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="uim.model.inkdata.brush.VectorBrush"><code class="flex name class">
+<span>class <span class="ident">VectorBrush</span></span>
+<span>(</span><span>name: str, prototypes: List[Any] = None, spacing: float = 1.0)</span>
+</code></dt>
+<dd>
+<div class="desc"><h2 id="vectorbrush">Vectorbrush</h2>
+<p>A configuration which allows rendering of an interpolated Catmull-Rom spline as a vector spline by applying a
+specific polygon for each interpolated point, depending on its size and merging result afterwards.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>Name of the brush</dd>
+<dt><strong><code>prototypes</code></strong> :&ensp;<code>list</code></dt>
+<dd>Prototypes for brush</dd>
+<dt><strong><code>spacing</code></strong> :&ensp;<code>float</code></dt>
+<dd>Spacing value</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class VectorBrush(Brush):
+    &#34;&#34;&#34;
+    VectorBrush
+    -----------
+    A configuration which allows rendering of an interpolated Catmull-Rom spline as a vector spline by applying a
+    specific polygon for each interpolated point, depending on its size and merging result afterwards.
+
+    Parameters
+    ----------
+    name: str
+        Name of the brush
+    prototypes: list
+        Prototypes for brush
+    spacing: float
+        Spacing value
+    &#34;&#34;&#34;
+
+    def __init__(self, name: str, prototypes: List[Any] = None, spacing: float = 1.):
+        self.__name: str = name
+        self.__prototypes: List[Any] = prototypes or []
+        self.__spacing: float = spacing
+
+    @property
+    def name(self) -&gt; str:
+        &#34;&#34;&#34;Name of the vector brush. (`str`, read-only)&#34;&#34;&#34;
+        return self.__name
+
+    @property
+    def prototypes(self) -&gt; List[Any]:
+        &#34;&#34;&#34; Polygon prototype for the brush. (`List[Any]`,  read-only).
+
+        Notes
+        -----
+        The prototype can be either URI-based for prototype with a defined polygon geometry.
+
+        See also
+        --------
+        - `BrushPolygon` - List of polygon sample points
+        - `BrushPolygonUri` - List of URI polygon prototype
+        &#34;&#34;&#34;
+        return self.__prototypes
+
+    @property
+    def spacing(self) -&gt; float:
+        &#34;&#34;&#34;Spacing value. (`float`, read-only)&#34;&#34;&#34;
+        return self.__spacing
+
+    def __repr__(self):
+        return &#39;&lt;VectorBrush : [name:={}]&gt;&#39;.format(self.__name)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="uim.model.inkdata.brush.Brush" href="#uim.model.inkdata.brush.Brush">Brush</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="uim.model.inkdata.brush.VectorBrush.name"><code class="name">var <span class="ident">name</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Name of the vector brush. (<code>str</code>, read-only)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def name(self) -&gt; str:
+    &#34;&#34;&#34;Name of the vector brush. (`str`, read-only)&#34;&#34;&#34;
+    return self.__name</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.brush.VectorBrush.prototypes"><code class="name">var <span class="ident">prototypes</span> : List[Any]</code></dt>
+<dd>
+<div class="desc"><p>Polygon prototype for the brush. (<code>List[Any]</code>,
+read-only).</p>
+<h2 id="notes">Notes</h2>
+<p>The prototype can be either URI-based for prototype with a defined polygon geometry.</p>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><code><a title="uim.model.inkdata.brush.BrushPolygon" href="#uim.model.inkdata.brush.BrushPolygon">BrushPolygon</a></code> - List of polygon sample points</li>
+<li><code><a title="uim.model.inkdata.brush.BrushPolygonUri" href="#uim.model.inkdata.brush.BrushPolygonUri">BrushPolygonUri</a></code> - List of URI polygon prototype</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def prototypes(self) -&gt; List[Any]:
+    &#34;&#34;&#34; Polygon prototype for the brush. (`List[Any]`,  read-only).
+
+    Notes
+    -----
+    The prototype can be either URI-based for prototype with a defined polygon geometry.
+
+    See also
+    --------
+    - `BrushPolygon` - List of polygon sample points
+    - `BrushPolygonUri` - List of URI polygon prototype
+    &#34;&#34;&#34;
+    return self.__prototypes</code></pre>
+</details>
+</dd>
+<dt id="uim.model.inkdata.brush.VectorBrush.spacing"><code class="name">var <span class="ident">spacing</span> : float</code></dt>
+<dd>
+<div class="desc"><p>Spacing value. (<code>float</code>, read-only)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def spacing(self) -&gt; float:
+    &#34;&#34;&#34;Spacing value. (`float`, read-only)&#34;&#34;&#34;
+    return self.__spacing</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="uim.model.inkdata" href="index.html">uim.model.inkdata</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="uim.model.inkdata.brush.BlendMode" href="#uim.model.inkdata.brush.BlendMode">BlendMode</a></code></h4>
+<ul class="two-column">
+<li><code><a title="uim.model.inkdata.brush.BlendMode.COPY" href="#uim.model.inkdata.brush.BlendMode.COPY">COPY</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.BlendMode.DESTINATION_OUT" href="#uim.model.inkdata.brush.BlendMode.DESTINATION_OUT">DESTINATION_OUT</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.BlendMode.DESTINATION_OVER" href="#uim.model.inkdata.brush.BlendMode.DESTINATION_OVER">DESTINATION_OVER</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.BlendMode.LIGHTER" href="#uim.model.inkdata.brush.BlendMode.LIGHTER">LIGHTER</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.BlendMode.MAX" href="#uim.model.inkdata.brush.BlendMode.MAX">MAX</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.BlendMode.MIN" href="#uim.model.inkdata.brush.BlendMode.MIN">MIN</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.BlendMode.SOURCE_OVER" href="#uim.model.inkdata.brush.BlendMode.SOURCE_OVER">SOURCE_OVER</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="uim.model.inkdata.brush.BlendModeURIs" href="#uim.model.inkdata.brush.BlendModeURIs">BlendModeURIs</a></code></h4>
+<ul class="two-column">
+<li><code><a title="uim.model.inkdata.brush.BlendModeURIs.COPY" href="#uim.model.inkdata.brush.BlendModeURIs.COPY">COPY</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.BlendModeURIs.DESTINATION_OUT" href="#uim.model.inkdata.brush.BlendModeURIs.DESTINATION_OUT">DESTINATION_OUT</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.BlendModeURIs.DESTINATION_OVER" href="#uim.model.inkdata.brush.BlendModeURIs.DESTINATION_OVER">DESTINATION_OVER</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.BlendModeURIs.LIGHTER" href="#uim.model.inkdata.brush.BlendModeURIs.LIGHTER">LIGHTER</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.BlendModeURIs.MAX" href="#uim.model.inkdata.brush.BlendModeURIs.MAX">MAX</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.BlendModeURIs.MIN" href="#uim.model.inkdata.brush.BlendModeURIs.MIN">MIN</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.BlendModeURIs.SOURCE_OVER" href="#uim.model.inkdata.brush.BlendModeURIs.SOURCE_OVER">SOURCE_OVER</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="uim.model.inkdata.brush.Brush" href="#uim.model.inkdata.brush.Brush">Brush</a></code></h4>
+</li>
+<li>
+<h4><code><a title="uim.model.inkdata.brush.BrushPolygon" href="#uim.model.inkdata.brush.BrushPolygon">BrushPolygon</a></code></h4>
+<ul class="two-column">
+<li><code><a title="uim.model.inkdata.brush.BrushPolygon.coord_x" href="#uim.model.inkdata.brush.BrushPolygon.coord_x">coord_x</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.BrushPolygon.coord_y" href="#uim.model.inkdata.brush.BrushPolygon.coord_y">coord_y</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.BrushPolygon.coord_z" href="#uim.model.inkdata.brush.BrushPolygon.coord_z">coord_z</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.BrushPolygon.indices" href="#uim.model.inkdata.brush.BrushPolygon.indices">indices</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.BrushPolygon.min_scale" href="#uim.model.inkdata.brush.BrushPolygon.min_scale">min_scale</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.BrushPolygon.points" href="#uim.model.inkdata.brush.BrushPolygon.points">points</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="uim.model.inkdata.brush.BrushPolygonUri" href="#uim.model.inkdata.brush.BrushPolygonUri">BrushPolygonUri</a></code></h4>
+<ul class="">
+<li><code><a title="uim.model.inkdata.brush.BrushPolygonUri.min_scale" href="#uim.model.inkdata.brush.BrushPolygonUri.min_scale">min_scale</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.BrushPolygonUri.shape_uri" href="#uim.model.inkdata.brush.BrushPolygonUri.shape_uri">shape_uri</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="uim.model.inkdata.brush.Brushes" href="#uim.model.inkdata.brush.Brushes">Brushes</a></code></h4>
+<ul class="two-column">
+<li><code><a title="uim.model.inkdata.brush.Brushes.add_raster_brush" href="#uim.model.inkdata.brush.Brushes.add_raster_brush">add_raster_brush</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.Brushes.add_vector_brush" href="#uim.model.inkdata.brush.Brushes.add_vector_brush">add_vector_brush</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.Brushes.raster_brushes" href="#uim.model.inkdata.brush.Brushes.raster_brushes">raster_brushes</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.Brushes.remove_raster_brush" href="#uim.model.inkdata.brush.Brushes.remove_raster_brush">remove_raster_brush</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.Brushes.remove_vector_brush" href="#uim.model.inkdata.brush.Brushes.remove_vector_brush">remove_vector_brush</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.Brushes.vector_brushes" href="#uim.model.inkdata.brush.Brushes.vector_brushes">vector_brushes</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="uim.model.inkdata.brush.RasterBrush" href="#uim.model.inkdata.brush.RasterBrush">RasterBrush</a></code></h4>
+<ul class="two-column">
+<li><code><a title="uim.model.inkdata.brush.RasterBrush.fill_height" href="#uim.model.inkdata.brush.RasterBrush.fill_height">fill_height</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.RasterBrush.fill_texture" href="#uim.model.inkdata.brush.RasterBrush.fill_texture">fill_texture</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.RasterBrush.fill_texture_uri" href="#uim.model.inkdata.brush.RasterBrush.fill_texture_uri">fill_texture_uri</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.RasterBrush.fill_width" href="#uim.model.inkdata.brush.RasterBrush.fill_width">fill_width</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.RasterBrush.name" href="#uim.model.inkdata.brush.RasterBrush.name">name</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.RasterBrush.randomize_fill" href="#uim.model.inkdata.brush.RasterBrush.randomize_fill">randomize_fill</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.RasterBrush.rotation" href="#uim.model.inkdata.brush.RasterBrush.rotation">rotation</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.RasterBrush.scattering" href="#uim.model.inkdata.brush.RasterBrush.scattering">scattering</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.RasterBrush.shape_texture_uris" href="#uim.model.inkdata.brush.RasterBrush.shape_texture_uris">shape_texture_uris</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.RasterBrush.shape_textures" href="#uim.model.inkdata.brush.RasterBrush.shape_textures">shape_textures</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.RasterBrush.spacing" href="#uim.model.inkdata.brush.RasterBrush.spacing">spacing</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="uim.model.inkdata.brush.RotationMode" href="#uim.model.inkdata.brush.RotationMode">RotationMode</a></code></h4>
+<ul class="">
+<li><code><a title="uim.model.inkdata.brush.RotationMode.NONE" href="#uim.model.inkdata.brush.RotationMode.NONE">NONE</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.RotationMode.RANDOM" href="#uim.model.inkdata.brush.RotationMode.RANDOM">RANDOM</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.RotationMode.TRAJECTORY" href="#uim.model.inkdata.brush.RotationMode.TRAJECTORY">TRAJECTORY</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="uim.model.inkdata.brush.VectorBrush" href="#uim.model.inkdata.brush.VectorBrush">VectorBrush</a></code></h4>
+<ul class="">
+<li><code><a title="uim.model.inkdata.brush.VectorBrush.name" href="#uim.model.inkdata.brush.VectorBrush.name">name</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.VectorBrush.prototypes" href="#uim.model.inkdata.brush.VectorBrush.prototypes">prototypes</a></code></li>
+<li><code><a title="uim.model.inkdata.brush.VectorBrush.spacing" href="#uim.model.inkdata.brush.VectorBrush.spacing">spacing</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

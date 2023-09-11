@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>uim.codec.base API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>uim.codec.base</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># -*- coding: utf-8 -*-
+# Copyright © 2021-23 Wacom Authors. All Rights Reserved.
+#
+#  Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an &#34;AS IS&#34; BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+from enum import Enum
+
+WILL_PROTOBUF_ENCODING: str = &#39;latin1&#39;
+
+# Universal Ink v3.1.0 Constants
+RIFF_HEADER: bytes = b&#39;RIFF&#39;
+&#34;&#34;&#34;RIFF header string&#34;&#34;&#34;
+UIM_HEADER: bytes = b&#39;UINK&#39;
+&#34;&#34;&#34;Universal Ink Model file header.&#34;&#34;&#34;
+HEAD_HEADER: bytes = b&#39;HEAD&#39;
+&#34;&#34;&#34;Header string&#34;&#34;&#34;
+DATA_HEADER: bytes = b&#39;DATA&#39;
+&#34;&#34;&#34;Data header string&#34;&#34;&#34;
+PROPERTIES_HEADER: bytes = b&#39;PRPS&#39;
+&#34;&#34;&#34;Bytes header for properties chunk&#34;&#34;&#34;
+INPUT_DATA_HEADER: bytes = b&#39;INPT&#39;
+&#34;&#34;&#34;Bytes header for input data chunk&#34;&#34;&#34;
+BRUSHES_HEADER: bytes = b&#39;BRSH&#39;
+&#34;&#34;&#34;Bytes header for brushes chunk&#34;&#34;&#34;
+INK_DATA_HEADER: bytes = b&#39;INKD&#39;
+&#34;&#34;&#34;Bytes header for ink data chunk&#34;&#34;&#34;
+KNOWLEDGE_HEADER: bytes = b&#39;KNWG&#39;
+&#34;&#34;&#34;Bytes header for knowledge graph chunk&#34;&#34;&#34;
+INK_STRUCTURE_HEADER: bytes = b&#39;INKS&#39;
+&#34;&#34;&#34;Bytes header for ink structure chunk&#34;&#34;&#34;
+# Constants
+CHUNK_DESCRIPTION: int = 8
+&#34;&#34;&#34;Size of each description chunk in UIM v3.1.0 &#34;&#34;&#34;
+CHUNK_ID_BYTES_SIZE: int = 4
+&#34;&#34;&#34;Size of the chunk id in UIM v3.1.0 &#34;&#34;&#34;
+SIZE_BYTE_SIZE: int = 4
+&#34;&#34;&#34;Size of the size bytes in UIM v3.1.0 &#34;&#34;&#34;
+PADDING: bytes = b&#39;\x00&#39;
+&#34;&#34;&#34;Padding byte&#34;&#34;&#34;
+RESERVED: bytes = b&#39;\x00&#39;
+&#34;&#34;&#34;Reserved byte&#34;&#34;&#34;
+
+
+class ContentType(Enum):
+    &#34;&#34;&#34;&#34;Enum of RIFF chunk content types.&#34;&#34;&#34;
+    BINARY = b&#39;\x00&#39;
+    &#34;&#34;&#34;Binary encoding of content, binary/octet-stream.&#34;&#34;&#34;
+    PROTOBUF = b&#39;\x01&#39;
+    &#34;&#34;&#34;Protobuf encoding of content, application/protobuf.&#34;&#34;&#34;
+    JSON = b&#39;\x02&#39;
+    &#34;&#34;&#34;JSON encoding of content, application/json.&#34;&#34;&#34;
+    TEXT = b&#39;\x03&#39;
+    &#34;&#34;&#34;Text encoding of content, text/plain.&#34;&#34;&#34;
+
+
+class CompressionType(Enum):
+    &#34;&#34;&#34;Enum of RIFF chunk supported compression types.&#34;&#34;&#34;
+    NONE = b&#39;\x00&#39;
+    &#34;&#34;&#34;Compression not applied&#34;&#34;&#34;
+    ZIP = b&#39;\x01&#39;
+    &#34;&#34;&#34;ZIP compression for particular chunk&#34;&#34;&#34;
+    LZMA = b&#39;\x02&#39;
+    &#34;&#34;&#34;LZMA compression for particular chunk&#34;&#34;&#34;
+
+
+class MimeTypes:
+    &#34;&#34;&#34;Mime types for ink formats.&#34;&#34;&#34;
+    UNIVERSAL_INK_MODEL: str = &#34;application/vnd.wacom-ink.model&#34;  # Mime type for Universal Ink Models.
+    WILL3_DOCUMENT: str = &#34;application/vnd.wacom-will3.document&#34;  # Mime type for WILL 3 documents.
+    WILL2_FILE_FORMAT: str = &#34;application/vnd.wacom-will2.document&#34;  # Mime type for WILL 2 documents.
+    WILL2_STROKES_FORMAT: str = &#34;application/vnd.wacom-will2.strokes&#34;  # Mime type for WILL 2 strokes
+
+
+class FileExtension:
+    &#34;&#34;&#34;File extension of ink content files.&#34;&#34;&#34;
+    JSON_FORMAT_EXTENSION: str = &#39;.json&#39;
+    &#34;&#34;&#34;JSON file encoding.&#34;&#34;&#34;
+    UIM_JSON_FORMAT_EXTENSION: str = &#39;.uim.json&#39;
+    &#34;&#34;&#34;UIM JSON file encoding.&#34;&#34;&#34;
+    UIM_BINARY_FORMAT_EXTENSION: str = &#39;.uim&#39;
+    &#34;&#34;&#34;UIM binary encoding.&#34;&#34;&#34;
+    INKML_FORMAT_EXTENSION: str = &#39;.inkml&#39;
+    &#34;&#34;&#34;InkML encoding.&#34;&#34;&#34;
+    WILL_FORMAT_EXTENSION: str = &#39;.will&#39;
+    &#34;&#34;&#34;Wacom Ink Layer Language (WILL) file encoding.&#34;&#34;&#34;</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-variables">Global variables</h2>
+<dl>
+<dt id="uim.codec.base.BRUSHES_HEADER"><code class="name">var <span class="ident">BRUSHES_HEADER</span> : bytes</code></dt>
+<dd>
+<div class="desc"><p>Bytes header for brushes chunk</p></div>
+</dd>
+<dt id="uim.codec.base.CHUNK_DESCRIPTION"><code class="name">var <span class="ident">CHUNK_DESCRIPTION</span> : int</code></dt>
+<dd>
+<div class="desc"><p>Size of each description chunk in UIM v3.1.0</p></div>
+</dd>
+<dt id="uim.codec.base.CHUNK_ID_BYTES_SIZE"><code class="name">var <span class="ident">CHUNK_ID_BYTES_SIZE</span> : int</code></dt>
+<dd>
+<div class="desc"><p>Size of the chunk id in UIM v3.1.0</p></div>
+</dd>
+<dt id="uim.codec.base.DATA_HEADER"><code class="name">var <span class="ident">DATA_HEADER</span> : bytes</code></dt>
+<dd>
+<div class="desc"><p>Data header string</p></div>
+</dd>
+<dt id="uim.codec.base.HEAD_HEADER"><code class="name">var <span class="ident">HEAD_HEADER</span> : bytes</code></dt>
+<dd>
+<div class="desc"><p>Header string</p></div>
+</dd>
+<dt id="uim.codec.base.INK_DATA_HEADER"><code class="name">var <span class="ident">INK_DATA_HEADER</span> : bytes</code></dt>
+<dd>
+<div class="desc"><p>Bytes header for ink data chunk</p></div>
+</dd>
+<dt id="uim.codec.base.INK_STRUCTURE_HEADER"><code class="name">var <span class="ident">INK_STRUCTURE_HEADER</span> : bytes</code></dt>
+<dd>
+<div class="desc"><p>Bytes header for ink structure chunk</p></div>
+</dd>
+<dt id="uim.codec.base.INPUT_DATA_HEADER"><code class="name">var <span class="ident">INPUT_DATA_HEADER</span> : bytes</code></dt>
+<dd>
+<div class="desc"><p>Bytes header for input data chunk</p></div>
+</dd>
+<dt id="uim.codec.base.KNOWLEDGE_HEADER"><code class="name">var <span class="ident">KNOWLEDGE_HEADER</span> : bytes</code></dt>
+<dd>
+<div class="desc"><p>Bytes header for knowledge graph chunk</p></div>
+</dd>
+<dt id="uim.codec.base.PADDING"><code class="name">var <span class="ident">PADDING</span> : bytes</code></dt>
+<dd>
+<div class="desc"><p>Padding byte</p></div>
+</dd>
+<dt id="uim.codec.base.PROPERTIES_HEADER"><code class="name">var <span class="ident">PROPERTIES_HEADER</span> : bytes</code></dt>
+<dd>
+<div class="desc"><p>Bytes header for properties chunk</p></div>
+</dd>
+<dt id="uim.codec.base.RESERVED"><code class="name">var <span class="ident">RESERVED</span> : bytes</code></dt>
+<dd>
+<div class="desc"><p>Reserved byte</p></div>
+</dd>
+<dt id="uim.codec.base.RIFF_HEADER"><code class="name">var <span class="ident">RIFF_HEADER</span> : bytes</code></dt>
+<dd>
+<div class="desc"><p>RIFF header string</p></div>
+</dd>
+<dt id="uim.codec.base.SIZE_BYTE_SIZE"><code class="name">var <span class="ident">SIZE_BYTE_SIZE</span> : int</code></dt>
+<dd>
+<div class="desc"><p>Size of the size bytes in UIM v3.1.0</p></div>
+</dd>
+<dt id="uim.codec.base.UIM_HEADER"><code class="name">var <span class="ident">UIM_HEADER</span> : bytes</code></dt>
+<dd>
+<div class="desc"><p>Universal Ink Model file header.</p></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="uim.codec.base.CompressionType"><code class="flex name class">
+<span>class <span class="ident">CompressionType</span></span>
+<span>(</span><span>value, names=None, *, module=None, qualname=None, type=None, start=1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Enum of RIFF chunk supported compression types.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CompressionType(Enum):
+    &#34;&#34;&#34;Enum of RIFF chunk supported compression types.&#34;&#34;&#34;
+    NONE = b&#39;\x00&#39;
+    &#34;&#34;&#34;Compression not applied&#34;&#34;&#34;
+    ZIP = b&#39;\x01&#39;
+    &#34;&#34;&#34;ZIP compression for particular chunk&#34;&#34;&#34;
+    LZMA = b&#39;\x02&#39;
+    &#34;&#34;&#34;LZMA compression for particular chunk&#34;&#34;&#34;</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="uim.codec.base.CompressionType.LZMA"><code class="name">var <span class="ident">LZMA</span></code></dt>
+<dd>
+<div class="desc"><p>LZMA compression for particular chunk</p></div>
+</dd>
+<dt id="uim.codec.base.CompressionType.NONE"><code class="name">var <span class="ident">NONE</span></code></dt>
+<dd>
+<div class="desc"><p>Compression not applied</p></div>
+</dd>
+<dt id="uim.codec.base.CompressionType.ZIP"><code class="name">var <span class="ident">ZIP</span></code></dt>
+<dd>
+<div class="desc"><p>ZIP compression for particular chunk</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="uim.codec.base.ContentType"><code class="flex name class">
+<span>class <span class="ident">ContentType</span></span>
+<span>(</span><span>value, names=None, *, module=None, qualname=None, type=None, start=1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>"Enum of RIFF chunk content types.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ContentType(Enum):
+    &#34;&#34;&#34;&#34;Enum of RIFF chunk content types.&#34;&#34;&#34;
+    BINARY = b&#39;\x00&#39;
+    &#34;&#34;&#34;Binary encoding of content, binary/octet-stream.&#34;&#34;&#34;
+    PROTOBUF = b&#39;\x01&#39;
+    &#34;&#34;&#34;Protobuf encoding of content, application/protobuf.&#34;&#34;&#34;
+    JSON = b&#39;\x02&#39;
+    &#34;&#34;&#34;JSON encoding of content, application/json.&#34;&#34;&#34;
+    TEXT = b&#39;\x03&#39;
+    &#34;&#34;&#34;Text encoding of content, text/plain.&#34;&#34;&#34;</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="uim.codec.base.ContentType.BINARY"><code class="name">var <span class="ident">BINARY</span></code></dt>
+<dd>
+<div class="desc"><p>Binary encoding of content, binary/octet-stream.</p></div>
+</dd>
+<dt id="uim.codec.base.ContentType.JSON"><code class="name">var <span class="ident">JSON</span></code></dt>
+<dd>
+<div class="desc"><p>JSON encoding of content, application/json.</p></div>
+</dd>
+<dt id="uim.codec.base.ContentType.PROTOBUF"><code class="name">var <span class="ident">PROTOBUF</span></code></dt>
+<dd>
+<div class="desc"><p>Protobuf encoding of content, application/protobuf.</p></div>
+</dd>
+<dt id="uim.codec.base.ContentType.TEXT"><code class="name">var <span class="ident">TEXT</span></code></dt>
+<dd>
+<div class="desc"><p>Text encoding of content, text/plain.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="uim.codec.base.FileExtension"><code class="flex name class">
+<span>class <span class="ident">FileExtension</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>File extension of ink content files.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class FileExtension:
+    &#34;&#34;&#34;File extension of ink content files.&#34;&#34;&#34;
+    JSON_FORMAT_EXTENSION: str = &#39;.json&#39;
+    &#34;&#34;&#34;JSON file encoding.&#34;&#34;&#34;
+    UIM_JSON_FORMAT_EXTENSION: str = &#39;.uim.json&#39;
+    &#34;&#34;&#34;UIM JSON file encoding.&#34;&#34;&#34;
+    UIM_BINARY_FORMAT_EXTENSION: str = &#39;.uim&#39;
+    &#34;&#34;&#34;UIM binary encoding.&#34;&#34;&#34;
+    INKML_FORMAT_EXTENSION: str = &#39;.inkml&#39;
+    &#34;&#34;&#34;InkML encoding.&#34;&#34;&#34;
+    WILL_FORMAT_EXTENSION: str = &#39;.will&#39;
+    &#34;&#34;&#34;Wacom Ink Layer Language (WILL) file encoding.&#34;&#34;&#34;</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="uim.codec.base.FileExtension.INKML_FORMAT_EXTENSION"><code class="name">var <span class="ident">INKML_FORMAT_EXTENSION</span> : str</code></dt>
+<dd>
+<div class="desc"><p>InkML encoding.</p></div>
+</dd>
+<dt id="uim.codec.base.FileExtension.JSON_FORMAT_EXTENSION"><code class="name">var <span class="ident">JSON_FORMAT_EXTENSION</span> : str</code></dt>
+<dd>
+<div class="desc"><p>JSON file encoding.</p></div>
+</dd>
+<dt id="uim.codec.base.FileExtension.UIM_BINARY_FORMAT_EXTENSION"><code class="name">var <span class="ident">UIM_BINARY_FORMAT_EXTENSION</span> : str</code></dt>
+<dd>
+<div class="desc"><p>UIM binary encoding.</p></div>
+</dd>
+<dt id="uim.codec.base.FileExtension.UIM_JSON_FORMAT_EXTENSION"><code class="name">var <span class="ident">UIM_JSON_FORMAT_EXTENSION</span> : str</code></dt>
+<dd>
+<div class="desc"><p>UIM JSON file encoding.</p></div>
+</dd>
+<dt id="uim.codec.base.FileExtension.WILL_FORMAT_EXTENSION"><code class="name">var <span class="ident">WILL_FORMAT_EXTENSION</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Wacom Ink Layer Language (WILL) file encoding.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="uim.codec.base.MimeTypes"><code class="flex name class">
+<span>class <span class="ident">MimeTypes</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Mime types for ink formats.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class MimeTypes:
+    &#34;&#34;&#34;Mime types for ink formats.&#34;&#34;&#34;
+    UNIVERSAL_INK_MODEL: str = &#34;application/vnd.wacom-ink.model&#34;  # Mime type for Universal Ink Models.
+    WILL3_DOCUMENT: str = &#34;application/vnd.wacom-will3.document&#34;  # Mime type for WILL 3 documents.
+    WILL2_FILE_FORMAT: str = &#34;application/vnd.wacom-will2.document&#34;  # Mime type for WILL 2 documents.
+    WILL2_STROKES_FORMAT: str = &#34;application/vnd.wacom-will2.strokes&#34;  # Mime type for WILL 2 strokes</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="uim.codec.base.MimeTypes.UNIVERSAL_INK_MODEL"><code class="name">var <span class="ident">UNIVERSAL_INK_MODEL</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.codec.base.MimeTypes.WILL2_FILE_FORMAT"><code class="name">var <span class="ident">WILL2_FILE_FORMAT</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.codec.base.MimeTypes.WILL2_STROKES_FORMAT"><code class="name">var <span class="ident">WILL2_STROKES_FORMAT</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.codec.base.MimeTypes.WILL3_DOCUMENT"><code class="name">var <span class="ident">WILL3_DOCUMENT</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="uim.codec" href="index.html">uim.codec</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-variables">Global variables</a></h3>
+<ul class="">
+<li><code><a title="uim.codec.base.BRUSHES_HEADER" href="#uim.codec.base.BRUSHES_HEADER">BRUSHES_HEADER</a></code></li>
+<li><code><a title="uim.codec.base.CHUNK_DESCRIPTION" href="#uim.codec.base.CHUNK_DESCRIPTION">CHUNK_DESCRIPTION</a></code></li>
+<li><code><a title="uim.codec.base.CHUNK_ID_BYTES_SIZE" href="#uim.codec.base.CHUNK_ID_BYTES_SIZE">CHUNK_ID_BYTES_SIZE</a></code></li>
+<li><code><a title="uim.codec.base.DATA_HEADER" href="#uim.codec.base.DATA_HEADER">DATA_HEADER</a></code></li>
+<li><code><a title="uim.codec.base.HEAD_HEADER" href="#uim.codec.base.HEAD_HEADER">HEAD_HEADER</a></code></li>
+<li><code><a title="uim.codec.base.INK_DATA_HEADER" href="#uim.codec.base.INK_DATA_HEADER">INK_DATA_HEADER</a></code></li>
+<li><code><a title="uim.codec.base.INK_STRUCTURE_HEADER" href="#uim.codec.base.INK_STRUCTURE_HEADER">INK_STRUCTURE_HEADER</a></code></li>
+<li><code><a title="uim.codec.base.INPUT_DATA_HEADER" href="#uim.codec.base.INPUT_DATA_HEADER">INPUT_DATA_HEADER</a></code></li>
+<li><code><a title="uim.codec.base.KNOWLEDGE_HEADER" href="#uim.codec.base.KNOWLEDGE_HEADER">KNOWLEDGE_HEADER</a></code></li>
+<li><code><a title="uim.codec.base.PADDING" href="#uim.codec.base.PADDING">PADDING</a></code></li>
+<li><code><a title="uim.codec.base.PROPERTIES_HEADER" href="#uim.codec.base.PROPERTIES_HEADER">PROPERTIES_HEADER</a></code></li>
+<li><code><a title="uim.codec.base.RESERVED" href="#uim.codec.base.RESERVED">RESERVED</a></code></li>
+<li><code><a title="uim.codec.base.RIFF_HEADER" href="#uim.codec.base.RIFF_HEADER">RIFF_HEADER</a></code></li>
+<li><code><a title="uim.codec.base.SIZE_BYTE_SIZE" href="#uim.codec.base.SIZE_BYTE_SIZE">SIZE_BYTE_SIZE</a></code></li>
+<li><code><a title="uim.codec.base.UIM_HEADER" href="#uim.codec.base.UIM_HEADER">UIM_HEADER</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="uim.codec.base.CompressionType" href="#uim.codec.base.CompressionType">CompressionType</a></code></h4>
+<ul class="">
+<li><code><a title="uim.codec.base.CompressionType.LZMA" href="#uim.codec.base.CompressionType.LZMA">LZMA</a></code></li>
+<li><code><a title="uim.codec.base.CompressionType.NONE" href="#uim.codec.base.CompressionType.NONE">NONE</a></code></li>
+<li><code><a title="uim.codec.base.CompressionType.ZIP" href="#uim.codec.base.CompressionType.ZIP">ZIP</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="uim.codec.base.ContentType" href="#uim.codec.base.ContentType">ContentType</a></code></h4>
+<ul class="">
+<li><code><a title="uim.codec.base.ContentType.BINARY" href="#uim.codec.base.ContentType.BINARY">BINARY</a></code></li>
+<li><code><a title="uim.codec.base.ContentType.JSON" href="#uim.codec.base.ContentType.JSON">JSON</a></code></li>
+<li><code><a title="uim.codec.base.ContentType.PROTOBUF" href="#uim.codec.base.ContentType.PROTOBUF">PROTOBUF</a></code></li>
+<li><code><a title="uim.codec.base.ContentType.TEXT" href="#uim.codec.base.ContentType.TEXT">TEXT</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="uim.codec.base.FileExtension" href="#uim.codec.base.FileExtension">FileExtension</a></code></h4>
+<ul class="">
+<li><code><a title="uim.codec.base.FileExtension.INKML_FORMAT_EXTENSION" href="#uim.codec.base.FileExtension.INKML_FORMAT_EXTENSION">INKML_FORMAT_EXTENSION</a></code></li>
+<li><code><a title="uim.codec.base.FileExtension.JSON_FORMAT_EXTENSION" href="#uim.codec.base.FileExtension.JSON_FORMAT_EXTENSION">JSON_FORMAT_EXTENSION</a></code></li>
+<li><code><a title="uim.codec.base.FileExtension.UIM_BINARY_FORMAT_EXTENSION" href="#uim.codec.base.FileExtension.UIM_BINARY_FORMAT_EXTENSION">UIM_BINARY_FORMAT_EXTENSION</a></code></li>
+<li><code><a title="uim.codec.base.FileExtension.UIM_JSON_FORMAT_EXTENSION" href="#uim.codec.base.FileExtension.UIM_JSON_FORMAT_EXTENSION">UIM_JSON_FORMAT_EXTENSION</a></code></li>
+<li><code><a title="uim.codec.base.FileExtension.WILL_FORMAT_EXTENSION" href="#uim.codec.base.FileExtension.WILL_FORMAT_EXTENSION">WILL_FORMAT_EXTENSION</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="uim.codec.base.MimeTypes" href="#uim.codec.base.MimeTypes">MimeTypes</a></code></h4>
+<ul class="">
+<li><code><a title="uim.codec.base.MimeTypes.UNIVERSAL_INK_MODEL" href="#uim.codec.base.MimeTypes.UNIVERSAL_INK_MODEL">UNIVERSAL_INK_MODEL</a></code></li>
+<li><code><a title="uim.codec.base.MimeTypes.WILL2_FILE_FORMAT" href="#uim.codec.base.MimeTypes.WILL2_FILE_FORMAT">WILL2_FILE_FORMAT</a></code></li>
+<li><code><a title="uim.codec.base.MimeTypes.WILL2_STROKES_FORMAT" href="#uim.codec.base.MimeTypes.WILL2_STROKES_FORMAT">WILL2_STROKES_FORMAT</a></code></li>
+<li><code><a title="uim.codec.base.MimeTypes.WILL3_DOCUMENT" href="#uim.codec.base.MimeTypes.WILL3_DOCUMENT">WILL3_DOCUMENT</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

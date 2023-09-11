@@ -1,0 +1,2263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>uim.model.semantics.node API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>uim.model.semantics.node</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># -*- coding: utf-8 -*-
+# Copyright © 2021 Wacom Authors. All Rights Reserved.
+#
+#  Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an &#34;AS IS&#34; BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+import functools
+import uuid
+from abc import ABC, abstractmethod
+from typing import List, Any, Optional
+from typing import Tuple
+from uim.codec.parser.base import SupportedFormats
+from uim.model.base import UUIDIdentifier, InkModelException
+from uim.model.inkdata.strokes import Stroke
+from uim.model.semantics.structures import BoundingBox
+from uim.model.semantics.schema import CommonViews
+
+
+class URIBuilder(ABC):
+    &#34;&#34;&#34;
+    Generates URIs according to the ink model URI scheme.
+    &#34;&#34;&#34;
+    SCHEME: str = &#34;uim:&#34;
+
+    def __init__(self):
+        pass
+
+    @staticmethod
+    def build_uri(sub_path: str, model_id: uuid.UUID = None):
+        &#34;&#34;&#34;
+        Build a URI for a model.
+
+        Parameters
+        ----------
+        sub_path: str
+            Sub path.
+        model_id: UUID
+            Unique ID of the model.
+
+        Returns
+        -------
+        uri - `str`
+            Model URI
+        &#34;&#34;&#34;
+        uri: str = URIBuilder.SCHEME
+        if model_id is not None:
+            uri += f&#39;{str(model_id)}/&#39;
+        uri += f&#39;{sub_path}/&#39;
+        return uri
+
+    @staticmethod
+    def build_named_entity_uri(uimid: uuid.UUID, model_id: uuid.UUID = None) -&gt; str:
+        &#34;&#34;&#34;Creates a URI for the specified named entity identifier.
+
+        Parameters
+        ----------
+        uimid: `UUID`
+            UUID of a node
+        model_id: UUID
+            ID of the model [optional]
+
+        Returns
+        -------
+        uri: str
+            URI for a named entity
+        &#34;&#34;&#34;
+        if not isinstance(uimid, uuid.UUID):
+            raise InkModelException(&#34;The named entity identifier should be a valid UUID.&#34;)
+        return URIBuilder.build_uri(&#39;ne&#39;, model_id) + str(uimid)
+
+    @staticmethod
+    def build_entity_uri(uimid: uuid.UUID, model_id: uuid.UUID = None) -&gt; str:
+        &#34;&#34;&#34;
+        Creates a URI for the specified entity view identifier.
+
+        Parameters
+        ----------
+        uimid: `UUID`
+            UUID of a node
+        model_id: UUID
+            ID of the model [optional]
+
+        Returns
+        -------
+        uri: str
+            URI for an entity
+        &#34;&#34;&#34;
+        if not isinstance(uimid, uuid.UUID):
+            raise InkModelException(&#34;The named entity identifier should be a valid UUID.&#34;)
+        return URIBuilder.build_uri(&#39;&#39;, model_id) + str(uimid)
+
+    @staticmethod
+    def build_node_uri_from(node_uuid: uuid.UUID, view_name: str,
+                            uri_format: SupportedFormats = SupportedFormats.UIM_VERSION_3_1_0) -&gt; str:
+        &#34;&#34;&#34;
+        Creates a URI for a node in a view.
+
+        Parameters
+        ----------
+        node_uuid: `UUID`
+            UUID of a node
+        view_name: `str`
+            Name of the view
+        uri_format: `SupportedFormats&#39;
+            Target format
+
+        Returns
+        -------
+        uri: str
+            URI for an node within a specific view
+        &#34;&#34;&#34;
+        node_uri: str = URIBuilder.build_uri(&#39;node&#39;)
+
+        if view_name == CommonViews.LEGACY_HWR_VIEW.value:
+            node_uri += &#39;hwr/&#39; if uri_format == SupportedFormats.UIM_VERSION_3_1_0 else &#39;&#39;
+        elif view_name == CommonViews.LEGACY_NER_VIEW.value:
+            node_uri += &#39;ner/&#39; if uri_format == SupportedFormats.UIM_VERSION_3_1_0 else &#39;&#39;
+        else:
+            node_uri += f&#39;{view_name}/&#39;
+
+        node_uri += f&#39;{node_uuid}&#39;
+        return node_uri
+
+    @staticmethod
+    def build_node_uri(ink_node: &#39;InkNode&#39;, uri_format: SupportedFormats) -&gt; str:
+        &#34;&#34;&#34;
+        Creates a URI for an ink node.
+
+        Parameters
+        ----------
+        ink_node: `InkNode`
+            Node in a tree
+        uri_format: `SupportedFormats`
+            URI format
+
+        Returns
+        -------
+            uri - `str`
+                Build a URI for the ink node
+        &#34;&#34;&#34;
+        if isinstance(ink_node, StrokeGroupNode):
+            return URIBuilder.build_node_uri_from(ink_node.id, ink_node.view_name, uri_format)
+        elif isinstance(ink_node, StrokeNode):
+            stroke_node: StrokeNode = ink_node
+            node_uri: str = URIBuilder.build_node_uri_from(stroke_node.stroke.id, stroke_node.view_name, uri_format)
+            if stroke_node.fragment:
+                node_uri += f&#39;#frag={stroke_node.fragment.from_point_index},{stroke_node.fragment.to_point_index}&#39;
+            return node_uri
+
+
+class InkNode(UUIDIdentifier):
+    &#34;&#34;&#34;
+c
+    Node - the node message. Used for the definition of tree-context.
+
+    The ink tree is built with a generic node structure. For building the tree the depth attribute reflects the
+    depth within the tree. For serialization of the tree structure, the depth first pre-order tree serialization is
+    applied.
+
+    Each node has an unique identifier id (uri) which is relevant for the semantic statements as an identifier for the
+    subject. The groupBoundingBox is optional for `StrokeGroupNode`s and assists with easier visual debugging or
+    to highlight the relevant area for clickable options.
+
+    Parameters
+    ----------
+    node_id: `UUID`
+        Node ID as identifier.
+    :param group_bounding_box: Rectangle -
+        Bounding box (Group nodes only)
+    &#34;&#34;&#34;
+
+    def __init__(self, node_id: uuid.UUID, group_bounding_box: Optional[BoundingBox] = None):
+        super(UUIDIdentifier, self).__init__(node_id)
+        self.__id: uuid.UUID = node_id
+        self.__group_bounding_box: Optional[BoundingBox] = group_bounding_box
+        self.__parent: Optional[StrokeGroupNode] = None
+        self.__tree: Optional[&#39;InkTree&#39;] = None
+        self.__transient_tag: Optional[str] = None
+
+    @property
+    def transient_tag(self) -&gt; str:
+        &#34;&#34;&#34;Transient tag of the node. (`str`)&#34;&#34;&#34;
+        return self.__transient_tag
+
+    @transient_tag.setter
+    def transient_tag(self, value):
+        self.__transient_tag = value
+
+    @property
+    def tree(self) -&gt; &#39;InkTree&#39;:
+        &#34;&#34;&#34;Reference to  the respective `InkTree`. (`InkTree`, read-only)&#34;&#34;&#34;
+        if self.__tree is None and not self.is_root():
+            self.__tree = self.parent.tree
+        return self.__tree
+
+    @tree.setter
+    def tree(self, value: &#39;InkTree&#39;):
+        self.__tree = value
+
+    @property
+    def root(self) -&gt; &#39;InkNode&#39;:
+        &#34;&#34;&#34;Reference to the root node (`InkNode`) of the `InkTree`. (`InkNode`, read-only)&#34;&#34;&#34;
+        self.__assert_assigned_to_a_tree__()
+        return self.__tree.root
+
+    @property
+    def parent(self) -&gt; &#39;StrokeGroupNode&#39;:
+        &#34;&#34;&#34;Reference to the parent node (`StrokeGroupNode`) of the `InkTree`. (`InkNode`, read-only)&#34;&#34;&#34;
+        return self.__parent
+
+    def is_root(self) -&gt; bool:
+        &#34;&#34;&#34;
+        Check if the node is the root node.
+        
+        Returns
+        -------
+        flag: bool
+            Flag if the `InkNode` is a root node
+        &#34;&#34;&#34;
+        return self.__parent is None
+
+    @property
+    def view_name(self) -&gt; str:
+        &#34;&#34;&#34;Name of the associated view. (`str`, read-only)&#34;&#34;&#34;
+        self.__assert_assigned_to_a_tree__()
+        return self.__tree.name
+
+    @property
+    def uri(self) -&gt; str:
+        &#34;&#34;&#34;URI according to UIM v3.1.0 specification. (`str`, read-only)&#34;&#34;&#34;
+        return self.__generate_uri__()
+
+    @property
+    def uri_legacy(self) -&gt; str:
+        &#34;&#34;&#34;URI according to UIM v3.0.0 specification. (`str`, read-only)&#34;&#34;&#34;
+        return f&#39;uim:node/{self.id}&#39;
+
+    @property
+    def group_bounding_box(self) -&gt; BoundingBox:
+        &#34;&#34;&#34;Bounding box (`StrokeGroupNode`s only). (`str`)&#34;&#34;&#34;
+        return self.__group_bounding_box
+
+    @group_bounding_box.setter
+    def group_bounding_box(self, bbox: BoundingBox):
+        self.__group_bounding_box = bbox
+
+    @abstractmethod
+    def __generate_uri__(self) -&gt; str:
+        raise NotImplementedError()
+
+    @abstractmethod
+    def child_nodes_count(self) -&gt; int:
+        &#34;&#34;&#34;&#34;
+        Counts the number of child `InkNode`s.
+        
+        Returns
+        -------
+        number: int
+            Number of child nodes
+        &#34;&#34;&#34;
+        pass
+
+    def is_assigned_to_a_tree(self) -&gt; bool:
+        &#34;&#34;&#34;
+        Check if the Node is assigned to a tree.
+        
+        Returns
+        -------
+        assigned: bool
+            Flag if the Node is assigned to a tree
+        &#34;&#34;&#34;
+        return self.tree is not None
+
+    def __assert_not_owned__(self):
+        &#34;&#34;&#34;
+        Assert that the node is not assigned to tree.
+        
+        Raises
+        ------
+        InkModelException
+            If `InkNode` already assigned to a tree
+        &#34;&#34;&#34;
+        if self.is_assigned_to_a_tree():
+            raise InkModelException(&#39;Node already assigned to a tree.&#39;)
+        pass
+
+    def __assert_assigned_to_a_tree__(self):
+        &#34;&#34;&#34;
+        Assert that the node is not assigned to a tree.
+        
+        Raises
+        ------
+        InkModelException
+            If Node not assigned to a tree yet.
+        &#34;&#34;&#34;
+        if not self.is_assigned_to_a_tree():
+            raise InkModelException(&#34;Node not yet assigned to a tree.&#34;)
+
+    def __repr__(self):
+        return f&#39;&lt;Node: [id:={self.id},  uri:={self.uri}]&gt;&#39;
+
+
+class StrokeFragment(ABC):
+    &#34;&#34;&#34;
+    StrokeFragment
+    ==============
+    Denotes a stroke fragment, to reference fragments of the stroke. Fragments can be used for defining semantic
+    statements, for instance characters within a word, which requires to assign semantics only on a fragment of
+    the stroke.
+    
+    Parameters
+    ----------
+    from_point_index: int
+        The index of the first path point, which is relevant for this node.
+    to_point_index: int
+        The index of the last path point, which is relevant for this node.
+    from_t_value: int
+        The t parameter value of the first point of this node.
+    to_t_value: int
+        The t parameter value of the last point of this node.
+    &#34;&#34;&#34;
+
+    def __init__(self, from_point_index: int, to_point_index: int, from_t_value: float, to_t_value: float):
+        if from_point_index &lt; 0:
+            raise ValueError(&#34;. The value of from_point_index must be non-negative&#34;)
+
+        if to_point_index &lt; from_point_index:
+            raise ValueError(&#34;The value of to_point_index must be greater or equal to from_point_index&#34;)
+
+        if from_t_value &lt; 0. or from_t_value &gt;= 1.:
+            raise ValueError(&#34;The value of from_t_value must be in the interval [0, 1)&#34;)
+
+        if (to_t_value &lt;= from_t_value) or (to_t_value &gt; 1.):
+            raise ValueError(&#34;The value of to_t_value must be in the interval (fromTValue, 1]&#34;)
+
+        self.__from_point_index: int = from_point_index
+        self.__to_point_index: int = to_point_index
+        self.__from_t_value: float = from_t_value
+        self.__to_t_value: float = to_t_value
+
+    @property
+    def from_point_index(self) -&gt; int:
+        &#34;&#34;&#34;Gets the index of the first path point of this node. (`int`)&#34;&#34;&#34;
+        return self.__from_point_index
+
+    @from_point_index.setter
+    def from_point_index(self, value: int):
+        self.__from_point_index = value
+
+    @property
+    def to_point_index(self) -&gt; int:
+        &#34;&#34;&#34;Gets the index of the last path point of this node. (`int`)&#34;&#34;&#34;
+        return self.__to_point_index
+
+    @to_point_index.setter
+    def to_point_index(self, value: int):
+        self.__to_point_index = value
+
+    @property
+    def from_t_value(self) -&gt; float:
+        &#34;&#34;&#34;Gets the t parameter value of the first point of this node. (`int`)&#34;&#34;&#34;
+        return self.__from_t_value
+
+    @from_t_value.setter
+    def from_t_value(self, value: float):
+        self.__from_t_value = value
+
+    @property
+    def to_t_value(self) -&gt; float:
+        &#34;&#34;&#34;Gets the t parameter value of the last point of this node. (`int`)&#34;&#34;&#34;
+        return self.__to_t_value
+
+    @to_t_value.setter
+    def to_t_value(self, value: float):
+        self.__to_t_value = value
+
+
+class StrokeNode(InkNode):
+    &#34;&#34;&#34;
+    StrokeNode
+    ==========
+    Represents an ´InkNode´ that refers to a Stroke object.
+    A `StrokeNode` can represent either a whole path or part of a path within the ink model.
+
+    Parameters
+    ----------
+    stroke: `Stroke`
+        Stroke which is referenced
+    fragment: `StrokeFragment`
+        Fragment referencing only parts of the `Stroke`
+
+    Examples
+    --------
+    &gt;&gt;&gt; from uim.model.ink import InkModel, InkTree
+    &gt;&gt;&gt; from uim.model.semantics.node import StrokeGroupNode, StrokeNode, StrokeFragment, URIBuilder
+    &gt;&gt;&gt; # Create the model
+    &gt;&gt;&gt; ink_model: InkModel = InkModel()
+    &gt;&gt;&gt; # Assign the group as the root of the main ink tree
+    &gt;&gt;&gt; ink_model.ink_tree = InkTree()
+    &gt;&gt;&gt; # First you need a root group to contain the strokes
+    &gt;&gt;&gt; root: StrokeGroupNode = StrokeGroupNode(UUIDIdentifier.id_generator())
+    &gt;&gt;&gt; ink_model.ink_tree.root = root
+    &gt;&gt;&gt;
+    &gt;&gt;&gt; # Add a node for stroke 0
+    &gt;&gt;&gt; stroke_node_0: StrokeNode = StrokeNode(stroke_0, StrokeFragment(0, 1, 0.0, 1.0))
+    &gt;&gt;&gt; root.add(stroke_node_0)
+    &gt;&gt;&gt;
+    &gt;&gt;&gt; # Add a node for stroke 1
+    &gt;&gt;&gt; root.add(StrokeNode(stroke_1, StrokeFragment(0, 1, 0.0, 1.0)))
+    &#34;&#34;&#34;
+
+    def __init__(self, stroke: Stroke, fragment: StrokeFragment = None):
+        super().__init__(node_id=stroke.id)
+        self.__ref_stroke: Stroke = stroke
+        self.__fragment: StrokeFragment = fragment
+
+    @property
+    def stroke(self) -&gt; Stroke:
+        &#34;&#34;&#34;References the strokes. (`Stroke`)&#34;&#34;&#34;
+        return self.__ref_stroke
+
+    @stroke.setter
+    def stroke(self, stroke: Stroke):
+        self.__ref_stroke = stroke
+
+    @property
+    def fragment(self) -&gt; StrokeFragment:
+        &#34;&#34;&#34;`StrokeFragment` that specifies a fragment of the stroke. (`StrokeFragment`)
+
+        Notes
+        -----
+        If the property value is not null, the stroke node refers to the specified fragment of the stroke.
+        &#34;&#34;&#34;
+        return self.__fragment
+
+    @fragment.setter
+    def fragment(self, fragment: StrokeFragment):
+        self.__fragment = fragment
+
+    def child_nodes_count(self) -&gt; int:
+        &#34;&#34;&#34;
+        Number of child nodes.
+
+        Returns
+        -------
+        num_child_nodes: int
+            number of children nodes
+        &#34;&#34;&#34;
+        return 0
+
+    def __generate_uri__(self):
+        return URIBuilder().build_node_uri(self, SupportedFormats.UIM_VERSION_3_1_0)
+
+    def __repr__(self):
+        if self.stroke:
+            return &#39;&lt;StrokeNode: [stroke id:={}]&gt;&#39;.format(self.stroke.id if self.stroke is not None else &#39;&#39;)
+
+
+class StrokeGroupNode(InkNode):
+    &#34;&#34;&#34;
+    StrokeGroupNode
+    ===============
+    A non-leaf node, used to group ink-nodes of type `StrokeNode` and/or `StrokeGroupNode`.
+
+    Parameters
+    ----------
+    uim_id: `UUID`
+        Identifier of this stroke node.
+    &#34;&#34;&#34;
+
+    def __init__(self, uim_id: uuid.UUID):
+        super().__init__(node_id=uim_id)
+        self.__children: List[InkNode] = []
+
+    def add(self, node: InkNode) -&gt; InkNode:
+        &#34;&#34;&#34;
+        Adds a child node to this group.
+
+        Parameters
+        -----------
+        node: `InkNode`
+            The child node to be added.
+
+        Raises
+        ------
+        InkModelException
+            If `InkNode` already assigned to a tree or trying to add an ink node as a child, which has already a parent.
+        &#34;&#34;&#34;
+        node.__assert_not_owned__()
+
+        if node.parent is not None:
+            raise InkModelException(f&#34;Trying to add an ink node as a child, which has already a parent. Node: {node}&#34;)
+
+        node._InkNode__parent = self
+        self.__children.append(node)
+
+        if node.is_assigned_to_a_tree():
+            self.tree.register_sub_tree(node)
+
+        return node
+
+    def remove(self, node: InkNode):
+        &#34;&#34;&#34;
+        Remove child node.
+
+        Parameters
+        ----------
+        node: `InkNode`
+            The child node to be removed.
+        &#34;&#34;&#34;
+        self.__children.remove(node)
+
+    def child_nodes_count(self) -&gt; int:
+        &#34;&#34;&#34;
+        Number of child nodes.
+
+        Returns
+        -------
+        number_of_child_nodes: `int`
+            Number of child nodes
+        &#34;&#34;&#34;
+        return len(self.__children)
+
+    def child_group_nodes_count(self) -&gt; int:
+        &#34;&#34;&#34;
+        Number of child group nodes.
+
+        Returns
+        -------
+        number_of_child_nodes: `int`
+            Number of child group nodes
+        &#34;&#34;&#34;
+        count: int = 0
+        if self.child_nodes_count() &gt; 0:
+            for n in self.__children:
+                count = count + 1 if type(n) == StrokeGroupNode else 0
+        return count
+
+    def child_stroke_nodes_count(self) -&gt; int:
+        &#34;&#34;&#34;
+        Number of child stroke nodes.
+
+        Returns
+        -------
+        number_of_child_nodes: `int`
+            Number of child stroke group nodes
+        &#34;&#34;&#34;
+        count: int = 0
+        if self.child_nodes_count() &gt; 0:
+            for n in self.__children:
+                count = count + 1 if type(n) == StrokeNode else 0
+        return count
+
+    def sort_children(self, lambda_sort_func: Any, reverse: bool = False):
+        &#34;&#34;&#34;
+        Sorts the children based on a sorting function.
+
+        Parameters
+        ----------
+        lambda_sort_func: Any
+            Sorting function for children.
+        reverse: bool
+            Flag for reversed order [default:=False]
+        &#34;&#34;&#34;
+        self.__children = sorted(self.__children, key=functools.cmp_to_key(lambda_sort_func), reverse=reverse)
+
+    @property
+    def children(self) -&gt; Tuple[InkNode]:
+        &#34;&#34;&#34;Children of the node. (`Tuple[InkNode]`, read-only)&#34;&#34;&#34;
+        return tuple(self.__children)
+
+    def __generate_uri__(self, uri_format: SupportedFormats = SupportedFormats.UIM_VERSION_3_1_0) -&gt; str:
+        return URIBuilder().build_node_uri(self, uri_format)
+
+    def __repr__(self):
+        return &#39;&lt;StrokeGroupNode: [uri:={}, children:={}]&gt;&#39;.format(self.uri, len(self.children))</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="uim.model.semantics.node.InkNode"><code class="flex name class">
+<span>class <span class="ident">InkNode</span></span>
+<span>(</span><span>node_id: uuid.UUID, group_bounding_box: Optional[<a title="uim.model.semantics.structures.BoundingBox" href="structures.html#uim.model.semantics.structures.BoundingBox">BoundingBox</a>] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>c
+Node - the node message. Used for the definition of tree-context.</p>
+<pre><code>The ink tree is built with a generic node structure. For building the tree the depth attribute reflects the
+depth within the tree. For serialization of the tree structure, the depth first pre-order tree serialization is
+applied.
+
+Each node has an unique identifier id (uri) which is relevant for the semantic statements as an identifier for the
+subject. The groupBoundingBox is optional for &lt;code&gt;&lt;a title="uim.model.semantics.node.StrokeGroupNode" href="#uim.model.semantics.node.StrokeGroupNode"&gt;StrokeGroupNode&lt;/a&gt;&lt;/code&gt;s and assists with easier visual debugging or
+to highlight the relevant area for clickable options.
+
+Parameters
+----------
+node_id: &lt;code&gt;UUID&lt;/code&gt;
+    Node ID as identifier.
+:param group_bounding_box: Rectangle -
+    Bounding box (Group nodes only)
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class InkNode(UUIDIdentifier):
+    &#34;&#34;&#34;
+c
+    Node - the node message. Used for the definition of tree-context.
+
+    The ink tree is built with a generic node structure. For building the tree the depth attribute reflects the
+    depth within the tree. For serialization of the tree structure, the depth first pre-order tree serialization is
+    applied.
+
+    Each node has an unique identifier id (uri) which is relevant for the semantic statements as an identifier for the
+    subject. The groupBoundingBox is optional for `StrokeGroupNode`s and assists with easier visual debugging or
+    to highlight the relevant area for clickable options.
+
+    Parameters
+    ----------
+    node_id: `UUID`
+        Node ID as identifier.
+    :param group_bounding_box: Rectangle -
+        Bounding box (Group nodes only)
+    &#34;&#34;&#34;
+
+    def __init__(self, node_id: uuid.UUID, group_bounding_box: Optional[BoundingBox] = None):
+        super(UUIDIdentifier, self).__init__(node_id)
+        self.__id: uuid.UUID = node_id
+        self.__group_bounding_box: Optional[BoundingBox] = group_bounding_box
+        self.__parent: Optional[StrokeGroupNode] = None
+        self.__tree: Optional[&#39;InkTree&#39;] = None
+        self.__transient_tag: Optional[str] = None
+
+    @property
+    def transient_tag(self) -&gt; str:
+        &#34;&#34;&#34;Transient tag of the node. (`str`)&#34;&#34;&#34;
+        return self.__transient_tag
+
+    @transient_tag.setter
+    def transient_tag(self, value):
+        self.__transient_tag = value
+
+    @property
+    def tree(self) -&gt; &#39;InkTree&#39;:
+        &#34;&#34;&#34;Reference to  the respective `InkTree`. (`InkTree`, read-only)&#34;&#34;&#34;
+        if self.__tree is None and not self.is_root():
+            self.__tree = self.parent.tree
+        return self.__tree
+
+    @tree.setter
+    def tree(self, value: &#39;InkTree&#39;):
+        self.__tree = value
+
+    @property
+    def root(self) -&gt; &#39;InkNode&#39;:
+        &#34;&#34;&#34;Reference to the root node (`InkNode`) of the `InkTree`. (`InkNode`, read-only)&#34;&#34;&#34;
+        self.__assert_assigned_to_a_tree__()
+        return self.__tree.root
+
+    @property
+    def parent(self) -&gt; &#39;StrokeGroupNode&#39;:
+        &#34;&#34;&#34;Reference to the parent node (`StrokeGroupNode`) of the `InkTree`. (`InkNode`, read-only)&#34;&#34;&#34;
+        return self.__parent
+
+    def is_root(self) -&gt; bool:
+        &#34;&#34;&#34;
+        Check if the node is the root node.
+        
+        Returns
+        -------
+        flag: bool
+            Flag if the `InkNode` is a root node
+        &#34;&#34;&#34;
+        return self.__parent is None
+
+    @property
+    def view_name(self) -&gt; str:
+        &#34;&#34;&#34;Name of the associated view. (`str`, read-only)&#34;&#34;&#34;
+        self.__assert_assigned_to_a_tree__()
+        return self.__tree.name
+
+    @property
+    def uri(self) -&gt; str:
+        &#34;&#34;&#34;URI according to UIM v3.1.0 specification. (`str`, read-only)&#34;&#34;&#34;
+        return self.__generate_uri__()
+
+    @property
+    def uri_legacy(self) -&gt; str:
+        &#34;&#34;&#34;URI according to UIM v3.0.0 specification. (`str`, read-only)&#34;&#34;&#34;
+        return f&#39;uim:node/{self.id}&#39;
+
+    @property
+    def group_bounding_box(self) -&gt; BoundingBox:
+        &#34;&#34;&#34;Bounding box (`StrokeGroupNode`s only). (`str`)&#34;&#34;&#34;
+        return self.__group_bounding_box
+
+    @group_bounding_box.setter
+    def group_bounding_box(self, bbox: BoundingBox):
+        self.__group_bounding_box = bbox
+
+    @abstractmethod
+    def __generate_uri__(self) -&gt; str:
+        raise NotImplementedError()
+
+    @abstractmethod
+    def child_nodes_count(self) -&gt; int:
+        &#34;&#34;&#34;&#34;
+        Counts the number of child `InkNode`s.
+        
+        Returns
+        -------
+        number: int
+            Number of child nodes
+        &#34;&#34;&#34;
+        pass
+
+    def is_assigned_to_a_tree(self) -&gt; bool:
+        &#34;&#34;&#34;
+        Check if the Node is assigned to a tree.
+        
+        Returns
+        -------
+        assigned: bool
+            Flag if the Node is assigned to a tree
+        &#34;&#34;&#34;
+        return self.tree is not None
+
+    def __assert_not_owned__(self):
+        &#34;&#34;&#34;
+        Assert that the node is not assigned to tree.
+        
+        Raises
+        ------
+        InkModelException
+            If `InkNode` already assigned to a tree
+        &#34;&#34;&#34;
+        if self.is_assigned_to_a_tree():
+            raise InkModelException(&#39;Node already assigned to a tree.&#39;)
+        pass
+
+    def __assert_assigned_to_a_tree__(self):
+        &#34;&#34;&#34;
+        Assert that the node is not assigned to a tree.
+        
+        Raises
+        ------
+        InkModelException
+            If Node not assigned to a tree yet.
+        &#34;&#34;&#34;
+        if not self.is_assigned_to_a_tree():
+            raise InkModelException(&#34;Node not yet assigned to a tree.&#34;)
+
+    def __repr__(self):
+        return f&#39;&lt;Node: [id:={self.id},  uri:={self.uri}]&gt;&#39;</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="uim.model.base.UUIDIdentifier" href="../base.html#uim.model.base.UUIDIdentifier">UUIDIdentifier</a></li>
+<li><a title="uim.model.base.Identifier" href="../base.html#uim.model.base.Identifier">Identifier</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="uim.model.semantics.node.StrokeGroupNode" href="#uim.model.semantics.node.StrokeGroupNode">StrokeGroupNode</a></li>
+<li><a title="uim.model.semantics.node.StrokeNode" href="#uim.model.semantics.node.StrokeNode">StrokeNode</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="uim.model.semantics.node.InkNode.SEPARATOR"><code class="name">var <span class="ident">SEPARATOR</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="uim.model.semantics.node.InkNode.group_bounding_box"><code class="name">var <span class="ident">group_bounding_box</span> : <a title="uim.model.semantics.structures.BoundingBox" href="structures.html#uim.model.semantics.structures.BoundingBox">BoundingBox</a></code></dt>
+<dd>
+<div class="desc"><p>Bounding box (<code><a title="uim.model.semantics.node.StrokeGroupNode" href="#uim.model.semantics.node.StrokeGroupNode">StrokeGroupNode</a></code>s only). (<code>str</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def group_bounding_box(self) -&gt; BoundingBox:
+    &#34;&#34;&#34;Bounding box (`StrokeGroupNode`s only). (`str`)&#34;&#34;&#34;
+    return self.__group_bounding_box</code></pre>
+</details>
+</dd>
+<dt id="uim.model.semantics.node.InkNode.parent"><code class="name">var <span class="ident">parent</span> : <a title="uim.model.semantics.node.StrokeGroupNode" href="#uim.model.semantics.node.StrokeGroupNode">StrokeGroupNode</a></code></dt>
+<dd>
+<div class="desc"><p>Reference to the parent node (<code><a title="uim.model.semantics.node.StrokeGroupNode" href="#uim.model.semantics.node.StrokeGroupNode">StrokeGroupNode</a></code>) of the <code>InkTree</code>. (<code><a title="uim.model.semantics.node.InkNode" href="#uim.model.semantics.node.InkNode">InkNode</a></code>, read-only)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def parent(self) -&gt; &#39;StrokeGroupNode&#39;:
+    &#34;&#34;&#34;Reference to the parent node (`StrokeGroupNode`) of the `InkTree`. (`InkNode`, read-only)&#34;&#34;&#34;
+    return self.__parent</code></pre>
+</details>
+</dd>
+<dt id="uim.model.semantics.node.InkNode.root"><code class="name">var <span class="ident">root</span> : <a title="uim.model.semantics.node.InkNode" href="#uim.model.semantics.node.InkNode">InkNode</a></code></dt>
+<dd>
+<div class="desc"><p>Reference to the root node (<code><a title="uim.model.semantics.node.InkNode" href="#uim.model.semantics.node.InkNode">InkNode</a></code>) of the <code>InkTree</code>. (<code><a title="uim.model.semantics.node.InkNode" href="#uim.model.semantics.node.InkNode">InkNode</a></code>, read-only)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def root(self) -&gt; &#39;InkNode&#39;:
+    &#34;&#34;&#34;Reference to the root node (`InkNode`) of the `InkTree`. (`InkNode`, read-only)&#34;&#34;&#34;
+    self.__assert_assigned_to_a_tree__()
+    return self.__tree.root</code></pre>
+</details>
+</dd>
+<dt id="uim.model.semantics.node.InkNode.transient_tag"><code class="name">var <span class="ident">transient_tag</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Transient tag of the node. (<code>str</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def transient_tag(self) -&gt; str:
+    &#34;&#34;&#34;Transient tag of the node. (`str`)&#34;&#34;&#34;
+    return self.__transient_tag</code></pre>
+</details>
+</dd>
+<dt id="uim.model.semantics.node.InkNode.tree"><code class="name">var <span class="ident">tree</span> : InkTree</code></dt>
+<dd>
+<div class="desc"><p>Reference to
+the respective <code>InkTree</code>. (<code>InkTree</code>, read-only)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def tree(self) -&gt; &#39;InkTree&#39;:
+    &#34;&#34;&#34;Reference to  the respective `InkTree`. (`InkTree`, read-only)&#34;&#34;&#34;
+    if self.__tree is None and not self.is_root():
+        self.__tree = self.parent.tree
+    return self.__tree</code></pre>
+</details>
+</dd>
+<dt id="uim.model.semantics.node.InkNode.uri"><code class="name">var <span class="ident">uri</span> : str</code></dt>
+<dd>
+<div class="desc"><p>URI according to UIM v3.1.0 specification. (<code>str</code>, read-only)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def uri(self) -&gt; str:
+    &#34;&#34;&#34;URI according to UIM v3.1.0 specification. (`str`, read-only)&#34;&#34;&#34;
+    return self.__generate_uri__()</code></pre>
+</details>
+</dd>
+<dt id="uim.model.semantics.node.InkNode.uri_legacy"><code class="name">var <span class="ident">uri_legacy</span> : str</code></dt>
+<dd>
+<div class="desc"><p>URI according to UIM v3.0.0 specification. (<code>str</code>, read-only)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def uri_legacy(self) -&gt; str:
+    &#34;&#34;&#34;URI according to UIM v3.0.0 specification. (`str`, read-only)&#34;&#34;&#34;
+    return f&#39;uim:node/{self.id}&#39;</code></pre>
+</details>
+</dd>
+<dt id="uim.model.semantics.node.InkNode.view_name"><code class="name">var <span class="ident">view_name</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Name of the associated view. (<code>str</code>, read-only)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def view_name(self) -&gt; str:
+    &#34;&#34;&#34;Name of the associated view. (`str`, read-only)&#34;&#34;&#34;
+    self.__assert_assigned_to_a_tree__()
+    return self.__tree.name</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="uim.model.semantics.node.InkNode.child_nodes_count"><code class="name flex">
+<span>def <span class="ident">child_nodes_count</span></span>(<span>self) ‑> int</span>
+</code></dt>
+<dd>
+<div class="desc"><p>"
+Counts the number of child <code><a title="uim.model.semantics.node.InkNode" href="#uim.model.semantics.node.InkNode">InkNode</a></code>s.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>number</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of child nodes</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def child_nodes_count(self) -&gt; int:
+    &#34;&#34;&#34;&#34;
+    Counts the number of child `InkNode`s.
+    
+    Returns
+    -------
+    number: int
+        Number of child nodes
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+</dd>
+<dt id="uim.model.semantics.node.InkNode.is_assigned_to_a_tree"><code class="name flex">
+<span>def <span class="ident">is_assigned_to_a_tree</span></span>(<span>self) ‑> bool</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Check if the Node is assigned to a tree.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>assigned</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Flag if the Node is assigned to a tree</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_assigned_to_a_tree(self) -&gt; bool:
+    &#34;&#34;&#34;
+    Check if the Node is assigned to a tree.
+    
+    Returns
+    -------
+    assigned: bool
+        Flag if the Node is assigned to a tree
+    &#34;&#34;&#34;
+    return self.tree is not None</code></pre>
+</details>
+</dd>
+<dt id="uim.model.semantics.node.InkNode.is_root"><code class="name flex">
+<span>def <span class="ident">is_root</span></span>(<span>self) ‑> bool</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Check if the node is the root node.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>flag</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Flag if the <code><a title="uim.model.semantics.node.InkNode" href="#uim.model.semantics.node.InkNode">InkNode</a></code> is a root node</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_root(self) -&gt; bool:
+    &#34;&#34;&#34;
+    Check if the node is the root node.
+    
+    Returns
+    -------
+    flag: bool
+        Flag if the `InkNode` is a root node
+    &#34;&#34;&#34;
+    return self.__parent is None</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="uim.model.base.UUIDIdentifier" href="../base.html#uim.model.base.UUIDIdentifier">UUIDIdentifier</a></b></code>:
+<ul class="hlist">
+<li><code><a title="uim.model.base.UUIDIdentifier.from_bytes" href="../base.html#uim.model.base.Identifier.from_bytes">from_bytes</a></code></li>
+<li><code><a title="uim.model.base.UUIDIdentifier.id" href="../base.html#uim.model.base.Identifier.id">id</a></code></li>
+<li><code><a title="uim.model.base.UUIDIdentifier.id_generator" href="../base.html#uim.model.base.UUIDIdentifier.id_generator">id_generator</a></code></li>
+<li><code><a title="uim.model.base.UUIDIdentifier.id_h_form" href="../base.html#uim.model.base.Identifier.id_h_form">id_h_form</a></code></li>
+<li><code><a title="uim.model.base.UUIDIdentifier.id_s_form" href="../base.html#uim.model.base.Identifier.id_s_form">id_s_form</a></code></li>
+<li><code><a title="uim.model.base.UUIDIdentifier.str_to_uimid" href="../base.html#uim.model.base.Identifier.str_to_uimid">str_to_uimid</a></code></li>
+<li><code><a title="uim.model.base.UUIDIdentifier.uimid_to_h_form" href="../base.html#uim.model.base.Identifier.uimid_to_h_form">uimid_to_h_form</a></code></li>
+<li><code><a title="uim.model.base.UUIDIdentifier.uimid_to_s_form" href="../base.html#uim.model.base.Identifier.uimid_to_s_form">uimid_to_s_form</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="uim.model.semantics.node.StrokeFragment"><code class="flex name class">
+<span>class <span class="ident">StrokeFragment</span></span>
+<span>(</span><span>from_point_index: int, to_point_index: int, from_t_value: float, to_t_value: float)</span>
+</code></dt>
+<dd>
+<div class="desc"><h1 id="strokefragment">StrokeFragment</h1>
+<p>Denotes a stroke fragment, to reference fragments of the stroke. Fragments can be used for defining semantic
+statements, for instance characters within a word, which requires to assign semantics only on a fragment of
+the stroke.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>from_point_index</code></strong> :&ensp;<code>int</code></dt>
+<dd>The index of the first path point, which is relevant for this node.</dd>
+<dt><strong><code>to_point_index</code></strong> :&ensp;<code>int</code></dt>
+<dd>The index of the last path point, which is relevant for this node.</dd>
+<dt><strong><code>from_t_value</code></strong> :&ensp;<code>int</code></dt>
+<dd>The t parameter value of the first point of this node.</dd>
+<dt><strong><code>to_t_value</code></strong> :&ensp;<code>int</code></dt>
+<dd>The t parameter value of the last point of this node.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class StrokeFragment(ABC):
+    &#34;&#34;&#34;
+    StrokeFragment
+    ==============
+    Denotes a stroke fragment, to reference fragments of the stroke. Fragments can be used for defining semantic
+    statements, for instance characters within a word, which requires to assign semantics only on a fragment of
+    the stroke.
+    
+    Parameters
+    ----------
+    from_point_index: int
+        The index of the first path point, which is relevant for this node.
+    to_point_index: int
+        The index of the last path point, which is relevant for this node.
+    from_t_value: int
+        The t parameter value of the first point of this node.
+    to_t_value: int
+        The t parameter value of the last point of this node.
+    &#34;&#34;&#34;
+
+    def __init__(self, from_point_index: int, to_point_index: int, from_t_value: float, to_t_value: float):
+        if from_point_index &lt; 0:
+            raise ValueError(&#34;. The value of from_point_index must be non-negative&#34;)
+
+        if to_point_index &lt; from_point_index:
+            raise ValueError(&#34;The value of to_point_index must be greater or equal to from_point_index&#34;)
+
+        if from_t_value &lt; 0. or from_t_value &gt;= 1.:
+            raise ValueError(&#34;The value of from_t_value must be in the interval [0, 1)&#34;)
+
+        if (to_t_value &lt;= from_t_value) or (to_t_value &gt; 1.):
+            raise ValueError(&#34;The value of to_t_value must be in the interval (fromTValue, 1]&#34;)
+
+        self.__from_point_index: int = from_point_index
+        self.__to_point_index: int = to_point_index
+        self.__from_t_value: float = from_t_value
+        self.__to_t_value: float = to_t_value
+
+    @property
+    def from_point_index(self) -&gt; int:
+        &#34;&#34;&#34;Gets the index of the first path point of this node. (`int`)&#34;&#34;&#34;
+        return self.__from_point_index
+
+    @from_point_index.setter
+    def from_point_index(self, value: int):
+        self.__from_point_index = value
+
+    @property
+    def to_point_index(self) -&gt; int:
+        &#34;&#34;&#34;Gets the index of the last path point of this node. (`int`)&#34;&#34;&#34;
+        return self.__to_point_index
+
+    @to_point_index.setter
+    def to_point_index(self, value: int):
+        self.__to_point_index = value
+
+    @property
+    def from_t_value(self) -&gt; float:
+        &#34;&#34;&#34;Gets the t parameter value of the first point of this node. (`int`)&#34;&#34;&#34;
+        return self.__from_t_value
+
+    @from_t_value.setter
+    def from_t_value(self, value: float):
+        self.__from_t_value = value
+
+    @property
+    def to_t_value(self) -&gt; float:
+        &#34;&#34;&#34;Gets the t parameter value of the last point of this node. (`int`)&#34;&#34;&#34;
+        return self.__to_t_value
+
+    @to_t_value.setter
+    def to_t_value(self, value: float):
+        self.__to_t_value = value</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>abc.ABC</li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="uim.model.semantics.node.StrokeFragment.from_point_index"><code class="name">var <span class="ident">from_point_index</span> : int</code></dt>
+<dd>
+<div class="desc"><p>Gets the index of the first path point of this node. (<code>int</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def from_point_index(self) -&gt; int:
+    &#34;&#34;&#34;Gets the index of the first path point of this node. (`int`)&#34;&#34;&#34;
+    return self.__from_point_index</code></pre>
+</details>
+</dd>
+<dt id="uim.model.semantics.node.StrokeFragment.from_t_value"><code class="name">var <span class="ident">from_t_value</span> : float</code></dt>
+<dd>
+<div class="desc"><p>Gets the t parameter value of the first point of this node. (<code>int</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def from_t_value(self) -&gt; float:
+    &#34;&#34;&#34;Gets the t parameter value of the first point of this node. (`int`)&#34;&#34;&#34;
+    return self.__from_t_value</code></pre>
+</details>
+</dd>
+<dt id="uim.model.semantics.node.StrokeFragment.to_point_index"><code class="name">var <span class="ident">to_point_index</span> : int</code></dt>
+<dd>
+<div class="desc"><p>Gets the index of the last path point of this node. (<code>int</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def to_point_index(self) -&gt; int:
+    &#34;&#34;&#34;Gets the index of the last path point of this node. (`int`)&#34;&#34;&#34;
+    return self.__to_point_index</code></pre>
+</details>
+</dd>
+<dt id="uim.model.semantics.node.StrokeFragment.to_t_value"><code class="name">var <span class="ident">to_t_value</span> : float</code></dt>
+<dd>
+<div class="desc"><p>Gets the t parameter value of the last point of this node. (<code>int</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def to_t_value(self) -&gt; float:
+    &#34;&#34;&#34;Gets the t parameter value of the last point of this node. (`int`)&#34;&#34;&#34;
+    return self.__to_t_value</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="uim.model.semantics.node.StrokeGroupNode"><code class="flex name class">
+<span>class <span class="ident">StrokeGroupNode</span></span>
+<span>(</span><span>uim_id: uuid.UUID)</span>
+</code></dt>
+<dd>
+<div class="desc"><h1 id="strokegroupnode">StrokeGroupNode</h1>
+<p>A non-leaf node, used to group ink-nodes of type <code><a title="uim.model.semantics.node.StrokeNode" href="#uim.model.semantics.node.StrokeNode">StrokeNode</a></code> and/or <code><a title="uim.model.semantics.node.StrokeGroupNode" href="#uim.model.semantics.node.StrokeGroupNode">StrokeGroupNode</a></code>.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>uim_id</code></strong> :&ensp;<code>UUID</code></dt>
+<dd>Identifier of this stroke node.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class StrokeGroupNode(InkNode):
+    &#34;&#34;&#34;
+    StrokeGroupNode
+    ===============
+    A non-leaf node, used to group ink-nodes of type `StrokeNode` and/or `StrokeGroupNode`.
+
+    Parameters
+    ----------
+    uim_id: `UUID`
+        Identifier of this stroke node.
+    &#34;&#34;&#34;
+
+    def __init__(self, uim_id: uuid.UUID):
+        super().__init__(node_id=uim_id)
+        self.__children: List[InkNode] = []
+
+    def add(self, node: InkNode) -&gt; InkNode:
+        &#34;&#34;&#34;
+        Adds a child node to this group.
+
+        Parameters
+        -----------
+        node: `InkNode`
+            The child node to be added.
+
+        Raises
+        ------
+        InkModelException
+            If `InkNode` already assigned to a tree or trying to add an ink node as a child, which has already a parent.
+        &#34;&#34;&#34;
+        node.__assert_not_owned__()
+
+        if node.parent is not None:
+            raise InkModelException(f&#34;Trying to add an ink node as a child, which has already a parent. Node: {node}&#34;)
+
+        node._InkNode__parent = self
+        self.__children.append(node)
+
+        if node.is_assigned_to_a_tree():
+            self.tree.register_sub_tree(node)
+
+        return node
+
+    def remove(self, node: InkNode):
+        &#34;&#34;&#34;
+        Remove child node.
+
+        Parameters
+        ----------
+        node: `InkNode`
+            The child node to be removed.
+        &#34;&#34;&#34;
+        self.__children.remove(node)
+
+    def child_nodes_count(self) -&gt; int:
+        &#34;&#34;&#34;
+        Number of child nodes.
+
+        Returns
+        -------
+        number_of_child_nodes: `int`
+            Number of child nodes
+        &#34;&#34;&#34;
+        return len(self.__children)
+
+    def child_group_nodes_count(self) -&gt; int:
+        &#34;&#34;&#34;
+        Number of child group nodes.
+
+        Returns
+        -------
+        number_of_child_nodes: `int`
+            Number of child group nodes
+        &#34;&#34;&#34;
+        count: int = 0
+        if self.child_nodes_count() &gt; 0:
+            for n in self.__children:
+                count = count + 1 if type(n) == StrokeGroupNode else 0
+        return count
+
+    def child_stroke_nodes_count(self) -&gt; int:
+        &#34;&#34;&#34;
+        Number of child stroke nodes.
+
+        Returns
+        -------
+        number_of_child_nodes: `int`
+            Number of child stroke group nodes
+        &#34;&#34;&#34;
+        count: int = 0
+        if self.child_nodes_count() &gt; 0:
+            for n in self.__children:
+                count = count + 1 if type(n) == StrokeNode else 0
+        return count
+
+    def sort_children(self, lambda_sort_func: Any, reverse: bool = False):
+        &#34;&#34;&#34;
+        Sorts the children based on a sorting function.
+
+        Parameters
+        ----------
+        lambda_sort_func: Any
+            Sorting function for children.
+        reverse: bool
+            Flag for reversed order [default:=False]
+        &#34;&#34;&#34;
+        self.__children = sorted(self.__children, key=functools.cmp_to_key(lambda_sort_func), reverse=reverse)
+
+    @property
+    def children(self) -&gt; Tuple[InkNode]:
+        &#34;&#34;&#34;Children of the node. (`Tuple[InkNode]`, read-only)&#34;&#34;&#34;
+        return tuple(self.__children)
+
+    def __generate_uri__(self, uri_format: SupportedFormats = SupportedFormats.UIM_VERSION_3_1_0) -&gt; str:
+        return URIBuilder().build_node_uri(self, uri_format)
+
+    def __repr__(self):
+        return &#39;&lt;StrokeGroupNode: [uri:={}, children:={}]&gt;&#39;.format(self.uri, len(self.children))</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="uim.model.semantics.node.InkNode" href="#uim.model.semantics.node.InkNode">InkNode</a></li>
+<li><a title="uim.model.base.UUIDIdentifier" href="../base.html#uim.model.base.UUIDIdentifier">UUIDIdentifier</a></li>
+<li><a title="uim.model.base.Identifier" href="../base.html#uim.model.base.Identifier">Identifier</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="uim.model.semantics.node.StrokeGroupNode.SEPARATOR"><code class="name">var <span class="ident">SEPARATOR</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="uim.model.semantics.node.StrokeGroupNode.children"><code class="name">var <span class="ident">children</span> : Tuple[<a title="uim.model.semantics.node.InkNode" href="#uim.model.semantics.node.InkNode">InkNode</a>]</code></dt>
+<dd>
+<div class="desc"><p>Children of the node. (<code>Tuple[<a title="uim.model.semantics.node.InkNode" href="#uim.model.semantics.node.InkNode">InkNode</a>]</code>, read-only)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def children(self) -&gt; Tuple[InkNode]:
+    &#34;&#34;&#34;Children of the node. (`Tuple[InkNode]`, read-only)&#34;&#34;&#34;
+    return tuple(self.__children)</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="uim.model.semantics.node.StrokeGroupNode.add"><code class="name flex">
+<span>def <span class="ident">add</span></span>(<span>self, node: <a title="uim.model.semantics.node.InkNode" href="#uim.model.semantics.node.InkNode">InkNode</a>) ‑> <a title="uim.model.semantics.node.InkNode" href="#uim.model.semantics.node.InkNode">InkNode</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Adds a child node to this group.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>node</code></strong> :&ensp;<code><a title="uim.model.semantics.node.InkNode" href="#uim.model.semantics.node.InkNode">InkNode</a></code></dt>
+<dd>The child node to be added.</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>InkModelException</code></dt>
+<dd>If <code><a title="uim.model.semantics.node.InkNode" href="#uim.model.semantics.node.InkNode">InkNode</a></code> already assigned to a tree or trying to add an ink node as a child, which has already a parent.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add(self, node: InkNode) -&gt; InkNode:
+    &#34;&#34;&#34;
+    Adds a child node to this group.
+
+    Parameters
+    -----------
+    node: `InkNode`
+        The child node to be added.
+
+    Raises
+    ------
+    InkModelException
+        If `InkNode` already assigned to a tree or trying to add an ink node as a child, which has already a parent.
+    &#34;&#34;&#34;
+    node.__assert_not_owned__()
+
+    if node.parent is not None:
+        raise InkModelException(f&#34;Trying to add an ink node as a child, which has already a parent. Node: {node}&#34;)
+
+    node._InkNode__parent = self
+    self.__children.append(node)
+
+    if node.is_assigned_to_a_tree():
+        self.tree.register_sub_tree(node)
+
+    return node</code></pre>
+</details>
+</dd>
+<dt id="uim.model.semantics.node.StrokeGroupNode.child_group_nodes_count"><code class="name flex">
+<span>def <span class="ident">child_group_nodes_count</span></span>(<span>self) ‑> int</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Number of child group nodes.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>number_of_child_nodes</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of child group nodes</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def child_group_nodes_count(self) -&gt; int:
+    &#34;&#34;&#34;
+    Number of child group nodes.
+
+    Returns
+    -------
+    number_of_child_nodes: `int`
+        Number of child group nodes
+    &#34;&#34;&#34;
+    count: int = 0
+    if self.child_nodes_count() &gt; 0:
+        for n in self.__children:
+            count = count + 1 if type(n) == StrokeGroupNode else 0
+    return count</code></pre>
+</details>
+</dd>
+<dt id="uim.model.semantics.node.StrokeGroupNode.child_nodes_count"><code class="name flex">
+<span>def <span class="ident">child_nodes_count</span></span>(<span>self) ‑> int</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Number of child nodes.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>number_of_child_nodes</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of child nodes</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def child_nodes_count(self) -&gt; int:
+    &#34;&#34;&#34;
+    Number of child nodes.
+
+    Returns
+    -------
+    number_of_child_nodes: `int`
+        Number of child nodes
+    &#34;&#34;&#34;
+    return len(self.__children)</code></pre>
+</details>
+</dd>
+<dt id="uim.model.semantics.node.StrokeGroupNode.child_stroke_nodes_count"><code class="name flex">
+<span>def <span class="ident">child_stroke_nodes_count</span></span>(<span>self) ‑> int</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Number of child stroke nodes.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>number_of_child_nodes</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of child stroke group nodes</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def child_stroke_nodes_count(self) -&gt; int:
+    &#34;&#34;&#34;
+    Number of child stroke nodes.
+
+    Returns
+    -------
+    number_of_child_nodes: `int`
+        Number of child stroke group nodes
+    &#34;&#34;&#34;
+    count: int = 0
+    if self.child_nodes_count() &gt; 0:
+        for n in self.__children:
+            count = count + 1 if type(n) == StrokeNode else 0
+    return count</code></pre>
+</details>
+</dd>
+<dt id="uim.model.semantics.node.StrokeGroupNode.remove"><code class="name flex">
+<span>def <span class="ident">remove</span></span>(<span>self, node: <a title="uim.model.semantics.node.InkNode" href="#uim.model.semantics.node.InkNode">InkNode</a>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Remove child node.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>node</code></strong> :&ensp;<code><a title="uim.model.semantics.node.InkNode" href="#uim.model.semantics.node.InkNode">InkNode</a></code></dt>
+<dd>The child node to be removed.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def remove(self, node: InkNode):
+    &#34;&#34;&#34;
+    Remove child node.
+
+    Parameters
+    ----------
+    node: `InkNode`
+        The child node to be removed.
+    &#34;&#34;&#34;
+    self.__children.remove(node)</code></pre>
+</details>
+</dd>
+<dt id="uim.model.semantics.node.StrokeGroupNode.sort_children"><code class="name flex">
+<span>def <span class="ident">sort_children</span></span>(<span>self, lambda_sort_func: Any, reverse: bool = False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Sorts the children based on a sorting function.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>lambda_sort_func</code></strong> :&ensp;<code>Any</code></dt>
+<dd>Sorting function for children.</dd>
+<dt><strong><code>reverse</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Flag for reversed order [default:=False]</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def sort_children(self, lambda_sort_func: Any, reverse: bool = False):
+    &#34;&#34;&#34;
+    Sorts the children based on a sorting function.
+
+    Parameters
+    ----------
+    lambda_sort_func: Any
+        Sorting function for children.
+    reverse: bool
+        Flag for reversed order [default:=False]
+    &#34;&#34;&#34;
+    self.__children = sorted(self.__children, key=functools.cmp_to_key(lambda_sort_func), reverse=reverse)</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="uim.model.semantics.node.InkNode" href="#uim.model.semantics.node.InkNode">InkNode</a></b></code>:
+<ul class="hlist">
+<li><code><a title="uim.model.semantics.node.InkNode.from_bytes" href="../base.html#uim.model.base.Identifier.from_bytes">from_bytes</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.group_bounding_box" href="#uim.model.semantics.node.InkNode.group_bounding_box">group_bounding_box</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.id" href="../base.html#uim.model.base.Identifier.id">id</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.id_generator" href="../base.html#uim.model.base.UUIDIdentifier.id_generator">id_generator</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.id_h_form" href="../base.html#uim.model.base.Identifier.id_h_form">id_h_form</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.id_s_form" href="../base.html#uim.model.base.Identifier.id_s_form">id_s_form</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.is_assigned_to_a_tree" href="#uim.model.semantics.node.InkNode.is_assigned_to_a_tree">is_assigned_to_a_tree</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.is_root" href="#uim.model.semantics.node.InkNode.is_root">is_root</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.parent" href="#uim.model.semantics.node.InkNode.parent">parent</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.root" href="#uim.model.semantics.node.InkNode.root">root</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.str_to_uimid" href="../base.html#uim.model.base.Identifier.str_to_uimid">str_to_uimid</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.transient_tag" href="#uim.model.semantics.node.InkNode.transient_tag">transient_tag</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.tree" href="#uim.model.semantics.node.InkNode.tree">tree</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.uimid_to_h_form" href="../base.html#uim.model.base.Identifier.uimid_to_h_form">uimid_to_h_form</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.uimid_to_s_form" href="../base.html#uim.model.base.Identifier.uimid_to_s_form">uimid_to_s_form</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.uri" href="#uim.model.semantics.node.InkNode.uri">uri</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.uri_legacy" href="#uim.model.semantics.node.InkNode.uri_legacy">uri_legacy</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.view_name" href="#uim.model.semantics.node.InkNode.view_name">view_name</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="uim.model.semantics.node.StrokeNode"><code class="flex name class">
+<span>class <span class="ident">StrokeNode</span></span>
+<span>(</span><span>stroke: <a title="uim.model.inkdata.strokes.Stroke" href="../inkdata/strokes.html#uim.model.inkdata.strokes.Stroke">Stroke</a>, fragment: <a title="uim.model.semantics.node.StrokeFragment" href="#uim.model.semantics.node.StrokeFragment">StrokeFragment</a> = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><h1 id="strokenode">StrokeNode</h1>
+<p>Represents an ´InkNode´ that refers to a Stroke object.
+A <code><a title="uim.model.semantics.node.StrokeNode" href="#uim.model.semantics.node.StrokeNode">StrokeNode</a></code> can represent either a whole path or part of a path within the ink model.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>stroke</code></strong> :&ensp;<code>Stroke</code></dt>
+<dd>Stroke which is referenced</dd>
+<dt><strong><code>fragment</code></strong> :&ensp;<code><a title="uim.model.semantics.node.StrokeFragment" href="#uim.model.semantics.node.StrokeFragment">StrokeFragment</a></code></dt>
+<dd>Fragment referencing only parts of the <code>Stroke</code></dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; from uim.model.ink import InkModel, InkTree
+&gt;&gt;&gt; from uim.model.semantics.node import StrokeGroupNode, StrokeNode, StrokeFragment, URIBuilder
+&gt;&gt;&gt; # Create the model
+&gt;&gt;&gt; ink_model: InkModel = InkModel()
+&gt;&gt;&gt; # Assign the group as the root of the main ink tree
+&gt;&gt;&gt; ink_model.ink_tree = InkTree()
+&gt;&gt;&gt; # First you need a root group to contain the strokes
+&gt;&gt;&gt; root: StrokeGroupNode = StrokeGroupNode(UUIDIdentifier.id_generator())
+&gt;&gt;&gt; ink_model.ink_tree.root = root
+&gt;&gt;&gt;
+&gt;&gt;&gt; # Add a node for stroke 0
+&gt;&gt;&gt; stroke_node_0: StrokeNode = StrokeNode(stroke_0, StrokeFragment(0, 1, 0.0, 1.0))
+&gt;&gt;&gt; root.add(stroke_node_0)
+&gt;&gt;&gt;
+&gt;&gt;&gt; # Add a node for stroke 1
+&gt;&gt;&gt; root.add(StrokeNode(stroke_1, StrokeFragment(0, 1, 0.0, 1.0)))
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class StrokeNode(InkNode):
+    &#34;&#34;&#34;
+    StrokeNode
+    ==========
+    Represents an ´InkNode´ that refers to a Stroke object.
+    A `StrokeNode` can represent either a whole path or part of a path within the ink model.
+
+    Parameters
+    ----------
+    stroke: `Stroke`
+        Stroke which is referenced
+    fragment: `StrokeFragment`
+        Fragment referencing only parts of the `Stroke`
+
+    Examples
+    --------
+    &gt;&gt;&gt; from uim.model.ink import InkModel, InkTree
+    &gt;&gt;&gt; from uim.model.semantics.node import StrokeGroupNode, StrokeNode, StrokeFragment, URIBuilder
+    &gt;&gt;&gt; # Create the model
+    &gt;&gt;&gt; ink_model: InkModel = InkModel()
+    &gt;&gt;&gt; # Assign the group as the root of the main ink tree
+    &gt;&gt;&gt; ink_model.ink_tree = InkTree()
+    &gt;&gt;&gt; # First you need a root group to contain the strokes
+    &gt;&gt;&gt; root: StrokeGroupNode = StrokeGroupNode(UUIDIdentifier.id_generator())
+    &gt;&gt;&gt; ink_model.ink_tree.root = root
+    &gt;&gt;&gt;
+    &gt;&gt;&gt; # Add a node for stroke 0
+    &gt;&gt;&gt; stroke_node_0: StrokeNode = StrokeNode(stroke_0, StrokeFragment(0, 1, 0.0, 1.0))
+    &gt;&gt;&gt; root.add(stroke_node_0)
+    &gt;&gt;&gt;
+    &gt;&gt;&gt; # Add a node for stroke 1
+    &gt;&gt;&gt; root.add(StrokeNode(stroke_1, StrokeFragment(0, 1, 0.0, 1.0)))
+    &#34;&#34;&#34;
+
+    def __init__(self, stroke: Stroke, fragment: StrokeFragment = None):
+        super().__init__(node_id=stroke.id)
+        self.__ref_stroke: Stroke = stroke
+        self.__fragment: StrokeFragment = fragment
+
+    @property
+    def stroke(self) -&gt; Stroke:
+        &#34;&#34;&#34;References the strokes. (`Stroke`)&#34;&#34;&#34;
+        return self.__ref_stroke
+
+    @stroke.setter
+    def stroke(self, stroke: Stroke):
+        self.__ref_stroke = stroke
+
+    @property
+    def fragment(self) -&gt; StrokeFragment:
+        &#34;&#34;&#34;`StrokeFragment` that specifies a fragment of the stroke. (`StrokeFragment`)
+
+        Notes
+        -----
+        If the property value is not null, the stroke node refers to the specified fragment of the stroke.
+        &#34;&#34;&#34;
+        return self.__fragment
+
+    @fragment.setter
+    def fragment(self, fragment: StrokeFragment):
+        self.__fragment = fragment
+
+    def child_nodes_count(self) -&gt; int:
+        &#34;&#34;&#34;
+        Number of child nodes.
+
+        Returns
+        -------
+        num_child_nodes: int
+            number of children nodes
+        &#34;&#34;&#34;
+        return 0
+
+    def __generate_uri__(self):
+        return URIBuilder().build_node_uri(self, SupportedFormats.UIM_VERSION_3_1_0)
+
+    def __repr__(self):
+        if self.stroke:
+            return &#39;&lt;StrokeNode: [stroke id:={}]&gt;&#39;.format(self.stroke.id if self.stroke is not None else &#39;&#39;)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="uim.model.semantics.node.InkNode" href="#uim.model.semantics.node.InkNode">InkNode</a></li>
+<li><a title="uim.model.base.UUIDIdentifier" href="../base.html#uim.model.base.UUIDIdentifier">UUIDIdentifier</a></li>
+<li><a title="uim.model.base.Identifier" href="../base.html#uim.model.base.Identifier">Identifier</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="uim.model.semantics.node.StrokeNode.SEPARATOR"><code class="name">var <span class="ident">SEPARATOR</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="uim.model.semantics.node.StrokeNode.fragment"><code class="name">var <span class="ident">fragment</span> : <a title="uim.model.semantics.node.StrokeFragment" href="#uim.model.semantics.node.StrokeFragment">StrokeFragment</a></code></dt>
+<dd>
+<div class="desc"><p><code><a title="uim.model.semantics.node.StrokeFragment" href="#uim.model.semantics.node.StrokeFragment">StrokeFragment</a></code> that specifies a fragment of the stroke. (<code><a title="uim.model.semantics.node.StrokeFragment" href="#uim.model.semantics.node.StrokeFragment">StrokeFragment</a></code>)</p>
+<h2 id="notes">Notes</h2>
+<p>If the property value is not null, the stroke node refers to the specified fragment of the stroke.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def fragment(self) -&gt; StrokeFragment:
+    &#34;&#34;&#34;`StrokeFragment` that specifies a fragment of the stroke. (`StrokeFragment`)
+
+    Notes
+    -----
+    If the property value is not null, the stroke node refers to the specified fragment of the stroke.
+    &#34;&#34;&#34;
+    return self.__fragment</code></pre>
+</details>
+</dd>
+<dt id="uim.model.semantics.node.StrokeNode.stroke"><code class="name">var <span class="ident">stroke</span> : <a title="uim.model.inkdata.strokes.Stroke" href="../inkdata/strokes.html#uim.model.inkdata.strokes.Stroke">Stroke</a></code></dt>
+<dd>
+<div class="desc"><p>References the strokes. (<code>Stroke</code>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def stroke(self) -&gt; Stroke:
+    &#34;&#34;&#34;References the strokes. (`Stroke`)&#34;&#34;&#34;
+    return self.__ref_stroke</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="uim.model.semantics.node.StrokeNode.child_nodes_count"><code class="name flex">
+<span>def <span class="ident">child_nodes_count</span></span>(<span>self) ‑> int</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Number of child nodes.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>num_child_nodes</code></strong> :&ensp;<code>int</code></dt>
+<dd>number of children nodes</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def child_nodes_count(self) -&gt; int:
+    &#34;&#34;&#34;
+    Number of child nodes.
+
+    Returns
+    -------
+    num_child_nodes: int
+        number of children nodes
+    &#34;&#34;&#34;
+    return 0</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="uim.model.semantics.node.InkNode" href="#uim.model.semantics.node.InkNode">InkNode</a></b></code>:
+<ul class="hlist">
+<li><code><a title="uim.model.semantics.node.InkNode.from_bytes" href="../base.html#uim.model.base.Identifier.from_bytes">from_bytes</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.group_bounding_box" href="#uim.model.semantics.node.InkNode.group_bounding_box">group_bounding_box</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.id" href="../base.html#uim.model.base.Identifier.id">id</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.id_generator" href="../base.html#uim.model.base.UUIDIdentifier.id_generator">id_generator</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.id_h_form" href="../base.html#uim.model.base.Identifier.id_h_form">id_h_form</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.id_s_form" href="../base.html#uim.model.base.Identifier.id_s_form">id_s_form</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.is_assigned_to_a_tree" href="#uim.model.semantics.node.InkNode.is_assigned_to_a_tree">is_assigned_to_a_tree</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.is_root" href="#uim.model.semantics.node.InkNode.is_root">is_root</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.parent" href="#uim.model.semantics.node.InkNode.parent">parent</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.root" href="#uim.model.semantics.node.InkNode.root">root</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.str_to_uimid" href="../base.html#uim.model.base.Identifier.str_to_uimid">str_to_uimid</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.transient_tag" href="#uim.model.semantics.node.InkNode.transient_tag">transient_tag</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.tree" href="#uim.model.semantics.node.InkNode.tree">tree</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.uimid_to_h_form" href="../base.html#uim.model.base.Identifier.uimid_to_h_form">uimid_to_h_form</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.uimid_to_s_form" href="../base.html#uim.model.base.Identifier.uimid_to_s_form">uimid_to_s_form</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.uri" href="#uim.model.semantics.node.InkNode.uri">uri</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.uri_legacy" href="#uim.model.semantics.node.InkNode.uri_legacy">uri_legacy</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.view_name" href="#uim.model.semantics.node.InkNode.view_name">view_name</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="uim.model.semantics.node.URIBuilder"><code class="flex name class">
+<span>class <span class="ident">URIBuilder</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generates URIs according to the ink model URI scheme.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class URIBuilder(ABC):
+    &#34;&#34;&#34;
+    Generates URIs according to the ink model URI scheme.
+    &#34;&#34;&#34;
+    SCHEME: str = &#34;uim:&#34;
+
+    def __init__(self):
+        pass
+
+    @staticmethod
+    def build_uri(sub_path: str, model_id: uuid.UUID = None):
+        &#34;&#34;&#34;
+        Build a URI for a model.
+
+        Parameters
+        ----------
+        sub_path: str
+            Sub path.
+        model_id: UUID
+            Unique ID of the model.
+
+        Returns
+        -------
+        uri - `str`
+            Model URI
+        &#34;&#34;&#34;
+        uri: str = URIBuilder.SCHEME
+        if model_id is not None:
+            uri += f&#39;{str(model_id)}/&#39;
+        uri += f&#39;{sub_path}/&#39;
+        return uri
+
+    @staticmethod
+    def build_named_entity_uri(uimid: uuid.UUID, model_id: uuid.UUID = None) -&gt; str:
+        &#34;&#34;&#34;Creates a URI for the specified named entity identifier.
+
+        Parameters
+        ----------
+        uimid: `UUID`
+            UUID of a node
+        model_id: UUID
+            ID of the model [optional]
+
+        Returns
+        -------
+        uri: str
+            URI for a named entity
+        &#34;&#34;&#34;
+        if not isinstance(uimid, uuid.UUID):
+            raise InkModelException(&#34;The named entity identifier should be a valid UUID.&#34;)
+        return URIBuilder.build_uri(&#39;ne&#39;, model_id) + str(uimid)
+
+    @staticmethod
+    def build_entity_uri(uimid: uuid.UUID, model_id: uuid.UUID = None) -&gt; str:
+        &#34;&#34;&#34;
+        Creates a URI for the specified entity view identifier.
+
+        Parameters
+        ----------
+        uimid: `UUID`
+            UUID of a node
+        model_id: UUID
+            ID of the model [optional]
+
+        Returns
+        -------
+        uri: str
+            URI for an entity
+        &#34;&#34;&#34;
+        if not isinstance(uimid, uuid.UUID):
+            raise InkModelException(&#34;The named entity identifier should be a valid UUID.&#34;)
+        return URIBuilder.build_uri(&#39;&#39;, model_id) + str(uimid)
+
+    @staticmethod
+    def build_node_uri_from(node_uuid: uuid.UUID, view_name: str,
+                            uri_format: SupportedFormats = SupportedFormats.UIM_VERSION_3_1_0) -&gt; str:
+        &#34;&#34;&#34;
+        Creates a URI for a node in a view.
+
+        Parameters
+        ----------
+        node_uuid: `UUID`
+            UUID of a node
+        view_name: `str`
+            Name of the view
+        uri_format: `SupportedFormats&#39;
+            Target format
+
+        Returns
+        -------
+        uri: str
+            URI for an node within a specific view
+        &#34;&#34;&#34;
+        node_uri: str = URIBuilder.build_uri(&#39;node&#39;)
+
+        if view_name == CommonViews.LEGACY_HWR_VIEW.value:
+            node_uri += &#39;hwr/&#39; if uri_format == SupportedFormats.UIM_VERSION_3_1_0 else &#39;&#39;
+        elif view_name == CommonViews.LEGACY_NER_VIEW.value:
+            node_uri += &#39;ner/&#39; if uri_format == SupportedFormats.UIM_VERSION_3_1_0 else &#39;&#39;
+        else:
+            node_uri += f&#39;{view_name}/&#39;
+
+        node_uri += f&#39;{node_uuid}&#39;
+        return node_uri
+
+    @staticmethod
+    def build_node_uri(ink_node: &#39;InkNode&#39;, uri_format: SupportedFormats) -&gt; str:
+        &#34;&#34;&#34;
+        Creates a URI for an ink node.
+
+        Parameters
+        ----------
+        ink_node: `InkNode`
+            Node in a tree
+        uri_format: `SupportedFormats`
+            URI format
+
+        Returns
+        -------
+            uri - `str`
+                Build a URI for the ink node
+        &#34;&#34;&#34;
+        if isinstance(ink_node, StrokeGroupNode):
+            return URIBuilder.build_node_uri_from(ink_node.id, ink_node.view_name, uri_format)
+        elif isinstance(ink_node, StrokeNode):
+            stroke_node: StrokeNode = ink_node
+            node_uri: str = URIBuilder.build_node_uri_from(stroke_node.stroke.id, stroke_node.view_name, uri_format)
+            if stroke_node.fragment:
+                node_uri += f&#39;#frag={stroke_node.fragment.from_point_index},{stroke_node.fragment.to_point_index}&#39;
+            return node_uri</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>abc.ABC</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="uim.model.semantics.node.URIBuilder.SCHEME"><code class="name">var <span class="ident">SCHEME</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Static methods</h3>
+<dl>
+<dt id="uim.model.semantics.node.URIBuilder.build_entity_uri"><code class="name flex">
+<span>def <span class="ident">build_entity_uri</span></span>(<span>uimid: uuid.UUID, model_id: uuid.UUID = None) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates a URI for the specified entity view identifier.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>uimid</code></strong> :&ensp;<code>UUID</code></dt>
+<dd>UUID of a node</dd>
+<dt><strong><code>model_id</code></strong> :&ensp;<code>UUID</code></dt>
+<dd>ID of the model [optional]</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>uri</code></strong> :&ensp;<code>str</code></dt>
+<dd>URI for an entity</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def build_entity_uri(uimid: uuid.UUID, model_id: uuid.UUID = None) -&gt; str:
+    &#34;&#34;&#34;
+    Creates a URI for the specified entity view identifier.
+
+    Parameters
+    ----------
+    uimid: `UUID`
+        UUID of a node
+    model_id: UUID
+        ID of the model [optional]
+
+    Returns
+    -------
+    uri: str
+        URI for an entity
+    &#34;&#34;&#34;
+    if not isinstance(uimid, uuid.UUID):
+        raise InkModelException(&#34;The named entity identifier should be a valid UUID.&#34;)
+    return URIBuilder.build_uri(&#39;&#39;, model_id) + str(uimid)</code></pre>
+</details>
+</dd>
+<dt id="uim.model.semantics.node.URIBuilder.build_named_entity_uri"><code class="name flex">
+<span>def <span class="ident">build_named_entity_uri</span></span>(<span>uimid: uuid.UUID, model_id: uuid.UUID = None) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates a URI for the specified named entity identifier.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>uimid</code></strong> :&ensp;<code>UUID</code></dt>
+<dd>UUID of a node</dd>
+<dt><strong><code>model_id</code></strong> :&ensp;<code>UUID</code></dt>
+<dd>ID of the model [optional]</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>uri</code></strong> :&ensp;<code>str</code></dt>
+<dd>URI for a named entity</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def build_named_entity_uri(uimid: uuid.UUID, model_id: uuid.UUID = None) -&gt; str:
+    &#34;&#34;&#34;Creates a URI for the specified named entity identifier.
+
+    Parameters
+    ----------
+    uimid: `UUID`
+        UUID of a node
+    model_id: UUID
+        ID of the model [optional]
+
+    Returns
+    -------
+    uri: str
+        URI for a named entity
+    &#34;&#34;&#34;
+    if not isinstance(uimid, uuid.UUID):
+        raise InkModelException(&#34;The named entity identifier should be a valid UUID.&#34;)
+    return URIBuilder.build_uri(&#39;ne&#39;, model_id) + str(uimid)</code></pre>
+</details>
+</dd>
+<dt id="uim.model.semantics.node.URIBuilder.build_node_uri"><code class="name flex">
+<span>def <span class="ident">build_node_uri</span></span>(<span>ink_node: <a title="uim.model.semantics.node.InkNode" href="#uim.model.semantics.node.InkNode">InkNode</a>, uri_format: <a title="uim.codec.parser.base.SupportedFormats" href="../../codec/parser/base.html#uim.codec.parser.base.SupportedFormats">SupportedFormats</a>) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates a URI for an ink node.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>ink_node</code></strong> :&ensp;<code><a title="uim.model.semantics.node.InkNode" href="#uim.model.semantics.node.InkNode">InkNode</a></code></dt>
+<dd>Node in a tree</dd>
+<dt><strong><code>uri_format</code></strong> :&ensp;<code>SupportedFormats</code></dt>
+<dd>URI format</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<pre><code>uri - &lt;code&gt;str&lt;/code&gt;
+    Build a URI for the ink node
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def build_node_uri(ink_node: &#39;InkNode&#39;, uri_format: SupportedFormats) -&gt; str:
+    &#34;&#34;&#34;
+    Creates a URI for an ink node.
+
+    Parameters
+    ----------
+    ink_node: `InkNode`
+        Node in a tree
+    uri_format: `SupportedFormats`
+        URI format
+
+    Returns
+    -------
+        uri - `str`
+            Build a URI for the ink node
+    &#34;&#34;&#34;
+    if isinstance(ink_node, StrokeGroupNode):
+        return URIBuilder.build_node_uri_from(ink_node.id, ink_node.view_name, uri_format)
+    elif isinstance(ink_node, StrokeNode):
+        stroke_node: StrokeNode = ink_node
+        node_uri: str = URIBuilder.build_node_uri_from(stroke_node.stroke.id, stroke_node.view_name, uri_format)
+        if stroke_node.fragment:
+            node_uri += f&#39;#frag={stroke_node.fragment.from_point_index},{stroke_node.fragment.to_point_index}&#39;
+        return node_uri</code></pre>
+</details>
+</dd>
+<dt id="uim.model.semantics.node.URIBuilder.build_node_uri_from"><code class="name flex">
+<span>def <span class="ident">build_node_uri_from</span></span>(<span>node_uuid: uuid.UUID, view_name: str, uri_format: <a title="uim.codec.parser.base.SupportedFormats" href="../../codec/parser/base.html#uim.codec.parser.base.SupportedFormats">SupportedFormats</a> = SupportedFormats.UIM_VERSION_3_1_0) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates a URI for a node in a view.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>node_uuid</code></strong> :&ensp;<code>UUID</code></dt>
+<dd>UUID of a node</dd>
+<dt><strong><code>view_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>Name of the view</dd>
+<dt><strong><code>uri_format</code></strong> :&ensp;<code>`SupportedFormats'</code></dt>
+<dd>Target format</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>uri</code></strong> :&ensp;<code>str</code></dt>
+<dd>URI for an node within a specific view</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def build_node_uri_from(node_uuid: uuid.UUID, view_name: str,
+                        uri_format: SupportedFormats = SupportedFormats.UIM_VERSION_3_1_0) -&gt; str:
+    &#34;&#34;&#34;
+    Creates a URI for a node in a view.
+
+    Parameters
+    ----------
+    node_uuid: `UUID`
+        UUID of a node
+    view_name: `str`
+        Name of the view
+    uri_format: `SupportedFormats&#39;
+        Target format
+
+    Returns
+    -------
+    uri: str
+        URI for an node within a specific view
+    &#34;&#34;&#34;
+    node_uri: str = URIBuilder.build_uri(&#39;node&#39;)
+
+    if view_name == CommonViews.LEGACY_HWR_VIEW.value:
+        node_uri += &#39;hwr/&#39; if uri_format == SupportedFormats.UIM_VERSION_3_1_0 else &#39;&#39;
+    elif view_name == CommonViews.LEGACY_NER_VIEW.value:
+        node_uri += &#39;ner/&#39; if uri_format == SupportedFormats.UIM_VERSION_3_1_0 else &#39;&#39;
+    else:
+        node_uri += f&#39;{view_name}/&#39;
+
+    node_uri += f&#39;{node_uuid}&#39;
+    return node_uri</code></pre>
+</details>
+</dd>
+<dt id="uim.model.semantics.node.URIBuilder.build_uri"><code class="name flex">
+<span>def <span class="ident">build_uri</span></span>(<span>sub_path: str, model_id: uuid.UUID = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Build a URI for a model.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>sub_path</code></strong> :&ensp;<code>str</code></dt>
+<dd>Sub path.</dd>
+<dt><strong><code>model_id</code></strong> :&ensp;<code>UUID</code></dt>
+<dd>Unique ID of the model.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>uri - <code>str</code>
+Model URI</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def build_uri(sub_path: str, model_id: uuid.UUID = None):
+    &#34;&#34;&#34;
+    Build a URI for a model.
+
+    Parameters
+    ----------
+    sub_path: str
+        Sub path.
+    model_id: UUID
+        Unique ID of the model.
+
+    Returns
+    -------
+    uri - `str`
+        Model URI
+    &#34;&#34;&#34;
+    uri: str = URIBuilder.SCHEME
+    if model_id is not None:
+        uri += f&#39;{str(model_id)}/&#39;
+    uri += f&#39;{sub_path}/&#39;
+    return uri</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="uim.model.semantics" href="index.html">uim.model.semantics</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="uim.model.semantics.node.InkNode" href="#uim.model.semantics.node.InkNode">InkNode</a></code></h4>
+<ul class="">
+<li><code><a title="uim.model.semantics.node.InkNode.SEPARATOR" href="#uim.model.semantics.node.InkNode.SEPARATOR">SEPARATOR</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.child_nodes_count" href="#uim.model.semantics.node.InkNode.child_nodes_count">child_nodes_count</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.group_bounding_box" href="#uim.model.semantics.node.InkNode.group_bounding_box">group_bounding_box</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.is_assigned_to_a_tree" href="#uim.model.semantics.node.InkNode.is_assigned_to_a_tree">is_assigned_to_a_tree</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.is_root" href="#uim.model.semantics.node.InkNode.is_root">is_root</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.parent" href="#uim.model.semantics.node.InkNode.parent">parent</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.root" href="#uim.model.semantics.node.InkNode.root">root</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.transient_tag" href="#uim.model.semantics.node.InkNode.transient_tag">transient_tag</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.tree" href="#uim.model.semantics.node.InkNode.tree">tree</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.uri" href="#uim.model.semantics.node.InkNode.uri">uri</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.uri_legacy" href="#uim.model.semantics.node.InkNode.uri_legacy">uri_legacy</a></code></li>
+<li><code><a title="uim.model.semantics.node.InkNode.view_name" href="#uim.model.semantics.node.InkNode.view_name">view_name</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="uim.model.semantics.node.StrokeFragment" href="#uim.model.semantics.node.StrokeFragment">StrokeFragment</a></code></h4>
+<ul class="">
+<li><code><a title="uim.model.semantics.node.StrokeFragment.from_point_index" href="#uim.model.semantics.node.StrokeFragment.from_point_index">from_point_index</a></code></li>
+<li><code><a title="uim.model.semantics.node.StrokeFragment.from_t_value" href="#uim.model.semantics.node.StrokeFragment.from_t_value">from_t_value</a></code></li>
+<li><code><a title="uim.model.semantics.node.StrokeFragment.to_point_index" href="#uim.model.semantics.node.StrokeFragment.to_point_index">to_point_index</a></code></li>
+<li><code><a title="uim.model.semantics.node.StrokeFragment.to_t_value" href="#uim.model.semantics.node.StrokeFragment.to_t_value">to_t_value</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="uim.model.semantics.node.StrokeGroupNode" href="#uim.model.semantics.node.StrokeGroupNode">StrokeGroupNode</a></code></h4>
+<ul class="">
+<li><code><a title="uim.model.semantics.node.StrokeGroupNode.SEPARATOR" href="#uim.model.semantics.node.StrokeGroupNode.SEPARATOR">SEPARATOR</a></code></li>
+<li><code><a title="uim.model.semantics.node.StrokeGroupNode.add" href="#uim.model.semantics.node.StrokeGroupNode.add">add</a></code></li>
+<li><code><a title="uim.model.semantics.node.StrokeGroupNode.child_group_nodes_count" href="#uim.model.semantics.node.StrokeGroupNode.child_group_nodes_count">child_group_nodes_count</a></code></li>
+<li><code><a title="uim.model.semantics.node.StrokeGroupNode.child_nodes_count" href="#uim.model.semantics.node.StrokeGroupNode.child_nodes_count">child_nodes_count</a></code></li>
+<li><code><a title="uim.model.semantics.node.StrokeGroupNode.child_stroke_nodes_count" href="#uim.model.semantics.node.StrokeGroupNode.child_stroke_nodes_count">child_stroke_nodes_count</a></code></li>
+<li><code><a title="uim.model.semantics.node.StrokeGroupNode.children" href="#uim.model.semantics.node.StrokeGroupNode.children">children</a></code></li>
+<li><code><a title="uim.model.semantics.node.StrokeGroupNode.remove" href="#uim.model.semantics.node.StrokeGroupNode.remove">remove</a></code></li>
+<li><code><a title="uim.model.semantics.node.StrokeGroupNode.sort_children" href="#uim.model.semantics.node.StrokeGroupNode.sort_children">sort_children</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="uim.model.semantics.node.StrokeNode" href="#uim.model.semantics.node.StrokeNode">StrokeNode</a></code></h4>
+<ul class="">
+<li><code><a title="uim.model.semantics.node.StrokeNode.SEPARATOR" href="#uim.model.semantics.node.StrokeNode.SEPARATOR">SEPARATOR</a></code></li>
+<li><code><a title="uim.model.semantics.node.StrokeNode.child_nodes_count" href="#uim.model.semantics.node.StrokeNode.child_nodes_count">child_nodes_count</a></code></li>
+<li><code><a title="uim.model.semantics.node.StrokeNode.fragment" href="#uim.model.semantics.node.StrokeNode.fragment">fragment</a></code></li>
+<li><code><a title="uim.model.semantics.node.StrokeNode.stroke" href="#uim.model.semantics.node.StrokeNode.stroke">stroke</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="uim.model.semantics.node.URIBuilder" href="#uim.model.semantics.node.URIBuilder">URIBuilder</a></code></h4>
+<ul class="">
+<li><code><a title="uim.model.semantics.node.URIBuilder.SCHEME" href="#uim.model.semantics.node.URIBuilder.SCHEME">SCHEME</a></code></li>
+<li><code><a title="uim.model.semantics.node.URIBuilder.build_entity_uri" href="#uim.model.semantics.node.URIBuilder.build_entity_uri">build_entity_uri</a></code></li>
+<li><code><a title="uim.model.semantics.node.URIBuilder.build_named_entity_uri" href="#uim.model.semantics.node.URIBuilder.build_named_entity_uri">build_named_entity_uri</a></code></li>
+<li><code><a title="uim.model.semantics.node.URIBuilder.build_node_uri" href="#uim.model.semantics.node.URIBuilder.build_node_uri">build_node_uri</a></code></li>
+<li><code><a title="uim.model.semantics.node.URIBuilder.build_node_uri_from" href="#uim.model.semantics.node.URIBuilder.build_node_uri_from">build_node_uri_from</a></code></li>
+<li><code><a title="uim.model.semantics.node.URIBuilder.build_uri" href="#uim.model.semantics.node.URIBuilder.build_uri">build_uri</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

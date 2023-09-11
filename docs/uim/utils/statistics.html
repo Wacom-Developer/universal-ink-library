@@ -1,0 +1,1000 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>uim.utils.statistics API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>uim.utils.statistics</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># -*- coding: utf-8 -*-
+# Copyright © 2023 Wacom. All rights reserved.
+import re
+import statistics
+from typing import Dict, Any, Optional, List
+from uim.utils.analyser import ModelAnalyzer, safe_zero_div, as_strided_array
+from uim.model.helpers.treeiterator import PreOrderEnumerator
+from uim.model.ink import InkModel, InkTree, logger
+from uim.model.inkdata.strokes import Stroke, Style
+from uim.model.inkinput.inputdata import InputContext, Environment, SensorContext, InputDevice, \
+    InkInputProvider
+from uim.model.inkinput.sensordata import SensorData
+from uim.model.semantics.node import StrokeGroupNode
+from uim.model.semantics.structures import BoundingBox
+from uim.model.semantics.schema import TripleStore
+
+
+
+class StatisticsAnalyzer(ModelAnalyzer):
+    &#34;&#34;&#34;
+    Statistics analyzer
+    ===================
+    Analyze the model and compute statistics.
+    &#34;&#34;&#34;
+
+    @staticmethod
+    def merge_stats(*stats):
+        pass
+
+    @staticmethod
+    def summarize(stats, verbose=False):
+        pass
+
+    @staticmethod
+    def analyze(model: InkModel, ignore_predicates: Optional[List[str]] = None,
+                ignore_properties: Optional[List[str]] = None):
+        &#34;&#34;&#34;
+        Analyze the model and compute statistics.
+        Parameters
+        ----------
+        model: InkModel
+            Ink model to analyze.
+        ignore_predicates: Optional[List[str]]
+            List of predicates to ignore.
+        ignore_properties: Optional[List[str]]
+            List of properties to ignore.
+
+        &#34;&#34;&#34;
+        # Init stats
+        stats: Dict[str, Any] = {
+            &#34;envs&#34;: {}, &#34;input_devices&#34;: {}, &#34;input_providers&#34;: {}, &#34;brushes&#34;: {},
+            &#34;properties&#34;: StatisticsAnalyzer.__extract_properties_info(model, ignore_properties),
+            &#34;sampling_rate&#34;: StatisticsAnalyzer.__detect_sampling_rate__(model),
+            &#34;document_bounds&#34;: StatisticsAnalyzer.__compute_document_bounds__(model),
+            &#34;sensor_channels&#34;: {},
+            &#34;knowledge_graph&#34;: {},
+            &#34;points_count&#34;: {
+                &#39;stroke_points&#39;: [],
+                &#39;total&#39;: 0
+            },
+            &#34;views&#34;: {},
+            &#34;uim_version&#34;: f&#34;{model.version.major}.{model.version.minor}.{model.version.patch}&#34;,
+            &#34;strokes_count&#34;: len(model.strokes)
+        }
+        # Preload stats items
+        StatisticsAnalyzer.__preload_stats_items__(model, stats)
+        # Extract stats
+        for stroke in model.strokes:
+            # Extract stroke info
+            StatisticsAnalyzer.__extract_stroke_info__(stroke, stats)
+            # Extract input configuration
+            StatisticsAnalyzer.__extract_input_configuration__(model, stroke, stats)
+            # Extract sensor data info
+            StatisticsAnalyzer.__extract_sensor_data_info__(model, stroke, stats)
+            # Extract brush info
+            StatisticsAnalyzer.__extract_brushes_information(stroke, stats)
+        # Post process stats
+        StatisticsAnalyzer.__post_process_sensor_channels_info__(stats)
+        # Extract views info
+        StatisticsAnalyzer.__extract_views_info__(model, stats, ignore_predicates)
+        # Extract knowledge graph info
+        StatisticsAnalyzer.__extract_kg_info__(model, stats, ignore_predicates)
+        # Post process stats
+        StatisticsAnalyzer.__post_process_stats__(stats)
+        return stats
+
+    @staticmethod
+    def __extract_stroke_info__(stroke: Stroke, stats: Dict[str, Any]):
+        &#34;&#34;&#34;
+        Extracts stroke information from the given stroke and updates the given stats dictionary.
+
+        Parameters
+        ----------
+        stroke: Stroke
+            The stroke to extract information from
+        stats: Dict[str, Any]
+            The stats dictionary to update.
+        &#34;&#34;&#34;
+        stats[&#39;points_count&#39;][&#39;stroke_points&#39;].append(stroke.points_count)
+        stats[&#39;points_count&#39;][&#39;total&#39;] += stroke.points_count
+
+    @staticmethod
+    def __extract_properties_info(model: InkModel, ignore_properties: Optional[List[str]] = None):
+        &#34;&#34;&#34;
+        Extracts properties information from the given model.
+
+        Parameters
+        ----------
+        model: InkModel
+            The model to extract information from.
+        ignore_properties: Optional[List[str]]
+            A list of regular expressions to ignore properties that match them.
+        &#34;&#34;&#34;
+        props: Dict[str, Any] = dict(model.properties)
+        result: Dict[str, Any] = {}
+
+        for prop, value in props.items():
+            should_ignore: bool = False
+            if ignore_properties:
+                for ip in ignore_properties:
+                    if re.compile(ip).match(prop):
+                        should_ignore = True
+                        break
+            if not should_ignore:
+                if prop not in result:
+                    result[prop] = {&#39;documents_count&#39;: 0, &#39;values&#39;: {}}
+                if value not in result[prop][&#39;values&#39;]:
+                    result[prop][&#39;values&#39;][value] = {&#34;count&#34;: 0}
+
+                result[prop][&#39;values&#39;][value][&#39;count&#39;] += 1
+
+        return result
+
+    @staticmethod
+    def __post_process_stats__(stats):
+        strokes_count: int = stats[&#39;strokes_count&#39;]
+
+        for stat_type in [&#39;brushes&#39;, &#39;envs&#39;, &#39;input_devices&#39;]:
+            for k, v in stats[stat_type].items():
+                stats[stat_type][k][&#39;percent&#39;] = round(safe_zero_div(v[&#39;strokes_count&#39;], strokes_count) * 100, 2)
+
+        for k, v in stats[&#39;input_providers&#39;].items():
+            stats[&#39;input_providers&#39;][k][&#39;percent&#39;] = round(safe_zero_div(v[&#39;strokes_count&#39;], strokes_count) * 100, 2)
+
+            if &#39;sampling_rates&#39; in v and len(v[&#39;sampling_rates&#39;]):
+                stats[&#39;input_providers&#39;][k][&#39;sampling_rate&#39;] = round(statistics.mean(v[&#39;sampling_rates&#39;]), 2)
+                del stats[&#39;input_providers&#39;][k][&#39;sampling_rates&#39;]
+            else:
+                stats[&#39;input_providers&#39;][k][&#39;sampling_rate&#39;] = 0
+
+        for name, view in stats[&#39;views&#39;].items():
+            for k, v in view[&#39;leaf_classes&#39;].items():
+                stats[&#39;views&#39;][name][&#39;leaf_classes&#39;][k][&#39;percent&#39;] = round(
+                    safe_zero_div(v[&#39;strokes_count&#39;], strokes_count) * 100, 2)
+
+        for k, v in stats[&#39;properties&#39;].items():
+            for vk, vv in v[&#39;values&#39;].items():
+                stats[&#39;properties&#39;][k][&#39;values&#39;][vk][&#39;percent&#39;] = round(
+                    safe_zero_div(vv[&#39;count&#39;], v[&#39;documents_count&#39;]) * 100, 2)
+
+        for k, v in stats[&#39;sensor_channels&#39;].items():
+            stats[&#39;sensor_channels&#39;][k][&#39;percent&#39;] = round(safe_zero_div(v[&#39;strokes_count&#39;], strokes_count) * 100, 2)
+
+        # Stroke stats
+        if len(stats[&#39;points_count&#39;][&#39;stroke_points&#39;]) &gt; 0:
+            stats[&#39;points_count&#39;][&#39;min&#39;] = min(stats[&#39;points_count&#39;][&#39;stroke_points&#39;])
+            stats[&#39;points_count&#39;][&#39;max&#39;] = max(stats[&#39;points_count&#39;][&#39;stroke_points&#39;])
+            stats[&#39;points_count&#39;][&#39;mean&#39;] = round(statistics.mean(stats[&#39;points_count&#39;][&#39;stroke_points&#39;]), 2)
+            stats[&#39;points_count&#39;][&#39;std&#39;] = round(statistics.stdev(stats[&#39;points_count&#39;][&#39;stroke_points&#39;]), 2)
+            stats[&#39;points_count&#39;][&#39;median&#39;] = round(statistics.median(stats[&#39;points_count&#39;][&#39;stroke_points&#39;]), 2)
+        else:
+            stats[&#39;points_count&#39;][&#39;min&#39;] = 0
+            stats[&#39;points_count&#39;][&#39;max&#39;] = 0
+            stats[&#39;points_count&#39;][&#39;mean&#39;] = 0
+            stats[&#39;points_count&#39;][&#39;std&#39;] = 0
+            stats[&#39;points_count&#39;][&#39;median&#39;] = 0
+        del stats[&#39;points_count&#39;][&#39;stroke_points&#39;]
+
+    @staticmethod
+    def __preload_stats_items__(model: InkModel, stats: Dict[str, Any]):
+        for env in model.input_configuration.environments:
+            env_props: Dict[str, Any] = dict(env.properties)
+
+            stats[&#39;envs&#39;][f&#39;env-{env.id}&#39;] = env_props
+            stats[&#39;envs&#39;][f&#39;env-{env.id}&#39;][&#39;strokes_count&#39;] = 0
+            if &#39;user.agent&#39; in env_props:
+                rest = env_props[&#39;user.agent&#39;]
+                try:
+                    stats[&#39;envs&#39;][f&#39;env-{env.id}&#39;][&#39;platform.name&#39;] = rest[&#39;platform&#39;][&#39;name&#39;]
+                    stats[&#39;envs&#39;][f&#39;env-{env.id}&#39;][&#39;platform.version&#39;] = rest[&#39;platform&#39;][&#39;version&#39;]
+                    stats[&#39;envs&#39;][f&#39;env-{env.id}&#39;][&#39;os.name&#39;] = rest[&#39;os&#39;][&#39;name&#39;]
+                except Exception as e:
+                    print(e)
+                try:
+
+                    stats[&#39;envs&#39;][f&#39;env-{env.id}&#39;][&#39;browser.name&#39;] = rest[&#39;browser&#39;][&#39;name&#39;]
+                    stats[&#39;envs&#39;][f&#39;env-{env.id}&#39;][&#39;browser.version&#39;] = rest[&#39;browser&#39;][&#39;version&#39;]
+                except Exception as _:
+                    stats[&#39;envs&#39;][f&#39;env-{env.id}&#39;][&#39;browser.name&#39;] = &#39;unknown&#39;
+                    stats[&#39;envs&#39;][f&#39;env-{env.id}&#39;][&#39;browser.version&#39;] = &#39;unknown&#39;
+
+        for dev in model.input_configuration.devices:
+            stats[&#39;input_devices&#39;][f&#39;dev-{dev.id}&#39;] = {&#34;strokes_count&#34;: 0}
+
+        for ip in model.input_configuration.ink_input_providers:
+            stats[&#39;input_providers&#39;][f&#39;prov-{ip.id}&#39;] = {&#34;strokes_count&#34;: 0, &#34;sampling_rates&#34;: []}
+
+        for brush in model.brushes.vector_brushes:
+            stats[&#39;brushes&#39;][brush.name] = {&#34;strokes_count&#34;: 0}
+
+        for brush in model.brushes.raster_brushes:
+            stats[&#39;brushes&#39;][brush.name] = {&#34;strokes_count&#34;: 0}
+
+        area = stats[&#39;document_bounds&#39;][&#39;width&#39;] * stats[&#39;document_bounds&#39;][&#39;height&#39;]
+        stats[&#39;document_stats&#39;] = {&#34;min_area&#34;: area, &#34;max_area&#34;: area}
+
+    @staticmethod
+    def __extract_views_info__(model: InkModel, stats: Dict[str, Any], ignore_predicates: Optional[List[str]] = None):
+        kg: TripleStore = model.knowledge_graph
+
+        for v in model.views:
+            v: InkTree = v
+
+            view_info: Dict[str, Any] = {
+                &#34;assumed_type_predicate&#34;: ModelAnalyzer.__assume_view_type_predicate__(model, v),
+                &#34;statements_count&#34;: 0,
+                &#34;predicates&#34;: {},
+                &#34;leaf_classes&#34;: {}
+            }
+
+            if view_info[&#34;assumed_type_predicate&#34;] != &#34;unknown&#34;:
+                enumerator: PreOrderEnumerator = PreOrderEnumerator(v.root)
+
+                for node in enumerator:
+                    # Calculate predicates per view
+                    sts = kg.all_statements_for(subject=node.uri)
+                    for statement in sts:
+                        should_ignore = False
+                        if ignore_predicates:
+                            for ip in ignore_predicates:
+                                if re.compile(ip).match(statement.predicate):
+                                    should_ignore = True
+                                    break
+
+                        if not should_ignore:
+                            if statement.predicate not in view_info[&#34;predicates&#34;]:
+                                view_info[&#34;predicates&#34;][statement.predicate] = {&#34;occurrence&#34;: 0}
+
+                            view_info[&#34;predicates&#34;][statement.predicate][&#34;occurrence&#34;] += 1
+
+                    if type(node) == StrokeGroupNode:
+                        children_types = [type(n) for n in node.children]
+
+                        if StrokeGroupNode in children_types:
+                            continue
+
+                        sts = kg.all_statements_for(subject=node.uri, predicate=view_info[&#34;assumed_type_predicate&#34;])
+                        if len(sts) &gt; 0:
+                            sem_type = sts[0].object
+
+                            if sem_type not in view_info[&#34;leaf_classes&#34;]:
+                                view_info[&#34;leaf_classes&#34;][sem_type] = {&#34;strokes_count&#34;: 0, &#39;percent&#39;: 0}
+
+                            view_info[&#34;leaf_classes&#34;][sem_type][&#34;strokes_count&#34;] += len(node.children)
+
+            stats[&#34;views&#34;][v.name] = view_info
+
+    @staticmethod
+    def __extract_kg_info__(model: InkModel, stats, ignore_predicates=None):
+        kg: TripleStore = model.knowledge_graph
+
+        stats[&#34;knowledge_graph&#34;][&#34;statements_count&#34;] = len(kg.statements)
+        stats[&#34;knowledge_graph&#34;][&#34;predicates&#34;] = {}
+
+        for statement in kg.statements:
+            should_ignore = False
+            if ignore_predicates:
+                for ip in ignore_predicates:
+                    if re.compile(ip).match(statement.predicate):
+                        should_ignore = True
+                        break
+
+            if not should_ignore:
+                if statement.predicate not in stats[&#34;knowledge_graph&#34;][&#34;predicates&#34;]:
+                    stats[&#34;knowledge_graph&#34;][&#34;predicates&#34;][statement.predicate] = {&#34;occurrence&#34;: 0}
+
+                stats[&#34;knowledge_graph&#34;][&#34;predicates&#34;][statement.predicate][&#34;occurrence&#34;] += 1
+
+    @staticmethod
+    def __extract_brushes_information(stroke: Stroke, stats):
+        style: Style = stroke.style
+        stats[&#39;brushes&#39;][style.brush_uri][&#34;strokes_count&#34;] += 1
+
+    @staticmethod
+    def __extract_input_configuration__(model: InkModel, stroke: Stroke, stats):
+        try:
+            sd: SensorData = model.sensor_data.sensor_data_by_id(stroke.sensor_data_id)
+        except Exception as e:
+            logger.error(f&#34;Error while extracting input configuration: {e}&#34;)
+            return
+
+        ic: InputContext = model.input_configuration.get_input_context(sd.input_context_id)
+        env: Environment = next(env for env in model.input_configuration.environments if env.id == ic.environment_id)
+        stats[&#39;envs&#39;][f&#39;env-{env.id}&#39;][&#34;strokes_count&#34;] += 1
+
+        sc: SensorContext = model.input_configuration.get_sensor_context(ic.sensor_context_id)
+        for scc in sc.sensor_channels_contexts:
+            try:
+                input_device: InputDevice = next(
+                    dev for dev in model.input_configuration.devices if dev.id == scc.input_device_id)
+                stats[&#39;input_devices&#39;][f&#39;dev-{input_device.id}&#39;][&#34;strokes_count&#34;] += 1
+            except Exception as e:
+                logger.error(f&#34;Error while extracting input configuration: {e}&#34;)
+
+            try:
+                input_provider: InkInputProvider = next(
+                    prov for prov in model.input_configuration.ink_input_providers if prov.id == scc.input_provider_id)
+
+                stats[&#39;input_providers&#39;][f&#39;prov-{input_provider.id}&#39;][&#34;strokes_count&#34;] += 1
+                sr = StatisticsAnalyzer.__detect_stroke_sampling_rate(stroke, model)
+                if sr:
+                    stats[&#39;input_providers&#39;][f&#39;prov-{input_provider.id}&#39;][&#34;sampling_rates&#34;].append(sr)
+            except Exception as e:
+                logger.error(f&#34;Error while extracting input configuration: {e}&#34;)
+
+    @staticmethod
+    def __detect_sampling_rate__(model: InkModel) -&gt; float:
+        &#34;&#34;&#34;
+        Calculates the average sampling rate of the strokes in the ink model.
+        Parameters
+        ----------
+        model: InkModel
+            The ink model to analyze
+
+        Returns
+        -------
+        sampling_rate: float
+            The average sampling rate of the strokes in the ink model in milliseconds.
+        &#34;&#34;&#34;
+
+        per_stroke_sampling: List[float] = []
+
+        for stroke in model.strokes:
+            try:
+                sr = StatisticsAnalyzer.__detect_stroke_sampling_rate(stroke, model)
+                if sr:
+                    per_stroke_sampling.append(sr)
+            except Exception as e:
+                logger.error(f&#34;Error while detecting sampling rate: {e}&#34;)
+
+        if len(per_stroke_sampling) == 0:
+            return 0
+
+        return round(statistics.mean(per_stroke_sampling), 2)
+
+    @staticmethod
+    def __detect_stroke_sampling_rate(stroke: Stroke, model: InkModel) -&gt; float:
+        &#34;&#34;&#34;
+        Calculates the sampling rate of a stroke in the ink model.
+        Parameters
+        ----------
+        stroke: Stroke
+            The stroke to analyze
+        model: InkModel
+            The ink model to analyze
+
+        Returns
+        -------
+        sampling_rate: float
+            The sampling rate of the stroke in milliseconds.
+        &#34;&#34;&#34;
+        layout: str = &#34;xytp&#34;
+        pos_t: int = layout.index(&#34;t&#34;)
+        stride: int = len(layout)
+        stride_stroke = as_strided_array(model, stroke, layout)
+        ts = stride_stroke[pos_t::stride]
+        if len(ts) &lt; 2:
+            return 0.
+
+        diffs: List[float] = [round(ts[j] - ts[j - 1], 2) for j in range(1, len(ts))]
+        return statistics.mean(diffs)
+
+    @staticmethod
+    def __compute_document_bounds__(model: InkModel) -&gt; Dict[str, float]:
+        &#34;&#34;&#34;
+        Computes the bounding box of the document.
+
+        Parameters
+        ----------
+        model: InkModel
+            The ink model to analyze.
+
+        Returns
+        -------
+        bounds: Dict[str, float]
+            The bounding box of the document.
+        &#34;&#34;&#34;
+        if len(model.strokes) == 0:
+            return {&#34;left&#34;: 0, &#34;top&#34;: 0, &#34;right&#34;: 0, &#34;bottom&#34;: 0, &#34;width&#34;: 0, &#34;height&#34;: 0}
+
+        root: StrokeGroupNode = model.ink_tree.root
+        model.calculate_bounds_recursively(root)
+        bounds: BoundingBox = root.group_bounding_box
+        return {
+            &#34;left&#34;: round(bounds.x, 2), &#34;right&#34;: round(bounds.x + bounds.width, 2),
+            &#34;top&#34;: round(bounds.y, 2), &#34;bottom&#34;: round(bounds.y + bounds.height, 2),
+            &#34;width&#34;: round(bounds.width, 2), &#34;height&#34;: round(bounds.height, 2)
+        }</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="uim.utils.statistics.StatisticsAnalyzer"><code class="flex name class">
+<span>class <span class="ident">StatisticsAnalyzer</span></span>
+</code></dt>
+<dd>
+<div class="desc"><h1 id="statistics-analyzer">Statistics analyzer</h1>
+<p>Analyze the model and compute statistics.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class StatisticsAnalyzer(ModelAnalyzer):
+    &#34;&#34;&#34;
+    Statistics analyzer
+    ===================
+    Analyze the model and compute statistics.
+    &#34;&#34;&#34;
+
+    @staticmethod
+    def merge_stats(*stats):
+        pass
+
+    @staticmethod
+    def summarize(stats, verbose=False):
+        pass
+
+    @staticmethod
+    def analyze(model: InkModel, ignore_predicates: Optional[List[str]] = None,
+                ignore_properties: Optional[List[str]] = None):
+        &#34;&#34;&#34;
+        Analyze the model and compute statistics.
+        Parameters
+        ----------
+        model: InkModel
+            Ink model to analyze.
+        ignore_predicates: Optional[List[str]]
+            List of predicates to ignore.
+        ignore_properties: Optional[List[str]]
+            List of properties to ignore.
+
+        &#34;&#34;&#34;
+        # Init stats
+        stats: Dict[str, Any] = {
+            &#34;envs&#34;: {}, &#34;input_devices&#34;: {}, &#34;input_providers&#34;: {}, &#34;brushes&#34;: {},
+            &#34;properties&#34;: StatisticsAnalyzer.__extract_properties_info(model, ignore_properties),
+            &#34;sampling_rate&#34;: StatisticsAnalyzer.__detect_sampling_rate__(model),
+            &#34;document_bounds&#34;: StatisticsAnalyzer.__compute_document_bounds__(model),
+            &#34;sensor_channels&#34;: {},
+            &#34;knowledge_graph&#34;: {},
+            &#34;points_count&#34;: {
+                &#39;stroke_points&#39;: [],
+                &#39;total&#39;: 0
+            },
+            &#34;views&#34;: {},
+            &#34;uim_version&#34;: f&#34;{model.version.major}.{model.version.minor}.{model.version.patch}&#34;,
+            &#34;strokes_count&#34;: len(model.strokes)
+        }
+        # Preload stats items
+        StatisticsAnalyzer.__preload_stats_items__(model, stats)
+        # Extract stats
+        for stroke in model.strokes:
+            # Extract stroke info
+            StatisticsAnalyzer.__extract_stroke_info__(stroke, stats)
+            # Extract input configuration
+            StatisticsAnalyzer.__extract_input_configuration__(model, stroke, stats)
+            # Extract sensor data info
+            StatisticsAnalyzer.__extract_sensor_data_info__(model, stroke, stats)
+            # Extract brush info
+            StatisticsAnalyzer.__extract_brushes_information(stroke, stats)
+        # Post process stats
+        StatisticsAnalyzer.__post_process_sensor_channels_info__(stats)
+        # Extract views info
+        StatisticsAnalyzer.__extract_views_info__(model, stats, ignore_predicates)
+        # Extract knowledge graph info
+        StatisticsAnalyzer.__extract_kg_info__(model, stats, ignore_predicates)
+        # Post process stats
+        StatisticsAnalyzer.__post_process_stats__(stats)
+        return stats
+
+    @staticmethod
+    def __extract_stroke_info__(stroke: Stroke, stats: Dict[str, Any]):
+        &#34;&#34;&#34;
+        Extracts stroke information from the given stroke and updates the given stats dictionary.
+
+        Parameters
+        ----------
+        stroke: Stroke
+            The stroke to extract information from
+        stats: Dict[str, Any]
+            The stats dictionary to update.
+        &#34;&#34;&#34;
+        stats[&#39;points_count&#39;][&#39;stroke_points&#39;].append(stroke.points_count)
+        stats[&#39;points_count&#39;][&#39;total&#39;] += stroke.points_count
+
+    @staticmethod
+    def __extract_properties_info(model: InkModel, ignore_properties: Optional[List[str]] = None):
+        &#34;&#34;&#34;
+        Extracts properties information from the given model.
+
+        Parameters
+        ----------
+        model: InkModel
+            The model to extract information from.
+        ignore_properties: Optional[List[str]]
+            A list of regular expressions to ignore properties that match them.
+        &#34;&#34;&#34;
+        props: Dict[str, Any] = dict(model.properties)
+        result: Dict[str, Any] = {}
+
+        for prop, value in props.items():
+            should_ignore: bool = False
+            if ignore_properties:
+                for ip in ignore_properties:
+                    if re.compile(ip).match(prop):
+                        should_ignore = True
+                        break
+            if not should_ignore:
+                if prop not in result:
+                    result[prop] = {&#39;documents_count&#39;: 0, &#39;values&#39;: {}}
+                if value not in result[prop][&#39;values&#39;]:
+                    result[prop][&#39;values&#39;][value] = {&#34;count&#34;: 0}
+
+                result[prop][&#39;values&#39;][value][&#39;count&#39;] += 1
+
+        return result
+
+    @staticmethod
+    def __post_process_stats__(stats):
+        strokes_count: int = stats[&#39;strokes_count&#39;]
+
+        for stat_type in [&#39;brushes&#39;, &#39;envs&#39;, &#39;input_devices&#39;]:
+            for k, v in stats[stat_type].items():
+                stats[stat_type][k][&#39;percent&#39;] = round(safe_zero_div(v[&#39;strokes_count&#39;], strokes_count) * 100, 2)
+
+        for k, v in stats[&#39;input_providers&#39;].items():
+            stats[&#39;input_providers&#39;][k][&#39;percent&#39;] = round(safe_zero_div(v[&#39;strokes_count&#39;], strokes_count) * 100, 2)
+
+            if &#39;sampling_rates&#39; in v and len(v[&#39;sampling_rates&#39;]):
+                stats[&#39;input_providers&#39;][k][&#39;sampling_rate&#39;] = round(statistics.mean(v[&#39;sampling_rates&#39;]), 2)
+                del stats[&#39;input_providers&#39;][k][&#39;sampling_rates&#39;]
+            else:
+                stats[&#39;input_providers&#39;][k][&#39;sampling_rate&#39;] = 0
+
+        for name, view in stats[&#39;views&#39;].items():
+            for k, v in view[&#39;leaf_classes&#39;].items():
+                stats[&#39;views&#39;][name][&#39;leaf_classes&#39;][k][&#39;percent&#39;] = round(
+                    safe_zero_div(v[&#39;strokes_count&#39;], strokes_count) * 100, 2)
+
+        for k, v in stats[&#39;properties&#39;].items():
+            for vk, vv in v[&#39;values&#39;].items():
+                stats[&#39;properties&#39;][k][&#39;values&#39;][vk][&#39;percent&#39;] = round(
+                    safe_zero_div(vv[&#39;count&#39;], v[&#39;documents_count&#39;]) * 100, 2)
+
+        for k, v in stats[&#39;sensor_channels&#39;].items():
+            stats[&#39;sensor_channels&#39;][k][&#39;percent&#39;] = round(safe_zero_div(v[&#39;strokes_count&#39;], strokes_count) * 100, 2)
+
+        # Stroke stats
+        if len(stats[&#39;points_count&#39;][&#39;stroke_points&#39;]) &gt; 0:
+            stats[&#39;points_count&#39;][&#39;min&#39;] = min(stats[&#39;points_count&#39;][&#39;stroke_points&#39;])
+            stats[&#39;points_count&#39;][&#39;max&#39;] = max(stats[&#39;points_count&#39;][&#39;stroke_points&#39;])
+            stats[&#39;points_count&#39;][&#39;mean&#39;] = round(statistics.mean(stats[&#39;points_count&#39;][&#39;stroke_points&#39;]), 2)
+            stats[&#39;points_count&#39;][&#39;std&#39;] = round(statistics.stdev(stats[&#39;points_count&#39;][&#39;stroke_points&#39;]), 2)
+            stats[&#39;points_count&#39;][&#39;median&#39;] = round(statistics.median(stats[&#39;points_count&#39;][&#39;stroke_points&#39;]), 2)
+        else:
+            stats[&#39;points_count&#39;][&#39;min&#39;] = 0
+            stats[&#39;points_count&#39;][&#39;max&#39;] = 0
+            stats[&#39;points_count&#39;][&#39;mean&#39;] = 0
+            stats[&#39;points_count&#39;][&#39;std&#39;] = 0
+            stats[&#39;points_count&#39;][&#39;median&#39;] = 0
+        del stats[&#39;points_count&#39;][&#39;stroke_points&#39;]
+
+    @staticmethod
+    def __preload_stats_items__(model: InkModel, stats: Dict[str, Any]):
+        for env in model.input_configuration.environments:
+            env_props: Dict[str, Any] = dict(env.properties)
+
+            stats[&#39;envs&#39;][f&#39;env-{env.id}&#39;] = env_props
+            stats[&#39;envs&#39;][f&#39;env-{env.id}&#39;][&#39;strokes_count&#39;] = 0
+            if &#39;user.agent&#39; in env_props:
+                rest = env_props[&#39;user.agent&#39;]
+                try:
+                    stats[&#39;envs&#39;][f&#39;env-{env.id}&#39;][&#39;platform.name&#39;] = rest[&#39;platform&#39;][&#39;name&#39;]
+                    stats[&#39;envs&#39;][f&#39;env-{env.id}&#39;][&#39;platform.version&#39;] = rest[&#39;platform&#39;][&#39;version&#39;]
+                    stats[&#39;envs&#39;][f&#39;env-{env.id}&#39;][&#39;os.name&#39;] = rest[&#39;os&#39;][&#39;name&#39;]
+                except Exception as e:
+                    print(e)
+                try:
+
+                    stats[&#39;envs&#39;][f&#39;env-{env.id}&#39;][&#39;browser.name&#39;] = rest[&#39;browser&#39;][&#39;name&#39;]
+                    stats[&#39;envs&#39;][f&#39;env-{env.id}&#39;][&#39;browser.version&#39;] = rest[&#39;browser&#39;][&#39;version&#39;]
+                except Exception as _:
+                    stats[&#39;envs&#39;][f&#39;env-{env.id}&#39;][&#39;browser.name&#39;] = &#39;unknown&#39;
+                    stats[&#39;envs&#39;][f&#39;env-{env.id}&#39;][&#39;browser.version&#39;] = &#39;unknown&#39;
+
+        for dev in model.input_configuration.devices:
+            stats[&#39;input_devices&#39;][f&#39;dev-{dev.id}&#39;] = {&#34;strokes_count&#34;: 0}
+
+        for ip in model.input_configuration.ink_input_providers:
+            stats[&#39;input_providers&#39;][f&#39;prov-{ip.id}&#39;] = {&#34;strokes_count&#34;: 0, &#34;sampling_rates&#34;: []}
+
+        for brush in model.brushes.vector_brushes:
+            stats[&#39;brushes&#39;][brush.name] = {&#34;strokes_count&#34;: 0}
+
+        for brush in model.brushes.raster_brushes:
+            stats[&#39;brushes&#39;][brush.name] = {&#34;strokes_count&#34;: 0}
+
+        area = stats[&#39;document_bounds&#39;][&#39;width&#39;] * stats[&#39;document_bounds&#39;][&#39;height&#39;]
+        stats[&#39;document_stats&#39;] = {&#34;min_area&#34;: area, &#34;max_area&#34;: area}
+
+    @staticmethod
+    def __extract_views_info__(model: InkModel, stats: Dict[str, Any], ignore_predicates: Optional[List[str]] = None):
+        kg: TripleStore = model.knowledge_graph
+
+        for v in model.views:
+            v: InkTree = v
+
+            view_info: Dict[str, Any] = {
+                &#34;assumed_type_predicate&#34;: ModelAnalyzer.__assume_view_type_predicate__(model, v),
+                &#34;statements_count&#34;: 0,
+                &#34;predicates&#34;: {},
+                &#34;leaf_classes&#34;: {}
+            }
+
+            if view_info[&#34;assumed_type_predicate&#34;] != &#34;unknown&#34;:
+                enumerator: PreOrderEnumerator = PreOrderEnumerator(v.root)
+
+                for node in enumerator:
+                    # Calculate predicates per view
+                    sts = kg.all_statements_for(subject=node.uri)
+                    for statement in sts:
+                        should_ignore = False
+                        if ignore_predicates:
+                            for ip in ignore_predicates:
+                                if re.compile(ip).match(statement.predicate):
+                                    should_ignore = True
+                                    break
+
+                        if not should_ignore:
+                            if statement.predicate not in view_info[&#34;predicates&#34;]:
+                                view_info[&#34;predicates&#34;][statement.predicate] = {&#34;occurrence&#34;: 0}
+
+                            view_info[&#34;predicates&#34;][statement.predicate][&#34;occurrence&#34;] += 1
+
+                    if type(node) == StrokeGroupNode:
+                        children_types = [type(n) for n in node.children]
+
+                        if StrokeGroupNode in children_types:
+                            continue
+
+                        sts = kg.all_statements_for(subject=node.uri, predicate=view_info[&#34;assumed_type_predicate&#34;])
+                        if len(sts) &gt; 0:
+                            sem_type = sts[0].object
+
+                            if sem_type not in view_info[&#34;leaf_classes&#34;]:
+                                view_info[&#34;leaf_classes&#34;][sem_type] = {&#34;strokes_count&#34;: 0, &#39;percent&#39;: 0}
+
+                            view_info[&#34;leaf_classes&#34;][sem_type][&#34;strokes_count&#34;] += len(node.children)
+
+            stats[&#34;views&#34;][v.name] = view_info
+
+    @staticmethod
+    def __extract_kg_info__(model: InkModel, stats, ignore_predicates=None):
+        kg: TripleStore = model.knowledge_graph
+
+        stats[&#34;knowledge_graph&#34;][&#34;statements_count&#34;] = len(kg.statements)
+        stats[&#34;knowledge_graph&#34;][&#34;predicates&#34;] = {}
+
+        for statement in kg.statements:
+            should_ignore = False
+            if ignore_predicates:
+                for ip in ignore_predicates:
+                    if re.compile(ip).match(statement.predicate):
+                        should_ignore = True
+                        break
+
+            if not should_ignore:
+                if statement.predicate not in stats[&#34;knowledge_graph&#34;][&#34;predicates&#34;]:
+                    stats[&#34;knowledge_graph&#34;][&#34;predicates&#34;][statement.predicate] = {&#34;occurrence&#34;: 0}
+
+                stats[&#34;knowledge_graph&#34;][&#34;predicates&#34;][statement.predicate][&#34;occurrence&#34;] += 1
+
+    @staticmethod
+    def __extract_brushes_information(stroke: Stroke, stats):
+        style: Style = stroke.style
+        stats[&#39;brushes&#39;][style.brush_uri][&#34;strokes_count&#34;] += 1
+
+    @staticmethod
+    def __extract_input_configuration__(model: InkModel, stroke: Stroke, stats):
+        try:
+            sd: SensorData = model.sensor_data.sensor_data_by_id(stroke.sensor_data_id)
+        except Exception as e:
+            logger.error(f&#34;Error while extracting input configuration: {e}&#34;)
+            return
+
+        ic: InputContext = model.input_configuration.get_input_context(sd.input_context_id)
+        env: Environment = next(env for env in model.input_configuration.environments if env.id == ic.environment_id)
+        stats[&#39;envs&#39;][f&#39;env-{env.id}&#39;][&#34;strokes_count&#34;] += 1
+
+        sc: SensorContext = model.input_configuration.get_sensor_context(ic.sensor_context_id)
+        for scc in sc.sensor_channels_contexts:
+            try:
+                input_device: InputDevice = next(
+                    dev for dev in model.input_configuration.devices if dev.id == scc.input_device_id)
+                stats[&#39;input_devices&#39;][f&#39;dev-{input_device.id}&#39;][&#34;strokes_count&#34;] += 1
+            except Exception as e:
+                logger.error(f&#34;Error while extracting input configuration: {e}&#34;)
+
+            try:
+                input_provider: InkInputProvider = next(
+                    prov for prov in model.input_configuration.ink_input_providers if prov.id == scc.input_provider_id)
+
+                stats[&#39;input_providers&#39;][f&#39;prov-{input_provider.id}&#39;][&#34;strokes_count&#34;] += 1
+                sr = StatisticsAnalyzer.__detect_stroke_sampling_rate(stroke, model)
+                if sr:
+                    stats[&#39;input_providers&#39;][f&#39;prov-{input_provider.id}&#39;][&#34;sampling_rates&#34;].append(sr)
+            except Exception as e:
+                logger.error(f&#34;Error while extracting input configuration: {e}&#34;)
+
+    @staticmethod
+    def __detect_sampling_rate__(model: InkModel) -&gt; float:
+        &#34;&#34;&#34;
+        Calculates the average sampling rate of the strokes in the ink model.
+        Parameters
+        ----------
+        model: InkModel
+            The ink model to analyze
+
+        Returns
+        -------
+        sampling_rate: float
+            The average sampling rate of the strokes in the ink model in milliseconds.
+        &#34;&#34;&#34;
+
+        per_stroke_sampling: List[float] = []
+
+        for stroke in model.strokes:
+            try:
+                sr = StatisticsAnalyzer.__detect_stroke_sampling_rate(stroke, model)
+                if sr:
+                    per_stroke_sampling.append(sr)
+            except Exception as e:
+                logger.error(f&#34;Error while detecting sampling rate: {e}&#34;)
+
+        if len(per_stroke_sampling) == 0:
+            return 0
+
+        return round(statistics.mean(per_stroke_sampling), 2)
+
+    @staticmethod
+    def __detect_stroke_sampling_rate(stroke: Stroke, model: InkModel) -&gt; float:
+        &#34;&#34;&#34;
+        Calculates the sampling rate of a stroke in the ink model.
+        Parameters
+        ----------
+        stroke: Stroke
+            The stroke to analyze
+        model: InkModel
+            The ink model to analyze
+
+        Returns
+        -------
+        sampling_rate: float
+            The sampling rate of the stroke in milliseconds.
+        &#34;&#34;&#34;
+        layout: str = &#34;xytp&#34;
+        pos_t: int = layout.index(&#34;t&#34;)
+        stride: int = len(layout)
+        stride_stroke = as_strided_array(model, stroke, layout)
+        ts = stride_stroke[pos_t::stride]
+        if len(ts) &lt; 2:
+            return 0.
+
+        diffs: List[float] = [round(ts[j] - ts[j - 1], 2) for j in range(1, len(ts))]
+        return statistics.mean(diffs)
+
+    @staticmethod
+    def __compute_document_bounds__(model: InkModel) -&gt; Dict[str, float]:
+        &#34;&#34;&#34;
+        Computes the bounding box of the document.
+
+        Parameters
+        ----------
+        model: InkModel
+            The ink model to analyze.
+
+        Returns
+        -------
+        bounds: Dict[str, float]
+            The bounding box of the document.
+        &#34;&#34;&#34;
+        if len(model.strokes) == 0:
+            return {&#34;left&#34;: 0, &#34;top&#34;: 0, &#34;right&#34;: 0, &#34;bottom&#34;: 0, &#34;width&#34;: 0, &#34;height&#34;: 0}
+
+        root: StrokeGroupNode = model.ink_tree.root
+        model.calculate_bounds_recursively(root)
+        bounds: BoundingBox = root.group_bounding_box
+        return {
+            &#34;left&#34;: round(bounds.x, 2), &#34;right&#34;: round(bounds.x + bounds.width, 2),
+            &#34;top&#34;: round(bounds.y, 2), &#34;bottom&#34;: round(bounds.y + bounds.height, 2),
+            &#34;width&#34;: round(bounds.width, 2), &#34;height&#34;: round(bounds.height, 2)
+        }</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="uim.utils.analyser.ModelAnalyzer" href="analyser.html#uim.utils.analyser.ModelAnalyzer">ModelAnalyzer</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Static methods</h3>
+<dl>
+<dt id="uim.utils.statistics.StatisticsAnalyzer.analyze"><code class="name flex">
+<span>def <span class="ident">analyze</span></span>(<span>model: <a title="uim.model.ink.InkModel" href="../model/ink.html#uim.model.ink.InkModel">InkModel</a>, ignore_predicates: Optional[List[str]] = None, ignore_properties: Optional[List[str]] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Analyze the model and compute statistics.
+Parameters</p>
+<hr>
+<dl>
+<dt><strong><code>model</code></strong> :&ensp;<code>InkModel</code></dt>
+<dd>Ink model to analyze.</dd>
+<dt><strong><code>ignore_predicates</code></strong> :&ensp;<code>Optional[List[str]]</code></dt>
+<dd>List of predicates to ignore.</dd>
+<dt><strong><code>ignore_properties</code></strong> :&ensp;<code>Optional[List[str]]</code></dt>
+<dd>List of properties to ignore.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def analyze(model: InkModel, ignore_predicates: Optional[List[str]] = None,
+            ignore_properties: Optional[List[str]] = None):
+    &#34;&#34;&#34;
+    Analyze the model and compute statistics.
+    Parameters
+    ----------
+    model: InkModel
+        Ink model to analyze.
+    ignore_predicates: Optional[List[str]]
+        List of predicates to ignore.
+    ignore_properties: Optional[List[str]]
+        List of properties to ignore.
+
+    &#34;&#34;&#34;
+    # Init stats
+    stats: Dict[str, Any] = {
+        &#34;envs&#34;: {}, &#34;input_devices&#34;: {}, &#34;input_providers&#34;: {}, &#34;brushes&#34;: {},
+        &#34;properties&#34;: StatisticsAnalyzer.__extract_properties_info(model, ignore_properties),
+        &#34;sampling_rate&#34;: StatisticsAnalyzer.__detect_sampling_rate__(model),
+        &#34;document_bounds&#34;: StatisticsAnalyzer.__compute_document_bounds__(model),
+        &#34;sensor_channels&#34;: {},
+        &#34;knowledge_graph&#34;: {},
+        &#34;points_count&#34;: {
+            &#39;stroke_points&#39;: [],
+            &#39;total&#39;: 0
+        },
+        &#34;views&#34;: {},
+        &#34;uim_version&#34;: f&#34;{model.version.major}.{model.version.minor}.{model.version.patch}&#34;,
+        &#34;strokes_count&#34;: len(model.strokes)
+    }
+    # Preload stats items
+    StatisticsAnalyzer.__preload_stats_items__(model, stats)
+    # Extract stats
+    for stroke in model.strokes:
+        # Extract stroke info
+        StatisticsAnalyzer.__extract_stroke_info__(stroke, stats)
+        # Extract input configuration
+        StatisticsAnalyzer.__extract_input_configuration__(model, stroke, stats)
+        # Extract sensor data info
+        StatisticsAnalyzer.__extract_sensor_data_info__(model, stroke, stats)
+        # Extract brush info
+        StatisticsAnalyzer.__extract_brushes_information(stroke, stats)
+    # Post process stats
+    StatisticsAnalyzer.__post_process_sensor_channels_info__(stats)
+    # Extract views info
+    StatisticsAnalyzer.__extract_views_info__(model, stats, ignore_predicates)
+    # Extract knowledge graph info
+    StatisticsAnalyzer.__extract_kg_info__(model, stats, ignore_predicates)
+    # Post process stats
+    StatisticsAnalyzer.__post_process_stats__(stats)
+    return stats</code></pre>
+</details>
+</dd>
+<dt id="uim.utils.statistics.StatisticsAnalyzer.merge_stats"><code class="name flex">
+<span>def <span class="ident">merge_stats</span></span>(<span>*stats)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def merge_stats(*stats):
+    pass</code></pre>
+</details>
+</dd>
+<dt id="uim.utils.statistics.StatisticsAnalyzer.summarize"><code class="name flex">
+<span>def <span class="ident">summarize</span></span>(<span>stats, verbose=False)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def summarize(stats, verbose=False):
+    pass</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="uim.utils.analyser.ModelAnalyzer" href="analyser.html#uim.utils.analyser.ModelAnalyzer">ModelAnalyzer</a></b></code>:
+<ul class="hlist">
+<li><code><a title="uim.utils.analyser.ModelAnalyzer.KNOWN_TYPE_PREDICATES" href="analyser.html#uim.utils.analyser.ModelAnalyzer.KNOWN_TYPE_PREDICATES">KNOWN_TYPE_PREDICATES</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="uim.utils" href="index.html">uim.utils</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="uim.utils.statistics.StatisticsAnalyzer" href="#uim.utils.statistics.StatisticsAnalyzer">StatisticsAnalyzer</a></code></h4>
+<ul class="">
+<li><code><a title="uim.utils.statistics.StatisticsAnalyzer.analyze" href="#uim.utils.statistics.StatisticsAnalyzer.analyze">analyze</a></code></li>
+<li><code><a title="uim.utils.statistics.StatisticsAnalyzer.merge_stats" href="#uim.utils.statistics.StatisticsAnalyzer.merge_stats">merge_stats</a></code></li>
+<li><code><a title="uim.utils.statistics.StatisticsAnalyzer.summarize" href="#uim.utils.statistics.StatisticsAnalyzer.summarize">summarize</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,1964 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>uim.codec.parser.decoder.decoder_3_1_0 API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>uim.codec.parser.decoder.decoder_3_1_0</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># -*- coding: utf-8 -*-
+# Copyright © 2021-23 Wacom Authors. All Rights Reserved.
+#
+#  Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an &#34;AS IS&#34; BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+import ctypes
+import uuid
+from io import BytesIO
+from typing import Any, List, Tuple, Optional, Dict
+
+import uim.codec.format.UIM_3_1_0_pb2 as uim_3_1_0
+from uim.codec.base import ContentType, PROPERTIES_HEADER, INPUT_DATA_HEADER, BRUSHES_HEADER, INK_DATA_HEADER, \
+    KNOWLEDGE_HEADER, INK_STRUCTURE_HEADER, CompressionType, CHUNK_DESCRIPTION, CHUNK_ID_BYTES_SIZE
+from uim.codec.context.decoder import DecoderContext
+from uim.codec.context.scheme import PrecisionScheme
+from uim.codec.parser.base import FormatException, SupportedFormats
+from uim.codec.parser.decoder.base import CodecDecoder
+from uim.model.base import Identifier
+from uim.model.ink import InkModel, InkTree
+from uim.model.inkdata.brush import RasterBrush, VectorBrush, BrushPolygon, BlendMode, BrushPolygonUri, RotationMode
+from uim.model.inkdata.strokes import Stroke, PathPointProperties, Style
+from uim.model.inkinput.inputdata import InkSensorType, InputContext, SensorContext, SensorChannel, \
+    InkSensorMetricType, InkInputType, InputDevice, InkInputProvider, Environment, SensorChannelsContext, DataType
+from uim.model.inkinput.sensordata import SensorData, ChannelData, InkState
+from uim.model.semantics.node import BoundingBox, StrokeGroupNode, StrokeNode, StrokeFragment
+from uim.model.semantics.schema import CommonViews
+
+
+class UIMDecoder310(CodecDecoder):
+    &#34;&#34;&#34;
+    The UIMDecoder310 decodes the Universal Ink Model v3.1.0.
+
+    References
+    ----------
+    [1]  Universal Ink Model documentation - URL https://developer-docs.wacom.com/sdk-for-ink/docs/model
+    &#34;&#34;&#34;
+
+    MAP_CONTENT_TYPE: Dict[bytes, ContentType] = dict([(c.value, c) for c in ContentType])
+    &#34;&#34;&#34;Mapping of the `ContentType`.&#34;&#34;&#34;
+
+    MAP_COMPRESSION_TYPE: Dict[bytes, CompressionType] = dict([(c.value, c) for c in CompressionType])
+    &#34;&#34;&#34;Mapping of the `CompressionType`.&#34;&#34;&#34;
+
+    MAP_CHUNK_TYPE: Dict[bytes, Any] = {
+        PROPERTIES_HEADER: uim_3_1_0.Properties(),
+        INPUT_DATA_HEADER: uim_3_1_0.InputData(),
+        BRUSHES_HEADER: uim_3_1_0.Brushes(),
+        INK_DATA_HEADER: uim_3_1_0.InkData(),
+        KNOWLEDGE_HEADER: uim_3_1_0.TripleStore(),
+        INK_STRUCTURE_HEADER: uim_3_1_0.InkStructure()
+    }
+    &#34;&#34;&#34;Mapping of the different chunk types.&#34;&#34;&#34;
+
+    MAP_INK_METRICS_TYPE: Dict[int, InkSensorMetricType] = {
+        uim_3_1_0.LENGTH: InkSensorMetricType.LENGTH,
+        uim_3_1_0.TIME: InkSensorMetricType.TIME,
+        uim_3_1_0.FORCE: InkSensorMetricType.FORCE,
+        uim_3_1_0.ANGLE: InkSensorMetricType.ANGLE,
+        uim_3_1_0.NORMALIZED: InkSensorMetricType.NORMALIZED
+    }
+    &#34;&#34;&#34;Mapping unit types.&#34;&#34;&#34;
+
+    MAP_STATE_TYPE: Dict[int, InkState] = {
+        uim_3_1_0.PLANE: InkState.PLANE,
+        uim_3_1_0.HOVERING: InkState.HOVERING,
+        uim_3_1_0.IN_VOLUME: InkState.IN_VOLUME,
+        uim_3_1_0.VOLUME_HOVERING: InkState.VOLUME_HOVERING
+    }
+    &#34;&#34;&#34;Mapping of the uim input data states.&#34;&#34;&#34;
+
+    MAP_CHANNEL_TYPE: Dict[str, InkSensorType] = {
+        InkSensorType.X.value: InkSensorType.X,
+        InkSensorType.Y.value: InkSensorType.Y,
+        InkSensorType.Z.value: InkSensorType.Z,
+        InkSensorType.TIMESTAMP.value: InkSensorType.TIMESTAMP,
+        InkSensorType.PRESSURE.value: InkSensorType.PRESSURE,
+        InkSensorType.AZIMUTH.value: InkSensorType.AZIMUTH,
+        InkSensorType.ALTITUDE.value: InkSensorType.ALTITUDE,
+        InkSensorType.ROTATION.value: InkSensorType.ROTATION,
+        InkSensorType.RADIUS_X.value: InkSensorType.RADIUS_X,
+        InkSensorType.RADIUS_Y.value: InkSensorType.RADIUS_Y
+    }
+    &#34;&#34;&#34;Mapping of channel types.&#34;&#34;&#34;
+
+    MAP_INPUT_PROVIDER_TYPE: Dict[int, InkInputType] = {
+        uim_3_1_0.PEN: InkInputType.PEN,
+        uim_3_1_0.TOUCH: InkInputType.TOUCH,
+        uim_3_1_0.CONTROLLER: InkInputType.CONTROLLER,
+        uim_3_1_0.MOUSE: InkInputType.MOUSE
+    }
+    &#34;&#34;&#34;Mapping of input providers.&#34;&#34;&#34;
+
+    MAP_BLEND_MODE: Dict[int, BlendMode] = {
+        uim_3_1_0.SOURCE_OVER: BlendMode.SOURCE_OVER,
+        uim_3_1_0.DESTINATION_OVER: BlendMode.DESTINATION_OVER,
+        uim_3_1_0.DESTINATION_OUT: BlendMode.DESTINATION_OUT,
+        uim_3_1_0.LIGHTER: BlendMode.LIGHTER,
+        uim_3_1_0.COPY: BlendMode.COPY,
+        uim_3_1_0.MIN: BlendMode.MIN,
+        uim_3_1_0.MAX: BlendMode.MAX
+    }
+    &#34;&#34;&#34;Mapping of blend modes.&#34;&#34;&#34;
+
+    MAP_ROTATION_MODE: Dict[int, RotationMode] = {
+        uim_3_1_0.NONE: RotationMode.NONE,
+        uim_3_1_0.RANDOM: RotationMode.RANDOM,
+        uim_3_1_0.TRAJECTORY: RotationMode.TRAJECTORY
+    }
+    &#34;&#34;&#34;Map for rotation mode&#34;&#34;&#34;
+
+    def __init__(self):
+        pass
+
+    @classmethod
+    def parse_brushes(cls, context: DecoderContext, brushes: uim_3_1_0.Brushes):
+        &#34;&#34;&#34;
+        Parse brush definitions.
+
+        Parameters
+        ----------
+        context: `DecoderContext`
+            Decoder context
+        brushes: `uim_3_1_0.Brushes`
+            Protobuf structure for brushes
+        &#34;&#34;&#34;
+        # Decode vector brushes
+        for vectorBrush in brushes.vectorBrushes:
+            prototypes: list = []
+            for p in vectorBrush.prototype:
+                if p.shapeURI:
+                    brush_prototype: BrushPolygonUri = BrushPolygonUri(p.shapeURI, p.size)
+                else:
+                    points: list = []
+                    for idx in range(len(p.coordX)):
+                        points.append((p.coordX[idx], p.coordY[idx]))
+                    brush_prototype: BrushPolygon = BrushPolygon(p.size, points, p.indices)
+                prototypes.append(brush_prototype)
+            brush: VectorBrush = VectorBrush(
+                vectorBrush.name,
+                prototypes,
+                vectorBrush.spacing,
+            )
+            context.ink_model.brushes.add_vector_brush(brush)
+
+        # Decode raster brushes
+        for rasterBrush in brushes.rasterBrushes:
+            brush: RasterBrush = RasterBrush(
+                rasterBrush.name,
+                rasterBrush.spacing,
+                rasterBrush.scattering,
+                UIMDecoder310.MAP_ROTATION_MODE[rasterBrush.rotationMode],
+                rasterBrush.shapeTexture,
+                rasterBrush.shapeTextureURI,
+                rasterBrush.fillTexture,
+                rasterBrush.fillTextureURI,
+                rasterBrush.fillWidth,
+                rasterBrush.fillHeight,
+                rasterBrush.randomizeFill,
+                UIMDecoder310.MAP_BLEND_MODE[rasterBrush.blendMode]
+            )
+            context.ink_model.brushes.add_raster_brush(brush)
+
+    @classmethod
+    def parse_properties(cls, context: DecoderContext, properties: uim_3_1_0.Properties):
+        &#34;&#34;&#34;
+        Parse properties Protobuf structure and assign it to internal structure.
+
+        Parameters
+        ----------
+        context: `DecoderContext`
+            Decoder context
+        properties: `uim_3_1_0.Properties`
+            Protobuf structure for properties
+        &#34;&#34;&#34;
+        for p in properties.properties:
+            context.ink_model.add_property(p.name, p.value)
+
+    @classmethod
+    def parse_input_data(cls, context: DecoderContext, input_data: uim_3_1_0.InputData):
+        &#34;&#34;&#34;
+        Parse input data Protobuf structure and assign it to internal structure.
+
+        Parameters
+        ----------
+        context: DecoderContext
+            Decoder context
+        input_data: uim_3_1_0.InputData
+            Protobuf structure for input data (sensor data)s
+        &#34;&#34;&#34;
+        input_context_data: uim_3_1_0.InputContextData = input_data.inputContextData
+        # Parse Input Contexts
+        for inputContext in input_context_data.inputContexts:
+            input_context: InputContext = InputContext(
+                Identifier.from_bytes(inputContext.id),
+                Identifier.from_bytes(inputContext.environmentID),
+                Identifier.from_bytes(inputContext.sensorContextID))
+            context.ink_model.input_configuration.input_contexts.append(input_context)
+
+        # Parse Ink Input Providers
+        for inkInputProvider in input_context_data.inkInputProviders:
+            properties: list = CodecDecoder.__parse_properties__(inkInputProvider.properties)
+            ink_input_provider: InkInputProvider = InkInputProvider(
+                Identifier.from_bytes(inkInputProvider.id),
+                UIMDecoder310.MAP_INPUT_PROVIDER_TYPE[inkInputProvider.type],
+                properties
+            )
+            context.ink_model.input_configuration.ink_input_providers.append(ink_input_provider)
+
+        # Parse Input Devices
+        for inputDevice in input_context_data.inputDevices:
+            properties: list = CodecDecoder.__parse_properties__(inputDevice.properties)
+            input_device: InputDevice = InputDevice(
+                Identifier.from_bytes(inputDevice.id),
+                properties
+            )
+            context.ink_model.input_configuration.devices.append(input_device)
+
+        # Parse Environments
+        for e in input_context_data.environments:
+            properties: list = CodecDecoder.__parse_properties__(e.properties)
+            environment: Environment = Environment(
+                Identifier.from_bytes(e.id),
+                properties
+            )
+            context.ink_model.input_configuration.environments.append(environment)
+
+        # Parse Sensor Data Contexts
+        for sensorContext in input_context_data.sensorContexts:
+            sensor_channels_contexts: list = []
+
+            # Parse Sensor Channels Contexts
+            for sensorChannelsContext in sensorContext.sensorChannelsContext:
+                channels: list = []
+
+                # Parse Sensor Channels
+                for sensorChannel in sensorChannelsContext.channels:
+                    input_provider_uuid: Optional[uuid.UUID] = None
+                    if sensorChannelsContext.inkInputProviderID:
+                        input_provider_uuid = Identifier.from_bytes(sensorChannelsContext.inkInputProviderID)
+                    sensor_channel: SensorChannel = SensorChannel(
+                        Identifier.from_bytes(sensorChannel.id),
+                        UIMDecoder310.MAP_CHANNEL_TYPE[sensorChannel.type],
+                        UIMDecoder310.MAP_INK_METRICS_TYPE[sensorChannel.metric],
+                        sensorChannel.resolution,
+                        sensorChannel.min,
+                        sensorChannel.max,
+                        sensorChannel.precision,
+                        data_type=DataType.FLOAT32,
+                        ink_input_provider_id=input_provider_uuid,
+                        input_device_id=Identifier.from_bytes(sensorChannelsContext.inputDeviceID)
+                    )
+                    channels.append(sensor_channel)
+                # Check for input input provider uuid
+                input_provider_uuid: Optional[uuid.UUID] = None
+                if sensorChannelsContext.inkInputProviderID:
+                    input_provider_uuid = Identifier.from_bytes(sensorChannelsContext.inkInputProviderID)
+                # Sensor channels context
+                sensor_channel_context: SensorChannelsContext = SensorChannelsContext(
+                    Identifier.from_bytes(sensorChannelsContext.id),
+                    channels,
+                    sensorChannelsContext.samplingRateHint,
+                    sensorChannelsContext.latency,
+                    input_provider_uuid,
+                    Identifier.from_bytes(sensorChannelsContext.inputDeviceID),
+                )
+                sensor_channels_contexts.append(sensor_channel_context)
+            # Sensor context
+            sensor_context: SensorContext = SensorContext(
+                Identifier.from_bytes(sensorContext.id),
+                sensor_channels_contexts
+            )
+            context.ink_model.input_configuration.sensor_contexts.append(sensor_context)
+
+        # Parse Sensor Data
+        sensor_data_array: list = []
+        for sensorData in input_data.sensorData:
+            input_context: InputContext = context.ink_model.input_configuration. \
+                get_input_context(Identifier.from_bytes(sensorData.inputContextID))
+            sensor_ctx: SensorContext = context.ink_model.input_configuration. \
+                get_sensor_context(input_context.sensor_context_id)
+            # Add sensor data
+            sensor_data: SensorData = SensorData(
+                Identifier.from_bytes(sensorData.id),
+                Identifier.from_bytes(sensorData.inputContextID),
+                UIMDecoder310.MAP_STATE_TYPE[sensorData.state],
+                sensorData.timestamp
+            )
+            # Adding all channels
+            for dataChannel in sensorData.dataChannels:
+                sensor_type: SensorChannel = sensor_ctx.get_channel_by_id(
+                    Identifier.from_bytes(dataChannel.sensorChannelID)
+                )
+                if sensor_type.type == InkSensorType.TIMESTAMP:
+                    ctx: SensorChannel = sensor_ctx.get_channel_by_id(
+                        Identifier.from_bytes(dataChannel.sensorChannelID)
+                    )
+                    channel_data: ChannelData = ChannelData(
+                        Identifier.from_bytes(dataChannel.sensorChannelID),
+                        CodecDecoder.__decode__(dataChannel.values, ctx.precision, ctx.resolution,
+                                                start_value=sensorData.timestamp, data_type=float),
+                    )
+                    sensor_data.add_timestamp_data(sensor_type, channel_data.values)
+                else:
+                    ctx: SensorChannel = sensor_ctx.get_channel_by_id(
+                        Identifier.from_bytes(dataChannel.sensorChannelID)
+                    )
+                    channel_data: ChannelData = ChannelData(
+                        Identifier.from_bytes(dataChannel.sensorChannelID),
+                        CodecDecoder.__decode__(dataChannel.values, ctx.precision, ctx.resolution),
+                    )
+                    sensor_data.add_data(sensor_type, channel_data.values)
+            sensor_data_array.append(sensor_data)
+
+        context.ink_model.sensor_data.sensor_data = sensor_data_array
+
+    @classmethod
+    def parse_ink_data(cls, context: DecoderContext, ink_data: uim_3_1_0.InkData):
+        &#34;&#34;&#34;
+        Parse Protobuf structure and assign it to internal structure.
+
+        Parameters
+        ----------
+        context: DecoderContext
+            Decoder context
+        ink_data: uim_3_1_0.InkData
+            Protobuf structure for ink data
+        &#34;&#34;&#34;
+        # First you need a root group to contain the strokes
+        for p in ink_data.properties:
+            # Decode RGBA value
+            red, green, blue, alpha = PathPointProperties.color(p.color)
+            path_point_properties: PathPointProperties = PathPointProperties(
+                p.size,
+                red,
+                green,
+                blue,
+                alpha,
+                p.rotation,
+                p.scaleX,
+                p.scaleY,
+                p.scaleZ,
+                p.offsetX,
+                p.offsetY,
+                p.offsetZ,
+            )
+            context.path_point_properties.append(path_point_properties)
+        # Strokes
+        idx: int = 0
+        for s in ink_data.strokes:
+            # Check if sensor id exists
+            sensor_id: Optional[uuid.UUID] = None
+            if s.sensorDataID:
+                sensor_id = Identifier.from_bytes(s.sensorDataID)
+            stroke: Stroke = Stroke(
+                sid=Identifier.from_bytes(s.id),
+                sensor_data_offset=s.sensorDataOffset,
+                sensor_data_id=sensor_id,
+                sensor_data_mapping=s.sensorDataMapping,
+                random_seed=s.randomSeed,
+                property_index=s.propertiesIndex
+            )
+            stroke.start_parameter = s.startParameter
+            stroke.end_parameter = s.endParameter
+            if len(s.splineData.splineX) &gt; 0:
+                splines: uim_3_1_0.Stroke.SplineData = s.splineData
+                spline_x: list = list(splines.splineX)
+                spline_y: list = list(splines.splineY)
+                spline_z: list = list(splines.splineZ)
+                sizes: list = list(splines.size)
+                rotation: list = list(splines.rotation)
+                scale_x: list = list(splines.scaleX)
+                scale_y: list = list(splines.scaleY)
+                scale_z: list = list(splines.scaleZ)
+                offset_x: list = list(splines.offsetX)
+                offset_y: list = list(splines.offsetY)
+                offset_z: list = list(splines.offsetZ)
+                list_red: list = list(splines.red)
+                list_green: list = list(splines.green)
+                list_blue: list = list(splines.blue)
+                list_alpha: list = list(splines.alpha)
+            else:
+                splines: uim_3_1_0.Stroke.SplineCompressed = s.splineCompressed
+                scheme: PrecisionScheme = PrecisionScheme()
+                if s.precisions:
+                    scheme.value = s.precisions
+                spline_x: list = CodecDecoder.__decode__(list(splines.splineX), precision=scheme.position_precision)
+                spline_y: list = CodecDecoder.__decode__(list(splines.splineY), precision=scheme.position_precision)
+                spline_z: list = CodecDecoder.__decode__(list(splines.splineZ), precision=scheme.position_precision)
+                sizes: list = CodecDecoder.__decode__(list(splines.size), precision=scheme.size_precision)
+                rotation: list = CodecDecoder.__decode__(list(splines.rotation), precision=scheme.rotation_precision)
+                scale_x: list = CodecDecoder.__decode__(list(splines.scaleX), precision=scheme.scale_precision)
+                scale_y: list = CodecDecoder.__decode__(list(splines.scaleY), precision=scheme.scale_precision)
+                scale_z: list = CodecDecoder.__decode__(list(splines.scaleZ), precision=scheme.scale_precision)
+                offset_x: list = CodecDecoder.__decode__(list(splines.offsetX), precision=scheme.offset_precision)
+                offset_y: list = CodecDecoder.__decode__(list(splines.offsetY), precision=scheme.offset_precision)
+                offset_z: list = CodecDecoder.__decode__(list(splines.offsetZ), precision=scheme.offset_precision)
+                list_red: list = list(splines.red)
+                list_green: list = list(splines.green)
+                list_blue: list = list(splines.blue)
+                list_alpha: list = list(splines.alpha)
+                stroke.precision_scheme = scheme
+            stroke.splines_x = spline_x
+            stroke.splines_y = spline_y
+            stroke.splines_z = spline_z
+            stroke.sizes = sizes
+            stroke.rotations = rotation
+            stroke.scales_x = scale_x
+            stroke.scales_y = scale_y
+            stroke.scales_z = scale_z
+            stroke.offsets_x = offset_x
+            stroke.offsets_y = offset_y
+            stroke.offsets_z = offset_z
+            stroke.red = list_red
+            stroke.green = list_green
+            stroke.blue = list_blue
+            stroke.alpha = list_alpha
+            props: Optional[PathPointProperties] = None
+            brush: Optional[str] = None
+            if s.brushURIIndex:
+                brush_index: int = s.brushURIIndex - 1
+                brush = ink_data.brushURIs[brush_index]
+            if s.propertiesIndex:
+                props = context.path_point_properties[s.propertiesIndex - 1]
+            # Set style
+            stroke.style = Style(properties=props, brush_uri=brush, particles_random_seed=s.randomSeed)
+            if s.renderModeURIIndex &gt; 0:
+                stroke.style.render_mode_uri = ink_data.renderModeURIs[s.renderModeURIIndex - 1]
+            idx += 1
+            context.strokes.append(stroke)
+        # Unit scale
+        context.ink_model.unit_scale_factor = ink_data.unitScaleFactor
+        if ink_data.transform.m00 &gt; 0:
+            context.ink_model.transform = [
+                [ink_data.transform.m00, ink_data.transform.m01, ink_data.transform.m02, ink_data.transform.m03],
+                [ink_data.transform.m10, ink_data.transform.m11, ink_data.transform.m12, ink_data.transform.m13],
+                [ink_data.transform.m20, ink_data.transform.m21, ink_data.transform.m22, ink_data.transform.m23],
+                [ink_data.transform.m30, ink_data.transform.m31, ink_data.transform.m32, ink_data.transform.m33]
+            ]
+
+    @classmethod
+    def parse_knowledge(cls, context: DecoderContext, triple_store: uim_3_1_0.TripleStore):
+        &#34;&#34;&#34;
+        Parse TripleStore protobuf message and return `TripleStore` object.
+        Parameters
+        ----------
+        context: DecoderContext
+            Decoder context
+        triple_store: TripleStore
+            triple_store protobuf message &#39;TripleStore&#39;
+        &#34;&#34;&#34;
+        for statement in triple_store.statements:
+            context.ink_model.add_semantic_triple(statement.subject, statement.predicate, statement.object)
+
+    @classmethod
+    def parse_ink_structure(cls, context: DecoderContext, ink_structure: uim_3_1_0.InkStructure):
+        UIMDecoder310.__parse_ink_tree__(context, ink_structure.inkTree)
+        for view in ink_structure.views:
+            UIMDecoder310.__parse_ink_tree__(context, view)
+
+    @classmethod
+    def __parse_ink_tree__(cls, context: DecoderContext, proto_tree: uim_3_1_0.InkTree):
+        stack: List[StrokeGroupNode] = []
+        # Sanity checks
+        if proto_tree is None or len(proto_tree.tree) == 0:
+            raise FormatException(&#34;Tree is empty&#34;)
+        if proto_tree.tree[0].depth:
+            raise FormatException(&#34;Tree root depth must be 0&#34;)
+        view_name: str = proto_tree.name
+        if proto_tree.name == &#39;&#39;:
+            tree: InkTree = InkTree(CommonViews.MAIN_INK_TREE.value)
+            context.ink_model.ink_tree = tree
+        else:
+            tree: InkTree = InkTree(view_name)
+            context.ink_model.add_tree(tree)
+        # Root element
+        one_of: str = proto_tree.tree[0].WhichOneof(&#34;id&#34;)
+        if one_of == &#39;index&#39;:
+            raise FormatException(&#34;Invalid tree root type&#34;)
+        root_id: bytes = getattr(proto_tree.tree[0], one_of)
+        prev_node: StrokeGroupNode = StrokeGroupNode(Identifier.from_bytes(root_id))
+        tree.root = prev_node
+        if proto_tree.tree[0].bounds:
+            tree.root.group_bounding_box = UIMDecoder310.__extract_bounding_box__(proto_tree.tree[0].bounds)
+        # Parent
+        parent: StrokeGroupNode = tree.root
+        # Iterate over all children of root
+        for node_idx in range(1, len(proto_tree.tree)):
+            node: uim_3_1_0.Node = proto_tree.tree[node_idx]
+            if node.depth &gt; len(stack):
+                stack.append(parent)
+                parent = prev_node
+            elif node.depth &lt; len(stack):
+                while node.depth &lt; len(stack):
+                    parent = stack.pop()
+
+            one_of: str = node.WhichOneof(&#34;id&#34;)
+            value: Any = getattr(node, one_of)
+            bbox: BoundingBox = UIMDecoder310.__extract_bounding_box__(node.bounds)
+            # Handle different node types
+            if one_of == &#39;groupID&#39;:  # Stroke Group Node
+                group_id: uuid.UUID = Identifier.from_bytes(value)
+                new_node: StrokeGroupNode = StrokeGroupNode(group_id)
+                new_node.group_bounding_box = bbox
+                # remember current node
+                prev_node = new_node
+            else:  # Stroke Node
+                index: int = value
+                if index &gt; len(context.strokes):
+                    raise FormatException(f&#34;Reference stroke with index:= {index} does not exist in UIM.&#34;)
+                stroke: Stroke = context.strokes[index]
+                fragment: Optional[StrokeFragment] = None
+                # Fragment
+                if node.interval.toIndex &gt; 0:
+                    fragment: StrokeFragment = StrokeFragment(node.interval.fromIndex, node.interval.toIndex,
+                                                              node.interval.fromTValue, node.interval.toTValue)
+                # Create Stroke node
+                new_node: StrokeNode = StrokeNode(stroke=stroke, fragment=fragment)
+                new_node.group_bounding_box = bbox
+            parent.add(new_node)
+
+    @staticmethod
+    def four_cc(content: bytes) -&gt; Tuple[int, int, int, ContentType, CompressionType]:
+        &#34;&#34;&#34;
+        Parse the version information.
+
+        Parameters
+        ----------
+        content: bytes
+            RIFF bytes
+
+        Returns
+        -------
+            chunk_major_version: int
+                Major version of the file
+            chunk_minor_version: int
+                Minor version of the file
+            chunk_patch_version: int
+                Patch version of the file
+            content_type: `ContentType`
+                Content type of the file Protobuf, text, binary, ...
+            compression_type: `CompressionType
+                Type of compression used for encoding the content.
+        &#34;&#34;&#34;
+        chunk_major_version: int = int.from_bytes(content[0:1], byteorder=&#39;big&#39;)
+        chunk_minor_version: int = int.from_bytes(content[1:2], byteorder=&#39;big&#39;)
+        chunk_patch_version: int = int.from_bytes(content[2:3], byteorder=&#39;big&#39;)
+        content_type: bytes = content[3:4]
+        compression_type: bytes = content[4:5]
+        return chunk_major_version, chunk_minor_version, chunk_patch_version, \
+            UIMDecoder310.MAP_CONTENT_TYPE[content_type], UIMDecoder310.MAP_COMPRESSION_TYPE[compression_type]
+
+    @staticmethod
+    def __extract_bounding_box__(rect: uim_3_1_0.Rectangle) -&gt; BoundingBox:
+        if rect:
+            return BoundingBox(rect.x, rect.y, rect.width, rect.height)
+        return BoundingBox(0., 0., 0., 0.)
+
+    @staticmethod
+    def __read_size__(riff: BytesIO) -&gt; int:
+        return ctypes.c_uint32(int.from_bytes(riff.read(4), byteorder=&#39;little&#39;)).value
+
+    @classmethod
+    def __decode_uim_chunk__(cls, content: bytes, compression: CompressionType) -&gt; bytes:
+        if compression == CompressionType.ZIP:
+            return content
+        elif compression == CompressionType.LZMA:
+            return content
+        return content
+
+    @classmethod
+    def decode(cls, riff: BytesIO, size_head: int):
+        &#34;&#34;&#34;
+       Decoding Universal Ink Model (RIFF / Protobuf encoded) content file.
+
+       Parameters
+       ----------
+       riff: `BytesIO`
+           RIFF content with encoded UIM v3.1.0 content.
+       size_head: `int`
+           Size of  the header
+
+       Returns
+       -------
+           model - `InkModel`
+               Parsed `InkModel` from UIM v3.1.0 ink content
+       &#34;&#34;&#34;
+        # Reserved byte after version
+        _ = riff.read(1)
+        num_chunks: int = int((size_head - 4) / 8)
+        chunk_desc: list = []
+        # Collect the description of the chunks
+        for i in range(num_chunks):
+            chunk_desc.append(UIMDecoder310.four_cc(riff.read(CHUNK_DESCRIPTION)))
+        # Content parser
+        uim_content_parser: UIMDecoder310 = UIMDecoder310()
+        context: DecoderContext = DecoderContext(version=SupportedFormats.UIM_VERSION_3_1_0.value,
+                                                 ink_model=InkModel(SupportedFormats.UIM_VERSION_3_1_0.value))
+        # Iterate over chunks
+        for j in range(num_chunks):
+            desc: list = chunk_desc[j]
+            chunk_id = riff.read(CHUNK_ID_BYTES_SIZE)
+            chunk_data_length: int = UIMDecoder310.__read_size__(riff)
+            chunk_content: bytes = riff.read(chunk_data_length)
+            if desc[0] == 3 and desc[1] == 1 and desc[2] == 0:
+                if desc[3] == ContentType.PROTOBUF:
+                    message: bytes = UIMDecoder310.__decode_uim_chunk__(chunk_content, desc[4])
+                    if chunk_id in UIMDecoder310.MAP_CHUNK_TYPE:
+                        protobuf_type = UIMDecoder310.MAP_CHUNK_TYPE[chunk_id]
+                        protobuf_type.ParseFromString(message)
+                        if chunk_id == PROPERTIES_HEADER:
+                            uim_content_parser.parse_properties(context, protobuf_type)
+                        elif chunk_id == INPUT_DATA_HEADER:
+                            uim_content_parser.parse_input_data(context, protobuf_type)
+                        elif chunk_id == BRUSHES_HEADER:
+                            uim_content_parser.parse_brushes(context, protobuf_type)
+                        elif chunk_id == INK_DATA_HEADER:
+                            uim_content_parser.parse_ink_data(context, protobuf_type)
+                        elif chunk_id == KNOWLEDGE_HEADER:
+                            uim_content_parser.parse_knowledge(context, protobuf_type)
+                        elif chunk_id == INK_STRUCTURE_HEADER:
+                            uim_content_parser.parse_ink_structure(context, protobuf_type)
+                else:
+                    raise FormatException(&#39;Only protobuf decoding is supported.&#39;)
+            # Check if padding byte is set
+            if chunk_data_length % 2 != 0:
+                riff.read(1)
+        return context.ink_model</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310"><code class="flex name class">
+<span>class <span class="ident">UIMDecoder310</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>The UIMDecoder310 decodes the Universal Ink Model v3.1.0.</p>
+<h2 id="references">References</h2>
+<p>[1]
+Universal Ink Model documentation - URL <a href="https://developer-docs.wacom.com/sdk-for-ink/docs/model">https://developer-docs.wacom.com/sdk-for-ink/docs/model</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class UIMDecoder310(CodecDecoder):
+    &#34;&#34;&#34;
+    The UIMDecoder310 decodes the Universal Ink Model v3.1.0.
+
+    References
+    ----------
+    [1]  Universal Ink Model documentation - URL https://developer-docs.wacom.com/sdk-for-ink/docs/model
+    &#34;&#34;&#34;
+
+    MAP_CONTENT_TYPE: Dict[bytes, ContentType] = dict([(c.value, c) for c in ContentType])
+    &#34;&#34;&#34;Mapping of the `ContentType`.&#34;&#34;&#34;
+
+    MAP_COMPRESSION_TYPE: Dict[bytes, CompressionType] = dict([(c.value, c) for c in CompressionType])
+    &#34;&#34;&#34;Mapping of the `CompressionType`.&#34;&#34;&#34;
+
+    MAP_CHUNK_TYPE: Dict[bytes, Any] = {
+        PROPERTIES_HEADER: uim_3_1_0.Properties(),
+        INPUT_DATA_HEADER: uim_3_1_0.InputData(),
+        BRUSHES_HEADER: uim_3_1_0.Brushes(),
+        INK_DATA_HEADER: uim_3_1_0.InkData(),
+        KNOWLEDGE_HEADER: uim_3_1_0.TripleStore(),
+        INK_STRUCTURE_HEADER: uim_3_1_0.InkStructure()
+    }
+    &#34;&#34;&#34;Mapping of the different chunk types.&#34;&#34;&#34;
+
+    MAP_INK_METRICS_TYPE: Dict[int, InkSensorMetricType] = {
+        uim_3_1_0.LENGTH: InkSensorMetricType.LENGTH,
+        uim_3_1_0.TIME: InkSensorMetricType.TIME,
+        uim_3_1_0.FORCE: InkSensorMetricType.FORCE,
+        uim_3_1_0.ANGLE: InkSensorMetricType.ANGLE,
+        uim_3_1_0.NORMALIZED: InkSensorMetricType.NORMALIZED
+    }
+    &#34;&#34;&#34;Mapping unit types.&#34;&#34;&#34;
+
+    MAP_STATE_TYPE: Dict[int, InkState] = {
+        uim_3_1_0.PLANE: InkState.PLANE,
+        uim_3_1_0.HOVERING: InkState.HOVERING,
+        uim_3_1_0.IN_VOLUME: InkState.IN_VOLUME,
+        uim_3_1_0.VOLUME_HOVERING: InkState.VOLUME_HOVERING
+    }
+    &#34;&#34;&#34;Mapping of the uim input data states.&#34;&#34;&#34;
+
+    MAP_CHANNEL_TYPE: Dict[str, InkSensorType] = {
+        InkSensorType.X.value: InkSensorType.X,
+        InkSensorType.Y.value: InkSensorType.Y,
+        InkSensorType.Z.value: InkSensorType.Z,
+        InkSensorType.TIMESTAMP.value: InkSensorType.TIMESTAMP,
+        InkSensorType.PRESSURE.value: InkSensorType.PRESSURE,
+        InkSensorType.AZIMUTH.value: InkSensorType.AZIMUTH,
+        InkSensorType.ALTITUDE.value: InkSensorType.ALTITUDE,
+        InkSensorType.ROTATION.value: InkSensorType.ROTATION,
+        InkSensorType.RADIUS_X.value: InkSensorType.RADIUS_X,
+        InkSensorType.RADIUS_Y.value: InkSensorType.RADIUS_Y
+    }
+    &#34;&#34;&#34;Mapping of channel types.&#34;&#34;&#34;
+
+    MAP_INPUT_PROVIDER_TYPE: Dict[int, InkInputType] = {
+        uim_3_1_0.PEN: InkInputType.PEN,
+        uim_3_1_0.TOUCH: InkInputType.TOUCH,
+        uim_3_1_0.CONTROLLER: InkInputType.CONTROLLER,
+        uim_3_1_0.MOUSE: InkInputType.MOUSE
+    }
+    &#34;&#34;&#34;Mapping of input providers.&#34;&#34;&#34;
+
+    MAP_BLEND_MODE: Dict[int, BlendMode] = {
+        uim_3_1_0.SOURCE_OVER: BlendMode.SOURCE_OVER,
+        uim_3_1_0.DESTINATION_OVER: BlendMode.DESTINATION_OVER,
+        uim_3_1_0.DESTINATION_OUT: BlendMode.DESTINATION_OUT,
+        uim_3_1_0.LIGHTER: BlendMode.LIGHTER,
+        uim_3_1_0.COPY: BlendMode.COPY,
+        uim_3_1_0.MIN: BlendMode.MIN,
+        uim_3_1_0.MAX: BlendMode.MAX
+    }
+    &#34;&#34;&#34;Mapping of blend modes.&#34;&#34;&#34;
+
+    MAP_ROTATION_MODE: Dict[int, RotationMode] = {
+        uim_3_1_0.NONE: RotationMode.NONE,
+        uim_3_1_0.RANDOM: RotationMode.RANDOM,
+        uim_3_1_0.TRAJECTORY: RotationMode.TRAJECTORY
+    }
+    &#34;&#34;&#34;Map for rotation mode&#34;&#34;&#34;
+
+    def __init__(self):
+        pass
+
+    @classmethod
+    def parse_brushes(cls, context: DecoderContext, brushes: uim_3_1_0.Brushes):
+        &#34;&#34;&#34;
+        Parse brush definitions.
+
+        Parameters
+        ----------
+        context: `DecoderContext`
+            Decoder context
+        brushes: `uim_3_1_0.Brushes`
+            Protobuf structure for brushes
+        &#34;&#34;&#34;
+        # Decode vector brushes
+        for vectorBrush in brushes.vectorBrushes:
+            prototypes: list = []
+            for p in vectorBrush.prototype:
+                if p.shapeURI:
+                    brush_prototype: BrushPolygonUri = BrushPolygonUri(p.shapeURI, p.size)
+                else:
+                    points: list = []
+                    for idx in range(len(p.coordX)):
+                        points.append((p.coordX[idx], p.coordY[idx]))
+                    brush_prototype: BrushPolygon = BrushPolygon(p.size, points, p.indices)
+                prototypes.append(brush_prototype)
+            brush: VectorBrush = VectorBrush(
+                vectorBrush.name,
+                prototypes,
+                vectorBrush.spacing,
+            )
+            context.ink_model.brushes.add_vector_brush(brush)
+
+        # Decode raster brushes
+        for rasterBrush in brushes.rasterBrushes:
+            brush: RasterBrush = RasterBrush(
+                rasterBrush.name,
+                rasterBrush.spacing,
+                rasterBrush.scattering,
+                UIMDecoder310.MAP_ROTATION_MODE[rasterBrush.rotationMode],
+                rasterBrush.shapeTexture,
+                rasterBrush.shapeTextureURI,
+                rasterBrush.fillTexture,
+                rasterBrush.fillTextureURI,
+                rasterBrush.fillWidth,
+                rasterBrush.fillHeight,
+                rasterBrush.randomizeFill,
+                UIMDecoder310.MAP_BLEND_MODE[rasterBrush.blendMode]
+            )
+            context.ink_model.brushes.add_raster_brush(brush)
+
+    @classmethod
+    def parse_properties(cls, context: DecoderContext, properties: uim_3_1_0.Properties):
+        &#34;&#34;&#34;
+        Parse properties Protobuf structure and assign it to internal structure.
+
+        Parameters
+        ----------
+        context: `DecoderContext`
+            Decoder context
+        properties: `uim_3_1_0.Properties`
+            Protobuf structure for properties
+        &#34;&#34;&#34;
+        for p in properties.properties:
+            context.ink_model.add_property(p.name, p.value)
+
+    @classmethod
+    def parse_input_data(cls, context: DecoderContext, input_data: uim_3_1_0.InputData):
+        &#34;&#34;&#34;
+        Parse input data Protobuf structure and assign it to internal structure.
+
+        Parameters
+        ----------
+        context: DecoderContext
+            Decoder context
+        input_data: uim_3_1_0.InputData
+            Protobuf structure for input data (sensor data)s
+        &#34;&#34;&#34;
+        input_context_data: uim_3_1_0.InputContextData = input_data.inputContextData
+        # Parse Input Contexts
+        for inputContext in input_context_data.inputContexts:
+            input_context: InputContext = InputContext(
+                Identifier.from_bytes(inputContext.id),
+                Identifier.from_bytes(inputContext.environmentID),
+                Identifier.from_bytes(inputContext.sensorContextID))
+            context.ink_model.input_configuration.input_contexts.append(input_context)
+
+        # Parse Ink Input Providers
+        for inkInputProvider in input_context_data.inkInputProviders:
+            properties: list = CodecDecoder.__parse_properties__(inkInputProvider.properties)
+            ink_input_provider: InkInputProvider = InkInputProvider(
+                Identifier.from_bytes(inkInputProvider.id),
+                UIMDecoder310.MAP_INPUT_PROVIDER_TYPE[inkInputProvider.type],
+                properties
+            )
+            context.ink_model.input_configuration.ink_input_providers.append(ink_input_provider)
+
+        # Parse Input Devices
+        for inputDevice in input_context_data.inputDevices:
+            properties: list = CodecDecoder.__parse_properties__(inputDevice.properties)
+            input_device: InputDevice = InputDevice(
+                Identifier.from_bytes(inputDevice.id),
+                properties
+            )
+            context.ink_model.input_configuration.devices.append(input_device)
+
+        # Parse Environments
+        for e in input_context_data.environments:
+            properties: list = CodecDecoder.__parse_properties__(e.properties)
+            environment: Environment = Environment(
+                Identifier.from_bytes(e.id),
+                properties
+            )
+            context.ink_model.input_configuration.environments.append(environment)
+
+        # Parse Sensor Data Contexts
+        for sensorContext in input_context_data.sensorContexts:
+            sensor_channels_contexts: list = []
+
+            # Parse Sensor Channels Contexts
+            for sensorChannelsContext in sensorContext.sensorChannelsContext:
+                channels: list = []
+
+                # Parse Sensor Channels
+                for sensorChannel in sensorChannelsContext.channels:
+                    input_provider_uuid: Optional[uuid.UUID] = None
+                    if sensorChannelsContext.inkInputProviderID:
+                        input_provider_uuid = Identifier.from_bytes(sensorChannelsContext.inkInputProviderID)
+                    sensor_channel: SensorChannel = SensorChannel(
+                        Identifier.from_bytes(sensorChannel.id),
+                        UIMDecoder310.MAP_CHANNEL_TYPE[sensorChannel.type],
+                        UIMDecoder310.MAP_INK_METRICS_TYPE[sensorChannel.metric],
+                        sensorChannel.resolution,
+                        sensorChannel.min,
+                        sensorChannel.max,
+                        sensorChannel.precision,
+                        data_type=DataType.FLOAT32,
+                        ink_input_provider_id=input_provider_uuid,
+                        input_device_id=Identifier.from_bytes(sensorChannelsContext.inputDeviceID)
+                    )
+                    channels.append(sensor_channel)
+                # Check for input input provider uuid
+                input_provider_uuid: Optional[uuid.UUID] = None
+                if sensorChannelsContext.inkInputProviderID:
+                    input_provider_uuid = Identifier.from_bytes(sensorChannelsContext.inkInputProviderID)
+                # Sensor channels context
+                sensor_channel_context: SensorChannelsContext = SensorChannelsContext(
+                    Identifier.from_bytes(sensorChannelsContext.id),
+                    channels,
+                    sensorChannelsContext.samplingRateHint,
+                    sensorChannelsContext.latency,
+                    input_provider_uuid,
+                    Identifier.from_bytes(sensorChannelsContext.inputDeviceID),
+                )
+                sensor_channels_contexts.append(sensor_channel_context)
+            # Sensor context
+            sensor_context: SensorContext = SensorContext(
+                Identifier.from_bytes(sensorContext.id),
+                sensor_channels_contexts
+            )
+            context.ink_model.input_configuration.sensor_contexts.append(sensor_context)
+
+        # Parse Sensor Data
+        sensor_data_array: list = []
+        for sensorData in input_data.sensorData:
+            input_context: InputContext = context.ink_model.input_configuration. \
+                get_input_context(Identifier.from_bytes(sensorData.inputContextID))
+            sensor_ctx: SensorContext = context.ink_model.input_configuration. \
+                get_sensor_context(input_context.sensor_context_id)
+            # Add sensor data
+            sensor_data: SensorData = SensorData(
+                Identifier.from_bytes(sensorData.id),
+                Identifier.from_bytes(sensorData.inputContextID),
+                UIMDecoder310.MAP_STATE_TYPE[sensorData.state],
+                sensorData.timestamp
+            )
+            # Adding all channels
+            for dataChannel in sensorData.dataChannels:
+                sensor_type: SensorChannel = sensor_ctx.get_channel_by_id(
+                    Identifier.from_bytes(dataChannel.sensorChannelID)
+                )
+                if sensor_type.type == InkSensorType.TIMESTAMP:
+                    ctx: SensorChannel = sensor_ctx.get_channel_by_id(
+                        Identifier.from_bytes(dataChannel.sensorChannelID)
+                    )
+                    channel_data: ChannelData = ChannelData(
+                        Identifier.from_bytes(dataChannel.sensorChannelID),
+                        CodecDecoder.__decode__(dataChannel.values, ctx.precision, ctx.resolution,
+                                                start_value=sensorData.timestamp, data_type=float),
+                    )
+                    sensor_data.add_timestamp_data(sensor_type, channel_data.values)
+                else:
+                    ctx: SensorChannel = sensor_ctx.get_channel_by_id(
+                        Identifier.from_bytes(dataChannel.sensorChannelID)
+                    )
+                    channel_data: ChannelData = ChannelData(
+                        Identifier.from_bytes(dataChannel.sensorChannelID),
+                        CodecDecoder.__decode__(dataChannel.values, ctx.precision, ctx.resolution),
+                    )
+                    sensor_data.add_data(sensor_type, channel_data.values)
+            sensor_data_array.append(sensor_data)
+
+        context.ink_model.sensor_data.sensor_data = sensor_data_array
+
+    @classmethod
+    def parse_ink_data(cls, context: DecoderContext, ink_data: uim_3_1_0.InkData):
+        &#34;&#34;&#34;
+        Parse Protobuf structure and assign it to internal structure.
+
+        Parameters
+        ----------
+        context: DecoderContext
+            Decoder context
+        ink_data: uim_3_1_0.InkData
+            Protobuf structure for ink data
+        &#34;&#34;&#34;
+        # First you need a root group to contain the strokes
+        for p in ink_data.properties:
+            # Decode RGBA value
+            red, green, blue, alpha = PathPointProperties.color(p.color)
+            path_point_properties: PathPointProperties = PathPointProperties(
+                p.size,
+                red,
+                green,
+                blue,
+                alpha,
+                p.rotation,
+                p.scaleX,
+                p.scaleY,
+                p.scaleZ,
+                p.offsetX,
+                p.offsetY,
+                p.offsetZ,
+            )
+            context.path_point_properties.append(path_point_properties)
+        # Strokes
+        idx: int = 0
+        for s in ink_data.strokes:
+            # Check if sensor id exists
+            sensor_id: Optional[uuid.UUID] = None
+            if s.sensorDataID:
+                sensor_id = Identifier.from_bytes(s.sensorDataID)
+            stroke: Stroke = Stroke(
+                sid=Identifier.from_bytes(s.id),
+                sensor_data_offset=s.sensorDataOffset,
+                sensor_data_id=sensor_id,
+                sensor_data_mapping=s.sensorDataMapping,
+                random_seed=s.randomSeed,
+                property_index=s.propertiesIndex
+            )
+            stroke.start_parameter = s.startParameter
+            stroke.end_parameter = s.endParameter
+            if len(s.splineData.splineX) &gt; 0:
+                splines: uim_3_1_0.Stroke.SplineData = s.splineData
+                spline_x: list = list(splines.splineX)
+                spline_y: list = list(splines.splineY)
+                spline_z: list = list(splines.splineZ)
+                sizes: list = list(splines.size)
+                rotation: list = list(splines.rotation)
+                scale_x: list = list(splines.scaleX)
+                scale_y: list = list(splines.scaleY)
+                scale_z: list = list(splines.scaleZ)
+                offset_x: list = list(splines.offsetX)
+                offset_y: list = list(splines.offsetY)
+                offset_z: list = list(splines.offsetZ)
+                list_red: list = list(splines.red)
+                list_green: list = list(splines.green)
+                list_blue: list = list(splines.blue)
+                list_alpha: list = list(splines.alpha)
+            else:
+                splines: uim_3_1_0.Stroke.SplineCompressed = s.splineCompressed
+                scheme: PrecisionScheme = PrecisionScheme()
+                if s.precisions:
+                    scheme.value = s.precisions
+                spline_x: list = CodecDecoder.__decode__(list(splines.splineX), precision=scheme.position_precision)
+                spline_y: list = CodecDecoder.__decode__(list(splines.splineY), precision=scheme.position_precision)
+                spline_z: list = CodecDecoder.__decode__(list(splines.splineZ), precision=scheme.position_precision)
+                sizes: list = CodecDecoder.__decode__(list(splines.size), precision=scheme.size_precision)
+                rotation: list = CodecDecoder.__decode__(list(splines.rotation), precision=scheme.rotation_precision)
+                scale_x: list = CodecDecoder.__decode__(list(splines.scaleX), precision=scheme.scale_precision)
+                scale_y: list = CodecDecoder.__decode__(list(splines.scaleY), precision=scheme.scale_precision)
+                scale_z: list = CodecDecoder.__decode__(list(splines.scaleZ), precision=scheme.scale_precision)
+                offset_x: list = CodecDecoder.__decode__(list(splines.offsetX), precision=scheme.offset_precision)
+                offset_y: list = CodecDecoder.__decode__(list(splines.offsetY), precision=scheme.offset_precision)
+                offset_z: list = CodecDecoder.__decode__(list(splines.offsetZ), precision=scheme.offset_precision)
+                list_red: list = list(splines.red)
+                list_green: list = list(splines.green)
+                list_blue: list = list(splines.blue)
+                list_alpha: list = list(splines.alpha)
+                stroke.precision_scheme = scheme
+            stroke.splines_x = spline_x
+            stroke.splines_y = spline_y
+            stroke.splines_z = spline_z
+            stroke.sizes = sizes
+            stroke.rotations = rotation
+            stroke.scales_x = scale_x
+            stroke.scales_y = scale_y
+            stroke.scales_z = scale_z
+            stroke.offsets_x = offset_x
+            stroke.offsets_y = offset_y
+            stroke.offsets_z = offset_z
+            stroke.red = list_red
+            stroke.green = list_green
+            stroke.blue = list_blue
+            stroke.alpha = list_alpha
+            props: Optional[PathPointProperties] = None
+            brush: Optional[str] = None
+            if s.brushURIIndex:
+                brush_index: int = s.brushURIIndex - 1
+                brush = ink_data.brushURIs[brush_index]
+            if s.propertiesIndex:
+                props = context.path_point_properties[s.propertiesIndex - 1]
+            # Set style
+            stroke.style = Style(properties=props, brush_uri=brush, particles_random_seed=s.randomSeed)
+            if s.renderModeURIIndex &gt; 0:
+                stroke.style.render_mode_uri = ink_data.renderModeURIs[s.renderModeURIIndex - 1]
+            idx += 1
+            context.strokes.append(stroke)
+        # Unit scale
+        context.ink_model.unit_scale_factor = ink_data.unitScaleFactor
+        if ink_data.transform.m00 &gt; 0:
+            context.ink_model.transform = [
+                [ink_data.transform.m00, ink_data.transform.m01, ink_data.transform.m02, ink_data.transform.m03],
+                [ink_data.transform.m10, ink_data.transform.m11, ink_data.transform.m12, ink_data.transform.m13],
+                [ink_data.transform.m20, ink_data.transform.m21, ink_data.transform.m22, ink_data.transform.m23],
+                [ink_data.transform.m30, ink_data.transform.m31, ink_data.transform.m32, ink_data.transform.m33]
+            ]
+
+    @classmethod
+    def parse_knowledge(cls, context: DecoderContext, triple_store: uim_3_1_0.TripleStore):
+        &#34;&#34;&#34;
+        Parse TripleStore protobuf message and return `TripleStore` object.
+        Parameters
+        ----------
+        context: DecoderContext
+            Decoder context
+        triple_store: TripleStore
+            triple_store protobuf message &#39;TripleStore&#39;
+        &#34;&#34;&#34;
+        for statement in triple_store.statements:
+            context.ink_model.add_semantic_triple(statement.subject, statement.predicate, statement.object)
+
+    @classmethod
+    def parse_ink_structure(cls, context: DecoderContext, ink_structure: uim_3_1_0.InkStructure):
+        UIMDecoder310.__parse_ink_tree__(context, ink_structure.inkTree)
+        for view in ink_structure.views:
+            UIMDecoder310.__parse_ink_tree__(context, view)
+
+    @classmethod
+    def __parse_ink_tree__(cls, context: DecoderContext, proto_tree: uim_3_1_0.InkTree):
+        stack: List[StrokeGroupNode] = []
+        # Sanity checks
+        if proto_tree is None or len(proto_tree.tree) == 0:
+            raise FormatException(&#34;Tree is empty&#34;)
+        if proto_tree.tree[0].depth:
+            raise FormatException(&#34;Tree root depth must be 0&#34;)
+        view_name: str = proto_tree.name
+        if proto_tree.name == &#39;&#39;:
+            tree: InkTree = InkTree(CommonViews.MAIN_INK_TREE.value)
+            context.ink_model.ink_tree = tree
+        else:
+            tree: InkTree = InkTree(view_name)
+            context.ink_model.add_tree(tree)
+        # Root element
+        one_of: str = proto_tree.tree[0].WhichOneof(&#34;id&#34;)
+        if one_of == &#39;index&#39;:
+            raise FormatException(&#34;Invalid tree root type&#34;)
+        root_id: bytes = getattr(proto_tree.tree[0], one_of)
+        prev_node: StrokeGroupNode = StrokeGroupNode(Identifier.from_bytes(root_id))
+        tree.root = prev_node
+        if proto_tree.tree[0].bounds:
+            tree.root.group_bounding_box = UIMDecoder310.__extract_bounding_box__(proto_tree.tree[0].bounds)
+        # Parent
+        parent: StrokeGroupNode = tree.root
+        # Iterate over all children of root
+        for node_idx in range(1, len(proto_tree.tree)):
+            node: uim_3_1_0.Node = proto_tree.tree[node_idx]
+            if node.depth &gt; len(stack):
+                stack.append(parent)
+                parent = prev_node
+            elif node.depth &lt; len(stack):
+                while node.depth &lt; len(stack):
+                    parent = stack.pop()
+
+            one_of: str = node.WhichOneof(&#34;id&#34;)
+            value: Any = getattr(node, one_of)
+            bbox: BoundingBox = UIMDecoder310.__extract_bounding_box__(node.bounds)
+            # Handle different node types
+            if one_of == &#39;groupID&#39;:  # Stroke Group Node
+                group_id: uuid.UUID = Identifier.from_bytes(value)
+                new_node: StrokeGroupNode = StrokeGroupNode(group_id)
+                new_node.group_bounding_box = bbox
+                # remember current node
+                prev_node = new_node
+            else:  # Stroke Node
+                index: int = value
+                if index &gt; len(context.strokes):
+                    raise FormatException(f&#34;Reference stroke with index:= {index} does not exist in UIM.&#34;)
+                stroke: Stroke = context.strokes[index]
+                fragment: Optional[StrokeFragment] = None
+                # Fragment
+                if node.interval.toIndex &gt; 0:
+                    fragment: StrokeFragment = StrokeFragment(node.interval.fromIndex, node.interval.toIndex,
+                                                              node.interval.fromTValue, node.interval.toTValue)
+                # Create Stroke node
+                new_node: StrokeNode = StrokeNode(stroke=stroke, fragment=fragment)
+                new_node.group_bounding_box = bbox
+            parent.add(new_node)
+
+    @staticmethod
+    def four_cc(content: bytes) -&gt; Tuple[int, int, int, ContentType, CompressionType]:
+        &#34;&#34;&#34;
+        Parse the version information.
+
+        Parameters
+        ----------
+        content: bytes
+            RIFF bytes
+
+        Returns
+        -------
+            chunk_major_version: int
+                Major version of the file
+            chunk_minor_version: int
+                Minor version of the file
+            chunk_patch_version: int
+                Patch version of the file
+            content_type: `ContentType`
+                Content type of the file Protobuf, text, binary, ...
+            compression_type: `CompressionType
+                Type of compression used for encoding the content.
+        &#34;&#34;&#34;
+        chunk_major_version: int = int.from_bytes(content[0:1], byteorder=&#39;big&#39;)
+        chunk_minor_version: int = int.from_bytes(content[1:2], byteorder=&#39;big&#39;)
+        chunk_patch_version: int = int.from_bytes(content[2:3], byteorder=&#39;big&#39;)
+        content_type: bytes = content[3:4]
+        compression_type: bytes = content[4:5]
+        return chunk_major_version, chunk_minor_version, chunk_patch_version, \
+            UIMDecoder310.MAP_CONTENT_TYPE[content_type], UIMDecoder310.MAP_COMPRESSION_TYPE[compression_type]
+
+    @staticmethod
+    def __extract_bounding_box__(rect: uim_3_1_0.Rectangle) -&gt; BoundingBox:
+        if rect:
+            return BoundingBox(rect.x, rect.y, rect.width, rect.height)
+        return BoundingBox(0., 0., 0., 0.)
+
+    @staticmethod
+    def __read_size__(riff: BytesIO) -&gt; int:
+        return ctypes.c_uint32(int.from_bytes(riff.read(4), byteorder=&#39;little&#39;)).value
+
+    @classmethod
+    def __decode_uim_chunk__(cls, content: bytes, compression: CompressionType) -&gt; bytes:
+        if compression == CompressionType.ZIP:
+            return content
+        elif compression == CompressionType.LZMA:
+            return content
+        return content
+
+    @classmethod
+    def decode(cls, riff: BytesIO, size_head: int):
+        &#34;&#34;&#34;
+       Decoding Universal Ink Model (RIFF / Protobuf encoded) content file.
+
+       Parameters
+       ----------
+       riff: `BytesIO`
+           RIFF content with encoded UIM v3.1.0 content.
+       size_head: `int`
+           Size of  the header
+
+       Returns
+       -------
+           model - `InkModel`
+               Parsed `InkModel` from UIM v3.1.0 ink content
+       &#34;&#34;&#34;
+        # Reserved byte after version
+        _ = riff.read(1)
+        num_chunks: int = int((size_head - 4) / 8)
+        chunk_desc: list = []
+        # Collect the description of the chunks
+        for i in range(num_chunks):
+            chunk_desc.append(UIMDecoder310.four_cc(riff.read(CHUNK_DESCRIPTION)))
+        # Content parser
+        uim_content_parser: UIMDecoder310 = UIMDecoder310()
+        context: DecoderContext = DecoderContext(version=SupportedFormats.UIM_VERSION_3_1_0.value,
+                                                 ink_model=InkModel(SupportedFormats.UIM_VERSION_3_1_0.value))
+        # Iterate over chunks
+        for j in range(num_chunks):
+            desc: list = chunk_desc[j]
+            chunk_id = riff.read(CHUNK_ID_BYTES_SIZE)
+            chunk_data_length: int = UIMDecoder310.__read_size__(riff)
+            chunk_content: bytes = riff.read(chunk_data_length)
+            if desc[0] == 3 and desc[1] == 1 and desc[2] == 0:
+                if desc[3] == ContentType.PROTOBUF:
+                    message: bytes = UIMDecoder310.__decode_uim_chunk__(chunk_content, desc[4])
+                    if chunk_id in UIMDecoder310.MAP_CHUNK_TYPE:
+                        protobuf_type = UIMDecoder310.MAP_CHUNK_TYPE[chunk_id]
+                        protobuf_type.ParseFromString(message)
+                        if chunk_id == PROPERTIES_HEADER:
+                            uim_content_parser.parse_properties(context, protobuf_type)
+                        elif chunk_id == INPUT_DATA_HEADER:
+                            uim_content_parser.parse_input_data(context, protobuf_type)
+                        elif chunk_id == BRUSHES_HEADER:
+                            uim_content_parser.parse_brushes(context, protobuf_type)
+                        elif chunk_id == INK_DATA_HEADER:
+                            uim_content_parser.parse_ink_data(context, protobuf_type)
+                        elif chunk_id == KNOWLEDGE_HEADER:
+                            uim_content_parser.parse_knowledge(context, protobuf_type)
+                        elif chunk_id == INK_STRUCTURE_HEADER:
+                            uim_content_parser.parse_ink_structure(context, protobuf_type)
+                else:
+                    raise FormatException(&#39;Only protobuf decoding is supported.&#39;)
+            # Check if padding byte is set
+            if chunk_data_length % 2 != 0:
+                riff.read(1)
+        return context.ink_model</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="uim.codec.parser.decoder.base.CodecDecoder" href="base.html#uim.codec.parser.decoder.base.CodecDecoder">CodecDecoder</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.MAP_BLEND_MODE"><code class="name">var <span class="ident">MAP_BLEND_MODE</span> : Dict[int, <a title="uim.model.inkdata.brush.BlendMode" href="../../../model/inkdata/brush.html#uim.model.inkdata.brush.BlendMode">BlendMode</a>]</code></dt>
+<dd>
+<div class="desc"><p>Mapping of blend modes.</p></div>
+</dd>
+<dt id="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.MAP_CHANNEL_TYPE"><code class="name">var <span class="ident">MAP_CHANNEL_TYPE</span> : Dict[str, <a title="uim.model.inkinput.inputdata.InkSensorType" href="../../../model/inkinput/inputdata.html#uim.model.inkinput.inputdata.InkSensorType">InkSensorType</a>]</code></dt>
+<dd>
+<div class="desc"><p>Mapping of channel types.</p></div>
+</dd>
+<dt id="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.MAP_CHUNK_TYPE"><code class="name">var <span class="ident">MAP_CHUNK_TYPE</span> : Dict[bytes, Any]</code></dt>
+<dd>
+<div class="desc"><p>Mapping of the different chunk types.</p></div>
+</dd>
+<dt id="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.MAP_COMPRESSION_TYPE"><code class="name">var <span class="ident">MAP_COMPRESSION_TYPE</span> : Dict[bytes, <a title="uim.codec.base.CompressionType" href="../../base.html#uim.codec.base.CompressionType">CompressionType</a>]</code></dt>
+<dd>
+<div class="desc"><p>Mapping of the <code>CompressionType</code>.</p></div>
+</dd>
+<dt id="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.MAP_CONTENT_TYPE"><code class="name">var <span class="ident">MAP_CONTENT_TYPE</span> : Dict[bytes, <a title="uim.codec.base.ContentType" href="../../base.html#uim.codec.base.ContentType">ContentType</a>]</code></dt>
+<dd>
+<div class="desc"><p>Mapping of the <code>ContentType</code>.</p></div>
+</dd>
+<dt id="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.MAP_INK_METRICS_TYPE"><code class="name">var <span class="ident">MAP_INK_METRICS_TYPE</span> : Dict[int, <a title="uim.model.inkinput.inputdata.InkSensorMetricType" href="../../../model/inkinput/inputdata.html#uim.model.inkinput.inputdata.InkSensorMetricType">InkSensorMetricType</a>]</code></dt>
+<dd>
+<div class="desc"><p>Mapping unit types.</p></div>
+</dd>
+<dt id="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.MAP_INPUT_PROVIDER_TYPE"><code class="name">var <span class="ident">MAP_INPUT_PROVIDER_TYPE</span> : Dict[int, <a title="uim.model.inkinput.inputdata.InkInputType" href="../../../model/inkinput/inputdata.html#uim.model.inkinput.inputdata.InkInputType">InkInputType</a>]</code></dt>
+<dd>
+<div class="desc"><p>Mapping of input providers.</p></div>
+</dd>
+<dt id="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.MAP_ROTATION_MODE"><code class="name">var <span class="ident">MAP_ROTATION_MODE</span> : Dict[int, <a title="uim.model.inkdata.brush.RotationMode" href="../../../model/inkdata/brush.html#uim.model.inkdata.brush.RotationMode">RotationMode</a>]</code></dt>
+<dd>
+<div class="desc"><p>Map for rotation mode</p></div>
+</dd>
+<dt id="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.MAP_STATE_TYPE"><code class="name">var <span class="ident">MAP_STATE_TYPE</span> : Dict[int, <a title="uim.model.inkinput.sensordata.InkState" href="../../../model/inkinput/sensordata.html#uim.model.inkinput.sensordata.InkState">InkState</a>]</code></dt>
+<dd>
+<div class="desc"><p>Mapping of the uim input data states.</p></div>
+</dd>
+</dl>
+<h3>Static methods</h3>
+<dl>
+<dt id="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.decode"><code class="name flex">
+<span>def <span class="ident">decode</span></span>(<span>riff: _io.BytesIO, size_head: int)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Decoding Universal Ink Model (RIFF / Protobuf encoded) content file.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>riff</code></strong> :&ensp;<code>BytesIO</code></dt>
+<dd>RIFF content with encoded UIM v3.1.0 content.</dd>
+<dt><strong><code>size_head</code></strong> :&ensp;<code>int</code></dt>
+<dd>Size of
+the header</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<pre><code>model - &lt;code&gt;InkModel&lt;/code&gt;
+    Parsed &lt;code&gt;InkModel&lt;/code&gt; from UIM v3.1.0 ink content
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def decode(cls, riff: BytesIO, size_head: int):
+    &#34;&#34;&#34;
+   Decoding Universal Ink Model (RIFF / Protobuf encoded) content file.
+
+   Parameters
+   ----------
+   riff: `BytesIO`
+       RIFF content with encoded UIM v3.1.0 content.
+   size_head: `int`
+       Size of  the header
+
+   Returns
+   -------
+       model - `InkModel`
+           Parsed `InkModel` from UIM v3.1.0 ink content
+   &#34;&#34;&#34;
+    # Reserved byte after version
+    _ = riff.read(1)
+    num_chunks: int = int((size_head - 4) / 8)
+    chunk_desc: list = []
+    # Collect the description of the chunks
+    for i in range(num_chunks):
+        chunk_desc.append(UIMDecoder310.four_cc(riff.read(CHUNK_DESCRIPTION)))
+    # Content parser
+    uim_content_parser: UIMDecoder310 = UIMDecoder310()
+    context: DecoderContext = DecoderContext(version=SupportedFormats.UIM_VERSION_3_1_0.value,
+                                             ink_model=InkModel(SupportedFormats.UIM_VERSION_3_1_0.value))
+    # Iterate over chunks
+    for j in range(num_chunks):
+        desc: list = chunk_desc[j]
+        chunk_id = riff.read(CHUNK_ID_BYTES_SIZE)
+        chunk_data_length: int = UIMDecoder310.__read_size__(riff)
+        chunk_content: bytes = riff.read(chunk_data_length)
+        if desc[0] == 3 and desc[1] == 1 and desc[2] == 0:
+            if desc[3] == ContentType.PROTOBUF:
+                message: bytes = UIMDecoder310.__decode_uim_chunk__(chunk_content, desc[4])
+                if chunk_id in UIMDecoder310.MAP_CHUNK_TYPE:
+                    protobuf_type = UIMDecoder310.MAP_CHUNK_TYPE[chunk_id]
+                    protobuf_type.ParseFromString(message)
+                    if chunk_id == PROPERTIES_HEADER:
+                        uim_content_parser.parse_properties(context, protobuf_type)
+                    elif chunk_id == INPUT_DATA_HEADER:
+                        uim_content_parser.parse_input_data(context, protobuf_type)
+                    elif chunk_id == BRUSHES_HEADER:
+                        uim_content_parser.parse_brushes(context, protobuf_type)
+                    elif chunk_id == INK_DATA_HEADER:
+                        uim_content_parser.parse_ink_data(context, protobuf_type)
+                    elif chunk_id == KNOWLEDGE_HEADER:
+                        uim_content_parser.parse_knowledge(context, protobuf_type)
+                    elif chunk_id == INK_STRUCTURE_HEADER:
+                        uim_content_parser.parse_ink_structure(context, protobuf_type)
+            else:
+                raise FormatException(&#39;Only protobuf decoding is supported.&#39;)
+        # Check if padding byte is set
+        if chunk_data_length % 2 != 0:
+            riff.read(1)
+    return context.ink_model</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.four_cc"><code class="name flex">
+<span>def <span class="ident">four_cc</span></span>(<span>content: bytes) ‑> Tuple[int, int, int, <a title="uim.codec.base.ContentType" href="../../base.html#uim.codec.base.ContentType">ContentType</a>, <a title="uim.codec.base.CompressionType" href="../../base.html#uim.codec.base.CompressionType">CompressionType</a>]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Parse the version information.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>content</code></strong> :&ensp;<code>bytes</code></dt>
+<dd>RIFF bytes</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<pre><code>chunk_major_version: int
+    Major version of the file
+chunk_minor_version: int
+    Minor version of the file
+chunk_patch_version: int
+    Patch version of the file
+content_type: &lt;code&gt;ContentType&lt;/code&gt;
+    Content type of the file Protobuf, text, binary, ...
+compression_type: `CompressionType
+    Type of compression used for encoding the content.
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def four_cc(content: bytes) -&gt; Tuple[int, int, int, ContentType, CompressionType]:
+    &#34;&#34;&#34;
+    Parse the version information.
+
+    Parameters
+    ----------
+    content: bytes
+        RIFF bytes
+
+    Returns
+    -------
+        chunk_major_version: int
+            Major version of the file
+        chunk_minor_version: int
+            Minor version of the file
+        chunk_patch_version: int
+            Patch version of the file
+        content_type: `ContentType`
+            Content type of the file Protobuf, text, binary, ...
+        compression_type: `CompressionType
+            Type of compression used for encoding the content.
+    &#34;&#34;&#34;
+    chunk_major_version: int = int.from_bytes(content[0:1], byteorder=&#39;big&#39;)
+    chunk_minor_version: int = int.from_bytes(content[1:2], byteorder=&#39;big&#39;)
+    chunk_patch_version: int = int.from_bytes(content[2:3], byteorder=&#39;big&#39;)
+    content_type: bytes = content[3:4]
+    compression_type: bytes = content[4:5]
+    return chunk_major_version, chunk_minor_version, chunk_patch_version, \
+        UIMDecoder310.MAP_CONTENT_TYPE[content_type], UIMDecoder310.MAP_COMPRESSION_TYPE[compression_type]</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.parse_brushes"><code class="name flex">
+<span>def <span class="ident">parse_brushes</span></span>(<span>context: <a title="uim.codec.context.decoder.DecoderContext" href="../../context/decoder.html#uim.codec.context.decoder.DecoderContext">DecoderContext</a>, brushes: UIM_3_1_0_pb2.Brushes)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Parse brush definitions.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>context</code></strong> :&ensp;<code>DecoderContext</code></dt>
+<dd>Decoder context</dd>
+<dt><strong><code>brushes</code></strong> :&ensp;<code>uim_3_1_0.Brushes</code></dt>
+<dd>Protobuf structure for brushes</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def parse_brushes(cls, context: DecoderContext, brushes: uim_3_1_0.Brushes):
+    &#34;&#34;&#34;
+    Parse brush definitions.
+
+    Parameters
+    ----------
+    context: `DecoderContext`
+        Decoder context
+    brushes: `uim_3_1_0.Brushes`
+        Protobuf structure for brushes
+    &#34;&#34;&#34;
+    # Decode vector brushes
+    for vectorBrush in brushes.vectorBrushes:
+        prototypes: list = []
+        for p in vectorBrush.prototype:
+            if p.shapeURI:
+                brush_prototype: BrushPolygonUri = BrushPolygonUri(p.shapeURI, p.size)
+            else:
+                points: list = []
+                for idx in range(len(p.coordX)):
+                    points.append((p.coordX[idx], p.coordY[idx]))
+                brush_prototype: BrushPolygon = BrushPolygon(p.size, points, p.indices)
+            prototypes.append(brush_prototype)
+        brush: VectorBrush = VectorBrush(
+            vectorBrush.name,
+            prototypes,
+            vectorBrush.spacing,
+        )
+        context.ink_model.brushes.add_vector_brush(brush)
+
+    # Decode raster brushes
+    for rasterBrush in brushes.rasterBrushes:
+        brush: RasterBrush = RasterBrush(
+            rasterBrush.name,
+            rasterBrush.spacing,
+            rasterBrush.scattering,
+            UIMDecoder310.MAP_ROTATION_MODE[rasterBrush.rotationMode],
+            rasterBrush.shapeTexture,
+            rasterBrush.shapeTextureURI,
+            rasterBrush.fillTexture,
+            rasterBrush.fillTextureURI,
+            rasterBrush.fillWidth,
+            rasterBrush.fillHeight,
+            rasterBrush.randomizeFill,
+            UIMDecoder310.MAP_BLEND_MODE[rasterBrush.blendMode]
+        )
+        context.ink_model.brushes.add_raster_brush(brush)</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.parse_ink_data"><code class="name flex">
+<span>def <span class="ident">parse_ink_data</span></span>(<span>context: <a title="uim.codec.context.decoder.DecoderContext" href="../../context/decoder.html#uim.codec.context.decoder.DecoderContext">DecoderContext</a>, ink_data: UIM_3_1_0_pb2.InkData)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Parse Protobuf structure and assign it to internal structure.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>context</code></strong> :&ensp;<code>DecoderContext</code></dt>
+<dd>Decoder context</dd>
+<dt><strong><code>ink_data</code></strong> :&ensp;<code>uim_3_1_0.InkData</code></dt>
+<dd>Protobuf structure for ink data</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def parse_ink_data(cls, context: DecoderContext, ink_data: uim_3_1_0.InkData):
+    &#34;&#34;&#34;
+    Parse Protobuf structure and assign it to internal structure.
+
+    Parameters
+    ----------
+    context: DecoderContext
+        Decoder context
+    ink_data: uim_3_1_0.InkData
+        Protobuf structure for ink data
+    &#34;&#34;&#34;
+    # First you need a root group to contain the strokes
+    for p in ink_data.properties:
+        # Decode RGBA value
+        red, green, blue, alpha = PathPointProperties.color(p.color)
+        path_point_properties: PathPointProperties = PathPointProperties(
+            p.size,
+            red,
+            green,
+            blue,
+            alpha,
+            p.rotation,
+            p.scaleX,
+            p.scaleY,
+            p.scaleZ,
+            p.offsetX,
+            p.offsetY,
+            p.offsetZ,
+        )
+        context.path_point_properties.append(path_point_properties)
+    # Strokes
+    idx: int = 0
+    for s in ink_data.strokes:
+        # Check if sensor id exists
+        sensor_id: Optional[uuid.UUID] = None
+        if s.sensorDataID:
+            sensor_id = Identifier.from_bytes(s.sensorDataID)
+        stroke: Stroke = Stroke(
+            sid=Identifier.from_bytes(s.id),
+            sensor_data_offset=s.sensorDataOffset,
+            sensor_data_id=sensor_id,
+            sensor_data_mapping=s.sensorDataMapping,
+            random_seed=s.randomSeed,
+            property_index=s.propertiesIndex
+        )
+        stroke.start_parameter = s.startParameter
+        stroke.end_parameter = s.endParameter
+        if len(s.splineData.splineX) &gt; 0:
+            splines: uim_3_1_0.Stroke.SplineData = s.splineData
+            spline_x: list = list(splines.splineX)
+            spline_y: list = list(splines.splineY)
+            spline_z: list = list(splines.splineZ)
+            sizes: list = list(splines.size)
+            rotation: list = list(splines.rotation)
+            scale_x: list = list(splines.scaleX)
+            scale_y: list = list(splines.scaleY)
+            scale_z: list = list(splines.scaleZ)
+            offset_x: list = list(splines.offsetX)
+            offset_y: list = list(splines.offsetY)
+            offset_z: list = list(splines.offsetZ)
+            list_red: list = list(splines.red)
+            list_green: list = list(splines.green)
+            list_blue: list = list(splines.blue)
+            list_alpha: list = list(splines.alpha)
+        else:
+            splines: uim_3_1_0.Stroke.SplineCompressed = s.splineCompressed
+            scheme: PrecisionScheme = PrecisionScheme()
+            if s.precisions:
+                scheme.value = s.precisions
+            spline_x: list = CodecDecoder.__decode__(list(splines.splineX), precision=scheme.position_precision)
+            spline_y: list = CodecDecoder.__decode__(list(splines.splineY), precision=scheme.position_precision)
+            spline_z: list = CodecDecoder.__decode__(list(splines.splineZ), precision=scheme.position_precision)
+            sizes: list = CodecDecoder.__decode__(list(splines.size), precision=scheme.size_precision)
+            rotation: list = CodecDecoder.__decode__(list(splines.rotation), precision=scheme.rotation_precision)
+            scale_x: list = CodecDecoder.__decode__(list(splines.scaleX), precision=scheme.scale_precision)
+            scale_y: list = CodecDecoder.__decode__(list(splines.scaleY), precision=scheme.scale_precision)
+            scale_z: list = CodecDecoder.__decode__(list(splines.scaleZ), precision=scheme.scale_precision)
+            offset_x: list = CodecDecoder.__decode__(list(splines.offsetX), precision=scheme.offset_precision)
+            offset_y: list = CodecDecoder.__decode__(list(splines.offsetY), precision=scheme.offset_precision)
+            offset_z: list = CodecDecoder.__decode__(list(splines.offsetZ), precision=scheme.offset_precision)
+            list_red: list = list(splines.red)
+            list_green: list = list(splines.green)
+            list_blue: list = list(splines.blue)
+            list_alpha: list = list(splines.alpha)
+            stroke.precision_scheme = scheme
+        stroke.splines_x = spline_x
+        stroke.splines_y = spline_y
+        stroke.splines_z = spline_z
+        stroke.sizes = sizes
+        stroke.rotations = rotation
+        stroke.scales_x = scale_x
+        stroke.scales_y = scale_y
+        stroke.scales_z = scale_z
+        stroke.offsets_x = offset_x
+        stroke.offsets_y = offset_y
+        stroke.offsets_z = offset_z
+        stroke.red = list_red
+        stroke.green = list_green
+        stroke.blue = list_blue
+        stroke.alpha = list_alpha
+        props: Optional[PathPointProperties] = None
+        brush: Optional[str] = None
+        if s.brushURIIndex:
+            brush_index: int = s.brushURIIndex - 1
+            brush = ink_data.brushURIs[brush_index]
+        if s.propertiesIndex:
+            props = context.path_point_properties[s.propertiesIndex - 1]
+        # Set style
+        stroke.style = Style(properties=props, brush_uri=brush, particles_random_seed=s.randomSeed)
+        if s.renderModeURIIndex &gt; 0:
+            stroke.style.render_mode_uri = ink_data.renderModeURIs[s.renderModeURIIndex - 1]
+        idx += 1
+        context.strokes.append(stroke)
+    # Unit scale
+    context.ink_model.unit_scale_factor = ink_data.unitScaleFactor
+    if ink_data.transform.m00 &gt; 0:
+        context.ink_model.transform = [
+            [ink_data.transform.m00, ink_data.transform.m01, ink_data.transform.m02, ink_data.transform.m03],
+            [ink_data.transform.m10, ink_data.transform.m11, ink_data.transform.m12, ink_data.transform.m13],
+            [ink_data.transform.m20, ink_data.transform.m21, ink_data.transform.m22, ink_data.transform.m23],
+            [ink_data.transform.m30, ink_data.transform.m31, ink_data.transform.m32, ink_data.transform.m33]
+        ]</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.parse_ink_structure"><code class="name flex">
+<span>def <span class="ident">parse_ink_structure</span></span>(<span>context: <a title="uim.codec.context.decoder.DecoderContext" href="../../context/decoder.html#uim.codec.context.decoder.DecoderContext">DecoderContext</a>, ink_structure: UIM_3_1_0_pb2.InkStructure)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def parse_ink_structure(cls, context: DecoderContext, ink_structure: uim_3_1_0.InkStructure):
+    UIMDecoder310.__parse_ink_tree__(context, ink_structure.inkTree)
+    for view in ink_structure.views:
+        UIMDecoder310.__parse_ink_tree__(context, view)</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.parse_input_data"><code class="name flex">
+<span>def <span class="ident">parse_input_data</span></span>(<span>context: <a title="uim.codec.context.decoder.DecoderContext" href="../../context/decoder.html#uim.codec.context.decoder.DecoderContext">DecoderContext</a>, input_data: UIM_3_1_0_pb2.InputData)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Parse input data Protobuf structure and assign it to internal structure.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>context</code></strong> :&ensp;<code>DecoderContext</code></dt>
+<dd>Decoder context</dd>
+<dt><strong><code>input_data</code></strong> :&ensp;<code>uim_3_1_0.InputData</code></dt>
+<dd>Protobuf structure for input data (sensor data)s</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def parse_input_data(cls, context: DecoderContext, input_data: uim_3_1_0.InputData):
+    &#34;&#34;&#34;
+    Parse input data Protobuf structure and assign it to internal structure.
+
+    Parameters
+    ----------
+    context: DecoderContext
+        Decoder context
+    input_data: uim_3_1_0.InputData
+        Protobuf structure for input data (sensor data)s
+    &#34;&#34;&#34;
+    input_context_data: uim_3_1_0.InputContextData = input_data.inputContextData
+    # Parse Input Contexts
+    for inputContext in input_context_data.inputContexts:
+        input_context: InputContext = InputContext(
+            Identifier.from_bytes(inputContext.id),
+            Identifier.from_bytes(inputContext.environmentID),
+            Identifier.from_bytes(inputContext.sensorContextID))
+        context.ink_model.input_configuration.input_contexts.append(input_context)
+
+    # Parse Ink Input Providers
+    for inkInputProvider in input_context_data.inkInputProviders:
+        properties: list = CodecDecoder.__parse_properties__(inkInputProvider.properties)
+        ink_input_provider: InkInputProvider = InkInputProvider(
+            Identifier.from_bytes(inkInputProvider.id),
+            UIMDecoder310.MAP_INPUT_PROVIDER_TYPE[inkInputProvider.type],
+            properties
+        )
+        context.ink_model.input_configuration.ink_input_providers.append(ink_input_provider)
+
+    # Parse Input Devices
+    for inputDevice in input_context_data.inputDevices:
+        properties: list = CodecDecoder.__parse_properties__(inputDevice.properties)
+        input_device: InputDevice = InputDevice(
+            Identifier.from_bytes(inputDevice.id),
+            properties
+        )
+        context.ink_model.input_configuration.devices.append(input_device)
+
+    # Parse Environments
+    for e in input_context_data.environments:
+        properties: list = CodecDecoder.__parse_properties__(e.properties)
+        environment: Environment = Environment(
+            Identifier.from_bytes(e.id),
+            properties
+        )
+        context.ink_model.input_configuration.environments.append(environment)
+
+    # Parse Sensor Data Contexts
+    for sensorContext in input_context_data.sensorContexts:
+        sensor_channels_contexts: list = []
+
+        # Parse Sensor Channels Contexts
+        for sensorChannelsContext in sensorContext.sensorChannelsContext:
+            channels: list = []
+
+            # Parse Sensor Channels
+            for sensorChannel in sensorChannelsContext.channels:
+                input_provider_uuid: Optional[uuid.UUID] = None
+                if sensorChannelsContext.inkInputProviderID:
+                    input_provider_uuid = Identifier.from_bytes(sensorChannelsContext.inkInputProviderID)
+                sensor_channel: SensorChannel = SensorChannel(
+                    Identifier.from_bytes(sensorChannel.id),
+                    UIMDecoder310.MAP_CHANNEL_TYPE[sensorChannel.type],
+                    UIMDecoder310.MAP_INK_METRICS_TYPE[sensorChannel.metric],
+                    sensorChannel.resolution,
+                    sensorChannel.min,
+                    sensorChannel.max,
+                    sensorChannel.precision,
+                    data_type=DataType.FLOAT32,
+                    ink_input_provider_id=input_provider_uuid,
+                    input_device_id=Identifier.from_bytes(sensorChannelsContext.inputDeviceID)
+                )
+                channels.append(sensor_channel)
+            # Check for input input provider uuid
+            input_provider_uuid: Optional[uuid.UUID] = None
+            if sensorChannelsContext.inkInputProviderID:
+                input_provider_uuid = Identifier.from_bytes(sensorChannelsContext.inkInputProviderID)
+            # Sensor channels context
+            sensor_channel_context: SensorChannelsContext = SensorChannelsContext(
+                Identifier.from_bytes(sensorChannelsContext.id),
+                channels,
+                sensorChannelsContext.samplingRateHint,
+                sensorChannelsContext.latency,
+                input_provider_uuid,
+                Identifier.from_bytes(sensorChannelsContext.inputDeviceID),
+            )
+            sensor_channels_contexts.append(sensor_channel_context)
+        # Sensor context
+        sensor_context: SensorContext = SensorContext(
+            Identifier.from_bytes(sensorContext.id),
+            sensor_channels_contexts
+        )
+        context.ink_model.input_configuration.sensor_contexts.append(sensor_context)
+
+    # Parse Sensor Data
+    sensor_data_array: list = []
+    for sensorData in input_data.sensorData:
+        input_context: InputContext = context.ink_model.input_configuration. \
+            get_input_context(Identifier.from_bytes(sensorData.inputContextID))
+        sensor_ctx: SensorContext = context.ink_model.input_configuration. \
+            get_sensor_context(input_context.sensor_context_id)
+        # Add sensor data
+        sensor_data: SensorData = SensorData(
+            Identifier.from_bytes(sensorData.id),
+            Identifier.from_bytes(sensorData.inputContextID),
+            UIMDecoder310.MAP_STATE_TYPE[sensorData.state],
+            sensorData.timestamp
+        )
+        # Adding all channels
+        for dataChannel in sensorData.dataChannels:
+            sensor_type: SensorChannel = sensor_ctx.get_channel_by_id(
+                Identifier.from_bytes(dataChannel.sensorChannelID)
+            )
+            if sensor_type.type == InkSensorType.TIMESTAMP:
+                ctx: SensorChannel = sensor_ctx.get_channel_by_id(
+                    Identifier.from_bytes(dataChannel.sensorChannelID)
+                )
+                channel_data: ChannelData = ChannelData(
+                    Identifier.from_bytes(dataChannel.sensorChannelID),
+                    CodecDecoder.__decode__(dataChannel.values, ctx.precision, ctx.resolution,
+                                            start_value=sensorData.timestamp, data_type=float),
+                )
+                sensor_data.add_timestamp_data(sensor_type, channel_data.values)
+            else:
+                ctx: SensorChannel = sensor_ctx.get_channel_by_id(
+                    Identifier.from_bytes(dataChannel.sensorChannelID)
+                )
+                channel_data: ChannelData = ChannelData(
+                    Identifier.from_bytes(dataChannel.sensorChannelID),
+                    CodecDecoder.__decode__(dataChannel.values, ctx.precision, ctx.resolution),
+                )
+                sensor_data.add_data(sensor_type, channel_data.values)
+        sensor_data_array.append(sensor_data)
+
+    context.ink_model.sensor_data.sensor_data = sensor_data_array</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.parse_knowledge"><code class="name flex">
+<span>def <span class="ident">parse_knowledge</span></span>(<span>context: <a title="uim.codec.context.decoder.DecoderContext" href="../../context/decoder.html#uim.codec.context.decoder.DecoderContext">DecoderContext</a>, triple_store: UIM_3_1_0_pb2.TripleStore)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Parse TripleStore protobuf message and return <code>TripleStore</code> object.
+Parameters</p>
+<hr>
+<dl>
+<dt><strong><code>context</code></strong> :&ensp;<code>DecoderContext</code></dt>
+<dd>Decoder context</dd>
+<dt><strong><code>triple_store</code></strong> :&ensp;<code>TripleStore</code></dt>
+<dd>triple_store protobuf message 'TripleStore'</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def parse_knowledge(cls, context: DecoderContext, triple_store: uim_3_1_0.TripleStore):
+    &#34;&#34;&#34;
+    Parse TripleStore protobuf message and return `TripleStore` object.
+    Parameters
+    ----------
+    context: DecoderContext
+        Decoder context
+    triple_store: TripleStore
+        triple_store protobuf message &#39;TripleStore&#39;
+    &#34;&#34;&#34;
+    for statement in triple_store.statements:
+        context.ink_model.add_semantic_triple(statement.subject, statement.predicate, statement.object)</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.parse_properties"><code class="name flex">
+<span>def <span class="ident">parse_properties</span></span>(<span>context: <a title="uim.codec.context.decoder.DecoderContext" href="../../context/decoder.html#uim.codec.context.decoder.DecoderContext">DecoderContext</a>, properties: UIM_3_1_0_pb2.Properties)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Parse properties Protobuf structure and assign it to internal structure.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>context</code></strong> :&ensp;<code>DecoderContext</code></dt>
+<dd>Decoder context</dd>
+<dt><strong><code>properties</code></strong> :&ensp;<code>uim_3_1_0.Properties</code></dt>
+<dd>Protobuf structure for properties</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def parse_properties(cls, context: DecoderContext, properties: uim_3_1_0.Properties):
+    &#34;&#34;&#34;
+    Parse properties Protobuf structure and assign it to internal structure.
+
+    Parameters
+    ----------
+    context: `DecoderContext`
+        Decoder context
+    properties: `uim_3_1_0.Properties`
+        Protobuf structure for properties
+    &#34;&#34;&#34;
+    for p in properties.properties:
+        context.ink_model.add_property(p.name, p.value)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="uim.codec.parser.decoder" href="index.html">uim.codec.parser.decoder</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310" href="#uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310">UIMDecoder310</a></code></h4>
+<ul class="">
+<li><code><a title="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.MAP_BLEND_MODE" href="#uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.MAP_BLEND_MODE">MAP_BLEND_MODE</a></code></li>
+<li><code><a title="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.MAP_CHANNEL_TYPE" href="#uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.MAP_CHANNEL_TYPE">MAP_CHANNEL_TYPE</a></code></li>
+<li><code><a title="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.MAP_CHUNK_TYPE" href="#uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.MAP_CHUNK_TYPE">MAP_CHUNK_TYPE</a></code></li>
+<li><code><a title="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.MAP_COMPRESSION_TYPE" href="#uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.MAP_COMPRESSION_TYPE">MAP_COMPRESSION_TYPE</a></code></li>
+<li><code><a title="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.MAP_CONTENT_TYPE" href="#uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.MAP_CONTENT_TYPE">MAP_CONTENT_TYPE</a></code></li>
+<li><code><a title="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.MAP_INK_METRICS_TYPE" href="#uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.MAP_INK_METRICS_TYPE">MAP_INK_METRICS_TYPE</a></code></li>
+<li><code><a title="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.MAP_INPUT_PROVIDER_TYPE" href="#uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.MAP_INPUT_PROVIDER_TYPE">MAP_INPUT_PROVIDER_TYPE</a></code></li>
+<li><code><a title="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.MAP_ROTATION_MODE" href="#uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.MAP_ROTATION_MODE">MAP_ROTATION_MODE</a></code></li>
+<li><code><a title="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.MAP_STATE_TYPE" href="#uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.MAP_STATE_TYPE">MAP_STATE_TYPE</a></code></li>
+<li><code><a title="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.decode" href="#uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.decode">decode</a></code></li>
+<li><code><a title="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.four_cc" href="#uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.four_cc">four_cc</a></code></li>
+<li><code><a title="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.parse_brushes" href="#uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.parse_brushes">parse_brushes</a></code></li>
+<li><code><a title="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.parse_ink_data" href="#uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.parse_ink_data">parse_ink_data</a></code></li>
+<li><code><a title="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.parse_ink_structure" href="#uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.parse_ink_structure">parse_ink_structure</a></code></li>
+<li><code><a title="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.parse_input_data" href="#uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.parse_input_data">parse_input_data</a></code></li>
+<li><code><a title="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.parse_knowledge" href="#uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.parse_knowledge">parse_knowledge</a></code></li>
+<li><code><a title="uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.parse_properties" href="#uim.codec.parser.decoder.decoder_3_1_0.UIMDecoder310.parse_properties">parse_properties</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

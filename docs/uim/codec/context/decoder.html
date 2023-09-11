@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>uim.codec.context.decoder API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>uim.codec.context.decoder</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># -*- coding: utf-8 -*-
+# Copyright © 2021-23 Wacom Authors. All Rights Reserved.
+#
+#  Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an &#34;AS IS&#34; BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
+from typing import List, Dict
+
+from uim.codec.context.version import Version
+from uim.model.helpers.treeiterator import PreOrderEnumerator
+from uim.model.ink import InkModel
+from uim.model.inkdata.strokes import Stroke, PathPointProperties
+from uim.model.semantics.node import StrokeGroupNode
+
+
+class DecoderContext(object):
+    &#34;&#34;&#34;
+    Decoder Context used while parsing an ink file.
+
+    Parameters
+    ----------
+    version: `Version`
+        Version of the parsed ink file
+    ink_model: `InkModel`
+        Reference of the `InkModel` that will be available after parsing process is finished
+
+    &#34;&#34;&#34;
+
+    def __init__(self, version: Version, ink_model: InkModel):
+        self.__format_version: Version = version
+        self.__ink_model: InkModel = ink_model
+        self.__strokes: List[Stroke] = []
+        self.__stroke_id_map: Dict[str, int] = {}
+        self.__path_properties: List[PathPointProperties] = []
+
+    def register_stroke(self, stroke: Stroke, stroke_identifier: str):
+        &#34;&#34;&#34;
+        Register a stroke for the context.
+
+        Parameters
+        ----------
+        stroke: `Stroke`
+            Stroke structure
+        stroke_identifier: str
+            Identifier from a different format
+        &#34;&#34;&#34;
+        self.strokes.append(stroke)
+        if stroke_identifier:
+            self.__stroke_id_map[stroke_identifier] = len(self.strokes) - 1
+
+    def stroke_by_identifier(self, identifier: str) -&gt; Stroke:
+        &#34;&#34;&#34;
+        Retrieve stroke by using the registered identifier.
+
+        Parameters
+        ----------
+        identifier: str
+            Registered identifier
+
+        Returns
+        -------
+        stroke - Stroke
+            Stroke which is registered for identifier
+
+        Raises
+        ------
+            ValueError
+                if the identifier is not registered
+        &#34;&#34;&#34;
+        if identifier in self.__stroke_id_map:
+            return self.strokes[self.__stroke_id_map[identifier]]
+        raise ValueError(f&#39;No stroke for identifier:={identifier} registered.&#39;)
+
+    @property
+    def format_version(self) -&gt; Version:
+        &#34;&#34;&#34;Version of the format. (`Version`, read-only)&#34;&#34;&#34;
+        return self.__format_version
+
+    @property
+    def ink_model(self) -&gt; InkModel:
+        &#34;&#34;&#34;Current state of the ink model. (`InkModel`, read-only)&#34;&#34;&#34;
+        return self.__ink_model
+
+    @property
+    def strokes(self) -&gt; List[Stroke]:
+        &#34;&#34;&#34;List of the parsed strokes. (`List[Stroke]`, read-only)&#34;&#34;&#34;
+        return self.__strokes
+
+    @property
+    def path_point_properties(self) -&gt; List[PathPointProperties]:
+        &#34;&#34;&#34;List of the path point properties. (`List[PathPointProperties]`, read-only)&#34;&#34;&#34;
+        return self.__path_properties
+
+    def upgrade_uris(self):
+        &#34;&#34;&#34;Upgrade the URIs for groups from UIM 3.0.0 to UIM 3.1.0.&#34;&#34;&#34;
+        uri_view: dict = {}
+        for view in self.ink_model.views:
+            for ink_node in PreOrderEnumerator(view.root):
+                if isinstance(ink_node, StrokeGroupNode):
+                    uri_view[ink_node.uri_legacy] = ink_node.uri
+
+        for stmt in self.ink_model.knowledge_graph.statements:
+            if stmt.subject in uri_view:
+                stmt.subject = uri_view[stmt.subject]
+            if stmt.object in uri_view:
+                stmt.object = uri_view[stmt.object]</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="uim.codec.context.decoder.DecoderContext"><code class="flex name class">
+<span>class <span class="ident">DecoderContext</span></span>
+<span>(</span><span>version: <a title="uim.codec.context.version.Version" href="version.html#uim.codec.context.version.Version">Version</a>, ink_model: <a title="uim.model.ink.InkModel" href="../../model/ink.html#uim.model.ink.InkModel">InkModel</a>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Decoder Context used while parsing an ink file.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>version</code></strong> :&ensp;<code>Version</code></dt>
+<dd>Version of the parsed ink file</dd>
+<dt><strong><code>ink_model</code></strong> :&ensp;<code>InkModel</code></dt>
+<dd>Reference of the <code>InkModel</code> that will be available after parsing process is finished</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class DecoderContext(object):
+    &#34;&#34;&#34;
+    Decoder Context used while parsing an ink file.
+
+    Parameters
+    ----------
+    version: `Version`
+        Version of the parsed ink file
+    ink_model: `InkModel`
+        Reference of the `InkModel` that will be available after parsing process is finished
+
+    &#34;&#34;&#34;
+
+    def __init__(self, version: Version, ink_model: InkModel):
+        self.__format_version: Version = version
+        self.__ink_model: InkModel = ink_model
+        self.__strokes: List[Stroke] = []
+        self.__stroke_id_map: Dict[str, int] = {}
+        self.__path_properties: List[PathPointProperties] = []
+
+    def register_stroke(self, stroke: Stroke, stroke_identifier: str):
+        &#34;&#34;&#34;
+        Register a stroke for the context.
+
+        Parameters
+        ----------
+        stroke: `Stroke`
+            Stroke structure
+        stroke_identifier: str
+            Identifier from a different format
+        &#34;&#34;&#34;
+        self.strokes.append(stroke)
+        if stroke_identifier:
+            self.__stroke_id_map[stroke_identifier] = len(self.strokes) - 1
+
+    def stroke_by_identifier(self, identifier: str) -&gt; Stroke:
+        &#34;&#34;&#34;
+        Retrieve stroke by using the registered identifier.
+
+        Parameters
+        ----------
+        identifier: str
+            Registered identifier
+
+        Returns
+        -------
+        stroke - Stroke
+            Stroke which is registered for identifier
+
+        Raises
+        ------
+            ValueError
+                if the identifier is not registered
+        &#34;&#34;&#34;
+        if identifier in self.__stroke_id_map:
+            return self.strokes[self.__stroke_id_map[identifier]]
+        raise ValueError(f&#39;No stroke for identifier:={identifier} registered.&#39;)
+
+    @property
+    def format_version(self) -&gt; Version:
+        &#34;&#34;&#34;Version of the format. (`Version`, read-only)&#34;&#34;&#34;
+        return self.__format_version
+
+    @property
+    def ink_model(self) -&gt; InkModel:
+        &#34;&#34;&#34;Current state of the ink model. (`InkModel`, read-only)&#34;&#34;&#34;
+        return self.__ink_model
+
+    @property
+    def strokes(self) -&gt; List[Stroke]:
+        &#34;&#34;&#34;List of the parsed strokes. (`List[Stroke]`, read-only)&#34;&#34;&#34;
+        return self.__strokes
+
+    @property
+    def path_point_properties(self) -&gt; List[PathPointProperties]:
+        &#34;&#34;&#34;List of the path point properties. (`List[PathPointProperties]`, read-only)&#34;&#34;&#34;
+        return self.__path_properties
+
+    def upgrade_uris(self):
+        &#34;&#34;&#34;Upgrade the URIs for groups from UIM 3.0.0 to UIM 3.1.0.&#34;&#34;&#34;
+        uri_view: dict = {}
+        for view in self.ink_model.views:
+            for ink_node in PreOrderEnumerator(view.root):
+                if isinstance(ink_node, StrokeGroupNode):
+                    uri_view[ink_node.uri_legacy] = ink_node.uri
+
+        for stmt in self.ink_model.knowledge_graph.statements:
+            if stmt.subject in uri_view:
+                stmt.subject = uri_view[stmt.subject]
+            if stmt.object in uri_view:
+                stmt.object = uri_view[stmt.object]</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="uim.codec.context.decoder.DecoderContext.format_version"><code class="name">var <span class="ident">format_version</span> : <a title="uim.codec.context.version.Version" href="version.html#uim.codec.context.version.Version">Version</a></code></dt>
+<dd>
+<div class="desc"><p>Version of the format. (<code>Version</code>, read-only)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def format_version(self) -&gt; Version:
+    &#34;&#34;&#34;Version of the format. (`Version`, read-only)&#34;&#34;&#34;
+    return self.__format_version</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.context.decoder.DecoderContext.ink_model"><code class="name">var <span class="ident">ink_model</span> : <a title="uim.model.ink.InkModel" href="../../model/ink.html#uim.model.ink.InkModel">InkModel</a></code></dt>
+<dd>
+<div class="desc"><p>Current state of the ink model. (<code>InkModel</code>, read-only)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def ink_model(self) -&gt; InkModel:
+    &#34;&#34;&#34;Current state of the ink model. (`InkModel`, read-only)&#34;&#34;&#34;
+    return self.__ink_model</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.context.decoder.DecoderContext.path_point_properties"><code class="name">var <span class="ident">path_point_properties</span> : List[<a title="uim.model.inkdata.strokes.PathPointProperties" href="../../model/inkdata/strokes.html#uim.model.inkdata.strokes.PathPointProperties">PathPointProperties</a>]</code></dt>
+<dd>
+<div class="desc"><p>List of the path point properties. (<code>List[PathPointProperties]</code>, read-only)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def path_point_properties(self) -&gt; List[PathPointProperties]:
+    &#34;&#34;&#34;List of the path point properties. (`List[PathPointProperties]`, read-only)&#34;&#34;&#34;
+    return self.__path_properties</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.context.decoder.DecoderContext.strokes"><code class="name">var <span class="ident">strokes</span> : List[<a title="uim.model.inkdata.strokes.Stroke" href="../../model/inkdata/strokes.html#uim.model.inkdata.strokes.Stroke">Stroke</a>]</code></dt>
+<dd>
+<div class="desc"><p>List of the parsed strokes. (<code>List[Stroke]</code>, read-only)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def strokes(self) -&gt; List[Stroke]:
+    &#34;&#34;&#34;List of the parsed strokes. (`List[Stroke]`, read-only)&#34;&#34;&#34;
+    return self.__strokes</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="uim.codec.context.decoder.DecoderContext.register_stroke"><code class="name flex">
+<span>def <span class="ident">register_stroke</span></span>(<span>self, stroke: <a title="uim.model.inkdata.strokes.Stroke" href="../../model/inkdata/strokes.html#uim.model.inkdata.strokes.Stroke">Stroke</a>, stroke_identifier: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Register a stroke for the context.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>stroke</code></strong> :&ensp;<code>Stroke</code></dt>
+<dd>Stroke structure</dd>
+<dt><strong><code>stroke_identifier</code></strong> :&ensp;<code>str</code></dt>
+<dd>Identifier from a different format</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def register_stroke(self, stroke: Stroke, stroke_identifier: str):
+    &#34;&#34;&#34;
+    Register a stroke for the context.
+
+    Parameters
+    ----------
+    stroke: `Stroke`
+        Stroke structure
+    stroke_identifier: str
+        Identifier from a different format
+    &#34;&#34;&#34;
+    self.strokes.append(stroke)
+    if stroke_identifier:
+        self.__stroke_id_map[stroke_identifier] = len(self.strokes) - 1</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.context.decoder.DecoderContext.stroke_by_identifier"><code class="name flex">
+<span>def <span class="ident">stroke_by_identifier</span></span>(<span>self, identifier: str) ‑> <a title="uim.model.inkdata.strokes.Stroke" href="../../model/inkdata/strokes.html#uim.model.inkdata.strokes.Stroke">Stroke</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Retrieve stroke by using the registered identifier.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>identifier</code></strong> :&ensp;<code>str</code></dt>
+<dd>Registered identifier</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>stroke - Stroke</code></dt>
+<dd>Stroke which is registered for identifier</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<pre><code>ValueError
+    if the identifier is not registered
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def stroke_by_identifier(self, identifier: str) -&gt; Stroke:
+    &#34;&#34;&#34;
+    Retrieve stroke by using the registered identifier.
+
+    Parameters
+    ----------
+    identifier: str
+        Registered identifier
+
+    Returns
+    -------
+    stroke - Stroke
+        Stroke which is registered for identifier
+
+    Raises
+    ------
+        ValueError
+            if the identifier is not registered
+    &#34;&#34;&#34;
+    if identifier in self.__stroke_id_map:
+        return self.strokes[self.__stroke_id_map[identifier]]
+    raise ValueError(f&#39;No stroke for identifier:={identifier} registered.&#39;)</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.context.decoder.DecoderContext.upgrade_uris"><code class="name flex">
+<span>def <span class="ident">upgrade_uris</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Upgrade the URIs for groups from UIM 3.0.0 to UIM 3.1.0.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def upgrade_uris(self):
+    &#34;&#34;&#34;Upgrade the URIs for groups from UIM 3.0.0 to UIM 3.1.0.&#34;&#34;&#34;
+    uri_view: dict = {}
+    for view in self.ink_model.views:
+        for ink_node in PreOrderEnumerator(view.root):
+            if isinstance(ink_node, StrokeGroupNode):
+                uri_view[ink_node.uri_legacy] = ink_node.uri
+
+    for stmt in self.ink_model.knowledge_graph.statements:
+        if stmt.subject in uri_view:
+            stmt.subject = uri_view[stmt.subject]
+        if stmt.object in uri_view:
+            stmt.object = uri_view[stmt.object]</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="uim.codec.context" href="index.html">uim.codec.context</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="uim.codec.context.decoder.DecoderContext" href="#uim.codec.context.decoder.DecoderContext">DecoderContext</a></code></h4>
+<ul class="">
+<li><code><a title="uim.codec.context.decoder.DecoderContext.format_version" href="#uim.codec.context.decoder.DecoderContext.format_version">format_version</a></code></li>
+<li><code><a title="uim.codec.context.decoder.DecoderContext.ink_model" href="#uim.codec.context.decoder.DecoderContext.ink_model">ink_model</a></code></li>
+<li><code><a title="uim.codec.context.decoder.DecoderContext.path_point_properties" href="#uim.codec.context.decoder.DecoderContext.path_point_properties">path_point_properties</a></code></li>
+<li><code><a title="uim.codec.context.decoder.DecoderContext.register_stroke" href="#uim.codec.context.decoder.DecoderContext.register_stroke">register_stroke</a></code></li>
+<li><code><a title="uim.codec.context.decoder.DecoderContext.stroke_by_identifier" href="#uim.codec.context.decoder.DecoderContext.stroke_by_identifier">stroke_by_identifier</a></code></li>
+<li><code><a title="uim.codec.context.decoder.DecoderContext.strokes" href="#uim.codec.context.decoder.DecoderContext.strokes">strokes</a></code></li>
+<li><code><a title="uim.codec.context.decoder.DecoderContext.upgrade_uris" href="#uim.codec.context.decoder.DecoderContext.upgrade_uris">upgrade_uris</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,2180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>uim.codec.parser.will API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>uim.codec.parser.will</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># -*- coding: utf-8 -*-
+# Copyright © 2021-23 Wacom Authors. All Rights Reserved.
+#
+#  Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an &#34;AS IS&#34; BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+import os
+import pathlib
+import struct
+import time
+import uuid
+import zipfile
+from chunk import Chunk
+from io import BytesIO
+from typing import Any, Tuple, Dict, List, Optional
+
+import numpy as np
+import varint
+from bitstring import BitArray, Bits
+from lxml import etree
+
+import uim.model.ink as uim
+from uim.codec.base import WILL_PROTOBUF_ENCODING, RIFF_HEADER
+from uim.codec.format.WILL_2_0_0_pb2 import Path
+from uim.codec.context.version import Version
+from uim.codec.parser.base import Parser, FormatException, SupportedFormats
+from uim.codec.parser.base import Stream, EndOfStream
+from uim.model.base import UUIDIdentifier
+from uim.model.ink import InkModel
+from uim.model.inkdata import brush
+from uim.model.inkdata.strokes import Stroke, PathPointProperties
+from uim.model.inkdata.strokes import Style
+from uim.model.inkinput import inputdata as device
+from uim.model.inkinput import sensordata as sensor
+from uim.model.semantics import schema
+from uim.model.semantics.node import StrokeGroupNode, StrokeNode
+from uim.model.semantics.schema import CommonViews
+
+
+class WILL2Parser(Parser):
+    &#34;&#34;&#34;
+    Parser for Wacom Ink Layer Language - Data and File format.
+
+    Examples
+    --------
+    &gt;&gt;&gt; from uim.codec.parser.will import WILL2Parser
+    &gt;&gt;&gt; from uim.model.ink import InkModel
+    &gt;&gt;&gt; parser: WILL2Parser = WILL2Parser()
+    &gt;&gt;&gt; ink_model: InkModel = parser.parse(&#39;../ink/will/apple.will&#39;)
+
+    See also
+    --------
+    ´UIMParser´ - Parser for UIM files
+    &#34;&#34;&#34;
+    # Constants for meta data WILL File format
+    APP_VERSION: str = &#39;{http://schemas.willfileformat.org/2015/relationships/extended-properties}AppVersion&#39;
+    &#34;&#34;&#34;App version property tag.&#34;&#34;&#34;
+    APPLICATION: str = &#39;{http://schemas.willfileformat.org/2015/relationships/extended-properties}Application&#39;
+    &#34;&#34;&#34;Application property tag.&#34;&#34;&#34;
+
+    # Prefix for the node uri.
+    NODE_URI_PREFIX: str = &#39;uim:node/{}&#39;
+
+    DEFAULT_WRITE_FORMAT: str = &#39;will&#39;
+
+    DEFAULT_APPLICATION_NAME: str = &#39;Universal Ink Model - Converter&#39;
+    DEFAULT_APPLICATION_VERSION: float = 0.1
+
+    DEFAULT_PATH_WIDTH: int = 100
+    DEFAULT_DECIMAL_PRECISION: int = 2
+    SOURCE_OVER: int = 2
+    DEFAULT_DATETIME_FORMAT: str = &#39;%Y-%m-%dT%H:%M:%SZ&#39;
+
+    INK_DEVICE_BAMBOO_SLATE: str = &#39;Bamboo Slate/Folio&#39;
+    INK_DEVICE_BAMBOO_SPARK: str = &#39;Bamboo Spark&#39;
+
+    BRUSH: Dict[str, Any] = {
+        &#34;name&#34;: &#34;app://will/vector-brush/Circle&#34;,
+        &#34;prototype&#34;: [
+            {
+                &#34;shapeURI&#34;: &#34;will://brush/3.0/shape/Circle?precision=4&amp;radius=&#34;
+            }, {
+                &#34;shapeURI&#34;: &#34;will://brush/3.0/shape/Circle?precision=8&amp;radius=&#34;, &#34;size&#34;: 2.0
+            }, {
+                &#34;shapeURI&#34;: &#34;will://brush/3.0/shape/Circle?precision=16&amp;radius=&#34;, &#34;size&#34;: 6.0
+            }, {
+                &#34;shapeURI&#34;: &#34;will://brush/3.0/shape/Circle?precision=32&amp;radius=&#34;, &#34;size&#34;: 18.0
+            }
+        ], &#34;spacing&#34;: 1.0
+    }
+    &#34;&#34;&#34;Default brush configuration.&#34;&#34;&#34;
+
+    DEFAULT_TIME_STEP: float = 8
+    &#34;&#34;&#34; Sampling rate of 120 Hz roughly 8 ms.&#34;&#34;&#34;
+
+    def __init__(self):
+        self.__version: Optional[str] = None
+        self.__paths: list = []
+        self.__protobuf = None
+        self.__source: str = &#39;&#39;
+
+        self.__document_application: str = WILL2Parser.DEFAULT_APPLICATION_NAME
+        self.__document_application_version: str = str(WILL2Parser.DEFAULT_APPLICATION_VERSION)
+        self.__viewport_x: float = 0.0
+        self.__viewport_y: float = 0.0
+        self.__viewport_width: float = 640.0
+        self.__viewport_height: float = 480.0
+        self.__document_title: str = &#39;&#39;
+        self.__document_creation_datetime: str = &#39;&#39;
+        self.__ink_device_model_guess: str = WILL2Parser.INK_DEVICE_BAMBOO_SLATE
+        self.__matrix = np.identity(3)
+        self.__default_input_provider: device.InkInputProvider = WILL2Parser.__default_input_provider__()
+        self.__default_environment: device.Environment = WILL2Parser.__default_environment__()
+        self.__default_input_device: device.InputDevice = WILL2Parser.__default_input_device__()
+        self.__default_input_context: Optional[device.InputContext] = None
+        self.__default_sensors_context: Optional[device.SensorContext] = None
+        self.__x_channel: Optional[device.SensorChannel] = None
+        self.__y_channel: Optional[device.SensorChannel] = None
+        self.__t_channel: Optional[device.SensorChannel] = None
+
+    def parse(self, path_or_stream: Any) -&gt; InkModel:
+        &#34;&#34;&#34;
+        Parse the content of a WILL data or file format encoded ink file to the Universal Ink memory model.
+
+        Parameters
+        ----------
+        path_or_stream: Any
+            `Path` of file, path as str, stream, or byte array.
+
+        Returns
+        -------
+           model - `InkModel`
+               Parsed `InkModel` from UIM encoded stream
+        &#34;&#34;&#34;
+        # Read the file if path_or_stream is a file path
+        if isinstance(path_or_stream, (str, pathlib.Path)):
+            with open(path_or_stream, mode=&#39;rb&#39;) as fp:
+                stream: BytesIO = BytesIO(fp.read())
+        elif isinstance(path_or_stream, (bytes, memoryview)):
+            stream: BytesIO = BytesIO(path_or_stream)
+        elif isinstance(path_or_stream, BytesIO):
+            stream: BytesIO = path_or_stream
+        else:
+            raise TypeError(
+                &#39;parse() accepts Path, path (str) or stream (bytes, BytesIO), got {}&#39;.format(type(path_or_stream)))
+
+        version: Version = WILL2Parser.__get_version_from_stream__(stream)
+        if version == SupportedFormats.WILL_DATA_VERSION_2_0_0:  # Data format
+            paths: List = self.__parse_will_data__(stream)
+        else:  # File codec (OPC)
+            paths = self.__parse_will_file__(stream)
+
+        self.__paths = self.__ensure_unique_path_ids__(paths)
+        return self.__build_object__()
+
+    def __parse_will_data__(self, stream: BytesIO) -&gt; List[Path]:
+        paths: list = []
+        riff_chunk: Chunk = Chunk(stream, bigendian=False)
+        riff_chunk.read(4)  # skip the WILL chunk name
+        head_chunk: Chunk = Chunk(riff_chunk, bigendian=False)
+        _ = head_chunk.read()
+        ink_chunk: Chunk = Chunk(riff_chunk, bigendian=False)
+        ink_data: bytes = ink_chunk.read()
+        self.__protobuf = ink_data
+        try:
+            for path in self.__parse_protobuf__(Stream(ink_data)):
+                paths.append(path)
+        except EndOfStream:
+            pass
+        return paths
+
+    def __parse_will_file__(self, stream: BytesIO) -&gt; List[Path]:
+        paths: list = []
+        try:
+            with zipfile.ZipFile(stream) as f:
+                for fname in f.namelist():
+                    if fname.endswith(&#39;.protobuf&#39;) and not fname.startswith(&#34;style&#34;):
+                        with f.open(fname) as fp:
+                            self.__protobuf = fp.read()
+
+                    if fname == &#39;props/app.xml&#39;:
+                        with f.open(fname) as fp:
+                            root = etree.fromstring(fp.read())
+                            self.__document_application = root.find(WILL2Parser.APPLICATION).text
+                            # WILL files created with Bamboo Spark generation sometimes have Bamboo Spark added as
+                            # document application
+                            if self.__document_application == WILL2Parser.INK_DEVICE_BAMBOO_SPARK:
+                                self.__ink_device_model_guess = WILL2Parser.INK_DEVICE_BAMBOO_SPARK
+                            self.__document_application_version = root.find(WILL2Parser.APP_VERSION).text
+
+                    if fname == &#39;props/core.xml&#39;:
+                        with f.open(fname) as fp:
+                            root = etree.fromstring(fp.read())
+
+                            title = root.find(&#39;{http://purl.org/dc/elements/1.1/}title&#39;)
+                            if title is not None:
+                                self.__document_title = title.text
+
+                            created = root.find(&#39;{http://purl.org/dc/terms/}created&#39;)
+                            if created is not None:
+                                self.__document_creation_datetime = created.text
+
+                    if fname == &#39;sections/section0.svg&#39; or fname == &#39;sections/section.svg&#39;:
+                        with f.open(fname) as fp:
+                            root = etree.fromstring(fp.read())
+                            view = root.find(&#39;{http://www.w3.org/2000/svg}view&#39;)
+                            if view is not None:
+                                view_box = view.attrib[&#39;viewBox&#39;]
+                                x, y, width, height = view_box.split(&#39; &#39;)
+                                self.__viewport_x = float(x)
+                                self.__viewport_y = float(y)
+                                self.__viewport_width = float(width)
+                                self.__viewport_height = float(height)
+                            else:
+                                self.__viewport_x = 0
+                                self.__viewport_y = 0
+                                self.__viewport_width = float(root.attrib[&#39;width&#39;])
+                                self.__viewport_height = float(root.attrib[&#39;height&#39;])
+
+                            matrix = root.find(&#39;{http://www.w3.org/2000/svg}g&#39;)
+                            if matrix is not None and &#39;transform&#39; in matrix.attrib:
+                                matrix_array = matrix.attrib[&#39;transform&#39;][7:-1].split(&#39; &#39;)
+                                &#39;&#39;&#39;
+                                The matrix(&lt;a&gt; &lt;b&gt; &lt;c&gt; &lt;d&gt; &lt;e&gt; &lt;f&gt;) transform function specifies a transformation
+                                in the form of a  transformation matrix of six values. matrix(a,b,c,d,e,f) is
+                                equivalent to applying the transformation matrix:
+                                ( a      c      e
+                                  b      d      f
+                                  0      0      1 )&#39;&#39;&#39;
+                                rotmatrix: np.array = np.array(
+                                    ((float(matrix_array[0]), float(matrix_array[2]), float(matrix_array[4])),
+                                     (float(matrix_array[1]), float(matrix_array[3]), float(matrix_array[5])),
+                                     (0., 0., 1.)))
+
+                                sub = matrix.find(&#39;{http://www.w3.org/2000/svg}g&#39;)
+                                if sub is not None and &#39;transform&#39; in sub.attrib:
+                                    matrix_array = sub.attrib[&#39;transform&#39;][7:-1].split(&#39; &#39;)
+                                    rotmatrix2: np.array = np.array(
+                                        ((float(matrix_array[0]), float(matrix_array[2]), float(matrix_array[4])),
+                                         (float(matrix_array[1]), float(matrix_array[3]), float(matrix_array[5])),
+                                         (0., 0., 1.)))
+                                else:
+                                    rotmatrix2: np.array = np.identity(3)
+                            scale: np.array = device.unit2unit_matrix(device.Unit.DIP, device.Unit.M)
+                            self.__matrix = scale.dot(rotmatrix.dot(rotmatrix2))
+
+        except zipfile.BadZipFile as e:
+            raise FormatException(e)
+        try:
+            for path in self.__parse_protobuf__(Stream(self.__protobuf)):
+                paths.append(path)
+        except EndOfStream:
+            pass
+        if len(paths) == 0:
+            raise FormatException(&#39;No path data found in the WILL file.&#39;)
+        return paths
+
+    @staticmethod
+    def __default_style__(red: float, green: float, blue: float, alpha: float) -&gt; Style:
+        prop: PathPointProperties = PathPointProperties(size=0.3,
+                                                        red=red, green=green, blue=blue,
+                                                        alpha=alpha, rotation=0.,
+                                                        scale_x=0., scale_y=0., scale_z=0.,
+                                                        offset_x=0., offset_y=0., offset_z=0.)
+        style: Style = Style(properties=prop, brush_uri=WILL2Parser.BRUSH[&#39;name&#39;], particles_random_seed=234,
+                             render_mode_uri=&#39;&#39;)
+        return style
+
+    def __collect_ink__(self, ink_model: InkModel):
+        sensor_ctx = self.__default_sensors_context
+        # Build generic ink tree
+        # Build generic ink tree
+        root_node_id: uuid.UUID = UUIDIdentifier.id_generator()
+        ink_model.ink_tree = uim.InkTree(CommonViews.MAIN_INK_TREE.value)
+        # Root tree element
+        ink_model.ink_tree.root = StrokeGroupNode(uim_id=root_node_id)
+        start_time: int = round(time.time() * 1000)
+        last_time: int = start_time
+        for path in self.__paths:
+            stroke_time: int = last_time + 100
+            xs: list = []
+            ys: list = []
+            spline_x: list = []
+            spline_y: list = []
+            ts: list = []
+            points, point_widths, points_color = self.__decode_path_to_stroke__(path)
+            points: list = list(points)
+            point_widths: list = list(point_widths)
+
+            # create an array of len(points) with the same value repeated
+            if len(point_widths) == 1:
+                point_widths = (len(points) // 2) * point_widths
+
+            samples: sensor.SensorData = sensor.SensorData(sid=UUIDIdentifier.id_generator(),
+                                                           input_context_id=self.__default_input_context.id,
+                                                           state=sensor.InkState.PLANE, timestamp=0)
+            path_obj: Stroke = Stroke(sensor_data_offset=0, sensor_data_id=samples.id,
+                                      style=WILL2Parser.__default_style__(points_color[&#39;r&#39;][0],
+                                                                          points_color[&#39;g&#39;][0],
+                                                                          points_color[&#39;b&#39;][0],
+                                                                          points_color[&#39;a&#39;][0]))
+            path_obj.start_parameter = path.startParameter
+            path_obj.end_parameter = path.endParameter
+            for i in range(0, len(points) - 1, 2):
+                spline_x.append(points[i])
+                spline_y.append(points[i + 1])
+                trans: np.ndarray = self.__matrix.dot((points[i], points[i + 1], 1.))
+                xs.append(trans[0])
+                ys.append(trans[1])
+                ts.append(stroke_time + WILL2Parser.DEFAULT_TIME_STEP)
+
+            path_obj.splines_x = spline_x
+            path_obj.splines_y = spline_y
+            path_obj.sizes = point_widths
+
+            samples.add_data(sensor_ctx.get_channel_by_type(device.InkSensorType.X), xs)
+            samples.add_data(sensor_ctx.get_channel_by_type(device.InkSensorType.Y), ys)
+            samples.add_timestamp_data(sensor_ctx.get_channel_by_type(device.InkSensorType.TIMESTAMP), ts)
+            # Adding the sensor sequence
+            ink_model.sensor_data.add(samples)
+            ink_model.ink_tree.root.add(StrokeNode(path_obj))
+
+        ink_model.knowledge_graph.add_semantic_triple(WILL2Parser.NODE_URI_PREFIX.format(root_node_id),
+                                                      schema.CommonRDF.PRED_RDF_HAS_TYPE, &#39;WILL 2.0 - File&#39;)
+        ink_model.brushes.add_vector_brush(self.__default_brush__())
+
+    def __setup_document_properties__(self, ink_model: InkModel):
+        statements: list = [
+            (schema.DOCUMENT_TITLE_OBJECT, self.__document_title),
+            (schema.DOCUMENT_CREATION_DATE_OBJECT, self.__document_creation_datetime),
+            (schema.DOCUMENT_X_MIN_PROPERTY, str(self.__viewport_x)),
+            (schema.DOCUMENT_Y_MIN_PROPERTY, str(self.__viewport_y)),
+            (schema.DOCUMENT_WIDTH_PROPERTY, str(self.__viewport_width)),
+            (schema.DOCUMENT_HEIGHT_PROPERTY, str(self.__viewport_height))
+        ]
+        ink_model.properties = statements
+
+    @staticmethod
+    def __default_brush__() -&gt; brush.VectorBrush:
+        prototypes = []
+        for p in WILL2Parser.BRUSH[&#39;prototype&#39;]:
+            brush_prototype: brush.BrushPolygonUri = brush.BrushPolygonUri(
+                uri=p[&#39;shapeURI&#39;], min_scale=p.get(&#39;size&#39;, 1)
+            )
+            prototypes.append(brush_prototype)
+        return brush.VectorBrush(name=WILL2Parser.BRUSH[&#39;name&#39;], prototypes=prototypes, spacing=0.5)
+
+    def __build_object__(self):
+        ink_model: InkModel = InkModel(Version(2, 0, 0, &#34;WILL&#34;))
+        self.__build_device_configuration__(ink_model)
+        self.__collect_ink__(ink_model)
+        self.__setup_document_properties__(ink_model)
+        return ink_model
+
+    def __paths_to_protobuf__(self):
+        string_messages: List[str] = []
+        for path in self.__paths:
+            message = path.SerializeToString()
+            message_length = varint.encode(len(message))
+            string_messages.append(
+                &#39;&#39;.join([message_length.decode(WILL_PROTOBUF_ENCODING), message.decode(WILL_PROTOBUF_ENCODING)]))
+        protobuf_stream = &#39;&#39;.join(string_messages)
+        return protobuf_stream
+
+    @staticmethod
+    def __get_version_from_stream__(stream: BytesIO) -&gt; Version:
+        header: bytes = stream.read(4)
+        stream.seek(0)
+        if header == RIFF_HEADER:
+            return SupportedFormats.WILL_DATA_VERSION_2_0_0
+        return SupportedFormats.WILL_FILE_VERSION_2_0_0
+
+    @staticmethod
+    def __get_format_from_filename__(filename: str):
+        filename: str = filename.lower()
+        return os.path.splitext(filename)[-1].replace(&#39;.&#39;, &#39;&#39;)
+
+    @staticmethod
+    def unpack_will(filename_or_stream: Any, target_dir_name=None):
+        &#34;&#34;&#34;
+        Unpack the WILL file codec (OPC).
+
+        Parameters
+        ----------
+        filename_or_stream: Any
+            File or stream
+        target_dir_name: str
+            Target directory for unpacking
+        &#34;&#34;&#34;
+        stream = filename_or_stream
+        if isinstance(filename_or_stream, str):
+            target_dir_name = target_dir_name or filename_or_stream
+            target_dir_name = target_dir_name.replace(&#39;.will&#39;, &#39;_will&#39;)
+            stream = open(filename_or_stream, &#39;rb&#39;)
+
+        with zipfile.ZipFile(stream, &#39;r&#39;) as zf:
+            zf.extractall(path=target_dir_name)
+
+    @staticmethod
+    def __ensure_unique_path_ids__(paths):
+        &#34;&#34;&#34;
+        Make sure every path has unique id.
+
+        The function tries to preserve the existing IDs of the paths.
+        It checks for duplicating IDs and assigns new IDs which start at
+        the `max_id + 1` of the existing IDs.
+        &#34;&#34;&#34;
+        unique_ids = set()
+        to_be_fixed = []
+
+        for idx, path in enumerate(paths):
+            if path.id not in unique_ids:
+                unique_ids.add(path.id)
+            else:
+                # Add the index of the path to the list of to-be-fixed ids
+                to_be_fixed.append(idx)
+
+        # Assign new id to the paths that didn&#39;t have one before
+        if unique_ids:
+            max_unique_id = max(unique_ids) + 1
+            for idx in to_be_fixed:
+                paths[idx].id = max_unique_id
+                max_unique_id += 1
+        return paths
+
+    @staticmethod
+    def __parse_protobuf__(stream: Stream):
+        # Read message length (128 bit varint)
+        while True:
+            message_length: int = WILL2Parser.__decode_varint__(stream).uint
+            message = stream.read(message_length)
+            path: Path = Path()
+            path.ParseFromString(message)
+            yield path
+
+    @staticmethod
+    def __decode_path_to_stroke__(path) -&gt; Tuple[List[float], List[float], dict]:
+        points: list = WILL2Parser.__decode_delta_encoded_points__(path.data, path.decimalPrecision)
+        point_widths: list = WILL2Parser.__decode_delta_encoded_widths__(path.strokeWidth, path.decimalPrecision)
+        points_color: dict = WILL2Parser.__decode_delta_encoded_colors__(path.strokeColor)
+        return points, point_widths, points_color
+
+    @staticmethod
+    def __decode_delta_encoded_points__(arr: List[int], decimal_precision: float) -&gt; List[float]:
+        integers: List[int] = []
+        last_x: int = arr[0]
+        last_y: int = arr[1]
+        integers.append(last_x)
+        integers.append(last_y)
+        for i in range(2, len(arr) - 1, 2):
+            last_x = arr[i] + last_x
+            last_y = arr[i + 1] + last_y
+            integers.append(last_x)
+            integers.append(last_y)
+        floats: List[float] = list(map(lambda x: float(x) / (10 ** decimal_precision), integers))
+        return floats
+
+    @staticmethod
+    def __decode_delta_encoded_widths__(arr: list, decimal_precision: float) -&gt; List[float]:
+        if len(arr) == 1:
+            floats: List[float] = [float(arr[0]) / (10 ** decimal_precision)]
+        else:
+            integers: List[int] = []
+            last_width: int = arr[0]
+            integers.append(last_width)
+            for i in range(1, len(arr)):
+                last_width += arr[i]
+                integers.append(last_width)
+            floats: List[float] = list(map(lambda x: float(x) / (10 ** decimal_precision), integers))
+        return floats
+
+    @staticmethod
+    def __decode_delta_encoded_colors__(arr: list) -&gt; Dict[str, list]:
+        colors: dict = {&#39;r&#39;: [], &#39;g&#39;: [], &#39;b&#39;: [], &#39;a&#39;: []}
+        if len(arr) == 1:
+            integers: list = [arr[0]]
+        else:
+            integers: list = []
+            last_color = arr[0]
+            integers.append(last_color)
+            for i in range(1, len(arr)):
+                last_color += arr[i]
+                integers.append(last_color)
+        for rgba in integers:
+            colors[&#39;r&#39;].append(((rgba &gt;&gt; 24) &amp; 0xFF) / 255.0)
+            colors[&#39;g&#39;].append(((rgba &gt;&gt; 16) &amp; 0xFF) / 255.0)
+            colors[&#39;b&#39;].append(((rgba &gt;&gt; 8) &amp; 0xFF) / 255.0)
+            colors[&#39;a&#39;].append((rgba &amp; 0xFF) / 255.0)
+        return colors
+
+    @staticmethod
+    def __decode_varint__(stream) -&gt; BitArray:
+        bit_array: BitArray = BitArray()
+        while True:
+            byte = stream.read(1)
+            if not byte:
+                raise EndOfStream()
+            byte: byte = struct.unpack(&#39;B&#39;, byte)[0]
+            has_more: bool = byte &amp; 0x80  # test most-significant-bit
+            bit_array.prepend(BitArray(uint=byte &amp; 0x7F, length=7))
+            if not has_more:
+                break
+        return bit_array
+
+    @staticmethod
+    def __decode_tag_wire_type__(bit_array: BitArray) -&gt; Tuple[Bits, Bits]:
+        wire_type: Bits = bit_array[-3:bit_array.length]
+        tag: Bits = bit_array[0:-3]
+        return tag, wire_type
+
+    @staticmethod
+    def __read_value__(stream, wire_type: Bits) -&gt; BitArray:
+        if wire_type.uint == 0:
+            return WILL2Parser.__decode_varint__(stream)
+
+        elif wire_type.uint == 1:
+            return
+
+        elif wire_type.uint == 2:
+            length = WILL2Parser.__decode_varint__(stream).uint
+            return stream.read(length)
+
+        elif wire_type.uint == 3:
+            return
+
+        elif wire_type.uint == 4:
+            return
+
+        elif wire_type.uint == 5:
+            return stream.read(4)
+
+    @staticmethod
+    def __proto_reader__(stream):
+        idx: int = 0
+        while idx &lt; len(stream):
+            bit_array: BitArray = WILL2Parser.__decode_varint__(stream)
+            tag, wire_type = WILL2Parser.__decode_tag_wire_type__(bit_array)
+            value = WILL2Parser.__read_value__(stream, wire_type)
+            yield tag.uint, wire_type.uint, value
+
+    @staticmethod
+    def __default_ink_device__() -&gt; device.InputDevice:
+        return device.InputDevice()
+
+    @staticmethod
+    def __default_input_provider__() -&gt; device.InkInputProvider:
+        return device.InkInputProvider(input_type=device.InkInputType.PEN,
+                                       properties=[(&#39;input_provider_generator&#39;, &#39;will&#39;)])
+
+    @staticmethod
+    def __default_environment__() -&gt; device.Environment:
+        return device.Environment()
+
+    @staticmethod
+    def __default_input_device__() -&gt; device.InputDevice:
+        return device.InputDevice()
+
+    def __build_device_configuration__(self, ink_obj: uim.InkModel):
+        ink_obj.input_configuration.add_environment(self.__default_environment)
+        ink_obj.input_configuration.add_input_provider(self.__default_input_provider)
+
+        self.__x_channel = device.SensorChannel(channel_type=device.InkSensorType.X,
+                                                metric=device.InkSensorMetricType.LENGTH,
+                                                resolution=device.virtual_resolution_for_si_unit(device.Unit.DIP),
+                                                channel_min=0., channel_max=0., precision=2,
+                                                ink_input_provider_id=self.__default_input_provider.id,
+                                                input_device_id=self.__default_input_device.id)
+        self.__y_channel = device.SensorChannel(channel_type=device.InkSensorType.Y,
+                                                metric=device.InkSensorMetricType.LENGTH,
+                                                resolution=device.virtual_resolution_for_si_unit(device.Unit.DIP),
+                                                channel_min=0., channel_max=0., precision=2,
+                                                ink_input_provider_id=self.__default_input_provider.id,
+                                                input_device_id=self.__default_input_device.id)
+        self.__t_channel = device.SensorChannel(channel_type=device.InkSensorType.TIMESTAMP,
+                                                metric=device.InkSensorMetricType.TIME,
+                                                resolution=device.virtual_resolution_for_si_unit(device.Unit.MS),
+                                                channel_min=0., channel_max=0., precision=2,
+                                                ink_input_provider_id=self.__default_input_provider.id,
+                                                input_device_id=self.__default_input_device.id)
+        ctx = device.SensorChannelsContext(channels=[self.__x_channel, self.__y_channel, self.__t_channel],
+                                           ink_input_provider_id=self.__default_input_provider.id,
+                                           input_device_id=self.__default_input_device.id)
+        # Iterate over different contexts
+        self.__default_sensors_context = device.SensorContext(sensor_channels_contexts=[ctx])
+        self.__default_input_context = device.InputContext(environment_id=self.__default_environment.id,
+                                                           sensor_context_id=self.__default_sensors_context.id)
+        # Add ink device
+        ink_obj.input_configuration.add_ink_device(self.__default_input_device)
+        # Adding the context
+        ink_obj.input_configuration.add_sensor_context(self.__default_sensors_context)
+        # Adding input context
+        ink_obj.input_configuration.add_input_context(self.__default_input_context)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="uim.codec.parser.will.Path"><code class="flex name class">
+<span>class <span class="ident">Path</span></span>
+<span>(</span><span>**kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Abstract base class for protocol messages.</p>
+<p>Protocol message classes are almost always generated by the protocol
+compiler.
+These generated types subclass Message and implement the methods
+shown below.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>google.protobuf.message.Message</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="uim.codec.parser.will.Path.COMPOSITEOPERATION_FIELD_NUMBER"><code class="name">var <span class="ident">COMPOSITEOPERATION_FIELD_NUMBER</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.codec.parser.will.Path.DATA_FIELD_NUMBER"><code class="name">var <span class="ident">DATA_FIELD_NUMBER</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.codec.parser.will.Path.DECIMALPRECISION_FIELD_NUMBER"><code class="name">var <span class="ident">DECIMALPRECISION_FIELD_NUMBER</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.codec.parser.will.Path.DESCRIPTOR"><code class="name">var <span class="ident">DESCRIPTOR</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.codec.parser.will.Path.ENDPARAMETER_FIELD_NUMBER"><code class="name">var <span class="ident">ENDPARAMETER_FIELD_NUMBER</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.codec.parser.will.Path.ID_FIELD_NUMBER"><code class="name">var <span class="ident">ID_FIELD_NUMBER</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.codec.parser.will.Path.STARTPARAMETER_FIELD_NUMBER"><code class="name">var <span class="ident">STARTPARAMETER_FIELD_NUMBER</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.codec.parser.will.Path.STROKECOLOR_FIELD_NUMBER"><code class="name">var <span class="ident">STROKECOLOR_FIELD_NUMBER</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.codec.parser.will.Path.STROKEPAINT_FIELD_NUMBER"><code class="name">var <span class="ident">STROKEPAINT_FIELD_NUMBER</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.codec.parser.will.Path.STROKEPARTICLESRANDOMSEED_FIELD_NUMBER"><code class="name">var <span class="ident">STROKEPARTICLESRANDOMSEED_FIELD_NUMBER</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.codec.parser.will.Path.STROKEWIDTH_FIELD_NUMBER"><code class="name">var <span class="ident">STROKEWIDTH_FIELD_NUMBER</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Static methods</h3>
+<dl>
+<dt id="uim.codec.parser.will.Path.FromString"><code class="name flex">
+<span>def <span class="ident">FromString</span></span>(<span>s)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def FromString(s):
+  message = cls()
+  message.MergeFromString(s)
+  return message</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.parser.will.Path.RegisterExtension"><code class="name flex">
+<span>def <span class="ident">RegisterExtension</span></span>(<span>extension_handle)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def RegisterExtension(extension_handle):
+  extension_handle.containing_type = cls.DESCRIPTOR
+  # TODO(amauryfa): Use cls.MESSAGE_FACTORY.pool when available.
+  # pylint: disable=protected-access
+  cls.DESCRIPTOR.file.pool._AddExtensionDescriptor(extension_handle)
+  _AttachFieldHelpers(cls, extension_handle)</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="uim.codec.parser.will.Path.compositeOperation"><code class="name">var <span class="ident">compositeOperation</span></code></dt>
+<dd>
+<div class="desc"><p>Getter for compositeOperation.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getter(self):
+  # TODO(protobuf-team): This may be broken since there may not be
+  # default_value.  Combine with has_default_value somehow.
+  return self._fields.get(field, default_value)</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.parser.will.Path.data"><code class="name">var <span class="ident">data</span></code></dt>
+<dd>
+<div class="desc"><p>Getter for data.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getter(self):
+  field_value = self._fields.get(field)
+  if field_value is None:
+    # Construct a new object to represent this field.
+    field_value = field._default_constructor(self)
+
+    # Atomically check if another thread has preempted us and, if not, swap
+    # in the new object we just created.  If someone has preempted us, we
+    # take that object and discard ours.
+    # WARNING:  We are relying on setdefault() being atomic.  This is true
+    #   in CPython but we haven&#39;t investigated others.  This warning appears
+    #   in several other locations in this file.
+    field_value = self._fields.setdefault(field, field_value)
+  return field_value</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.parser.will.Path.decimalPrecision"><code class="name">var <span class="ident">decimalPrecision</span></code></dt>
+<dd>
+<div class="desc"><p>Getter for decimalPrecision.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getter(self):
+  # TODO(protobuf-team): This may be broken since there may not be
+  # default_value.  Combine with has_default_value somehow.
+  return self._fields.get(field, default_value)</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.parser.will.Path.endParameter"><code class="name">var <span class="ident">endParameter</span></code></dt>
+<dd>
+<div class="desc"><p>Getter for endParameter.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getter(self):
+  # TODO(protobuf-team): This may be broken since there may not be
+  # default_value.  Combine with has_default_value somehow.
+  return self._fields.get(field, default_value)</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.parser.will.Path.id"><code class="name">var <span class="ident">id</span></code></dt>
+<dd>
+<div class="desc"><p>Getter for id.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getter(self):
+  # TODO(protobuf-team): This may be broken since there may not be
+  # default_value.  Combine with has_default_value somehow.
+  return self._fields.get(field, default_value)</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.parser.will.Path.startParameter"><code class="name">var <span class="ident">startParameter</span></code></dt>
+<dd>
+<div class="desc"><p>Getter for startParameter.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getter(self):
+  # TODO(protobuf-team): This may be broken since there may not be
+  # default_value.  Combine with has_default_value somehow.
+  return self._fields.get(field, default_value)</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.parser.will.Path.strokeColor"><code class="name">var <span class="ident">strokeColor</span></code></dt>
+<dd>
+<div class="desc"><p>Getter for strokeColor.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getter(self):
+  field_value = self._fields.get(field)
+  if field_value is None:
+    # Construct a new object to represent this field.
+    field_value = field._default_constructor(self)
+
+    # Atomically check if another thread has preempted us and, if not, swap
+    # in the new object we just created.  If someone has preempted us, we
+    # take that object and discard ours.
+    # WARNING:  We are relying on setdefault() being atomic.  This is true
+    #   in CPython but we haven&#39;t investigated others.  This warning appears
+    #   in several other locations in this file.
+    field_value = self._fields.setdefault(field, field_value)
+  return field_value</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.parser.will.Path.strokePaint"><code class="name">var <span class="ident">strokePaint</span></code></dt>
+<dd>
+<div class="desc"><p>Getter for strokePaint.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getter(self):
+  # TODO(protobuf-team): This may be broken since there may not be
+  # default_value.  Combine with has_default_value somehow.
+  return self._fields.get(field, default_value)</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.parser.will.Path.strokeParticlesRandomSeed"><code class="name">var <span class="ident">strokeParticlesRandomSeed</span></code></dt>
+<dd>
+<div class="desc"><p>Getter for strokeParticlesRandomSeed.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getter(self):
+  # TODO(protobuf-team): This may be broken since there may not be
+  # default_value.  Combine with has_default_value somehow.
+  return self._fields.get(field, default_value)</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.parser.will.Path.strokeWidth"><code class="name">var <span class="ident">strokeWidth</span></code></dt>
+<dd>
+<div class="desc"><p>Getter for strokeWidth.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getter(self):
+  field_value = self._fields.get(field)
+  if field_value is None:
+    # Construct a new object to represent this field.
+    field_value = field._default_constructor(self)
+
+    # Atomically check if another thread has preempted us and, if not, swap
+    # in the new object we just created.  If someone has preempted us, we
+    # take that object and discard ours.
+    # WARNING:  We are relying on setdefault() being atomic.  This is true
+    #   in CPython but we haven&#39;t investigated others.  This warning appears
+    #   in several other locations in this file.
+    field_value = self._fields.setdefault(field, field_value)
+  return field_value</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="uim.codec.parser.will.Path.ByteSize"><code class="name flex">
+<span>def <span class="ident">ByteSize</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def ByteSize(self):
+  if not self._cached_byte_size_dirty:
+    return self._cached_byte_size
+
+  size = 0
+  descriptor = self.DESCRIPTOR
+  if descriptor.GetOptions().map_entry:
+    # Fields of map entry should always be serialized.
+    size = descriptor.fields_by_name[&#39;key&#39;]._sizer(self.key)
+    size += descriptor.fields_by_name[&#39;value&#39;]._sizer(self.value)
+  else:
+    for field_descriptor, field_value in self.ListFields():
+      size += field_descriptor._sizer(field_value)
+    for tag_bytes, value_bytes in self._unknown_fields:
+      size += len(tag_bytes) + len(value_bytes)
+
+  self._cached_byte_size = size
+  self._cached_byte_size_dirty = False
+  self._listener_for_children.dirty = False
+  return size</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.parser.will.Path.Clear"><code class="name flex">
+<span>def <span class="ident">Clear</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def _Clear(self):
+  # Clear fields.
+  self._fields = {}
+  self._unknown_fields = ()
+  # pylint: disable=protected-access
+  if self._unknown_field_set is not None:
+    self._unknown_field_set._clear()
+    self._unknown_field_set = None
+
+  self._oneofs = {}
+  self._Modified()</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.parser.will.Path.ClearField"><code class="name flex">
+<span>def <span class="ident">ClearField</span></span>(<span>self, field_name)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def ClearField(self, field_name):
+  try:
+    field = message_descriptor.fields_by_name[field_name]
+  except KeyError:
+    try:
+      field = message_descriptor.oneofs_by_name[field_name]
+      if field in self._oneofs:
+        field = self._oneofs[field]
+      else:
+        return
+    except KeyError:
+      raise ValueError(&#39;Protocol message %s has no &#34;%s&#34; field.&#39; %
+                       (message_descriptor.name, field_name))
+
+  if field in self._fields:
+    # To match the C++ implementation, we need to invalidate iterators
+    # for map fields when ClearField() happens.
+    if hasattr(self._fields[field], &#39;InvalidateIterators&#39;):
+      self._fields[field].InvalidateIterators()
+
+    # Note:  If the field is a sub-message, its listener will still point
+    #   at us.  That&#39;s fine, because the worst than can happen is that it
+    #   will call _Modified() and invalidate our byte size.  Big deal.
+    del self._fields[field]
+
+    if self._oneofs.get(field.containing_oneof, None) is field:
+      del self._oneofs[field.containing_oneof]
+
+  # Always call _Modified() -- even if nothing was changed, this is
+  # a mutating method, and thus calling it should cause the field to become
+  # present in the parent message.
+  self._Modified()</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.parser.will.Path.DiscardUnknownFields"><code class="name flex">
+<span>def <span class="ident">DiscardUnknownFields</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def _DiscardUnknownFields(self):
+  self._unknown_fields = []
+  self._unknown_field_set = None      # pylint: disable=protected-access
+  for field, value in self.ListFields():
+    if field.cpp_type == _FieldDescriptor.CPPTYPE_MESSAGE:
+      if _IsMapField(field):
+        if _IsMessageMapField(field):
+          for key in value:
+            value[key].DiscardUnknownFields()
+      elif field.label == _FieldDescriptor.LABEL_REPEATED:
+        for sub_message in value:
+          sub_message.DiscardUnknownFields()
+      else:
+        value.DiscardUnknownFields()</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.parser.will.Path.FindInitializationErrors"><code class="name flex">
+<span>def <span class="ident">FindInitializationErrors</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Finds required fields which are not initialized.</p>
+<h2 id="returns">Returns</h2>
+<p>A list of strings.
+Each string is a path to an uninitialized field from
+the top-level message, e.g. "foo.bar[5].baz".</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def FindInitializationErrors(self):
+  &#34;&#34;&#34;Finds required fields which are not initialized.
+
+  Returns:
+    A list of strings.  Each string is a path to an uninitialized field from
+    the top-level message, e.g. &#34;foo.bar[5].baz&#34;.
+  &#34;&#34;&#34;
+
+  errors = []  # simplify things
+
+  for field in required_fields:
+    if not self.HasField(field.name):
+      errors.append(field.name)
+
+  for field, value in self.ListFields():
+    if field.cpp_type == _FieldDescriptor.CPPTYPE_MESSAGE:
+      if field.is_extension:
+        name = &#39;(%s)&#39; % field.full_name
+      else:
+        name = field.name
+
+      if _IsMapField(field):
+        if _IsMessageMapField(field):
+          for key in value:
+            element = value[key]
+            prefix = &#39;%s[%s].&#39; % (name, key)
+            sub_errors = element.FindInitializationErrors()
+            errors += [prefix + error for error in sub_errors]
+        else:
+          # ScalarMaps can&#39;t have any initialization errors.
+          pass
+      elif field.label == _FieldDescriptor.LABEL_REPEATED:
+        for i in range(len(value)):
+          element = value[i]
+          prefix = &#39;%s[%d].&#39; % (name, i)
+          sub_errors = element.FindInitializationErrors()
+          errors += [prefix + error for error in sub_errors]
+      else:
+        prefix = name + &#39;.&#39;
+        sub_errors = value.FindInitializationErrors()
+        errors += [prefix + error for error in sub_errors]
+
+  return errors</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.parser.will.Path.HasField"><code class="name flex">
+<span>def <span class="ident">HasField</span></span>(<span>self, field_name)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def HasField(self, field_name):
+  try:
+    field = hassable_fields[field_name]
+  except KeyError:
+    raise ValueError(error_msg % (message_descriptor.full_name, field_name))
+
+  if isinstance(field, descriptor_mod.OneofDescriptor):
+    try:
+      return HasField(self, self._oneofs[field].name)
+    except KeyError:
+      return False
+  else:
+    if field.cpp_type == _FieldDescriptor.CPPTYPE_MESSAGE:
+      value = self._fields.get(field)
+      return value is not None and value._is_present_in_parent
+    else:
+      return field in self._fields</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.parser.will.Path.IsInitialized"><code class="name flex">
+<span>def <span class="ident">IsInitialized</span></span>(<span>self, errors=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Checks if all required fields of a message are set.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>errors</code></strong></dt>
+<dd>A list which, if provided, will be populated with the field
+paths of all missing required fields.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>True iff the specified message has all required fields set.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def IsInitialized(self, errors=None):
+  &#34;&#34;&#34;Checks if all required fields of a message are set.
+
+  Args:
+    errors:  A list which, if provided, will be populated with the field
+             paths of all missing required fields.
+
+  Returns:
+    True iff the specified message has all required fields set.
+  &#34;&#34;&#34;
+
+  # Performance is critical so we avoid HasField() and ListFields().
+
+  for field in required_fields:
+    if (field not in self._fields or
+        (field.cpp_type == _FieldDescriptor.CPPTYPE_MESSAGE and
+         not self._fields[field]._is_present_in_parent)):
+      if errors is not None:
+        errors.extend(self.FindInitializationErrors())
+      return False
+
+  for field, value in list(self._fields.items()):  # dict can change size!
+    if field.cpp_type == _FieldDescriptor.CPPTYPE_MESSAGE:
+      if field.label == _FieldDescriptor.LABEL_REPEATED:
+        if (field.message_type.has_options and
+            field.message_type.GetOptions().map_entry):
+          continue
+        for element in value:
+          if not element.IsInitialized():
+            if errors is not None:
+              errors.extend(self.FindInitializationErrors())
+            return False
+      elif value._is_present_in_parent and not value.IsInitialized():
+        if errors is not None:
+          errors.extend(self.FindInitializationErrors())
+        return False
+
+  return True</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.parser.will.Path.ListFields"><code class="name flex">
+<span>def <span class="ident">ListFields</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def ListFields(self):
+  all_fields = [item for item in self._fields.items() if _IsPresent(item)]
+  all_fields.sort(key = lambda item: item[0].number)
+  return all_fields</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.parser.will.Path.MergeFrom"><code class="name flex">
+<span>def <span class="ident">MergeFrom</span></span>(<span>self, msg)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def MergeFrom(self, msg):
+  if not isinstance(msg, cls):
+    raise TypeError(
+        &#39;Parameter to MergeFrom() must be instance of same class: &#39;
+        &#39;expected %s got %s.&#39; % (_FullyQualifiedClassName(cls),
+                                 _FullyQualifiedClassName(msg.__class__)))
+
+  assert msg is not self
+  self._Modified()
+
+  fields = self._fields
+
+  for field, value in msg._fields.items():
+    if field.label == LABEL_REPEATED:
+      field_value = fields.get(field)
+      if field_value is None:
+        # Construct a new object to represent this field.
+        field_value = field._default_constructor(self)
+        fields[field] = field_value
+      field_value.MergeFrom(value)
+    elif field.cpp_type == CPPTYPE_MESSAGE:
+      if value._is_present_in_parent:
+        field_value = fields.get(field)
+        if field_value is None:
+          # Construct a new object to represent this field.
+          field_value = field._default_constructor(self)
+          fields[field] = field_value
+        field_value.MergeFrom(value)
+    else:
+      self._fields[field] = value
+      if field.containing_oneof:
+        self._UpdateOneofState(field)
+
+  if msg._unknown_fields:
+    if not self._unknown_fields:
+      self._unknown_fields = []
+    self._unknown_fields.extend(msg._unknown_fields)
+    # pylint: disable=protected-access
+    if self._unknown_field_set is None:
+      self._unknown_field_set = containers.UnknownFieldSet()
+    self._unknown_field_set._extend(msg._unknown_field_set)</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.parser.will.Path.MergeFromString"><code class="name flex">
+<span>def <span class="ident">MergeFromString</span></span>(<span>self, serialized)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def MergeFromString(self, serialized):
+  serialized = memoryview(serialized)
+  length = len(serialized)
+  try:
+    if self._InternalParse(serialized, 0, length) != length:
+      # The only reason _InternalParse would return early is if it
+      # encountered an end-group tag.
+      raise message_mod.DecodeError(&#39;Unexpected end-group tag.&#39;)
+  except (IndexError, TypeError):
+    # Now ord(buf[p:p+1]) == ord(&#39;&#39;) gets TypeError.
+    raise message_mod.DecodeError(&#39;Truncated message.&#39;)
+  except struct.error as e:
+    raise message_mod.DecodeError(e)
+  return length   # Return this for legacy reasons.</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.parser.will.Path.SerializePartialToString"><code class="name flex">
+<span>def <span class="ident">SerializePartialToString</span></span>(<span>self, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def SerializePartialToString(self, **kwargs):
+  out = BytesIO()
+  self._InternalSerialize(out.write, **kwargs)
+  return out.getvalue()</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.parser.will.Path.SerializeToString"><code class="name flex">
+<span>def <span class="ident">SerializeToString</span></span>(<span>self, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def SerializeToString(self, **kwargs):
+  # Check if the message has all of its required fields set.
+  if not self.IsInitialized():
+    raise message_mod.EncodeError(
+        &#39;Message %s is missing required fields: %s&#39; % (
+        self.DESCRIPTOR.full_name, &#39;,&#39;.join(self.FindInitializationErrors())))
+  return self.SerializePartialToString(**kwargs)</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.parser.will.Path.SetInParent"><code class="name flex">
+<span>def <span class="ident">SetInParent</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Sets the _cached_byte_size_dirty bit to true,
+and propagates this to our listener iff this was a state change.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def Modified(self):
+  &#34;&#34;&#34;Sets the _cached_byte_size_dirty bit to true,
+  and propagates this to our listener iff this was a state change.
+  &#34;&#34;&#34;
+
+  # Note:  Some callers check _cached_byte_size_dirty before calling
+  #   _Modified() as an extra optimization.  So, if this method is ever
+  #   changed such that it does stuff even when _cached_byte_size_dirty is
+  #   already true, the callers need to be updated.
+  if not self._cached_byte_size_dirty:
+    self._cached_byte_size_dirty = True
+    self._listener_for_children.dirty = True
+    self._is_present_in_parent = True
+    self._listener.Modified()</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.parser.will.Path.UnknownFields"><code class="name flex">
+<span>def <span class="ident">UnknownFields</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def _UnknownFields(self):
+  if self._unknown_field_set is None:  # pylint: disable=protected-access
+    # pylint: disable=protected-access
+    self._unknown_field_set = containers.UnknownFieldSet()
+  return self._unknown_field_set    # pylint: disable=protected-access</code></pre>
+</details>
+</dd>
+<dt id="uim.codec.parser.will.Path.WhichOneof"><code class="name flex">
+<span>def <span class="ident">WhichOneof</span></span>(<span>self, oneof_name)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the name of the currently set field inside a oneof, or None.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def WhichOneof(self, oneof_name):
+  &#34;&#34;&#34;Returns the name of the currently set field inside a oneof, or None.&#34;&#34;&#34;
+  try:
+    field = message_descriptor.oneofs_by_name[oneof_name]
+  except KeyError:
+    raise ValueError(
+        &#39;Protocol message has no oneof &#34;%s&#34; field.&#39; % oneof_name)
+
+  nested_field = self._oneofs.get(field, None)
+  if nested_field is not None and self.HasField(nested_field.name):
+    return nested_field.name
+  else:
+    return None</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="uim.codec.parser.will.WILL2Parser"><code class="flex name class">
+<span>class <span class="ident">WILL2Parser</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Parser for Wacom Ink Layer Language - Data and File format.</p>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; from uim.codec.parser.will import WILL2Parser
+&gt;&gt;&gt; from uim.model.ink import InkModel
+&gt;&gt;&gt; parser: WILL2Parser = WILL2Parser()
+&gt;&gt;&gt; ink_model: InkModel = parser.parse('../ink/will/apple.will')
+</code></pre>
+<h2 id="see-also">See Also</h2>
+<p><code>´UIMParser´ - Parser for UIM files</code></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class WILL2Parser(Parser):
+    &#34;&#34;&#34;
+    Parser for Wacom Ink Layer Language - Data and File format.
+
+    Examples
+    --------
+    &gt;&gt;&gt; from uim.codec.parser.will import WILL2Parser
+    &gt;&gt;&gt; from uim.model.ink import InkModel
+    &gt;&gt;&gt; parser: WILL2Parser = WILL2Parser()
+    &gt;&gt;&gt; ink_model: InkModel = parser.parse(&#39;../ink/will/apple.will&#39;)
+
+    See also
+    --------
+    ´UIMParser´ - Parser for UIM files
+    &#34;&#34;&#34;
+    # Constants for meta data WILL File format
+    APP_VERSION: str = &#39;{http://schemas.willfileformat.org/2015/relationships/extended-properties}AppVersion&#39;
+    &#34;&#34;&#34;App version property tag.&#34;&#34;&#34;
+    APPLICATION: str = &#39;{http://schemas.willfileformat.org/2015/relationships/extended-properties}Application&#39;
+    &#34;&#34;&#34;Application property tag.&#34;&#34;&#34;
+
+    # Prefix for the node uri.
+    NODE_URI_PREFIX: str = &#39;uim:node/{}&#39;
+
+    DEFAULT_WRITE_FORMAT: str = &#39;will&#39;
+
+    DEFAULT_APPLICATION_NAME: str = &#39;Universal Ink Model - Converter&#39;
+    DEFAULT_APPLICATION_VERSION: float = 0.1
+
+    DEFAULT_PATH_WIDTH: int = 100
+    DEFAULT_DECIMAL_PRECISION: int = 2
+    SOURCE_OVER: int = 2
+    DEFAULT_DATETIME_FORMAT: str = &#39;%Y-%m-%dT%H:%M:%SZ&#39;
+
+    INK_DEVICE_BAMBOO_SLATE: str = &#39;Bamboo Slate/Folio&#39;
+    INK_DEVICE_BAMBOO_SPARK: str = &#39;Bamboo Spark&#39;
+
+    BRUSH: Dict[str, Any] = {
+        &#34;name&#34;: &#34;app://will/vector-brush/Circle&#34;,
+        &#34;prototype&#34;: [
+            {
+                &#34;shapeURI&#34;: &#34;will://brush/3.0/shape/Circle?precision=4&amp;radius=&#34;
+            }, {
+                &#34;shapeURI&#34;: &#34;will://brush/3.0/shape/Circle?precision=8&amp;radius=&#34;, &#34;size&#34;: 2.0
+            }, {
+                &#34;shapeURI&#34;: &#34;will://brush/3.0/shape/Circle?precision=16&amp;radius=&#34;, &#34;size&#34;: 6.0
+            }, {
+                &#34;shapeURI&#34;: &#34;will://brush/3.0/shape/Circle?precision=32&amp;radius=&#34;, &#34;size&#34;: 18.0
+            }
+        ], &#34;spacing&#34;: 1.0
+    }
+    &#34;&#34;&#34;Default brush configuration.&#34;&#34;&#34;
+
+    DEFAULT_TIME_STEP: float = 8
+    &#34;&#34;&#34; Sampling rate of 120 Hz roughly 8 ms.&#34;&#34;&#34;
+
+    def __init__(self):
+        self.__version: Optional[str] = None
+        self.__paths: list = []
+        self.__protobuf = None
+        self.__source: str = &#39;&#39;
+
+        self.__document_application: str = WILL2Parser.DEFAULT_APPLICATION_NAME
+        self.__document_application_version: str = str(WILL2Parser.DEFAULT_APPLICATION_VERSION)
+        self.__viewport_x: float = 0.0
+        self.__viewport_y: float = 0.0
+        self.__viewport_width: float = 640.0
+        self.__viewport_height: float = 480.0
+        self.__document_title: str = &#39;&#39;
+        self.__document_creation_datetime: str = &#39;&#39;
+        self.__ink_device_model_guess: str = WILL2Parser.INK_DEVICE_BAMBOO_SLATE
+        self.__matrix = np.identity(3)
+        self.__default_input_provider: device.InkInputProvider = WILL2Parser.__default_input_provider__()
+        self.__default_environment: device.Environment = WILL2Parser.__default_environment__()
+        self.__default_input_device: device.InputDevice = WILL2Parser.__default_input_device__()
+        self.__default_input_context: Optional[device.InputContext] = None
+        self.__default_sensors_context: Optional[device.SensorContext] = None
+        self.__x_channel: Optional[device.SensorChannel] = None
+        self.__y_channel: Optional[device.SensorChannel] = None
+        self.__t_channel: Optional[device.SensorChannel] = None
+
+    def parse(self, path_or_stream: Any) -&gt; InkModel:
+        &#34;&#34;&#34;
+        Parse the content of a WILL data or file format encoded ink file to the Universal Ink memory model.
+
+        Parameters
+        ----------
+        path_or_stream: Any
+            `Path` of file, path as str, stream, or byte array.
+
+        Returns
+        -------
+           model - `InkModel`
+               Parsed `InkModel` from UIM encoded stream
+        &#34;&#34;&#34;
+        # Read the file if path_or_stream is a file path
+        if isinstance(path_or_stream, (str, pathlib.Path)):
+            with open(path_or_stream, mode=&#39;rb&#39;) as fp:
+                stream: BytesIO = BytesIO(fp.read())
+        elif isinstance(path_or_stream, (bytes, memoryview)):
+            stream: BytesIO = BytesIO(path_or_stream)
+        elif isinstance(path_or_stream, BytesIO):
+            stream: BytesIO = path_or_stream
+        else:
+            raise TypeError(
+                &#39;parse() accepts Path, path (str) or stream (bytes, BytesIO), got {}&#39;.format(type(path_or_stream)))
+
+        version: Version = WILL2Parser.__get_version_from_stream__(stream)
+        if version == SupportedFormats.WILL_DATA_VERSION_2_0_0:  # Data format
+            paths: List = self.__parse_will_data__(stream)
+        else:  # File codec (OPC)
+            paths = self.__parse_will_file__(stream)
+
+        self.__paths = self.__ensure_unique_path_ids__(paths)
+        return self.__build_object__()
+
+    def __parse_will_data__(self, stream: BytesIO) -&gt; List[Path]:
+        paths: list = []
+        riff_chunk: Chunk = Chunk(stream, bigendian=False)
+        riff_chunk.read(4)  # skip the WILL chunk name
+        head_chunk: Chunk = Chunk(riff_chunk, bigendian=False)
+        _ = head_chunk.read()
+        ink_chunk: Chunk = Chunk(riff_chunk, bigendian=False)
+        ink_data: bytes = ink_chunk.read()
+        self.__protobuf = ink_data
+        try:
+            for path in self.__parse_protobuf__(Stream(ink_data)):
+                paths.append(path)
+        except EndOfStream:
+            pass
+        return paths
+
+    def __parse_will_file__(self, stream: BytesIO) -&gt; List[Path]:
+        paths: list = []
+        try:
+            with zipfile.ZipFile(stream) as f:
+                for fname in f.namelist():
+                    if fname.endswith(&#39;.protobuf&#39;) and not fname.startswith(&#34;style&#34;):
+                        with f.open(fname) as fp:
+                            self.__protobuf = fp.read()
+
+                    if fname == &#39;props/app.xml&#39;:
+                        with f.open(fname) as fp:
+                            root = etree.fromstring(fp.read())
+                            self.__document_application = root.find(WILL2Parser.APPLICATION).text
+                            # WILL files created with Bamboo Spark generation sometimes have Bamboo Spark added as
+                            # document application
+                            if self.__document_application == WILL2Parser.INK_DEVICE_BAMBOO_SPARK:
+                                self.__ink_device_model_guess = WILL2Parser.INK_DEVICE_BAMBOO_SPARK
+                            self.__document_application_version = root.find(WILL2Parser.APP_VERSION).text
+
+                    if fname == &#39;props/core.xml&#39;:
+                        with f.open(fname) as fp:
+                            root = etree.fromstring(fp.read())
+
+                            title = root.find(&#39;{http://purl.org/dc/elements/1.1/}title&#39;)
+                            if title is not None:
+                                self.__document_title = title.text
+
+                            created = root.find(&#39;{http://purl.org/dc/terms/}created&#39;)
+                            if created is not None:
+                                self.__document_creation_datetime = created.text
+
+                    if fname == &#39;sections/section0.svg&#39; or fname == &#39;sections/section.svg&#39;:
+                        with f.open(fname) as fp:
+                            root = etree.fromstring(fp.read())
+                            view = root.find(&#39;{http://www.w3.org/2000/svg}view&#39;)
+                            if view is not None:
+                                view_box = view.attrib[&#39;viewBox&#39;]
+                                x, y, width, height = view_box.split(&#39; &#39;)
+                                self.__viewport_x = float(x)
+                                self.__viewport_y = float(y)
+                                self.__viewport_width = float(width)
+                                self.__viewport_height = float(height)
+                            else:
+                                self.__viewport_x = 0
+                                self.__viewport_y = 0
+                                self.__viewport_width = float(root.attrib[&#39;width&#39;])
+                                self.__viewport_height = float(root.attrib[&#39;height&#39;])
+
+                            matrix = root.find(&#39;{http://www.w3.org/2000/svg}g&#39;)
+                            if matrix is not None and &#39;transform&#39; in matrix.attrib:
+                                matrix_array = matrix.attrib[&#39;transform&#39;][7:-1].split(&#39; &#39;)
+                                &#39;&#39;&#39;
+                                The matrix(&lt;a&gt; &lt;b&gt; &lt;c&gt; &lt;d&gt; &lt;e&gt; &lt;f&gt;) transform function specifies a transformation
+                                in the form of a  transformation matrix of six values. matrix(a,b,c,d,e,f) is
+                                equivalent to applying the transformation matrix:
+                                ( a      c      e
+                                  b      d      f
+                                  0      0      1 )&#39;&#39;&#39;
+                                rotmatrix: np.array = np.array(
+                                    ((float(matrix_array[0]), float(matrix_array[2]), float(matrix_array[4])),
+                                     (float(matrix_array[1]), float(matrix_array[3]), float(matrix_array[5])),
+                                     (0., 0., 1.)))
+
+                                sub = matrix.find(&#39;{http://www.w3.org/2000/svg}g&#39;)
+                                if sub is not None and &#39;transform&#39; in sub.attrib:
+                                    matrix_array = sub.attrib[&#39;transform&#39;][7:-1].split(&#39; &#39;)
+                                    rotmatrix2: np.array = np.array(
+                                        ((float(matrix_array[0]), float(matrix_array[2]), float(matrix_array[4])),
+                                         (float(matrix_array[1]), float(matrix_array[3]), float(matrix_array[5])),
+                                         (0., 0., 1.)))
+                                else:
+                                    rotmatrix2: np.array = np.identity(3)
+                            scale: np.array = device.unit2unit_matrix(device.Unit.DIP, device.Unit.M)
+                            self.__matrix = scale.dot(rotmatrix.dot(rotmatrix2))
+
+        except zipfile.BadZipFile as e:
+            raise FormatException(e)
+        try:
+            for path in self.__parse_protobuf__(Stream(self.__protobuf)):
+                paths.append(path)
+        except EndOfStream:
+            pass
+        if len(paths) == 0:
+            raise FormatException(&#39;No path data found in the WILL file.&#39;)
+        return paths
+
+    @staticmethod
+    def __default_style__(red: float, green: float, blue: float, alpha: float) -&gt; Style:
+        prop: PathPointProperties = PathPointProperties(size=0.3,
+                                                        red=red, green=green, blue=blue,
+                                                        alpha=alpha, rotation=0.,
+                                                        scale_x=0., scale_y=0., scale_z=0.,
+                                                        offset_x=0., offset_y=0., offset_z=0.)
+        style: Style = Style(properties=prop, brush_uri=WILL2Parser.BRUSH[&#39;name&#39;], particles_random_seed=234,
+                             render_mode_uri=&#39;&#39;)
+        return style
+
+    def __collect_ink__(self, ink_model: InkModel):
+        sensor_ctx = self.__default_sensors_context
+        # Build generic ink tree
+        # Build generic ink tree
+        root_node_id: uuid.UUID = UUIDIdentifier.id_generator()
+        ink_model.ink_tree = uim.InkTree(CommonViews.MAIN_INK_TREE.value)
+        # Root tree element
+        ink_model.ink_tree.root = StrokeGroupNode(uim_id=root_node_id)
+        start_time: int = round(time.time() * 1000)
+        last_time: int = start_time
+        for path in self.__paths:
+            stroke_time: int = last_time + 100
+            xs: list = []
+            ys: list = []
+            spline_x: list = []
+            spline_y: list = []
+            ts: list = []
+            points, point_widths, points_color = self.__decode_path_to_stroke__(path)
+            points: list = list(points)
+            point_widths: list = list(point_widths)
+
+            # create an array of len(points) with the same value repeated
+            if len(point_widths) == 1:
+                point_widths = (len(points) // 2) * point_widths
+
+            samples: sensor.SensorData = sensor.SensorData(sid=UUIDIdentifier.id_generator(),
+                                                           input_context_id=self.__default_input_context.id,
+                                                           state=sensor.InkState.PLANE, timestamp=0)
+            path_obj: Stroke = Stroke(sensor_data_offset=0, sensor_data_id=samples.id,
+                                      style=WILL2Parser.__default_style__(points_color[&#39;r&#39;][0],
+                                                                          points_color[&#39;g&#39;][0],
+                                                                          points_color[&#39;b&#39;][0],
+                                                                          points_color[&#39;a&#39;][0]))
+            path_obj.start_parameter = path.startParameter
+            path_obj.end_parameter = path.endParameter
+            for i in range(0, len(points) - 1, 2):
+                spline_x.append(points[i])
+                spline_y.append(points[i + 1])
+                trans: np.ndarray = self.__matrix.dot((points[i], points[i + 1], 1.))
+                xs.append(trans[0])
+                ys.append(trans[1])
+                ts.append(stroke_time + WILL2Parser.DEFAULT_TIME_STEP)
+
+            path_obj.splines_x = spline_x
+            path_obj.splines_y = spline_y
+            path_obj.sizes = point_widths
+
+            samples.add_data(sensor_ctx.get_channel_by_type(device.InkSensorType.X), xs)
+            samples.add_data(sensor_ctx.get_channel_by_type(device.InkSensorType.Y), ys)
+            samples.add_timestamp_data(sensor_ctx.get_channel_by_type(device.InkSensorType.TIMESTAMP), ts)
+            # Adding the sensor sequence
+            ink_model.sensor_data.add(samples)
+            ink_model.ink_tree.root.add(StrokeNode(path_obj))
+
+        ink_model.knowledge_graph.add_semantic_triple(WILL2Parser.NODE_URI_PREFIX.format(root_node_id),
+                                                      schema.CommonRDF.PRED_RDF_HAS_TYPE, &#39;WILL 2.0 - File&#39;)
+        ink_model.brushes.add_vector_brush(self.__default_brush__())
+
+    def __setup_document_properties__(self, ink_model: InkModel):
+        statements: list = [
+            (schema.DOCUMENT_TITLE_OBJECT, self.__document_title),
+            (schema.DOCUMENT_CREATION_DATE_OBJECT, self.__document_creation_datetime),
+            (schema.DOCUMENT_X_MIN_PROPERTY, str(self.__viewport_x)),
+            (schema.DOCUMENT_Y_MIN_PROPERTY, str(self.__viewport_y)),
+            (schema.DOCUMENT_WIDTH_PROPERTY, str(self.__viewport_width)),
+            (schema.DOCUMENT_HEIGHT_PROPERTY, str(self.__viewport_height))
+        ]
+        ink_model.properties = statements
+
+    @staticmethod
+    def __default_brush__() -&gt; brush.VectorBrush:
+        prototypes = []
+        for p in WILL2Parser.BRUSH[&#39;prototype&#39;]:
+            brush_prototype: brush.BrushPolygonUri = brush.BrushPolygonUri(
+                uri=p[&#39;shapeURI&#39;], min_scale=p.get(&#39;size&#39;, 1)
+            )
+            prototypes.append(brush_prototype)
+        return brush.VectorBrush(name=WILL2Parser.BRUSH[&#39;name&#39;], prototypes=prototypes, spacing=0.5)
+
+    def __build_object__(self):
+        ink_model: InkModel = InkModel(Version(2, 0, 0, &#34;WILL&#34;))
+        self.__build_device_configuration__(ink_model)
+        self.__collect_ink__(ink_model)
+        self.__setup_document_properties__(ink_model)
+        return ink_model
+
+    def __paths_to_protobuf__(self):
+        string_messages: List[str] = []
+        for path in self.__paths:
+            message = path.SerializeToString()
+            message_length = varint.encode(len(message))
+            string_messages.append(
+                &#39;&#39;.join([message_length.decode(WILL_PROTOBUF_ENCODING), message.decode(WILL_PROTOBUF_ENCODING)]))
+        protobuf_stream = &#39;&#39;.join(string_messages)
+        return protobuf_stream
+
+    @staticmethod
+    def __get_version_from_stream__(stream: BytesIO) -&gt; Version:
+        header: bytes = stream.read(4)
+        stream.seek(0)
+        if header == RIFF_HEADER:
+            return SupportedFormats.WILL_DATA_VERSION_2_0_0
+        return SupportedFormats.WILL_FILE_VERSION_2_0_0
+
+    @staticmethod
+    def __get_format_from_filename__(filename: str):
+        filename: str = filename.lower()
+        return os.path.splitext(filename)[-1].replace(&#39;.&#39;, &#39;&#39;)
+
+    @staticmethod
+    def unpack_will(filename_or_stream: Any, target_dir_name=None):
+        &#34;&#34;&#34;
+        Unpack the WILL file codec (OPC).
+
+        Parameters
+        ----------
+        filename_or_stream: Any
+            File or stream
+        target_dir_name: str
+            Target directory for unpacking
+        &#34;&#34;&#34;
+        stream = filename_or_stream
+        if isinstance(filename_or_stream, str):
+            target_dir_name = target_dir_name or filename_or_stream
+            target_dir_name = target_dir_name.replace(&#39;.will&#39;, &#39;_will&#39;)
+            stream = open(filename_or_stream, &#39;rb&#39;)
+
+        with zipfile.ZipFile(stream, &#39;r&#39;) as zf:
+            zf.extractall(path=target_dir_name)
+
+    @staticmethod
+    def __ensure_unique_path_ids__(paths):
+        &#34;&#34;&#34;
+        Make sure every path has unique id.
+
+        The function tries to preserve the existing IDs of the paths.
+        It checks for duplicating IDs and assigns new IDs which start at
+        the `max_id + 1` of the existing IDs.
+        &#34;&#34;&#34;
+        unique_ids = set()
+        to_be_fixed = []
+
+        for idx, path in enumerate(paths):
+            if path.id not in unique_ids:
+                unique_ids.add(path.id)
+            else:
+                # Add the index of the path to the list of to-be-fixed ids
+                to_be_fixed.append(idx)
+
+        # Assign new id to the paths that didn&#39;t have one before
+        if unique_ids:
+            max_unique_id = max(unique_ids) + 1
+            for idx in to_be_fixed:
+                paths[idx].id = max_unique_id
+                max_unique_id += 1
+        return paths
+
+    @staticmethod
+    def __parse_protobuf__(stream: Stream):
+        # Read message length (128 bit varint)
+        while True:
+            message_length: int = WILL2Parser.__decode_varint__(stream).uint
+            message = stream.read(message_length)
+            path: Path = Path()
+            path.ParseFromString(message)
+            yield path
+
+    @staticmethod
+    def __decode_path_to_stroke__(path) -&gt; Tuple[List[float], List[float], dict]:
+        points: list = WILL2Parser.__decode_delta_encoded_points__(path.data, path.decimalPrecision)
+        point_widths: list = WILL2Parser.__decode_delta_encoded_widths__(path.strokeWidth, path.decimalPrecision)
+        points_color: dict = WILL2Parser.__decode_delta_encoded_colors__(path.strokeColor)
+        return points, point_widths, points_color
+
+    @staticmethod
+    def __decode_delta_encoded_points__(arr: List[int], decimal_precision: float) -&gt; List[float]:
+        integers: List[int] = []
+        last_x: int = arr[0]
+        last_y: int = arr[1]
+        integers.append(last_x)
+        integers.append(last_y)
+        for i in range(2, len(arr) - 1, 2):
+            last_x = arr[i] + last_x
+            last_y = arr[i + 1] + last_y
+            integers.append(last_x)
+            integers.append(last_y)
+        floats: List[float] = list(map(lambda x: float(x) / (10 ** decimal_precision), integers))
+        return floats
+
+    @staticmethod
+    def __decode_delta_encoded_widths__(arr: list, decimal_precision: float) -&gt; List[float]:
+        if len(arr) == 1:
+            floats: List[float] = [float(arr[0]) / (10 ** decimal_precision)]
+        else:
+            integers: List[int] = []
+            last_width: int = arr[0]
+            integers.append(last_width)
+            for i in range(1, len(arr)):
+                last_width += arr[i]
+                integers.append(last_width)
+            floats: List[float] = list(map(lambda x: float(x) / (10 ** decimal_precision), integers))
+        return floats
+
+    @staticmethod
+    def __decode_delta_encoded_colors__(arr: list) -&gt; Dict[str, list]:
+        colors: dict = {&#39;r&#39;: [], &#39;g&#39;: [], &#39;b&#39;: [], &#39;a&#39;: []}
+        if len(arr) == 1:
+            integers: list = [arr[0]]
+        else:
+            integers: list = []
+            last_color = arr[0]
+            integers.append(last_color)
+            for i in range(1, len(arr)):
+                last_color += arr[i]
+                integers.append(last_color)
+        for rgba in integers:
+            colors[&#39;r&#39;].append(((rgba &gt;&gt; 24) &amp; 0xFF) / 255.0)
+            colors[&#39;g&#39;].append(((rgba &gt;&gt; 16) &amp; 0xFF) / 255.0)
+            colors[&#39;b&#39;].append(((rgba &gt;&gt; 8) &amp; 0xFF) / 255.0)
+            colors[&#39;a&#39;].append((rgba &amp; 0xFF) / 255.0)
+        return colors
+
+    @staticmethod
+    def __decode_varint__(stream) -&gt; BitArray:
+        bit_array: BitArray = BitArray()
+        while True:
+            byte = stream.read(1)
+            if not byte:
+                raise EndOfStream()
+            byte: byte = struct.unpack(&#39;B&#39;, byte)[0]
+            has_more: bool = byte &amp; 0x80  # test most-significant-bit
+            bit_array.prepend(BitArray(uint=byte &amp; 0x7F, length=7))
+            if not has_more:
+                break
+        return bit_array
+
+    @staticmethod
+    def __decode_tag_wire_type__(bit_array: BitArray) -&gt; Tuple[Bits, Bits]:
+        wire_type: Bits = bit_array[-3:bit_array.length]
+        tag: Bits = bit_array[0:-3]
+        return tag, wire_type
+
+    @staticmethod
+    def __read_value__(stream, wire_type: Bits) -&gt; BitArray:
+        if wire_type.uint == 0:
+            return WILL2Parser.__decode_varint__(stream)
+
+        elif wire_type.uint == 1:
+            return
+
+        elif wire_type.uint == 2:
+            length = WILL2Parser.__decode_varint__(stream).uint
+            return stream.read(length)
+
+        elif wire_type.uint == 3:
+            return
+
+        elif wire_type.uint == 4:
+            return
+
+        elif wire_type.uint == 5:
+            return stream.read(4)
+
+    @staticmethod
+    def __proto_reader__(stream):
+        idx: int = 0
+        while idx &lt; len(stream):
+            bit_array: BitArray = WILL2Parser.__decode_varint__(stream)
+            tag, wire_type = WILL2Parser.__decode_tag_wire_type__(bit_array)
+            value = WILL2Parser.__read_value__(stream, wire_type)
+            yield tag.uint, wire_type.uint, value
+
+    @staticmethod
+    def __default_ink_device__() -&gt; device.InputDevice:
+        return device.InputDevice()
+
+    @staticmethod
+    def __default_input_provider__() -&gt; device.InkInputProvider:
+        return device.InkInputProvider(input_type=device.InkInputType.PEN,
+                                       properties=[(&#39;input_provider_generator&#39;, &#39;will&#39;)])
+
+    @staticmethod
+    def __default_environment__() -&gt; device.Environment:
+        return device.Environment()
+
+    @staticmethod
+    def __default_input_device__() -&gt; device.InputDevice:
+        return device.InputDevice()
+
+    def __build_device_configuration__(self, ink_obj: uim.InkModel):
+        ink_obj.input_configuration.add_environment(self.__default_environment)
+        ink_obj.input_configuration.add_input_provider(self.__default_input_provider)
+
+        self.__x_channel = device.SensorChannel(channel_type=device.InkSensorType.X,
+                                                metric=device.InkSensorMetricType.LENGTH,
+                                                resolution=device.virtual_resolution_for_si_unit(device.Unit.DIP),
+                                                channel_min=0., channel_max=0., precision=2,
+                                                ink_input_provider_id=self.__default_input_provider.id,
+                                                input_device_id=self.__default_input_device.id)
+        self.__y_channel = device.SensorChannel(channel_type=device.InkSensorType.Y,
+                                                metric=device.InkSensorMetricType.LENGTH,
+                                                resolution=device.virtual_resolution_for_si_unit(device.Unit.DIP),
+                                                channel_min=0., channel_max=0., precision=2,
+                                                ink_input_provider_id=self.__default_input_provider.id,
+                                                input_device_id=self.__default_input_device.id)
+        self.__t_channel = device.SensorChannel(channel_type=device.InkSensorType.TIMESTAMP,
+                                                metric=device.InkSensorMetricType.TIME,
+                                                resolution=device.virtual_resolution_for_si_unit(device.Unit.MS),
+                                                channel_min=0., channel_max=0., precision=2,
+                                                ink_input_provider_id=self.__default_input_provider.id,
+                                                input_device_id=self.__default_input_device.id)
+        ctx = device.SensorChannelsContext(channels=[self.__x_channel, self.__y_channel, self.__t_channel],
+                                           ink_input_provider_id=self.__default_input_provider.id,
+                                           input_device_id=self.__default_input_device.id)
+        # Iterate over different contexts
+        self.__default_sensors_context = device.SensorContext(sensor_channels_contexts=[ctx])
+        self.__default_input_context = device.InputContext(environment_id=self.__default_environment.id,
+                                                           sensor_context_id=self.__default_sensors_context.id)
+        # Add ink device
+        ink_obj.input_configuration.add_ink_device(self.__default_input_device)
+        # Adding the context
+        ink_obj.input_configuration.add_sensor_context(self.__default_sensors_context)
+        # Adding input context
+        ink_obj.input_configuration.add_input_context(self.__default_input_context)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="uim.codec.parser.base.Parser" href="base.html#uim.codec.parser.base.Parser">Parser</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="uim.codec.parser.will.WILL2Parser.APPLICATION"><code class="name">var <span class="ident">APPLICATION</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Application property tag.</p></div>
+</dd>
+<dt id="uim.codec.parser.will.WILL2Parser.APP_VERSION"><code class="name">var <span class="ident">APP_VERSION</span> : str</code></dt>
+<dd>
+<div class="desc"><p>App version property tag.</p></div>
+</dd>
+<dt id="uim.codec.parser.will.WILL2Parser.BRUSH"><code class="name">var <span class="ident">BRUSH</span> : Dict[str, Any]</code></dt>
+<dd>
+<div class="desc"><p>Default brush configuration.</p></div>
+</dd>
+<dt id="uim.codec.parser.will.WILL2Parser.DEFAULT_APPLICATION_NAME"><code class="name">var <span class="ident">DEFAULT_APPLICATION_NAME</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.codec.parser.will.WILL2Parser.DEFAULT_APPLICATION_VERSION"><code class="name">var <span class="ident">DEFAULT_APPLICATION_VERSION</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.codec.parser.will.WILL2Parser.DEFAULT_DATETIME_FORMAT"><code class="name">var <span class="ident">DEFAULT_DATETIME_FORMAT</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.codec.parser.will.WILL2Parser.DEFAULT_DECIMAL_PRECISION"><code class="name">var <span class="ident">DEFAULT_DECIMAL_PRECISION</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.codec.parser.will.WILL2Parser.DEFAULT_PATH_WIDTH"><code class="name">var <span class="ident">DEFAULT_PATH_WIDTH</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.codec.parser.will.WILL2Parser.DEFAULT_TIME_STEP"><code class="name">var <span class="ident">DEFAULT_TIME_STEP</span> : float</code></dt>
+<dd>
+<div class="desc"><p>Sampling rate of 120 Hz roughly 8 ms.</p></div>
+</dd>
+<dt id="uim.codec.parser.will.WILL2Parser.DEFAULT_WRITE_FORMAT"><code class="name">var <span class="ident">DEFAULT_WRITE_FORMAT</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.codec.parser.will.WILL2Parser.INK_DEVICE_BAMBOO_SLATE"><code class="name">var <span class="ident">INK_DEVICE_BAMBOO_SLATE</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.codec.parser.will.WILL2Parser.INK_DEVICE_BAMBOO_SPARK"><code class="name">var <span class="ident">INK_DEVICE_BAMBOO_SPARK</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.codec.parser.will.WILL2Parser.NODE_URI_PREFIX"><code class="name">var <span class="ident">NODE_URI_PREFIX</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="uim.codec.parser.will.WILL2Parser.SOURCE_OVER"><code class="name">var <span class="ident">SOURCE_OVER</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Static methods</h3>
+<dl>
+<dt id="uim.codec.parser.will.WILL2Parser.unpack_will"><code class="name flex">
+<span>def <span class="ident">unpack_will</span></span>(<span>filename_or_stream: Any, target_dir_name=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Unpack the WILL file codec (OPC).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>filename_or_stream</code></strong> :&ensp;<code>Any</code></dt>
+<dd>File or stream</dd>
+<dt><strong><code>target_dir_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>Target directory for unpacking</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def unpack_will(filename_or_stream: Any, target_dir_name=None):
+    &#34;&#34;&#34;
+    Unpack the WILL file codec (OPC).
+
+    Parameters
+    ----------
+    filename_or_stream: Any
+        File or stream
+    target_dir_name: str
+        Target directory for unpacking
+    &#34;&#34;&#34;
+    stream = filename_or_stream
+    if isinstance(filename_or_stream, str):
+        target_dir_name = target_dir_name or filename_or_stream
+        target_dir_name = target_dir_name.replace(&#39;.will&#39;, &#39;_will&#39;)
+        stream = open(filename_or_stream, &#39;rb&#39;)
+
+    with zipfile.ZipFile(stream, &#39;r&#39;) as zf:
+        zf.extractall(path=target_dir_name)</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="uim.codec.parser.will.WILL2Parser.parse"><code class="name flex">
+<span>def <span class="ident">parse</span></span>(<span>self, path_or_stream: Any) ‑> <a title="uim.model.ink.InkModel" href="../../model/ink.html#uim.model.ink.InkModel">InkModel</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Parse the content of a WILL data or file format encoded ink file to the Universal Ink memory model.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>path_or_stream</code></strong> :&ensp;<code>Any</code></dt>
+<dd><code><a title="uim.codec.parser.will.Path" href="#uim.codec.parser.will.Path">Path</a></code> of file, path as str, stream, or byte array.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>model - <code>InkModel</code>
+Parsed <code>InkModel</code> from UIM encoded stream</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def parse(self, path_or_stream: Any) -&gt; InkModel:
+    &#34;&#34;&#34;
+    Parse the content of a WILL data or file format encoded ink file to the Universal Ink memory model.
+
+    Parameters
+    ----------
+    path_or_stream: Any
+        `Path` of file, path as str, stream, or byte array.
+
+    Returns
+    -------
+       model - `InkModel`
+           Parsed `InkModel` from UIM encoded stream
+    &#34;&#34;&#34;
+    # Read the file if path_or_stream is a file path
+    if isinstance(path_or_stream, (str, pathlib.Path)):
+        with open(path_or_stream, mode=&#39;rb&#39;) as fp:
+            stream: BytesIO = BytesIO(fp.read())
+    elif isinstance(path_or_stream, (bytes, memoryview)):
+        stream: BytesIO = BytesIO(path_or_stream)
+    elif isinstance(path_or_stream, BytesIO):
+        stream: BytesIO = path_or_stream
+    else:
+        raise TypeError(
+            &#39;parse() accepts Path, path (str) or stream (bytes, BytesIO), got {}&#39;.format(type(path_or_stream)))
+
+    version: Version = WILL2Parser.__get_version_from_stream__(stream)
+    if version == SupportedFormats.WILL_DATA_VERSION_2_0_0:  # Data format
+        paths: List = self.__parse_will_data__(stream)
+    else:  # File codec (OPC)
+        paths = self.__parse_will_file__(stream)
+
+    self.__paths = self.__ensure_unique_path_ids__(paths)
+    return self.__build_object__()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="uim.codec.parser" href="index.html">uim.codec.parser</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="uim.codec.parser.will.Path" href="#uim.codec.parser.will.Path">Path</a></code></h4>
+<ul class="">
+<li><code><a title="uim.codec.parser.will.Path.ByteSize" href="#uim.codec.parser.will.Path.ByteSize">ByteSize</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.COMPOSITEOPERATION_FIELD_NUMBER" href="#uim.codec.parser.will.Path.COMPOSITEOPERATION_FIELD_NUMBER">COMPOSITEOPERATION_FIELD_NUMBER</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.Clear" href="#uim.codec.parser.will.Path.Clear">Clear</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.ClearField" href="#uim.codec.parser.will.Path.ClearField">ClearField</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.DATA_FIELD_NUMBER" href="#uim.codec.parser.will.Path.DATA_FIELD_NUMBER">DATA_FIELD_NUMBER</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.DECIMALPRECISION_FIELD_NUMBER" href="#uim.codec.parser.will.Path.DECIMALPRECISION_FIELD_NUMBER">DECIMALPRECISION_FIELD_NUMBER</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.DESCRIPTOR" href="#uim.codec.parser.will.Path.DESCRIPTOR">DESCRIPTOR</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.DiscardUnknownFields" href="#uim.codec.parser.will.Path.DiscardUnknownFields">DiscardUnknownFields</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.ENDPARAMETER_FIELD_NUMBER" href="#uim.codec.parser.will.Path.ENDPARAMETER_FIELD_NUMBER">ENDPARAMETER_FIELD_NUMBER</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.FindInitializationErrors" href="#uim.codec.parser.will.Path.FindInitializationErrors">FindInitializationErrors</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.FromString" href="#uim.codec.parser.will.Path.FromString">FromString</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.HasField" href="#uim.codec.parser.will.Path.HasField">HasField</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.ID_FIELD_NUMBER" href="#uim.codec.parser.will.Path.ID_FIELD_NUMBER">ID_FIELD_NUMBER</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.IsInitialized" href="#uim.codec.parser.will.Path.IsInitialized">IsInitialized</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.ListFields" href="#uim.codec.parser.will.Path.ListFields">ListFields</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.MergeFrom" href="#uim.codec.parser.will.Path.MergeFrom">MergeFrom</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.MergeFromString" href="#uim.codec.parser.will.Path.MergeFromString">MergeFromString</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.RegisterExtension" href="#uim.codec.parser.will.Path.RegisterExtension">RegisterExtension</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.STARTPARAMETER_FIELD_NUMBER" href="#uim.codec.parser.will.Path.STARTPARAMETER_FIELD_NUMBER">STARTPARAMETER_FIELD_NUMBER</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.STROKECOLOR_FIELD_NUMBER" href="#uim.codec.parser.will.Path.STROKECOLOR_FIELD_NUMBER">STROKECOLOR_FIELD_NUMBER</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.STROKEPAINT_FIELD_NUMBER" href="#uim.codec.parser.will.Path.STROKEPAINT_FIELD_NUMBER">STROKEPAINT_FIELD_NUMBER</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.STROKEPARTICLESRANDOMSEED_FIELD_NUMBER" href="#uim.codec.parser.will.Path.STROKEPARTICLESRANDOMSEED_FIELD_NUMBER">STROKEPARTICLESRANDOMSEED_FIELD_NUMBER</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.STROKEWIDTH_FIELD_NUMBER" href="#uim.codec.parser.will.Path.STROKEWIDTH_FIELD_NUMBER">STROKEWIDTH_FIELD_NUMBER</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.SerializePartialToString" href="#uim.codec.parser.will.Path.SerializePartialToString">SerializePartialToString</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.SerializeToString" href="#uim.codec.parser.will.Path.SerializeToString">SerializeToString</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.SetInParent" href="#uim.codec.parser.will.Path.SetInParent">SetInParent</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.UnknownFields" href="#uim.codec.parser.will.Path.UnknownFields">UnknownFields</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.WhichOneof" href="#uim.codec.parser.will.Path.WhichOneof">WhichOneof</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.compositeOperation" href="#uim.codec.parser.will.Path.compositeOperation">compositeOperation</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.data" href="#uim.codec.parser.will.Path.data">data</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.decimalPrecision" href="#uim.codec.parser.will.Path.decimalPrecision">decimalPrecision</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.endParameter" href="#uim.codec.parser.will.Path.endParameter">endParameter</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.id" href="#uim.codec.parser.will.Path.id">id</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.startParameter" href="#uim.codec.parser.will.Path.startParameter">startParameter</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.strokeColor" href="#uim.codec.parser.will.Path.strokeColor">strokeColor</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.strokePaint" href="#uim.codec.parser.will.Path.strokePaint">strokePaint</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.strokeParticlesRandomSeed" href="#uim.codec.parser.will.Path.strokeParticlesRandomSeed">strokeParticlesRandomSeed</a></code></li>
+<li><code><a title="uim.codec.parser.will.Path.strokeWidth" href="#uim.codec.parser.will.Path.strokeWidth">strokeWidth</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="uim.codec.parser.will.WILL2Parser" href="#uim.codec.parser.will.WILL2Parser">WILL2Parser</a></code></h4>
+<ul class="">
+<li><code><a title="uim.codec.parser.will.WILL2Parser.APPLICATION" href="#uim.codec.parser.will.WILL2Parser.APPLICATION">APPLICATION</a></code></li>
+<li><code><a title="uim.codec.parser.will.WILL2Parser.APP_VERSION" href="#uim.codec.parser.will.WILL2Parser.APP_VERSION">APP_VERSION</a></code></li>
+<li><code><a title="uim.codec.parser.will.WILL2Parser.BRUSH" href="#uim.codec.parser.will.WILL2Parser.BRUSH">BRUSH</a></code></li>
+<li><code><a title="uim.codec.parser.will.WILL2Parser.DEFAULT_APPLICATION_NAME" href="#uim.codec.parser.will.WILL2Parser.DEFAULT_APPLICATION_NAME">DEFAULT_APPLICATION_NAME</a></code></li>
+<li><code><a title="uim.codec.parser.will.WILL2Parser.DEFAULT_APPLICATION_VERSION" href="#uim.codec.parser.will.WILL2Parser.DEFAULT_APPLICATION_VERSION">DEFAULT_APPLICATION_VERSION</a></code></li>
+<li><code><a title="uim.codec.parser.will.WILL2Parser.DEFAULT_DATETIME_FORMAT" href="#uim.codec.parser.will.WILL2Parser.DEFAULT_DATETIME_FORMAT">DEFAULT_DATETIME_FORMAT</a></code></li>
+<li><code><a title="uim.codec.parser.will.WILL2Parser.DEFAULT_DECIMAL_PRECISION" href="#uim.codec.parser.will.WILL2Parser.DEFAULT_DECIMAL_PRECISION">DEFAULT_DECIMAL_PRECISION</a></code></li>
+<li><code><a title="uim.codec.parser.will.WILL2Parser.DEFAULT_PATH_WIDTH" href="#uim.codec.parser.will.WILL2Parser.DEFAULT_PATH_WIDTH">DEFAULT_PATH_WIDTH</a></code></li>
+<li><code><a title="uim.codec.parser.will.WILL2Parser.DEFAULT_TIME_STEP" href="#uim.codec.parser.will.WILL2Parser.DEFAULT_TIME_STEP">DEFAULT_TIME_STEP</a></code></li>
+<li><code><a title="uim.codec.parser.will.WILL2Parser.DEFAULT_WRITE_FORMAT" href="#uim.codec.parser.will.WILL2Parser.DEFAULT_WRITE_FORMAT">DEFAULT_WRITE_FORMAT</a></code></li>
+<li><code><a title="uim.codec.parser.will.WILL2Parser.INK_DEVICE_BAMBOO_SLATE" href="#uim.codec.parser.will.WILL2Parser.INK_DEVICE_BAMBOO_SLATE">INK_DEVICE_BAMBOO_SLATE</a></code></li>
+<li><code><a title="uim.codec.parser.will.WILL2Parser.INK_DEVICE_BAMBOO_SPARK" href="#uim.codec.parser.will.WILL2Parser.INK_DEVICE_BAMBOO_SPARK">INK_DEVICE_BAMBOO_SPARK</a></code></li>
+<li><code><a title="uim.codec.parser.will.WILL2Parser.NODE_URI_PREFIX" href="#uim.codec.parser.will.WILL2Parser.NODE_URI_PREFIX">NODE_URI_PREFIX</a></code></li>
+<li><code><a title="uim.codec.parser.will.WILL2Parser.SOURCE_OVER" href="#uim.codec.parser.will.WILL2Parser.SOURCE_OVER">SOURCE_OVER</a></code></li>
+<li><code><a title="uim.codec.parser.will.WILL2Parser.parse" href="#uim.codec.parser.will.WILL2Parser.parse">parse</a></code></li>
+<li><code><a title="uim.codec.parser.will.WILL2Parser.unpack_will" href="#uim.codec.parser.will.WILL2Parser.unpack_will">unpack_will</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

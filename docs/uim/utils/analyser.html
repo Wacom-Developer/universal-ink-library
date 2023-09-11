@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>uim.utils.analyser API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>uim.utils.analyser</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># -*- coding: utf-8 -*-
+# Copyright © 2023 Wacom. All rights reserved.
+from abc import ABC, abstractmethod
+from typing import List, Dict, Any, Optional
+
+import numpy as np
+
+from uim.model.helpers.policy import HandleMissingDataPolicy
+from uim.model.ink import InkModel, InkTree, logger
+from uim.model.inkdata.strokes import Stroke
+from uim.model.inkinput.inputdata import InkSensorType, InputContext, SensorContext, SensorChannel
+from uim.model.inkinput.sensordata import SensorData, ChannelData
+
+
+def safe_zero_div(x: float, y: float) -&gt; float:
+    &#34;&#34;&#34;
+    Safely divide two numbers. If the denominator is zero, return zero.
+    Parameters
+    ----------
+    x: float
+        Numerator
+    y: float
+        Denominator
+
+    Returns
+    -------
+    division: float
+        x / y or 0. if y == 0.
+    &#34;&#34;&#34;
+    try:
+        return x / y
+    except ZeroDivisionError:
+        return 0.
+
+
+class ModelAnalyzer(ABC):
+    &#34;&#34;&#34;
+    Model analyzer
+    ==============
+
+    Abstract class for model analysis.
+    &#34;&#34;&#34;
+    KNOWN_TYPE_PREDICATES: List[str] = [&#34;@&#34;, &#34;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&#34;]
+    &#34;&#34;&#34;Known type predicates&#34;&#34;&#34;
+
+    @staticmethod
+    @abstractmethod
+    def analyze(model: InkModel) -&gt; Dict[str, Any]:
+        &#34;&#34;&#34;
+        Analyze the model.
+        Parameters
+        ----------
+        model: InkModel
+            Ink model to analyze
+
+        Returns
+        -------
+        summary: Dict[str, Any]
+            Summary of the analysis
+        &#34;&#34;&#34;
+        pass
+
+    @staticmethod
+    def __assume_view_type_predicate__(model: InkModel, view: InkTree) -&gt; Optional[str]:
+        statements = model.knowledge_graph.all_statements_for(subject=view.root.uri)
+        for statement in statements:
+            if statement.predicate in ModelAnalyzer.KNOWN_TYPE_PREDICATES:
+                return statement.predicate
+        return None
+
+    @staticmethod
+    def __extract_sensor_data_info__(model: InkModel, stroke: Stroke, stats: Dict[str, Any]):
+        try:
+            sd: SensorData = model.sensor_data.sensor_data_by_id(stroke.sensor_data_id)
+            ic: InputContext = model.input_configuration.get_input_context(sd.input_context_id)
+            sc: SensorContext = model.input_configuration.get_sensor_context(ic.sensor_context_id)
+        except Exception as e:
+            logger.error(f&#34;Error while extracting sensor data info: {e}&#34;)
+            return
+
+        for scc in sc.sensor_channels_contexts:
+            for channel in scc.channels:
+                channel: SensorChannel = channel
+                channel_type = channel.type
+                existing_channel = stats[&#39;sensor_channels&#39;].get(channel_type.name)
+
+                if existing_channel is None:
+                    stats[&#39;sensor_channels&#39;][channel_type.name] = {
+                        &#39;strokes_count&#39;: 0, &#39;percent&#39;: 0, &#39;values&#39;: [], &#34;metric&#34;: channel.metric.name,
+                        &#34;resolution&#34;: channel.resolution, &#34;precision&#34;: channel.precision,
+                        &#34;channel_min&#34;: channel.min, &#34;channel_max&#34;: channel.max
+                    }
+
+                stats[&#39;sensor_channels&#39;][channel_type.name][&#39;strokes_count&#39;] += 1
+
+                values = sd.get_data_by_id(channel.id).values
+                if channel.type == InkSensorType.TIMESTAMP:
+                    values = [v + sd.timestamp for v in values]
+
+                stats[&#39;sensor_channels&#39;][channel_type.name][&#39;values&#39;].extend(values)
+
+    @staticmethod
+    def __post_process_sensor_channels_info__(stats):
+        for k, v in stats[&#39;sensor_channels&#39;].items():
+            stats[&#39;sensor_channels&#39;][k][&#34;min&#34;] = min(v[&#39;values&#39;])
+            stats[&#39;sensor_channels&#39;][k][&#34;max&#34;] = max(v[&#39;values&#39;])
+            stats[&#39;sensor_channels&#39;][k][&#34;mean&#34;] = np.mean(v[&#39;values&#39;])
+            stats[&#39;sensor_channels&#39;][k][&#34;median&#34;] = np.median(v[&#39;values&#39;])
+            stats[&#39;sensor_channels&#39;][k].pop(&#39;values&#39;, None)
+
+
+def get_channel_data_values(ink_model: InkModel, stroke: Stroke, ink_sensor_type: InkSensorType) -&gt; List[float]:
+    &#34;&#34;&#34;
+    Get channel data values for a given stroke and sensor type.
+    Parameters
+    ----------
+    ink_model: InkModel
+        Ink model
+    stroke: Stroke
+        Stroke
+    ink_sensor_type: InkSensorType
+        Sensor type
+
+    Returns
+    -------
+    channel_data: List[float]
+        Channel data values
+    &#34;&#34;&#34;
+    channel_data: Optional[ChannelData] = get_channel_data_instance(ink_model, stroke, ink_sensor_type)
+    if channel_data is None:
+        return []
+
+    if ink_sensor_type == InkSensorType.TIMESTAMP:
+        sd: SensorData = ink_model.sensor_data.sensor_data_by_id(stroke.sensor_data_id)
+        return [v + sd.timestamp for v in channel_data.values]
+    else:
+        return channel_data.values.copy()
+
+
+def get_channel_data_instance(ink_model: InkModel, stroke: Stroke, ink_sensor_type: InkSensorType) \
+        -&gt; Optional[ChannelData]:
+    &#34;&#34;&#34;
+    Get channel data instance for a given stroke and sensor type.
+    Parameters
+    ----------
+    ink_model: InkModel
+        Ink model
+    stroke: Stroke
+        Stroke
+    ink_sensor_type: InkSensorType
+        Sensor type
+
+    Returns
+    -------
+    channel_data: Optional[ChannelData]
+        Channel data instance
+    &#34;&#34;&#34;
+    sd: SensorData = ink_model.sensor_data.sensor_data_by_id(stroke.sensor_data_id)
+    sc: Optional[SensorChannel] = None
+    input_context: InputContext = ink_model.input_configuration.get_input_context(sd.input_context_id)
+    if input_context is not None:
+        sensor_context = ink_model.input_configuration.get_sensor_context(input_context.sensor_context_id)
+        if sensor_context is not None:
+
+            if sensor_context.has_channel_type(ink_sensor_type):
+                sc = sensor_context.get_channel_by_type(ink_sensor_type)
+
+    if sd is None or sc is None or sd.get_data_by_id(sc.id) is None:
+        return None
+    else:
+        return sd.get_data_by_id(sc.id)
+
+
+def as_strided_array(ink_model: InkModel, stroke: Stroke, handle_missing_data=HandleMissingDataPolicy.FILL_WITH_ZEROS) \
+        -&gt; List[float]:
+    # Remove the first and last element, which are added by the spline producer
+    xs: List[float] = stroke.splines_x[1:-1]
+    ys: List[float] = stroke.splines_y[1:-1]
+
+    if stroke.sensor_data_id is None:
+        ts: List[float] = []
+        ps: List[float] = []
+    else:
+        ts: List[float] = get_channel_data_values(ink_model, stroke, InkSensorType.TIMESTAMP)
+        ps: List[float] = get_channel_data_values(ink_model, stroke, InkSensorType.PRESSURE)
+
+    # Handle missing timestamp according to policy
+    if len(ts) == 0:
+        if handle_missing_data == HandleMissingDataPolicy.FILL_WITH_ZEROS:
+            ts = [0 for i in range(len(xs))]
+        elif handle_missing_data == HandleMissingDataPolicy.FILL_WITH_NAN:
+            NaN = float(&#34;NaN&#34;)
+            ts = [NaN for i in range(len(xs))]
+        elif handle_missing_data == HandleMissingDataPolicy.SKIP_STROKE:
+            return None
+        elif handle_missing_data == HandleMissingDataPolicy.THROW_EXCEPTION:
+            raise ValueError(&#34;There is no timestamp data for this stroke.&#34;)
+
+    target_len: int = len(ts) if len(ts) &gt; 0 else len(xs)
+
+    # Handle missing pressure according to policy
+    if len(ps) == 0:
+        if handle_missing_data == HandleMissingDataPolicy.FILL_WITH_ZEROS:
+            ps = [0 for i in range(target_len)]
+        elif handle_missing_data == HandleMissingDataPolicy.FILL_WITH_NAN:
+            NaN: float = float(&#34;NaN&#34;)
+            ps = [NaN for i in range(target_len)]
+        elif handle_missing_data == HandleMissingDataPolicy.SKIP_STROKE:
+            return None
+        elif handle_missing_data == HandleMissingDataPolicy.THROW_EXCEPTION:
+            raise ValueError(&#34;There is no pressure data for this stroke.&#34;)
+
+    xs = xs[0:target_len]
+    ys = ys[0:target_len]
+
+    points: List[float] = []
+
+    sensor_data_mapping = stroke.sensor_data_mapping
+
+    if len(sensor_data_mapping) == 0:  # Mapping is 1:1
+        limit: int = min(stroke.sensor_data_offset + len(xs), len(ts))
+        sensor_data_mapping = range(stroke.sensor_data_offset, limit)
+
+    i: int = 0
+
+    for map_i in sensor_data_mapping:
+        points.append(xs[i])
+        points.append(ys[i])
+
+        if len(ts) == 0:
+            points.append(0)
+        else:
+            points.append(ts[map_i])
+
+        if len(ps) == 0:
+            points.append(0)
+        else:
+            points.append(ps[map_i])
+
+        i += 1
+
+    return points</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="uim.utils.analyser.as_strided_array"><code class="name flex">
+<span>def <span class="ident">as_strided_array</span></span>(<span>ink_model: <a title="uim.model.ink.InkModel" href="../model/ink.html#uim.model.ink.InkModel">InkModel</a>, stroke: <a title="uim.model.inkdata.strokes.Stroke" href="../model/inkdata/strokes.html#uim.model.inkdata.strokes.Stroke">Stroke</a>, handle_missing_data=HandleMissingDataPolicy.FILL_WITH_ZEROS) ‑> List[float]</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def as_strided_array(ink_model: InkModel, stroke: Stroke, handle_missing_data=HandleMissingDataPolicy.FILL_WITH_ZEROS) \
+        -&gt; List[float]:
+    # Remove the first and last element, which are added by the spline producer
+    xs: List[float] = stroke.splines_x[1:-1]
+    ys: List[float] = stroke.splines_y[1:-1]
+
+    if stroke.sensor_data_id is None:
+        ts: List[float] = []
+        ps: List[float] = []
+    else:
+        ts: List[float] = get_channel_data_values(ink_model, stroke, InkSensorType.TIMESTAMP)
+        ps: List[float] = get_channel_data_values(ink_model, stroke, InkSensorType.PRESSURE)
+
+    # Handle missing timestamp according to policy
+    if len(ts) == 0:
+        if handle_missing_data == HandleMissingDataPolicy.FILL_WITH_ZEROS:
+            ts = [0 for i in range(len(xs))]
+        elif handle_missing_data == HandleMissingDataPolicy.FILL_WITH_NAN:
+            NaN = float(&#34;NaN&#34;)
+            ts = [NaN for i in range(len(xs))]
+        elif handle_missing_data == HandleMissingDataPolicy.SKIP_STROKE:
+            return None
+        elif handle_missing_data == HandleMissingDataPolicy.THROW_EXCEPTION:
+            raise ValueError(&#34;There is no timestamp data for this stroke.&#34;)
+
+    target_len: int = len(ts) if len(ts) &gt; 0 else len(xs)
+
+    # Handle missing pressure according to policy
+    if len(ps) == 0:
+        if handle_missing_data == HandleMissingDataPolicy.FILL_WITH_ZEROS:
+            ps = [0 for i in range(target_len)]
+        elif handle_missing_data == HandleMissingDataPolicy.FILL_WITH_NAN:
+            NaN: float = float(&#34;NaN&#34;)
+            ps = [NaN for i in range(target_len)]
+        elif handle_missing_data == HandleMissingDataPolicy.SKIP_STROKE:
+            return None
+        elif handle_missing_data == HandleMissingDataPolicy.THROW_EXCEPTION:
+            raise ValueError(&#34;There is no pressure data for this stroke.&#34;)
+
+    xs = xs[0:target_len]
+    ys = ys[0:target_len]
+
+    points: List[float] = []
+
+    sensor_data_mapping = stroke.sensor_data_mapping
+
+    if len(sensor_data_mapping) == 0:  # Mapping is 1:1
+        limit: int = min(stroke.sensor_data_offset + len(xs), len(ts))
+        sensor_data_mapping = range(stroke.sensor_data_offset, limit)
+
+    i: int = 0
+
+    for map_i in sensor_data_mapping:
+        points.append(xs[i])
+        points.append(ys[i])
+
+        if len(ts) == 0:
+            points.append(0)
+        else:
+            points.append(ts[map_i])
+
+        if len(ps) == 0:
+            points.append(0)
+        else:
+            points.append(ps[map_i])
+
+        i += 1
+
+    return points</code></pre>
+</details>
+</dd>
+<dt id="uim.utils.analyser.get_channel_data_instance"><code class="name flex">
+<span>def <span class="ident">get_channel_data_instance</span></span>(<span>ink_model: <a title="uim.model.ink.InkModel" href="../model/ink.html#uim.model.ink.InkModel">InkModel</a>, stroke: <a title="uim.model.inkdata.strokes.Stroke" href="../model/inkdata/strokes.html#uim.model.inkdata.strokes.Stroke">Stroke</a>, ink_sensor_type: <a title="uim.model.inkinput.inputdata.InkSensorType" href="../model/inkinput/inputdata.html#uim.model.inkinput.inputdata.InkSensorType">InkSensorType</a>) ‑> Optional[<a title="uim.model.inkinput.sensordata.ChannelData" href="../model/inkinput/sensordata.html#uim.model.inkinput.sensordata.ChannelData">ChannelData</a>]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get channel data instance for a given stroke and sensor type.
+Parameters</p>
+<hr>
+<dl>
+<dt><strong><code>ink_model</code></strong> :&ensp;<code>InkModel</code></dt>
+<dd>Ink model</dd>
+<dt><strong><code>stroke</code></strong> :&ensp;<code>Stroke</code></dt>
+<dd>Stroke</dd>
+<dt><strong><code>ink_sensor_type</code></strong> :&ensp;<code>InkSensorType</code></dt>
+<dd>Sensor type</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>channel_data</code></strong> :&ensp;<code>Optional[ChannelData]</code></dt>
+<dd>Channel data instance</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_channel_data_instance(ink_model: InkModel, stroke: Stroke, ink_sensor_type: InkSensorType) \
+        -&gt; Optional[ChannelData]:
+    &#34;&#34;&#34;
+    Get channel data instance for a given stroke and sensor type.
+    Parameters
+    ----------
+    ink_model: InkModel
+        Ink model
+    stroke: Stroke
+        Stroke
+    ink_sensor_type: InkSensorType
+        Sensor type
+
+    Returns
+    -------
+    channel_data: Optional[ChannelData]
+        Channel data instance
+    &#34;&#34;&#34;
+    sd: SensorData = ink_model.sensor_data.sensor_data_by_id(stroke.sensor_data_id)
+    sc: Optional[SensorChannel] = None
+    input_context: InputContext = ink_model.input_configuration.get_input_context(sd.input_context_id)
+    if input_context is not None:
+        sensor_context = ink_model.input_configuration.get_sensor_context(input_context.sensor_context_id)
+        if sensor_context is not None:
+
+            if sensor_context.has_channel_type(ink_sensor_type):
+                sc = sensor_context.get_channel_by_type(ink_sensor_type)
+
+    if sd is None or sc is None or sd.get_data_by_id(sc.id) is None:
+        return None
+    else:
+        return sd.get_data_by_id(sc.id)</code></pre>
+</details>
+</dd>
+<dt id="uim.utils.analyser.get_channel_data_values"><code class="name flex">
+<span>def <span class="ident">get_channel_data_values</span></span>(<span>ink_model: <a title="uim.model.ink.InkModel" href="../model/ink.html#uim.model.ink.InkModel">InkModel</a>, stroke: <a title="uim.model.inkdata.strokes.Stroke" href="../model/inkdata/strokes.html#uim.model.inkdata.strokes.Stroke">Stroke</a>, ink_sensor_type: <a title="uim.model.inkinput.inputdata.InkSensorType" href="../model/inkinput/inputdata.html#uim.model.inkinput.inputdata.InkSensorType">InkSensorType</a>) ‑> List[float]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get channel data values for a given stroke and sensor type.
+Parameters</p>
+<hr>
+<dl>
+<dt><strong><code>ink_model</code></strong> :&ensp;<code>InkModel</code></dt>
+<dd>Ink model</dd>
+<dt><strong><code>stroke</code></strong> :&ensp;<code>Stroke</code></dt>
+<dd>Stroke</dd>
+<dt><strong><code>ink_sensor_type</code></strong> :&ensp;<code>InkSensorType</code></dt>
+<dd>Sensor type</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>channel_data</code></strong> :&ensp;<code>List[float]</code></dt>
+<dd>Channel data values</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_channel_data_values(ink_model: InkModel, stroke: Stroke, ink_sensor_type: InkSensorType) -&gt; List[float]:
+    &#34;&#34;&#34;
+    Get channel data values for a given stroke and sensor type.
+    Parameters
+    ----------
+    ink_model: InkModel
+        Ink model
+    stroke: Stroke
+        Stroke
+    ink_sensor_type: InkSensorType
+        Sensor type
+
+    Returns
+    -------
+    channel_data: List[float]
+        Channel data values
+    &#34;&#34;&#34;
+    channel_data: Optional[ChannelData] = get_channel_data_instance(ink_model, stroke, ink_sensor_type)
+    if channel_data is None:
+        return []
+
+    if ink_sensor_type == InkSensorType.TIMESTAMP:
+        sd: SensorData = ink_model.sensor_data.sensor_data_by_id(stroke.sensor_data_id)
+        return [v + sd.timestamp for v in channel_data.values]
+    else:
+        return channel_data.values.copy()</code></pre>
+</details>
+</dd>
+<dt id="uim.utils.analyser.safe_zero_div"><code class="name flex">
+<span>def <span class="ident">safe_zero_div</span></span>(<span>x: float, y: float) ‑> float</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Safely divide two numbers. If the denominator is zero, return zero.
+Parameters</p>
+<hr>
+<dl>
+<dt><strong><code>x</code></strong> :&ensp;<code>float</code></dt>
+<dd>Numerator</dd>
+<dt><strong><code>y</code></strong> :&ensp;<code>float</code></dt>
+<dd>Denominator</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>division</code></strong> :&ensp;<code>float</code></dt>
+<dd>x / y or 0. if y == 0.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def safe_zero_div(x: float, y: float) -&gt; float:
+    &#34;&#34;&#34;
+    Safely divide two numbers. If the denominator is zero, return zero.
+    Parameters
+    ----------
+    x: float
+        Numerator
+    y: float
+        Denominator
+
+    Returns
+    -------
+    division: float
+        x / y or 0. if y == 0.
+    &#34;&#34;&#34;
+    try:
+        return x / y
+    except ZeroDivisionError:
+        return 0.</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="uim.utils.analyser.ModelAnalyzer"><code class="flex name class">
+<span>class <span class="ident">ModelAnalyzer</span></span>
+</code></dt>
+<dd>
+<div class="desc"><h1 id="model-analyzer">Model analyzer</h1>
+<p>Abstract class for model analysis.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ModelAnalyzer(ABC):
+    &#34;&#34;&#34;
+    Model analyzer
+    ==============
+
+    Abstract class for model analysis.
+    &#34;&#34;&#34;
+    KNOWN_TYPE_PREDICATES: List[str] = [&#34;@&#34;, &#34;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&#34;]
+    &#34;&#34;&#34;Known type predicates&#34;&#34;&#34;
+
+    @staticmethod
+    @abstractmethod
+    def analyze(model: InkModel) -&gt; Dict[str, Any]:
+        &#34;&#34;&#34;
+        Analyze the model.
+        Parameters
+        ----------
+        model: InkModel
+            Ink model to analyze
+
+        Returns
+        -------
+        summary: Dict[str, Any]
+            Summary of the analysis
+        &#34;&#34;&#34;
+        pass
+
+    @staticmethod
+    def __assume_view_type_predicate__(model: InkModel, view: InkTree) -&gt; Optional[str]:
+        statements = model.knowledge_graph.all_statements_for(subject=view.root.uri)
+        for statement in statements:
+            if statement.predicate in ModelAnalyzer.KNOWN_TYPE_PREDICATES:
+                return statement.predicate
+        return None
+
+    @staticmethod
+    def __extract_sensor_data_info__(model: InkModel, stroke: Stroke, stats: Dict[str, Any]):
+        try:
+            sd: SensorData = model.sensor_data.sensor_data_by_id(stroke.sensor_data_id)
+            ic: InputContext = model.input_configuration.get_input_context(sd.input_context_id)
+            sc: SensorContext = model.input_configuration.get_sensor_context(ic.sensor_context_id)
+        except Exception as e:
+            logger.error(f&#34;Error while extracting sensor data info: {e}&#34;)
+            return
+
+        for scc in sc.sensor_channels_contexts:
+            for channel in scc.channels:
+                channel: SensorChannel = channel
+                channel_type = channel.type
+                existing_channel = stats[&#39;sensor_channels&#39;].get(channel_type.name)
+
+                if existing_channel is None:
+                    stats[&#39;sensor_channels&#39;][channel_type.name] = {
+                        &#39;strokes_count&#39;: 0, &#39;percent&#39;: 0, &#39;values&#39;: [], &#34;metric&#34;: channel.metric.name,
+                        &#34;resolution&#34;: channel.resolution, &#34;precision&#34;: channel.precision,
+                        &#34;channel_min&#34;: channel.min, &#34;channel_max&#34;: channel.max
+                    }
+
+                stats[&#39;sensor_channels&#39;][channel_type.name][&#39;strokes_count&#39;] += 1
+
+                values = sd.get_data_by_id(channel.id).values
+                if channel.type == InkSensorType.TIMESTAMP:
+                    values = [v + sd.timestamp for v in values]
+
+                stats[&#39;sensor_channels&#39;][channel_type.name][&#39;values&#39;].extend(values)
+
+    @staticmethod
+    def __post_process_sensor_channels_info__(stats):
+        for k, v in stats[&#39;sensor_channels&#39;].items():
+            stats[&#39;sensor_channels&#39;][k][&#34;min&#34;] = min(v[&#39;values&#39;])
+            stats[&#39;sensor_channels&#39;][k][&#34;max&#34;] = max(v[&#39;values&#39;])
+            stats[&#39;sensor_channels&#39;][k][&#34;mean&#34;] = np.mean(v[&#39;values&#39;])
+            stats[&#39;sensor_channels&#39;][k][&#34;median&#34;] = np.median(v[&#39;values&#39;])
+            stats[&#39;sensor_channels&#39;][k].pop(&#39;values&#39;, None)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>abc.ABC</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="uim.utils.statistics.StatisticsAnalyzer" href="statistics.html#uim.utils.statistics.StatisticsAnalyzer">StatisticsAnalyzer</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="uim.utils.analyser.ModelAnalyzer.KNOWN_TYPE_PREDICATES"><code class="name">var <span class="ident">KNOWN_TYPE_PREDICATES</span> : List[str]</code></dt>
+<dd>
+<div class="desc"><p>Known type predicates</p></div>
+</dd>
+</dl>
+<h3>Static methods</h3>
+<dl>
+<dt id="uim.utils.analyser.ModelAnalyzer.analyze"><code class="name flex">
+<span>def <span class="ident">analyze</span></span>(<span>model: <a title="uim.model.ink.InkModel" href="../model/ink.html#uim.model.ink.InkModel">InkModel</a>) ‑> Dict[str, Any]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Analyze the model.
+Parameters</p>
+<hr>
+<dl>
+<dt><strong><code>model</code></strong> :&ensp;<code>InkModel</code></dt>
+<dd>Ink model to analyze</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>summary</code></strong> :&ensp;<code>Dict[str, Any]</code></dt>
+<dd>Summary of the analysis</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+@abstractmethod
+def analyze(model: InkModel) -&gt; Dict[str, Any]:
+    &#34;&#34;&#34;
+    Analyze the model.
+    Parameters
+    ----------
+    model: InkModel
+        Ink model to analyze
+
+    Returns
+    -------
+    summary: Dict[str, Any]
+        Summary of the analysis
+    &#34;&#34;&#34;
+    pass</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="uim.utils" href="index.html">uim.utils</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="uim.utils.analyser.as_strided_array" href="#uim.utils.analyser.as_strided_array">as_strided_array</a></code></li>
+<li><code><a title="uim.utils.analyser.get_channel_data_instance" href="#uim.utils.analyser.get_channel_data_instance">get_channel_data_instance</a></code></li>
+<li><code><a title="uim.utils.analyser.get_channel_data_values" href="#uim.utils.analyser.get_channel_data_values">get_channel_data_values</a></code></li>
+<li><code><a title="uim.utils.analyser.safe_zero_div" href="#uim.utils.analyser.safe_zero_div">safe_zero_div</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="uim.utils.analyser.ModelAnalyzer" href="#uim.utils.analyser.ModelAnalyzer">ModelAnalyzer</a></code></h4>
+<ul class="">
+<li><code><a title="uim.utils.analyser.ModelAnalyzer.KNOWN_TYPE_PREDICATES" href="#uim.utils.analyser.ModelAnalyzer.KNOWN_TYPE_PREDICATES">KNOWN_TYPE_PREDICATES</a></code></li>
+<li><code><a title="uim.utils.analyser.ModelAnalyzer.analyze" href="#uim.utils.analyser.ModelAnalyzer.analyze">analyze</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
