@@ -571,7 +571,7 @@ if __name__ == '__main__':
 
 ```
 
-Find the sample, [here](https://github.com/Wacom-Developer/universal-ink-library/blob/main/samples/sample_create_model.py)
+Find the sample, [here](https://github.com/Wacom-Developer/universal-ink-library/blob/main/samples/sample_create_model_vector.py)
 
 # Web Demos
 The following web demos can be used to produce Universal Ink Model files: 
