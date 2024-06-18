@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright © 2021 Wacom Authors. All Rights Reserved.
+# Copyright © 2021-present Wacom Authors. All Rights Reserved.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ from typing import List, Optional
 from uim.model.semantics.node import InkNode, StrokeGroupNode
 
 
-class StackItem(object):
+class StackItem:
     """
     Represents an item in the internal stack of the enumerator.
 
@@ -47,7 +47,7 @@ class StackItem(object):
         return f'<StackItem : [index:={self.index}, node-id:={self.node.id}]>'
 
 
-class PreOrderEnumerator(object):
+class PreOrderEnumerator:
     """
     Depth first pre-order traversal of the DOM tree.
 

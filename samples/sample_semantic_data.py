@@ -15,7 +15,7 @@
 from uim.codec.parser.uim import UIMParser
 from uim.model.helpers.text_extractor import uim_extract_text_and_semantics_from
 from uim.model.ink import InkModel
-from uim.model.semantics.schema import CommonViews, IS
+from uim.model.semantics.schema import CommonViews
 
 if __name__ == '__main__':
     parser: UIMParser = UIMParser()
@@ -44,7 +44,7 @@ if __name__ == '__main__':
             print(f' Entity #{entity_idx}: URI: {entity_uri}')
             print("-" * 100)
             print(f" Label: {entity_mappings[0]['label']}")
-            print(f' Ink Stroke IDs:')
+            print(' Ink Stroke IDs:')
             for word_idx, entity in enumerate(entity_mappings):
                 print(f"  #{word_idx + 1}: Word match: {entity['path_id']}")
             print('=' * 100)

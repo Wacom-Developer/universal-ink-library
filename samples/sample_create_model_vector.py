@@ -24,12 +24,11 @@ from uim.model.inkinput.inputdata import Environment, InkInputProvider, InkInput
     InkSensorType, InkSensorMetricType, SensorChannelsContext, SensorContext, InputContext
 from uim.model.inkinput.sensordata import SensorData, InkState
 from uim.model.semantics.node import StrokeGroupNode, StrokeNode, URIBuilder
-import uim.model.semantics.schema as schema
+from uim.model.semantics import schema
 from uim.utils.matrix import Matrix4x4
 
 if __name__ == '__main__':
-    """Creates an ink model from the scratch."""
-    # Create the model
+    # Creates an ink model from the scratch.
     ink_model: InkModel = InkModel()
     # Setting a unit scale factor
     ink_model.unit_scale_factor = 1.5

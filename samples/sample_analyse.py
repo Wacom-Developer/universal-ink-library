@@ -18,17 +18,30 @@ from uim.codec.parser.uim import UIMParser
 from uim.model.ink import InkModel
 from uim.utils.statistics import StatisticsAnalyzer
 
-def print_model_stats(key_str: str, value: Any, indent: str = ""):
+
+def print_model_stats(key: str, value: Any, indent: str = ""):
+    """
+    Print the model statistics.
+    Parameters
+    ----------
+    key: str
+        Key string
+    value: Any
+        Value
+    indent: str
+        Indentation
+    """
     if isinstance(value, float):
-        print(f'{indent}{key_str}: {value:.2f}')
+        print(f'{indent}{key}: {value:.2f}')
     elif isinstance(value, int):
-        print(f'{indent}{key_str}: {value:d}')
+        print(f'{indent}{key}: {value:d}')
     elif isinstance(value, str):
-        print(f'{indent}{key_str}: {value}')
+        print(f'{indent}{key}: {value}')
     elif isinstance(value, Dict):
-        print(f'{indent}{key_str}:')
+        print(f'{indent}{key}:')
         for key_str_2, next_value in value.items():
             print_model_stats(key_str_2, next_value, indent + " ")
+
 
 if __name__ == '__main__':
     parser: UIMParser = UIMParser()

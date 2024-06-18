@@ -25,6 +25,7 @@ from uim.codec.context.encoder import EncoderContext
 from uim.codec.context.scheme import PrecisionScheme
 from uim.codec.parser.base import SupportedFormats, FormatException
 from uim.codec.writer.encoder.base import CodecEncoder
+from uim.model.base import InkModelException
 from uim.model.helpers.treeiterator import PreOrderEnumerator
 from uim.model.ink import InkModel
 from uim.model.inkdata.brush import BrushPolygonUri, RotationMode, BlendModeURIs
@@ -247,14 +248,27 @@ class UIMEncoder310(CodecEncoder):
 
     def encode(self, ink_model: InkModel, *args, **kwargs) -> bytes:
         """Formats input data document in the WILL 3.0 codec.
-        :param ink_model: InkObject -
-            InkObject object
-        :param kwargs:
+        Parameters
+        ----------
+        ink_model: InkModel
+            InkModel object
+        args: List[Any]
+            Additional arguments
+        kwargs:
             format:=[json|binary] : Use json representation, [default:=binary]
-        :return:
+
+        Returns
+        -------
+        bytes
+            Byte stream of the encoded data
+
+        Raises
+        ------
+        InkModelException
+            If the input data is not an InkModel object
         """
         if not isinstance(ink_model, InkModel):
-            raise Exception('Not an Ink Document object!')
+            raise InkModelException('Not an Ink Document object!')
         context: EncoderContext = EncoderContext(version=SupportedFormats.UIM_VERSION_3_1_0.value, ink_model=ink_model)
         # Content buffer
         buffer: bitstring.BitStream = bitstring.BitStream()

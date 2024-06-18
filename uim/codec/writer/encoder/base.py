@@ -31,6 +31,10 @@ class Codec(ABC):
         ----------
         ink_model: `InkModel`
             Universal Ink Model (memory model)
+        args: List[Any]
+            Additional arguments
+        kwargs: dict
+            Additional parameters
 
         Returns
         -------
