@@ -395,6 +395,169 @@ class Spline(ABC):
         return f'<Spline : [mask:={self.layout_mask}]>'
 
 
+class InkStrokeAttributeType(Enum):
+    """
+    InkStrokeAttributeType
+    ======================
+    This class supports combined all possible spline and sensor data.
+    It is used by as_strided_array_extended() and stroke_resampling.
+    """
+    SPLINE_X = 1
+    SPLINE_Y = 2
+    SPLINE_SIZES = 3
+    SPLINE_ALPHA = 4
+    SPLINE_RED = 5
+    SPLINE_GREEN = 6
+    SPLINE_BLUE = 7
+    SPLINE_OFFSETS_X = 8
+    SPLINE_OFFSETS_Y = 9
+    SPLINE_SCALES_X = 10
+    SPLINE_SCALES_Y = 11
+    SPLINE_ROTATIONS = 12
+
+    SENSOR_TIMESTAMP = 101  # Time (of the sample point)
+    SENSOR_PRESSURE = 102  # Input pressure.
+    SENSOR_RADIUS_X = 103  # Touch radius by X
+    SENSOR_RADIUS_Y = 104  # Touch radius by Y
+    SENSOR_AZIMUTH = 105  # Azimuth angle of the pen (yaw)
+    SENSOR_ALTITUDE = 106  # Elevation angle of the pen (pitch)
+    SENSOR_ROTATION = 107  # Rotation (counter-clockwise rotation about pen axis)
+
+    def is_spline_attribute(self) -> bool:
+        """
+        Check if the attribute is a spline attribute.
+        Returns
+        -------
+        bool
+            True if the attribute is a spline attribute, False otherwise.
+        """
+        return 0 < self.value < 100
+
+    def is_sensor_attribute(self) -> bool:
+        """
+        Check if the attribute is a sensor attribute.
+        Returns
+        -------
+        bool
+            True if the attribute is a sensor attribute, False otherwise.
+        """
+        return 100 < self.value < 200
+
+    @staticmethod
+    def get_sensor_type_by_attribute(attribute_type: 'InkStrokeAttributeType') -> Optional[InkSensorType]:
+        """
+        Get the sensor type by attribute type.
+        Parameters
+        ----------
+        attribute_type: InkStrokeAttributeType
+            The attribute type.
+
+        Returns
+        -------
+        Optional[InkSensorType]
+            The sensor type.
+        """
+        if attribute_type == InkStrokeAttributeType.SPLINE_X:
+            return InkSensorType.X
+        if attribute_type == InkStrokeAttributeType.SPLINE_Y:
+            return InkSensorType.Y
+        if attribute_type == InkStrokeAttributeType.SENSOR_TIMESTAMP:
+            return InkSensorType.TIMESTAMP
+        if attribute_type == InkStrokeAttributeType.SENSOR_PRESSURE:
+            return InkSensorType.PRESSURE
+        if attribute_type == InkStrokeAttributeType.SENSOR_RADIUS_X:
+            return InkSensorType.RADIUS_X
+        if attribute_type == InkStrokeAttributeType.SENSOR_RADIUS_Y:
+            return InkSensorType.RADIUS_Y
+        if attribute_type == InkStrokeAttributeType.SENSOR_AZIMUTH:
+            return InkSensorType.AZIMUTH
+        if attribute_type == InkStrokeAttributeType.SENSOR_ALTITUDE:
+            return InkSensorType.ALTITUDE
+        if attribute_type == InkStrokeAttributeType.SENSOR_ROTATION:
+            return InkSensorType.ROTATION
+        logger.warning(f"{attribute_type} is not a valid InkSensorType. Returning None")
+        return None
+
+    @staticmethod
+    def get_attribute_type_by_sensor(sensor_type: InkSensorType):
+        """
+        Get the attribute type by sensor type.
+        Parameters
+        ----------
+        sensor_type: InkSensorType
+            The sensor type.
+
+        Returns
+        -------
+        Optional[InkStrokeAttributeType]
+            The attribute type.
+        """
+        if sensor_type == InkSensorType.X:
+            return InkStrokeAttributeType.SPLINE_X
+        if sensor_type == InkSensorType.Y:
+            return InkStrokeAttributeType.SPLINE_Y
+        if sensor_type == InkSensorType.TIMESTAMP:
+            return InkStrokeAttributeType.SENSOR_TIMESTAMP
+        if sensor_type == InkSensorType.PRESSURE:
+            return InkStrokeAttributeType.SENSOR_PRESSURE
+        if sensor_type == InkSensorType.RADIUS_X:
+            return InkStrokeAttributeType.SENSOR_RADIUS_X
+        if sensor_type == InkSensorType.RADIUS_Y:
+            return InkStrokeAttributeType.SENSOR_RADIUS_Y
+        if sensor_type == InkSensorType.AZIMUTH:
+            return InkStrokeAttributeType.SENSOR_AZIMUTH
+        if sensor_type == InkSensorType.ALTITUDE:
+            return InkStrokeAttributeType.SENSOR_ALTITUDE
+        if sensor_type == InkSensorType.ROTATION:
+            return InkStrokeAttributeType.SENSOR_ROTATION
+        logger.warning(f"{sensor_type} is not a valid InkSensorType. Returning None")
+        return None
+
+    def resolve_path_point_property(self, path_point_properties: PathPointProperties) -> Any:
+        """
+        Resolve the path point property.
+        Parameters
+        ----------
+        path_point_properties: PathPointProperties
+            The path point properties.
+
+        Returns
+        -------
+        Any
+            The resolved property.
+        """
+        if self == InkStrokeAttributeType.SPLINE_SIZES:
+            return path_point_properties.size
+        if self == InkStrokeAttributeType.SPLINE_ALPHA:
+            return path_point_properties.alpha
+        if self == InkStrokeAttributeType.SPLINE_RED:
+            return path_point_properties.red
+        if self == InkStrokeAttributeType.SPLINE_GREEN:
+            return path_point_properties.green
+        if self == InkStrokeAttributeType.SPLINE_BLUE:
+            return path_point_properties.blue
+        if self == InkStrokeAttributeType.SPLINE_OFFSETS_X:
+            return path_point_properties.offset_x
+        if self == InkStrokeAttributeType.SPLINE_OFFSETS_Y:
+            return path_point_properties.offset_y
+        if self == InkStrokeAttributeType.SPLINE_SCALES_X:
+            return path_point_properties.scale_x
+        if self == InkStrokeAttributeType.SPLINE_SCALES_Y:
+            return path_point_properties.scale_y
+        if self == InkStrokeAttributeType.SPLINE_ROTATIONS:
+            return path_point_properties.rotation
+        return None
+
+
+DEFAULT_EXTENDED_LAYOUT: List[InkStrokeAttributeType] = [
+    InkStrokeAttributeType.SPLINE_X, InkStrokeAttributeType.SPLINE_Y, InkStrokeAttributeType.SENSOR_TIMESTAMP,
+    InkStrokeAttributeType.SENSOR_PRESSURE
+]
+"""
+Default extended layout for strokes.
+"""
+
+
 class Stroke(UUIDIdentifier):
     """
     Stroke Geometry
