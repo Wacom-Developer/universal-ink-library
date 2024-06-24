@@ -255,6 +255,26 @@ class InkTree(ABC):
                 self.unregister_node(n)
 
 
+class ViewTree(InkTree):
+    """
+    View tree
+    ----------
+    The view is a tree structure.
+    """
+
+    def __init__(self, name: str):
+        super().__init__(name=name)
+
+    @property
+    def associated_model(self):
+        """
+        Associated model.
+        """
+        return self.__model
+
+    def __repr__(self):
+        return f'<View Tree: [name:={self.name},  root id:={self.root}]>'
+
 class InkModel(ABC):
     """
     InkModel
