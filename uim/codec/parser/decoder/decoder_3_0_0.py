@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright © 2021-23 Wacom Authors. All Rights Reserved.
+# Copyright © 2021-present Wacom Authors. All Rights Reserved.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ from uim.codec.context.decoder import DecoderContext
 from uim.codec.parser.base import FormatException, SupportedFormats
 from uim.codec.parser.decoder.base import CodecDecoder
 from uim.model.base import UUIDIdentifier, Identifier
-from uim.model.ink import InkModel, InkTree
+from uim.model.ink import InkModel, InkTree, ViewTree
 from uim.model.inkdata.brush import RasterBrush, VectorBrush, BrushPolygon, BlendMode, BrushPolygonUri, RotationMode
 from uim.model.inkdata.strokes import Stroke, Style, PathPointProperties
 from uim.model.inkinput.inputdata import InkSensorType, InputContext, SensorContext, SensorChannel, \
@@ -37,6 +37,9 @@ from uim.model.semantics.schema import CommonViews
 
 class UIMDecoder300(CodecDecoder):
     """
+    UIDecoder300
+    ============
+
     The UIMDecoder300 decodes the Universal Ink Model v3.0.0 and maps it into the model for v3.1.0.
 
     References
@@ -120,6 +123,11 @@ class UIMDecoder300(CodecDecoder):
         -------
             model - `InkModel`
                 Parsed `InkModel` from UIM v3.0.0 ink content
+
+        Raises
+        ------
+        FormatException
+            Raised if the data header is missing.
         """
         riff.read((size_head - 3) + 1)
         if riff.read(4) != DATA_HEADER:
@@ -183,12 +191,23 @@ class UIMDecoder300(CodecDecoder):
             UIMDecoder300.__parse_ink_tree__(context, view.tree, view.name)
         # Parse knowledge graph
         UIMDecoder300.__parse_knowledge_graph__(context, document.knowledgeGraph)
+        UIMDecoder300.__parse_transform__(document, context.ink_model)
         # Finally upgrade the URIs
         context.upgrade_uris()
         return context.ink_model
 
     @classmethod
     def __parse_input_data__(cls, context: DecoderContext, input_data: uim_3_0_0.InputData):
+        """
+        Parse input data.
+
+        Parameters
+        ----------
+        context: DecoderContext
+            Decoder context
+        input_data: uim_3_0_0.InputData
+            Input data structure
+        """
         input_context_data: uim_3_0_0.InputContextData = input_data.inputContextData
         # Parse Input Contexts
         for inputContext in input_context_data.inputContexts:
@@ -301,13 +320,26 @@ class UIMDecoder300(CodecDecoder):
                         CodecDecoder.__decode__(dataChannel.values, ctx.precision, ctx.resolution),
                     )
                 sensor_data.add_data(sensor_type, channel_data.values)
-
             sensor_data_array.append(sensor_data)
-
         context.ink_model.sensor_data.sensor_data = sensor_data_array
 
     @classmethod
     def __parse_ink_data__(cls, context: DecoderContext, ink_data: uim_3_0_0.InkData):
+        """
+        Parse ink data.
+
+        Parameters
+        ----------
+        context: DecoderContext
+            Decoder context
+        ink_data: uim_3_0_0.InkData
+            Ink data structure
+
+        Returns
+        -------
+        model - `InkModel`
+            Parsed `InkModel` from UIM v3.0.0 ink content
+        """
         # Iterate over strokes
         for p in ink_data.strokes:
             properties = p.style.properties
@@ -362,6 +394,21 @@ class UIMDecoder300(CodecDecoder):
 
     @classmethod
     def __parse_brushes__(cls, context: DecoderContext, brushes: uim_3_0_0.Brushes):
+        """
+        Parse brushes.
+
+        Parameters
+        ----------
+        context: DecoderContext
+            Decoder context
+        brushes: uim_3_0_0.Brushes
+            Brush structure
+
+        Returns
+        -------
+        model - `InkModel`
+            Parsed `InkModel` from UIM v3.0.0 ink content
+        """
         # iterate over vector brushes
         for vectorBrush in brushes.vectorBrushes:
             prototypes: list = []
@@ -370,7 +417,7 @@ class UIMDecoder300(CodecDecoder):
                     brush_prototype: BrushPolygonUri = BrushPolygonUri(p.shapeURI, p.size)
                 else:
                     points: list = []
-                    for idx in range(len(p.coordX)):
+                    for idx, _ in enumerate(p.coordX):
                         points.append((p.coordX[idx], p.coordY[idx]))
                     brush_prototype: BrushPolygon = BrushPolygon(min_scale=p.size, points=points, indices=p.indices)
                 prototypes.append(brush_prototype)
@@ -400,12 +447,37 @@ class UIMDecoder300(CodecDecoder):
 
     @classmethod
     def __extract_bounding_box__(cls, rect: uim_3_0_0.Rectangle) -> BoundingBox:
+        """
+        Extracts the bounding box.
+
+        Parameters
+        ----------
+        rect: uim_3_0_0.Rectangle
+            Rectangle structure
+
+        Returns
+        -------
+        bounding_box - `BoundingBox`
+            Bounding box structure
+        """
         if rect:
             return BoundingBox(rect.x, rect.y, rect.width, rect.height)
         return BoundingBox(0., 0., 0., 0.)
 
     @classmethod
     def __parse_ink_tree__(cls, context: DecoderContext, proto_tree: List[uim_3_0_0.Node], view: str):
+        """
+        Parse ink tree.
+
+        Parameters
+        ----------
+        context: DecoderContext
+            Decoder context
+        proto_tree: List[uim_3_0_0.Node]
+            List of nodes
+        view: str
+            Name of the view.
+        """
         stack: List[StrokeGroupNode] = []
         # Sanity checks
         if proto_tree is None or len(proto_tree) == 0:
@@ -417,7 +489,7 @@ class UIMDecoder300(CodecDecoder):
             tree: InkTree = InkTree(view)
             context.ink_model.ink_tree = tree
         else:
-            tree: InkTree = InkTree(view)
+            tree: InkTree = ViewTree(view)
             context.ink_model.add_tree(tree)
         # Root element
         root_id: str = proto_tree[0].id
@@ -456,13 +528,31 @@ class UIMDecoder300(CodecDecoder):
 
     @classmethod
     def __parse_knowledge_graph__(cls, context: DecoderContext, knowledge_graph: uim_3_0_0.TripleStore):
+        """
+        Parse knowledge graph.
+        Parameters
+        ----------
+        context: DecoderContext
+            Decoder context
+        knowledge_graph: uim_3_0_0.TripleStore
+            Knowledge graph structure
+        """
         for el in knowledge_graph.statements:
             if el.subject != '':
                 context.ink_model.add_semantic_triple(el.subject, el.predicate, el.object)
 
     @classmethod
-    def __parse_transform__(cls, document, ink_object: InkModel):
-        """Parse transformation matrix message (Matrix4)."""
+    def __parse_transform__(cls, document: uim_3_0_0.InkObject, ink_object: InkModel):
+        """
+        Parse transformation matrix message (Matrix4).
+
+        Parameters
+        ----------
+        document: uim_3_0_0.InkObject
+            Document object
+        ink_object: InkModel
+            Ink model object
+        """
         t = document.transform
         matrix: list = [
             [t.m00, t.m01, t.m02, t.m03],

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright © 2021-23 Wacom Authors. All Rights Reserved.
+# Copyright © 2021-present Wacom Authors. All Rights Reserved.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ from uim.codec.context.scheme import PrecisionScheme
 from uim.codec.parser.base import FormatException, SupportedFormats
 from uim.codec.parser.decoder.base import CodecDecoder
 from uim.model.base import Identifier
-from uim.model.ink import InkModel, InkTree
+from uim.model.ink import InkModel, InkTree, ViewTree
 from uim.model.inkdata.brush import RasterBrush, VectorBrush, BrushPolygon, BlendMode, BrushPolygonUri, RotationMode
 from uim.model.inkdata.strokes import Stroke, PathPointProperties, Style
 from uim.model.inkinput.inputdata import InkSensorType, InputContext, SensorContext, SensorChannel, \
@@ -37,6 +37,9 @@ from uim.model.semantics.schema import CommonViews
 
 class UIMDecoder310(CodecDecoder):
     """
+    UIModelDecoder310
+    =================
+
     The UIMDecoder310 decodes the Universal Ink Model v3.1.0.
 
     References
@@ -44,10 +47,10 @@ class UIMDecoder310(CodecDecoder):
     [1]  Universal Ink Model documentation - URL https://developer-docs.wacom.com/sdk-for-ink/docs/model
     """
 
-    MAP_CONTENT_TYPE: Dict[bytes, ContentType] = dict([(c.value, c) for c in ContentType])
+    MAP_CONTENT_TYPE: Dict[bytes, ContentType] = {c.value: c for c in ContentType}
     """Mapping of the `ContentType`."""
 
-    MAP_COMPRESSION_TYPE: Dict[bytes, CompressionType] = dict([(c.value, c) for c in CompressionType])
+    MAP_COMPRESSION_TYPE: Dict[bytes, CompressionType] = {c.value: c for c in CompressionType}
     """Mapping of the `CompressionType`."""
 
     MAP_CHUNK_TYPE: Dict[bytes, Any] = {
@@ -140,7 +143,7 @@ class UIMDecoder310(CodecDecoder):
                     brush_prototype: BrushPolygonUri = BrushPolygonUri(p.shapeURI, p.size)
                 else:
                     points: list = []
-                    for idx in range(len(p.coordX)):
+                    for idx, _ in enumerate(p.coordX):
                         points.append((p.coordX[idx], p.coordY[idx]))
                     brush_prototype: BrushPolygon = BrushPolygon(p.size, points, p.indices)
                 prototypes.append(brush_prototype)
@@ -259,7 +262,7 @@ class UIMDecoder310(CodecDecoder):
                         input_device_id=Identifier.from_bytes(sensorChannelsContext.inputDeviceID)
                     )
                     channels.append(sensor_channel)
-                # Check for input input provider uuid
+                # Check for input provider uuid
                 input_provider_uuid: Optional[uuid.UUID] = None
                 if sensorChannelsContext.inkInputProviderID:
                     input_provider_uuid = Identifier.from_bytes(sensorChannelsContext.inkInputProviderID)
@@ -462,12 +465,36 @@ class UIMDecoder310(CodecDecoder):
 
     @classmethod
     def parse_ink_structure(cls, context: DecoderContext, ink_structure: uim_3_1_0.InkStructure):
+        """
+        Parse ink structure.
+
+        Parameters
+        ----------
+        context: DecoderContext
+            Decoder context
+        ink_structure: uim_3_1_0.InkStructure
+            Protobuf structure for ink structure
+        """
         UIMDecoder310.__parse_ink_tree__(context, ink_structure.inkTree)
         for view in ink_structure.views:
             UIMDecoder310.__parse_ink_tree__(context, view)
 
     @classmethod
     def __parse_ink_tree__(cls, context: DecoderContext, proto_tree: uim_3_1_0.InkTree):
+        """
+        Parse ink tree.
+        Parameters
+        ----------
+        context: DecoderContext
+            Decoder context
+        proto_tree: uim_3_1_0.InkTree
+            Protobuf structure for ink tree
+
+        Raises
+        ------
+        FormatException
+            If the tree is empty or the root depth is not 0.
+        """
         stack: List[StrokeGroupNode] = []
         # Sanity checks
         if proto_tree is None or len(proto_tree.tree) == 0:
@@ -479,7 +506,7 @@ class UIMDecoder310(CodecDecoder):
             tree: InkTree = InkTree(CommonViews.MAIN_INK_TREE.value)
             context.ink_model.ink_tree = tree
         else:
-            tree: InkTree = InkTree(view_name)
+            tree: ViewTree = ViewTree(view_name)
             context.ink_model.add_tree(tree)
         # Root element
         one_of: str = proto_tree.tree[0].WhichOneof("id")
@@ -560,20 +587,63 @@ class UIMDecoder310(CodecDecoder):
 
     @staticmethod
     def __extract_bounding_box__(rect: uim_3_1_0.Rectangle) -> BoundingBox:
+        """
+        Extract bounding box.
+
+        Parameters
+        ----------
+        rect: uim_3_1_0.Rectangle
+            Protobuf structure for rectangle
+
+        Returns
+        -------
+        bounding_box: BoundingBox
+            Bounding box
+        """
         if rect:
             return BoundingBox(rect.x, rect.y, rect.width, rect.height)
         return BoundingBox(0., 0., 0., 0.)
 
     @staticmethod
     def __read_size__(riff: BytesIO) -> int:
+        """
+        Read size of the chunk.
+        Parameters
+        ----------
+        riff: BytesIO
+            RIFF content
+
+        Returns
+        -------
+        size: int
+            Size of the chunk
+        """
         return ctypes.c_uint32(int.from_bytes(riff.read(4), byteorder='little')).value
 
     @classmethod
     def __decode_uim_chunk__(cls, content: bytes, compression: CompressionType) -> bytes:
-        if compression == CompressionType.ZIP:
-            return content
-        elif compression == CompressionType.LZMA:
-            return content
+        """
+        Decode the UIM chunk.
+
+        Parameters
+        ----------
+        content: bytes
+            Content of the chunk
+        compression: CompressionType
+            Type of compression used for encoding the content.
+
+        Returns
+        -------
+        bytes
+            Decoded content
+
+        Raises
+        ------
+        NotImplementedError
+            If the compression type is not supported.
+        """
+        if compression in (CompressionType.ZIP, CompressionType.LZMA):
+            raise NotImplementedError(f"Decoding of {compression} is not supported.")
         return content
 
     @classmethod
@@ -598,7 +668,7 @@ class UIMDecoder310(CodecDecoder):
         num_chunks: int = int((size_head - 4) / 8)
         chunk_desc: list = []
         # Collect the description of the chunks
-        for i in range(num_chunks):
+        for _ in range(num_chunks):
             chunk_desc.append(UIMDecoder310.four_cc(riff.read(CHUNK_DESCRIPTION)))
         # Content parser
         uim_content_parser: UIMDecoder310 = UIMDecoder310()
