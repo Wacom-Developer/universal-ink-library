@@ -1,5 +1,17 @@
 # -*- coding: utf-8 -*-
-# Copyright © 2023 Wacom. All rights reserved.
+# Copyright © 2023-present Wacom Authors. All Rights Reserved.
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
 import re
 import statistics
 from typing import Dict, Any, Optional, List
@@ -15,7 +27,6 @@ from uim.model.semantics.structures import BoundingBox
 from uim.model.semantics.schema import TripleStore
 
 
-
 class StatisticsAnalyzer(ModelAnalyzer):
     """
     Statistics analyzer
@@ -25,11 +36,27 @@ class StatisticsAnalyzer(ModelAnalyzer):
 
     @staticmethod
     def merge_stats(*stats):
-        pass
+        """
+        Merge stats.
+
+        Parameters
+        ----------
+        stats: Tuple[Dict[str, Any]]
+            Stats to merge.
+        """
 
     @staticmethod
-    def summarize(stats, verbose=False):
-        pass
+    def summarize(stats: Dict[str, Any], verbose: bool = False):
+        """
+        Summarize stats.
+
+        Parameters
+        ----------
+        stats: Dict[str, Any]
+            Stats to summarize.
+        verbose: bool
+            Verbose mode.
+        """
 
     @staticmethod
     def analyze(model: InkModel, ignore_predicates: Optional[List[str]] = None,
@@ -73,7 +100,7 @@ class StatisticsAnalyzer(ModelAnalyzer):
             # Extract sensor data info
             StatisticsAnalyzer.__extract_sensor_data_info__(model, stroke, stats)
             # Extract brush info
-            StatisticsAnalyzer.__extract_brushes_information(stroke, stats)
+            StatisticsAnalyzer.__extract_brushes_information__(stroke, stats)
         # Post process stats
         StatisticsAnalyzer.__post_process_sensor_channels_info__(stats)
         # Extract views info
@@ -132,10 +159,18 @@ class StatisticsAnalyzer(ModelAnalyzer):
         return result
 
     @staticmethod
-    def __post_process_stats__(stats):
+    def __post_process_stats__(stats: Dict[str, Any]):
+        """
+        Post-process the given stats dictionary.
+
+        Parameters
+        ----------
+        stats: Dict[str, Any]
+            The stats dictionary to post-process.
+        """
         strokes_count: int = stats['strokes_count']
 
-        for stat_type in ['brushes', 'envs', 'input_devices']:
+        for stat_type in ('brushes', 'envs', 'input_devices'):
             for k, v in stats[stat_type].items():
                 stats[stat_type][k]['percent'] = round(safe_zero_div(v['strokes_count'], strokes_count) * 100, 2)
 
@@ -248,7 +283,7 @@ class StatisticsAnalyzer(ModelAnalyzer):
 
                             view_info["predicates"][statement.predicate]["occurrence"] += 1
 
-                    if type(node) == StrokeGroupNode:
+                    if isinstance(node, StrokeGroupNode):
                         children_types = [type(n) for n in node.children]
 
                         if StrokeGroupNode in children_types:
@@ -287,7 +322,17 @@ class StatisticsAnalyzer(ModelAnalyzer):
                 stats["knowledge_graph"]["predicates"][statement.predicate]["occurrence"] += 1
 
     @staticmethod
-    def __extract_brushes_information(stroke: Stroke, stats):
+    def __extract_brushes_information__(stroke: Stroke, stats: Dict[str, Any]):
+        """
+        Extracting brush information.
+
+        Parameters
+        ----------
+        stroke: Stroke
+            The stroke to extract information from.
+        stats: Dict[str, Any]
+            The stats dictionary to update.
+        """
         style: Style = stroke.style
         stats['brushes'][style.brush_uri]["strokes_count"] += 1
 
