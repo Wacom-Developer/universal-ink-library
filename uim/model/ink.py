@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright © 2021 Wacom Authors. All Rights Reserved.
+# Copyright © 2021-present Wacom Authors. All Rights Reserved.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@ import logging
 import sys
 import uuid
 from abc import ABC
-from typing import List, Any, Dict, Tuple, Optional
+from typing import List, Any, Dict, Tuple, Optional, Union
 
 import numpy
 
@@ -24,15 +24,15 @@ from uim.codec.context.version import Version
 from uim.codec.parser.base import FormatException
 from uim.model.base import InkModelException, UUIDIdentifier, node_registration_debug
 from uim.model.helpers.policy import HandleMissingDataPolicy
-from uim.model.inkdata.brush import Brushes, BlendMode
-from uim.model.inkdata.strokes import Stroke
+from uim.model.helpers.treeiterator import PreOrderEnumerator
+from uim.model.inkdata.brush import Brushes
+from uim.model.inkdata.strokes import Stroke, InkStrokeAttributeType, DEFAULT_EXTENDED_LAYOUT
 from uim.model.inkinput.inputdata import SensorChannel, \
-    InkSensorType, InkSensorMetricType, SensorChannelsContext, SensorContext, InputContext, InputContextRepository
-from uim.model.inkinput.sensordata import SensorData
+    InkSensorType, InkSensorMetricType, InputContext, InputContextRepository
+from uim.model.inkinput.sensordata import SensorData, ChannelData
 from uim.model.semantics import schema
 from uim.model.semantics.node import InkNode, BoundingBox, StrokeNode, StrokeGroupNode, StrokeFragment
 from uim.model.semantics.schema import CommonViews, SemanticTriple
-from uim.model.helpers.treeiterator import PreOrderEnumerator
 
 # Create the Logger
 logger: Optional[logging.Logger] = None
@@ -111,7 +111,7 @@ class SensorDataRepository(ABC):
             If `SensorData` for the id is not available.
         """
         if uimid not in self.__map_id:
-            raise InkModelException('No sensor data with id:={}'.format(uimid))
+            raise InkModelException(f'No sensor data with id:={uimid}')
         return self.__sensor_data[self.__map_id[uimid]]
 
     def __build_idx_map(self):
@@ -123,7 +123,7 @@ class SensorDataRepository(ABC):
     def __eq__(self, other):
         if not isinstance(other, SensorDataRepository):
             return False
-        map_sensor_data: dict = dict([(s.id, s) for s in other.sensor_data])
+        map_sensor_data: dict = {s.id: s for s in other.sensor_data}
         for s in self.sensor_data:
             if s.id not in map_sensor_data:
                 return False
@@ -134,7 +134,7 @@ class SensorDataRepository(ABC):
         return True
 
     def __repr__(self):
-        return '<InputData : [sensor:={}]>'.format(self.__sensor_data)
+        return f'<InputData : [sensor:={self.__sensor_data}]>'
 
 
 class InkTree(ABC):
@@ -189,11 +189,6 @@ class InkTree(ABC):
 
     def __iter__(self):
         return PreOrderEnumerator(self.__root)
-
-    def __repr__(self):
-        if self.__root:
-            return f'<Ink Tree: [name:={self.name},  root id:={self.root}]>'
-        return f'<Ink Tree: [name:={self.name}] - Empty tree'
 
     def register_node(self, node: InkNode):
         """
@@ -254,6 +249,11 @@ class InkTree(ABC):
             for n in PreOrderEnumerator(node):
                 self.unregister_node(n)
 
+    def __repr__(self):
+        if self.__root:
+            return f'<Ink Tree: [name:={self.name},  root id:={self.root}]>'
+        return f'<Ink Tree: [name:={self.name}] - Empty tree'
+
 
 class ViewTree(InkTree):
     """
@@ -275,6 +275,7 @@ class ViewTree(InkTree):
     def __repr__(self):
         return f'<View Tree: [name:={self.name},  root id:={self.root}]>'
 
+
 class InkModel(ABC):
     """
     InkModel
@@ -291,23 +292,23 @@ class InkModel(ABC):
 
     Parameters
     ----------
-    version: `Version`
+    version: Optional[Version]
             Version of the source (ink content file).
 
     Examples
     --------
+    >>> from uim.codec.parser.uim import UIMParser
     >>> from uim.codec.writer.encoder.encoder_3_1_0 import UIMEncoder310
-    >>> from uim.model.base import UUIDIdentifier
+    >>> from uim.model.base import UUIDIdentifier, Identifier, InkModelException
     >>> from uim.model.ink import InkModel, InkTree
-    >>> from uim.model.inkdata.brush import VectorBrush, BrushPolygon, BrushPolygonUri, RasterBrush, RotationMode,\
-    >>>  BlendMode
-    >>> from uim.model.inkdata.strokes import Spline, Style, Stroke, LayoutMask
-    >>> from uim.model.inkinput.inputdata import Environment, InkInputProvider, InkInputType, InputDevice,\
-    >>>    SensorChannel, InkSensorType, InkSensorMetricType, SensorChannelsContext, SensorContext, InputContext
+    >>> from uim.model.inkdata.brush import VectorBrush, BrushPolygon, BrushPolygonUri, RasterBrush, RotationMode, BlendMode
+    >>> from uim.model.inkdata.strokes import Spline, Style, Stroke, LayoutMask, PathPointProperties
+    >>> from uim.model.inkinput.inputdata import Environment, InkInputProvider, InkInputType, InputDevice, SensorChannel, \
+    >>>     InkSensorType, InkSensorMetricType, SensorChannelsContext, SensorContext, InputContext
     >>> from uim.model.inkinput.sensordata import SensorData, InkState
     >>> from uim.model.semantics import schema
     >>> from uim.model.semantics.node import StrokeGroupNode, StrokeNode, StrokeFragment, URIBuilder
-    >>> from uim.model.semantics.schema import SemanticTriple, CommonViews
+    >>> from uim.model.semantics.schema import SemanticTriple, CommonViews, HAS_NAMED_ENTITY
     >>> from uim.utils.matrix import Matrix4x4
     >>> # Creates an ink model from the scratch.
     >>> ink_model: InkModel = InkModel()
@@ -540,7 +541,7 @@ class InkModel(ABC):
     >>> ink_model.knowledge_graph.append(SemanticTriple(named_entity_uri, "hasConfidence", "0.85"))
     """
 
-    def __init__(self, version: Version = None):
+    def __init__(self, version: Optional[Version] = None):
         self.__input_data: SensorDataRepository = SensorDataRepository()
         self.__version: Version = version
         self.__brushes: Brushes = Brushes()
@@ -588,7 +589,7 @@ class InkModel(ABC):
         return self.__brushes
 
     @property
-    def ink_tree(self) -> InkTree:
+    def ink_tree(self) -> Optional[InkTree]:
         """Main ink tree. (``InkTree)"""
         return self.__ink_tree
 
@@ -627,6 +628,19 @@ class InkModel(ABC):
 
     @staticmethod
     def collect_strokes(tree: InkTree) -> List[Stroke]:
+        """
+        Collecting strokes.
+
+        Parameters
+        ----------
+        tree: `InkTree`
+            Ink tree
+
+        Returns
+        -------
+        strokes: `List[Stroke]`
+            List of strokes
+        """
         strokes: List[Stroke] = []
         for node in PreOrderEnumerator(tree.root):
             if isinstance(node, StrokeNode):
@@ -640,10 +654,15 @@ class InkModel(ABC):
 
     def add_tree(self, tree: InkTree):
         """Adding an ink tree to the model.
-        :param tree: InkTree -
-            Instance of the ink tree
-        :raises:
-            InkModelException - If name is already assigned to an ink model or
+        Parameters
+        ----------
+        tree: InkTree
+            An instance of the ink tree
+
+        Raises
+        ------
+        InkModelException
+            If the tree is already assigned to an ink model.
         """
         if tree.model is not None:
             raise InkModelException(f"InkTree with name {tree.name} is already assigned to an ink model.")
@@ -652,7 +671,7 @@ class InkModel(ABC):
             raise InkModelException(f"InkTree with name {tree.name} is already assigned to the current ink model.")
 
         tree.model = self
-        if tree.name == '' or tree.name == CommonViews.MAIN_INK_TREE.value:
+        if tree.name in ('', CommonViews.MAIN_INK_TREE.value):
             self.__ink_tree = tree
         else:
             self.__views.append(tree)
@@ -662,42 +681,51 @@ class InkModel(ABC):
 
     def remove_tree(self, name: str):
         """Removing view tree from model.
-        :param name: str -
-            Name of the tree that should be removed
 
+        Parameters
+        ----------
+        name: str
+            Name of the tree that should be removed
         """
-        tree: InkTree = self.tree(name)
+        tree: Optional[InkTree] = self.tree(name)
+        if tree is None:
+            return
         tree.unregister_sub_tree(tree.root)
-        if tree.name == '' or tree.name == CommonViews.MAIN_INK_TREE.value:
+        if tree.name in ('', CommonViews.MAIN_INK_TREE.value):
             self.__ink_tree = None
         else:
             self.__views.remove(tree)
 
-    def tree(self, name: str) -> InkTree:
+    def tree(self, name: str) -> Optional[InkTree]:
         """Return named tree.
-        :returns: tree for defined name
+        Returns
+        -------
+        Optional[InkTree]
+            The main ink tree
         """
         if name == CommonViews.MAIN_INK_TREE.value:
             return self.ink_tree
-        else:
-            for v in self.views:
-                if v.name == name:
-                    return v
-        raise InkModelException(f"InkTree with name {name} is not found.")
+        for v in self.views:
+            if v.name == name:
+                return v
+        return None
 
     def has_tree(self, name: str) -> bool:
         """Check if the named tree exists.
-        :param name: str -
+
+        Parameters
+        ----------
+        name: str
             Name of the tree
-        :returns: flag if the tree exists
+
+        Returns
+        -------
+        bool
+            Flag if the tree exists
         """
         if name == CommonViews.MAIN_INK_TREE.value:
             return self.ink_tree is not None
-        else:
-            for v in self.views:
-                if v.name == name:
-                    return True
-        return False
+        return any(v.name == name for v in self.views)
 
     def clear_views(self):
         """Clears the views."""
@@ -760,7 +788,7 @@ class InkModel(ABC):
         for v in self.__views:
             if v.name == name:
                 return v
-        raise KeyError('No view with name:={}'.format(name))
+        raise KeyError(f'No view with name:={name}')
 
     def add_view(self, view: InkTree):
         """Adding a view to the InkObject.
@@ -798,7 +826,7 @@ class InkModel(ABC):
         for sem in self.knowledge_graph.statements:
             if sem.subject == subject:
                 return sem
-        raise InkModelException('No semantic triple for subject:= {}.'.format(subject))
+        raise InkModelException(f'No semantic triple for subject:= {subject}.')
 
     def clear_knowledge_graph(self):
         """Clears the knowledge graph."""
@@ -828,8 +856,8 @@ class InkModel(ABC):
         stroke: `Stroke`
             Stroke to clear.
         """
-        stroke.set_timestamp_values(None)
-        stroke.set_pressure_values(None)
+        stroke.set_timestamp_values([])
+        stroke.set_pressure_values([])
 
     def get_stroke_timestamp_and_pressure_values(self, stroke: Stroke, duplicate_first_and_last: bool = True) \
             -> Tuple[List[float], List[float]]:
@@ -895,9 +923,8 @@ class InkModel(ABC):
         layout: `str`
             Layout string
         """
-
         if layout != "xytp":
-            raise ValueError("Unsupported layout: %s" % layout)
+            raise ValueError(f"Unsupported layout: {layout}")
 
         strokes: List[Stroke] = self.strokes
         result: List = []
@@ -940,14 +967,14 @@ class InkModel(ABC):
             if len(ts) == 0:
                 if policy == HandleMissingDataPolicy.SKIP_STROKE:
                     continue
-                elif policy == HandleMissingDataPolicy.THROW_EXCEPTION:
+                if policy == HandleMissingDataPolicy.THROW_EXCEPTION:
                     raise ValueError("There is no timestamp data for this stroke.")
 
             # Handle missing pressure according to policy
             if len(ps) == 0:
                 if policy == HandleMissingDataPolicy.SKIP_STROKE:
                     continue
-                elif policy == HandleMissingDataPolicy.THROW_EXCEPTION:
+                if policy == HandleMissingDataPolicy.THROW_EXCEPTION:
                     raise ValueError("There is no pressure data for this stroke.")
 
             points = []
@@ -980,24 +1007,74 @@ class InkModel(ABC):
 
         return result, layout
 
+    def get_strokes_as_strided_array_extended(self, layout: Optional[List[InkStrokeAttributeType]] = None,
+                                              handle_missing_data=HandleMissingDataPolicy.FILL_WITH_ZEROS) \
+            -> Tuple[List[List], List[InkStrokeAttributeType]]:
+        """
+        Returns all the strokes in the document, where each stroke is an array with stride len(layout)
+
+        Parameters
+        ----------
+        layout: List[InkStrokeAttributeType]
+            Layout of the extended stroke data
+        handle_missing_data: HandleMissingDataPolicy
+            Policy to handle missing data
+
+        Returns
+        -------
+        array: List[List]
+            Strided array
+        layout: List[InkStrokeAttributeType]
+            Layout of the extended stroke data
+
+        Raises
+        ------
+        ValueError
+            If X and Y channels are not present in the layout
+        """
+        if layout is None:
+            layout = DEFAULT_EXTENDED_LAYOUT
+        if InkStrokeAttributeType.SPLINE_X not in layout or InkStrokeAttributeType.SPLINE_Y not in layout:
+            raise ValueError("X and Y channels are mandatory")
+        strokes = self.strokes
+        result = []
+
+        for stroke in strokes:
+            points = stroke.as_strided_array_extended(self, layout=layout, handle_missing_data=handle_missing_data)
+
+            if points:
+                result.append(points)
+
+        return result, layout
+
     def sensor_data_lookup(self, stroke: Stroke, ink_sensor_type: InkSensorType,
                            return_channel_data_instance: bool = False):
+        """
+        Sensor data lookup.
+        Parameters
+        ----------
+        stroke: Stroke
+            Stroke
+        ink_sensor_type: InkSensorType
+            Sensor type
+        return_channel_data_instance: bool
+            Flag if channel data instance should be returned
+
+        Returns
+        -------
+        data: List
+            List of data
+        """
         sd: SensorData = self.sensor_data.sensor_data_by_id(stroke.sensor_data_id)
-
-        sc = None
-
-        input_context = self.input_configuration.get_input_context(sd.input_context_id)
+        sc: Optional[SensorChannel] = None
+        input_context: InputContext = self.input_configuration.get_input_context(sd.input_context_id)
         if input_context is not None:
             sensor_context = self.input_configuration.get_sensor_context(input_context.sensor_context_id)
-            if sensor_context is not None:
-
-                if sensor_context.has_channel_type(ink_sensor_type):
-                    sc = sensor_context.get_channel_by_type(ink_sensor_type)
-
+            if sensor_context is not None and sensor_context.has_channel_type(ink_sensor_type):
+                sc = sensor_context.get_channel_by_type(ink_sensor_type)
         if sd is None or sc is None or sd.get_data_by_id(sc.id) is None:
             return None if return_channel_data_instance else []
-        else:
-            return sd.get_data_by_id(sc.id) if return_channel_data_instance else sd.get_data_by_id(sc.id).values.copy()
+        return sd.get_data_by_id(sc.id) if return_channel_data_instance else sd.get_data_by_id(sc.id).values.copy()
 
     def calculate_bounds_recursively(self, node: InkNode):
         """
@@ -1194,8 +1271,7 @@ class InkModel(ABC):
 
         if clone_child_stroke_nodes or clone_child_group_nodes:
             for n in stroke_group_node.children:
-                child_clone: Optional[InkNode] = None
-
+                child_clone: Optional[Union[StrokeNode, StrokeGroupNode]] = None
                 if isinstance(n, StrokeNode):
                     if clone_child_stroke_nodes:
                         child_clone = self.clone_stroke_node(n, target_parent_node=new_node,
@@ -1217,6 +1293,97 @@ class InkModel(ABC):
                     child_clone.transient_tag = {store_source_node_reference_transient_key: n}
         return new_node
 
+    def get_channel_data_instance(self, stroke: Stroke, ink_sensor_type: Union[InkSensorType, str]) \
+            -> Optional[ChannelData]:
+        """
+        Get channel data instance.
+
+        Parameters
+        ----------
+        stroke: Stroke
+            Stroke
+        ink_sensor_type: Union[InkSensorType, str]
+            Sensor type
+
+        Returns
+        -------
+        Optional[ChannelData]
+            Channel data
+        """
+        if isinstance(ink_sensor_type, str):
+            ink_sensor_type = InkSensorType(ink_sensor_type)
+        sd: SensorData = self.sensor_data.sensor_data_by_id(stroke.sensor_data_id)
+        sc: Optional[SensorChannel] = None
+
+        input_context = self.input_configuration.get_input_context(sd.input_context_id)
+        if input_context is not None:
+            sensor_context = self.input_configuration.get_sensor_context(input_context.sensor_context_id)
+            if sensor_context is not None:
+                if sensor_context.has_channel_type(ink_sensor_type):
+                    sc = sensor_context.get_channel_by_type(ink_sensor_type)
+        if sd is None or sc is None or sd.get_data_by_id(sc.id) is None:
+            return None
+        return sd.get_data_by_id(sc.id)
+
+    def get_channel_data_values(self, stroke: Stroke, ink_sensor_type: Union[InkSensorType, str]) -> List[float]:
+        """
+        Get channel data values.
+
+        Parameters
+        ----------
+        stroke: Stroke
+            Stroke
+        ink_sensor_type: str
+            Sensor type
+
+        Returns
+        -------
+        values:  List[float]
+            List of values
+        """
+        if isinstance(ink_sensor_type, str):
+            ink_sensor_type = InkSensorType(ink_sensor_type)
+        channel_data = self.get_channel_data_instance(stroke, ink_sensor_type)
+
+        if channel_data is None:
+            # No data available
+            return []
+        # If the sensor type is TIMESTAMP, we need to add the timestamp to the values
+        if ink_sensor_type == InkSensorType.TIMESTAMP:
+            sd: SensorData = self.sensor_data.sensor_data_by_id(stroke.sensor_data_id)
+            return [v + sd.timestamp for v in channel_data.values]
+        return channel_data.values.copy()
+
+    def get_sensor_channel_types(self, stroke: Stroke):
+        """
+        Get sensor channel types.
+
+        Parameters
+        ----------
+        stroke: `Stroke`
+            Stroke object
+
+        Returns
+        -------
+        sensor_channel_types: `List`
+            List of sensor channel types
+        """
+        sensor_channel_types: List[InkSensorType] = []
+
+        if stroke.sensor_data_id is None:
+            return sensor_channel_types
+
+        sd: SensorData = self.sensor_data.sensor_data_by_id(stroke.sensor_data_id)
+        input_context = self.input_configuration.get_input_context(sd.input_context_id)
+        if input_context is not None:
+            sensor_context = self.input_configuration.get_sensor_context(input_context.sensor_context_id)
+            if sensor_context is not None:
+                for dc in sd.data_channels:
+                    channel = sensor_context.get_channel_by_id(dc.id)
+                    sensor_channel_types.append(channel.type)
+
+        return sensor_channel_types
+
     def register_node(self, node: InkNode):
         """
         Register ink node.
@@ -1233,9 +1400,8 @@ class InkModel(ABC):
         """
         if self.__map.get(node.uri) is not None:
             raise InkModelException(f'An ink node with uri {node.uri} already exists in the model.')
-        else:
-            if node_registration_debug:
-                logger.debug(f"Registering node {node.uri}")
+        if node_registration_debug:
+            logger.debug(f"Registering node {node.uri}")
 
         self.__map[node.uri] = node
 
@@ -1287,6 +1453,136 @@ class InkModel(ABC):
 
         del self.__map[node.uri]
 
+    def get_sensor_channel(self, stroke: Stroke, ink_sensor_type: Union[InkSensorType, str]) -> Optional[SensorChannel]:
+        """
+        Get sensor channel.
+        Parameters
+        ----------
+        stroke: Stroke
+            Stroke
+        ink_sensor_type: Union[InkSensorType, str]
+            Sensor type
+
+        Returns
+        -------
+        SensorChannel
+            Sensor channel
+        """
+        if isinstance(ink_sensor_type, str):
+            ink_sensor_type = InkSensorType(ink_sensor_type)
+        sd: SensorData = self.sensor_data.sensor_data_by_id(stroke.sensor_data_id)
+        sc = None
+        input_context = self.input_configuration.get_input_context(sd.input_context_id)
+        if input_context is not None:
+            sensor_context = self.input_configuration.get_sensor_context(input_context.sensor_context_id)
+            if sensor_context is not None:
+                if sensor_context.has_channel_type(ink_sensor_type):
+                    sc = sensor_context.get_channel_by_type(ink_sensor_type)
+
+        if sd is None or sc is None:
+            return None
+        return sc
+
+    def reinit_sensor_channel(self, ink_sensor_type: InkSensorType,
+                              ink_sensor_metric: Optional[InkSensorMetricType] = None,
+                              resolution: Optional[float] = None,
+                              channel_min: Optional[float] = None, channel_max: Optional[float] = None,
+                              precision: Optional[int] = None, index: Optional[int] = None,
+                              name: Optional[str] = None, data_type=None,
+                              ink_input_provider_id: Optional[uuid.UUID] = None,
+                              input_device_id: Optional[uuid.UUID] = None):
+        """
+        Reinitialize the sensor channel. This should be done when you want to modify the sensor data (because by
+        default it is immutable), e.g. when you want to modify the timestamps or pressure values.
+
+        Parameters
+        ----------
+        ink_sensor_type: `InkSensorType`
+            Sensor type
+        ink_sensor_metric: Optional[InkSensorMetricType] (optional) [default:=None]
+            Sensor metric
+        resolution: Optional[float] (optional) [default:=None]
+            Resolution
+        channel_min: Optional[float] (optional) [default:=None]
+            Channel min
+        channel_max: Optional[float] (optional) [default:=None]
+            Channel max
+        precision: Optional[int] (optional) [default:=None]
+            Precision
+        index: Optional[int] (optional) [default:=None]
+            Index
+        name: Optional[str] (optional) [default:=None]
+            Name
+        data_type:
+            Data type
+        ink_input_provider_id: Optional[UUID] (optional) [default:=None]
+            Ink input provider ID
+        input_device_id: Optional[UUID] (optional) [default:=None]
+            Input device ID
+
+        """
+        for input_context in self.input_configuration.input_contexts:
+            if input_context is not None:
+                sensor_context = self.input_configuration.get_sensor_context(input_context.sensor_context_id)
+                if sensor_context is not None:
+                    if sensor_context.has_channel_type(ink_sensor_type):
+                        for scc in sensor_context.sensor_channels_contexts:
+                            for c in scc.channels:
+                                if c.type == ink_sensor_type:
+                                    new_channel = SensorChannel(channel_type=ink_sensor_type,
+                                                                metric=ink_sensor_metric if ink_sensor_metric
+                                                                                            is not None else c.metric,
+                                                                resolution=resolution if resolution is not None
+                                                                else c.resolution,
+                                                                channel_min=channel_min if channel_min is not None
+                                                                else c.min,
+                                                                channel_max=channel_max if channel_max is not None
+                                                                else c.max,
+                                                                precision=precision if precision is not None
+                                                                else c.precision,
+                                                                index=index if index is not None else c.index,
+                                                                name=name if name is not None else c.name,
+                                                                data_type=data_type if data_type is not None
+                                                                else c.data_type,
+                                                                ink_input_provider_id=ink_input_provider_id
+                                                                if ink_input_provider_id is not None
+                                                                else c.ink_input_provider,
+                                                                input_device_id=input_device_id
+                                                                if input_device_id is not None else c.input_device_id)
+                                    # Remove the old channel and replace it with the new one
+                                    index = scc.channels.index(c)
+                                    scc.channels.remove(c)
+                                    scc._SensorChannelsContext__channels.insert(index, new_channel)
+                                    # Since this changes the order §of channels in SCC its identifier needs
+                                    # to be regenerated
+                                    scc._Identifier__identifier = scc.__generate_id__()
+
+                                    # Regenerate SC id just in case
+                                    sensor_context._Identifier__identifier = sensor_context.__generate_id__()
+
+                                    old_ic_id = input_context.id
+
+                                    # Swap the SC id in IC and regenerate its id
+                                    input_context._InputContext__sensor_context_id = sensor_context.id
+                                    input_context._Identifier__identifier = input_context.__generate_id__()
+
+                                    # Go through all sensor data instances and fix ids and maintain the internal
+                                    # storing mechanism
+                                    for s in self.sensor_data.sensor_data:
+                                        if c.id != new_channel.id:
+                                            # This lookup is necessary because of the way the
+                                            # SensorData class maintains its cache.
+                                            # TODO: It's designed badly revise in future.
+                                            s.get_data_by_id(c.id)
+
+                                            index = list(s._SensorData__map_channels.keys()).index(c.id)
+
+                                            s._SensorData__map_idx.pop(index, None)
+                                            s._SensorData__map_channels.pop(c.id, None)
+
+                                        if old_ic_id is not None and s.input_context_id == old_ic_id:
+                                            s._SensorData__input_context_id = input_context.id
+
     def remove_node(self, node: InkNode):
         """
         Remove a node.
@@ -1316,8 +1612,7 @@ class InkModel(ABC):
                 if key in map_prop:
                     if value != map_prop[key]:
                         return False
-                    else:
-                        del map_prop[key]
+                    del map_prop[key]
                 else:
                     return False
             if len(map_prop) > 0:
@@ -1369,4 +1664,4 @@ class InkModel(ABC):
             prefix = ', '
         if self.has_ink_structure():
             parts += prefix + f'Ink Structure (main:={1 if self.ink_tree is not None else 0},views:={len(self.views)})'
-        return '<InkModel - [{}]>'.format(parts)
+        return f'<InkModel - [{parts}]>'
