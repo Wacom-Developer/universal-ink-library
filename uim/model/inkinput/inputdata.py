@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright © 2021 Wacom Authors. All Rights Reserved.
+# Copyright © 2021-present Wacom Authors. All Rights Reserved.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 import uuid
 from abc import ABC
 from enum import Enum
-from typing import List, Tuple, Any
+from typing import List, Tuple, Any, Optional
 
 import numpy as np
 
@@ -24,7 +24,11 @@ from uim.model.base import HashIdentifier, Identifier, UUIDIdentifier, InkModelE
 
 
 class DataType(Enum):
-    """Data types for channels."""
+    """
+    DataType
+    ========
+    Data types for channels.
+    """
     BOOLEAN = 0
     FLOAT32 = 1
     FLOAT64 = 2
@@ -36,6 +40,8 @@ class DataType(Enum):
 
 class InkInputType(Enum):
     """
+    InkInputType
+    ============
     Defining the different types of input data.
     """
     PEN = uim.PEN
@@ -49,7 +55,11 @@ class InkInputType(Enum):
 
 
 class InkSensorMetricType(Enum):
-    """Metric for the channel."""
+    """
+    InkSensorMetricType
+    ===================
+    Metric for the channel.
+    """
     LENGTH = uim.LENGTH
     """Length; underling si unit is meter"""
     TIME = uim.TIME
@@ -63,6 +73,12 @@ class InkSensorMetricType(Enum):
 
 
 class Unit(Enum):
+    """
+    Unit
+    ====
+    The class `Unit` represents the unit of the sensor data, which can be used to convert the data into the SI metric
+    system. The unit can be used to convert the data into the SI metric system.
+    """
     # Lengths units
     UNDEFINED = 0
     """Undefined unit"""
@@ -191,9 +207,10 @@ CONVERSION_SCALAR = {
 
 class InkSensorType(Enum):
     """
-        Pre-defined SensorData types.
+    InkSensorType
+    =============
+    Pre-defined SensorData types.
     """
-
     X = 'will://input/3.0/channel/X'
     """X coordinate. This is the horizontal pen position on the writing surface."""
     Y = 'will://input/3.0/channel/Y'
@@ -309,12 +326,12 @@ def unit2unit(source_unit: Unit, target_unit: Unit, value: float) -> float:
     ValueError:
         Unit is not supported
     """
-    if source_unit == Unit.UNDEFINED or target_unit == Unit.UNDEFINED:
+    if Unit.UNDEFINED in (source_unit, target_unit):
         return value
     if source_unit not in CONVERSION_SCALAR:
-        raise ValueError('Source unit not supported. Unit:={}'.format(source_unit))
+        raise ValueError(f'Source unit not supported. Unit:={source_unit}')
     if target_unit not in CONVERSION_SCALAR[source_unit]:
-        raise ValueError('Target unit not supported. Unit:={}'.format(target_unit))
+        raise ValueError(f'Target unit not supported. Unit:={target_unit}')
     return CONVERSION_SCALAR[source_unit][target_unit] * value
 
 
@@ -335,7 +352,7 @@ def unit2unit_matrix(source_unit: Unit, target_unit: Unit) -> np.array:
             matrix for conversion
     """
     matrix: np.array = np.identity(3)
-    if source_unit == Unit.UNDEFINED or target_unit == Unit.UNDEFINED:
+    if Unit.UNDEFINED in (source_unit, target_unit):
         return matrix
     if source_unit not in CONVERSION_SCALAR:
         raise ValueError('Source unit not supported.')
@@ -354,7 +371,7 @@ class InputDevice(HashIdentifier):
     InputDevice
     ===========
     The class `InputDevice` represents the hardware device, on which the sensor data has been produced
-    (touch enabled mobile device, touch capable monitor, digitizer, etc).
+    (touch enabled mobile device, touch capable monitor, digitizer, etc.).
     InputDevice with properties.
 
     The properties can contain:
@@ -383,7 +400,7 @@ class InputDevice(HashIdentifier):
     >>> input_device: InputDevice = InputDevice()
     >>> input_device.properties.append(("dev.id", "123454321"))
     >>> input_device.properties.append(("dev.manufacturer", "Wacom"))
-    >>> input_device.properties.append(("dev.model", "Mobile Studio Pro"))
+    >>> input_device.properties.append(("dev.model", "Wacom Movink"))
     >>> input_device.properties.append(("dev.cpu", "Intel"))
     >>> input_device.properties.append(("dev.graphics.display", "Dell 1920x1080 32bit"))
     >>> input_device.properties.append(("dev.graphics.adapter", "NVidia"))
@@ -414,7 +431,7 @@ class InputDevice(HashIdentifier):
         return ['InputDevice', self.properties]
 
     def __repr__(self):
-        return '<InputDevice : [id:={}, num properties:={}>'.format(self.id, self.properties)
+        return f'<InputDevice : [id:={self.id}, num properties:={self.properties}>'
 
 
 class InputContext(HashIdentifier):
@@ -425,15 +442,16 @@ class InputContext(HashIdentifier):
 
     Parameters
     ----------
-    ctx_id: `UUID`
+    ctx_id: Optional[uuid.UUID] (optional) [default: None]
         Internal id
-    environment_id: `UUID`
+    environment_id: Optional[uuid.UUID] (optional) [default: None]
         Reference to environment
-    sensor_context_id: `UUID`
+    sensor_context_id: Optional[uuid.UUID] (optional) [default: None]
         Rendering to sensor context
     """
 
-    def __init__(self, ctx_id: uuid.UUID = None, environment_id: uuid.UUID = None, sensor_context_id: uuid.UUID = None):
+    def __init__(self, ctx_id: Optional[uuid.UUID] = None, environment_id: Optional[uuid.UUID] = None, 
+                 sensor_context_id: Optional[uuid.UUID] = None):
         super().__init__(ctx_id)
         self.__environment_id = environment_id
         self.__sensor_context_id = sensor_context_id
@@ -454,15 +472,14 @@ class InputContext(HashIdentifier):
     def __repr__(self):
         env_id: str = Identifier.uimid_to_s_form(self.environment_id)
         sc_id: str = Identifier.uimid_to_s_form(self.sensor_context_id)
-        return '<InputContext : [id:={}, environment id:={}, sensor context id:={}>'.format(self.id_h_form,
-                                                                                            env_id, sc_id)
+        return f'<InputContext : [id:={self.id_h_form}, environment id:={env_id}, sensor context id:={sc_id}>'
 
 
 class Environment(HashIdentifier):
     """
     Environment
     ===========
-    The class `Environment` represents for the virtual environment in which the sensor data has been produced, e.g,:
+    The class `Environment` represents for the virtual environment in which the sensor data has been produced, e.g.,:
 
         - os.name - Name of the operating system
         - os.version.name - Name of the version
@@ -472,7 +489,7 @@ class Environment(HashIdentifier):
 
     Parameters
     ----------
-    env_id: `UUID`
+    env_id: Optional[uuid.UUID] (optional) [default: None]
         Internal environment UUID
     properties: List[Tuple[str, str]]
         Properties of the environment
@@ -490,7 +507,7 @@ class Environment(HashIdentifier):
     >>> env.properties.append(("os.platform", "whatever"))
     """
 
-    def __init__(self, env_id: uuid.UUID = None, properties: List[Tuple[str, str]] = None):
+    def __init__(self, env_id: Optional[uuid.UUID] = None, properties: Optional[List[Tuple[str, str]]] = None):
         super().__init__(env_id)
         self.__properties = properties or []
 
@@ -500,7 +517,7 @@ class Environment(HashIdentifier):
 
     @property
     def properties(self) -> List[Tuple[str, str]]:
-        """Environment properties. (`List[Tuple[str, str]]`, read-only) """
+        """Environment properties. (`List[Tuple[str, str]]`) """
         return self.__properties
 
     def add_environment_property(self, key: str, value: str):
@@ -517,7 +534,7 @@ class Environment(HashIdentifier):
         self.properties.append((key, value))
 
     def __repr__(self):
-        return '<Environment: [id:={}, #properties:={}>'.format(self.id.hex, self.properties)
+        return f'<Environment: [id:={self.id.hex}, #properties:={self.properties}>'
 
 
 class InkInputProvider(HashIdentifier):
@@ -525,7 +542,7 @@ class InkInputProvider(HashIdentifier):
     InkInputProvider
     ================
     The class InkInputProvider stands for the generic input data source - it identifies how the data has been generated
-    (using touch input, mouse, stylus, hardware controller, etc).
+    (using touch input, mouse, stylus, hardware controller, etc.).
 
     The properties which can be used to describe the InkInputProvider:
 
@@ -533,7 +550,7 @@ class InkInputProvider(HashIdentifier):
 
     Parameters
     ----------
-    provider_id: UUID
+    provider_id: Optional[UUID] (optional) [default: None]
         internal id or input data name.
     input_type: InkInputType -
         type of used hardware - PEN, TOUCH, MOUSE, or CONTROLLER.
@@ -548,8 +565,8 @@ class InkInputProvider(HashIdentifier):
     >>> provider.properties.append(("pen.id", "1234567"))
     """
 
-    def __init__(self, provider_id: uuid.UUID = None, input_type: InkInputType = None,
-                 properties: List[Tuple[str, str]] = None):
+    def __init__(self, provider_id: Optional[uuid.UUID] = None, input_type: Optional[InkInputType] = None,
+                 properties: Optional[List[Tuple[str, str]]] = None):
         super().__init__(provider_id)
         self.__type: InkInputType = input_type
         self.__properties: List[Tuple[str, str]] = properties or []
@@ -568,7 +585,7 @@ class InkInputProvider(HashIdentifier):
         return self.__properties
 
     def __repr__(self):
-        return '<InkInputProvider: [id:={}, type:={}, properties:={}]>'.format(self.id, self.type, self.properties)
+        return f'<InkInputProvider: [id:={self.id}, type:={self.type}, properties:={self.properties}]>'
 
 
 class SensorChannel(HashIdentifier):
@@ -587,31 +604,31 @@ class SensorChannel(HashIdentifier):
     
     Parameters
     ----------
-    channel_id: `UUID`
+    channel_id: Optional[UUID] (optional) [default: None]
         Sensor channel descriptor. If no channel_id is set the MD5 hashing is generating the id
-    channel_type:`InkSensorType`
+    channel_type: Optional[`InkSensorType`] (optional) [default: None]
         Indicates metric used in calculating the resolution for the data item.
-    metric: `InkSensorMetricType`
+    metric: Optional[`InkSensorMetricType`] (optional) [default: None]
         Indicates metric used in calculating the resolution for the data item.
-    resolution: `float`
+    resolution: `float` (optional) [default: 1.0]
         Is a decimal number giving the number of data item increments. Per physical unit., e.g. if the
         physical unit is in m and input data units. Resolution is 100000, then the value 150 would be
         0.0015 m.
-    channel_min: `float`
+    channel_min: `float` (optional) [default: 0.0]
         Minimal value of the channel
-    channel_max: `float`
+    channel_max: `float` (optional) [default: 0.0]
         Maximal value of the channel
-    precision: `int`
+    precision: `int` (optional) [default: 2]
         Precision of integer encoding, needed for encoded float values
     index: `int`
         Index of the channel
-    name: `str`
+    name: Optional[`str`] (optional) [default: None]
         Name of the channel
-    data_type: `DataType`
+    data_type: `DataType` (optional) [default: DataType.FLOAT32]
         Type of data within the channel
-    ink_input_provider_id: `UUID`
+    ink_input_provider_id: Optional[UUID] (optional) [default: None]
         Reference to the ink input provider
-    input_device_id: `UUID`
+    input_device_id: Optional[UUID] (optional) [default: None]
         Reference to the ink input device
 
     Examples
@@ -625,11 +642,11 @@ class SensorChannel(HashIdentifier):
     >>> ]
     """
 
-    def __init__(self, channel_id: uuid.UUID = None,
-                 channel_type: InkSensorType = None, metric: InkSensorMetricType = None,
+    def __init__(self, channel_id: Optional[uuid.UUID] = None,
+                 channel_type: Optional[InkSensorType] = None, metric: Optional[InkSensorMetricType] = None,
                  resolution: float = 1., channel_min: float = 0., channel_max: float = 0.,
-                 precision: int = 2, index: int = 0, name: str = None, data_type: DataType = DataType.FLOAT32,
-                 ink_input_provider_id: uuid.UUID = None, input_device_id: uuid.UUID = None):
+                 precision: int = 2, index: int = 0, name: Optional[str] = None, data_type: DataType = DataType.FLOAT32,
+                 ink_input_provider_id: Optional[uuid.UUID] = None, input_device_id: Optional[uuid.UUID] = None):
         super().__init__(channel_id)
         self.__type: InkSensorType = channel_type
         self.__metric: InkSensorMetricType = metric
@@ -712,10 +729,9 @@ class SensorChannel(HashIdentifier):
         return self.__data_type
 
     def __repr__(self):
-        return '<SensorChannel: [id:={}, type:={}, metric:={}, resolution:={}, min:={}, max:={}, ' \
-               'precision:={}, index:={}, name:={}>'.format(self.id.hex, self.__type, self.__metric, self.__resolution,
-                                                            self.__min, self.__max, self.__precision, self.__index,
-                                                            self.__name)
+        return (f'<SensorChannel: [id:={self.id.hex}, type:={self.__type}, metric:={self.__metric}, '
+                f'resolution:={self.__resolution}, min:={ self.__min}, max:={self.__max}, '
+                f'precision:={self.__precision}, index:={self.__index}, name:={self.__name}>')
 
 
 class SensorChannelsContext(HashIdentifier):
@@ -731,18 +747,18 @@ class SensorChannelsContext(HashIdentifier):
         
     Parameters
     ----------
-    sid: `str`
+    sid: Optional[uuid.UUID] (optional) [default: None]
         Group that provides X and Y channels is the one that is referred from StrokeRelation and it's id could be
         always XY.
-    channels: `List[SensorChannel]`
+    channels: Optional[`List[SensorChannel]`] (optional) [default: None]
         A list of sensor channel descriptors.
-    sampling_rate_hint: `int`
+    sampling_rate_hint: Optional[`int`] (optional) [default: None]
         Optional hint for the intended sampling rate of the sensor.[Optional].
-    latency: `int`
+    latency: Optional[`int`] (optional) [default: None]
         Latency measure in milliseconds [Optional].
-    ink_input_provider_id: `str`
+    ink_input_provider_id: Optional[uuid.UUID] (optional) [default: None]
         Reference to the 'InkInputProvider`.
-    input_device_id: `str`
+    input_device_id: Optional[uuid.UUID] (optional) [default: None]
         Reference to the `InputDevice`.
 
     Notes
@@ -759,7 +775,7 @@ class SensorChannelsContext(HashIdentifier):
     Examples
     --------
     >>> from uim.model.inkinput.inputdata import InkInputProvider, InkInputType, SensorChannel, \
-    >>>       InkSensorType, InkSensorMetricType, SensorChannelsContext, SensorContext
+    >>>       InkSensorType, InkSensorMetricType, SensorChannelsContext
     >>> # Ink input provider can be pen, mouse or touch.
     >>> provider: InkInputProvider = InkInputProvider(input_type=InkInputType.MOUSE)
     >>> provider.properties.append(("pen.id", "1234567"))
@@ -781,8 +797,9 @@ class SensorChannelsContext(HashIdentifier):
     >>>                                                           input_device_id=input_device.id)
     """
 
-    def __init__(self, sid: uuid.UUID = None, channels: List[SensorChannel] = None, sampling_rate_hint: int = None,
-                 latency: int = None, ink_input_provider_id: uuid.UUID = None, input_device_id: uuid.UUID = None):
+    def __init__(self, sid: Optional[uuid.UUID] = None, channels: Optional[List[SensorChannel]] = None,
+                 sampling_rate_hint: Optional[int] = None, latency: Optional[int] = None,
+                 ink_input_provider_id: Optional[uuid.UUID] = None, input_device_id: Optional[uuid.UUID] = None):
         super().__init__(sid)
         self.__channels: List[SensorChannel] = channels or []
         self.__sampling_rate_hint: int = sampling_rate_hint
@@ -853,10 +870,7 @@ class SensorChannelsContext(HashIdentifier):
         flag: `boolean`
             True if available, False if not
         """
-        for c in self.channels:
-            if c.type == channel_type:
-                return True
-        return False
+        return any(c.type == channel_type for c in self.channels)
 
     def get_channel_by_type(self, channel_type: InkSensorType) -> SensorChannel:
         """Returns instance of Channel.
@@ -882,10 +896,10 @@ class SensorChannelsContext(HashIdentifier):
         raise InkModelException(f'No channel available for the type: {channel_type}')
 
     def __repr__(self):
-        return '<SensorChannelsContext: [id:={}, sampling rate hint:={}, latency:={}, input data provider id:={}, ' \
-               'input data id:={}>'.format(self.id_h_form, self.sampling_rate, self.latency,
-                                           UUIDIdentifier.uimid_to_h_form(self.input_provider_id),
-                                           UUIDIdentifier.uimid_to_h_form(self.input_device_id))
+        return (f'<SensorChannelsContext: [id:={self.id_h_form}, sampling rate hint:={self.sampling_rate}, '
+                f'latency:={self.latency}, '
+                f'input data provider id:={UUIDIdentifier.uimid_to_h_form(self.input_provider_id)}, '
+                f'input data id:={UUIDIdentifier.uimid_to_h_form(self.input_device_id)}>')
 
 
 class SensorContext(HashIdentifier):
@@ -897,16 +911,14 @@ class SensorContext(HashIdentifier):
 
     Parameters
     -----------
-    context_id: UUID
+    context_id: Optional[uuid.UUID] (optional) [default: None]
         Id of the context
-    sensor_channels_contexts: `List[SensorChannelsContext]`
+    sensor_channels_contexts: Optional[`List[SensorChannelsContext]`] (optional) [default: None]
         List of `SensorChannelsContext`
     """
 
-    def __init__(self, context_id: uuid.UUID = None, sensor_channels_contexts: List[SensorChannelsContext] = None):
-        """Constructor.
-
-        """
+    def __init__(self, context_id: Optional[uuid.UUID] = None,
+                 sensor_channels_contexts: Optional[List[SensorChannelsContext]] = None):
         super().__init__(context_id)
         self.__sensor_channels_contexts: List[SensorChannelsContext] = sensor_channels_contexts or []
 
@@ -917,8 +929,7 @@ class SensorContext(HashIdentifier):
 
     @property
     def sensor_channels_contexts(self) -> List[SensorChannelsContext]:
-        """
-        List of channel contexts. (`List[SensorChannelsContext]`, read-only)"""
+        """List of channel contexts. (`List[SensorChannelsContext]`)"""
         return self.__sensor_channels_contexts
 
     def add_sensor_channels_context(self, channel_ctx: SensorChannelsContext):
@@ -945,10 +956,7 @@ class SensorContext(HashIdentifier):
         flag: `bool`
             True if channel exists, False if not
         """
-        for c in self.__sensor_channels_contexts:
-            if c.has_channel_type(channel_type):
-                return True
-        return False
+        return any(c.has_channel_type(channel_type) for c in self.__sensor_channels_contexts)
 
     def get_channel_by_id(self, channel_id: uuid.UUID) -> SensorChannel:
         """
@@ -972,7 +980,7 @@ class SensorContext(HashIdentifier):
             for c in cs.channels:
                 if c.id == channel_id:
                     return c
-        raise InkModelException('No channel with channel id: {}.'.format(channel_id))
+        raise InkModelException(f'No channel with channel id: {channel_id}.')
 
     def get_channel_by_type(self, channel_type: InkSensorType) -> SensorChannel:
         """
@@ -996,11 +1004,10 @@ class SensorContext(HashIdentifier):
         for c in self.__sensor_channels_contexts:
             if c.has_channel_type(channel_type):
                 return c.get_channel_by_type(channel_type)
-        raise InkModelException('No channel with channel type: {}.'.format(channel_type))
+        raise InkModelException(f'No channel with channel type: {channel_type}.')
 
     def __repr__(self):
-        return '<SensorContext: [context_id:={}, sensor_channels_contexts:={}]>'.format(self.id,
-                                                                                        self.sensor_channels_contexts)
+        return f'<SensorContext: [context_id:={self.id}, sensor_channels_contexts:={self.sensor_channels_contexts}]>'
 
 
 class InputContextRepository(ABC):
@@ -1022,21 +1029,23 @@ class InputContextRepository(ABC):
         
     Parameters
     ----------
-    input_contexts: List[InputContext] -
+    input_contexts: Optional[List[InputContext]] (optional) [default: None]
         List of input data contexts
-    ink_input_providers: List[InkInputProvider]
+    ink_input_providers: Optional[List[InkInputProvider]] (optional) [default: None]
         List of input data providers
-    input_devices: List[InputDevice]
+    input_devices: Optional[List[InputDevice]] (optional) [default: None]
         List of input data devices
-    environments: List[Environment]
+    environments: Optional[List[Environment]] (optional) [default: None]
         List of environment setups
-    sensor_contexts: List[SensorContext]
+    sensor_contexts: Optional[List[SensorContext]] (optional) [default: None]
         List of sensor contexts
     """
 
-    def __init__(self, input_contexts: List[InputContext] = None, ink_input_providers: List[InkInputProvider] = None,
-                 input_devices: List[InputDevice] = None, environments: List[Environment] = None,
-                 sensor_contexts: List[SensorContext] = None):
+    def __init__(self, input_contexts: Optional[List[InputContext]] = None,
+                 ink_input_providers: Optional[List[InkInputProvider]] = None,
+                 input_devices: Optional[List[InputDevice]] = None,
+                 environments: Optional[List[Environment]] = None,
+                 sensor_contexts: Optional[List[SensorContext]] = None):
         self.__input_contexts: List[InputContext] = input_contexts or []
         self.__ink_input_providers: List[InkInputProvider] = ink_input_providers or []
         self.__input_devices: List[InputDevice] = input_devices or []
@@ -1073,7 +1082,7 @@ class InputContextRepository(ABC):
 
     @property
     def input_contexts(self) -> List[InputContext]:
-        """ List of input contexts. (`List[InputContext]`, read-only)"""
+        """ List of input contexts. (`List[InputContext]`)"""
         return self.__input_contexts
 
     def get_input_context(self, ctx_id: uuid.UUID) -> InputContext:
@@ -1098,7 +1107,7 @@ class InputContextRepository(ABC):
         for ctx in self.input_contexts:
             if ctx.id == ctx_id:
                 return ctx
-        raise InkModelException('No input context with id:={}.'.format(ctx_id))
+        raise InkModelException(f'No input context with id:={ctx_id}.')
 
     def get_input_device(self, device_id: uuid.UUID) -> InputDevice:
         """
@@ -1122,7 +1131,7 @@ class InputContextRepository(ABC):
         for dev in self.devices:
             if dev.id == device_id:
                 return dev
-        raise InkModelException('No input device with id:={}.'.format(device_id))
+        raise InkModelException(f'No input device with id:={device_id}.')
 
     def get_sensor_context(self, ctx_id: uuid.UUID) -> SensorContext:
         """
@@ -1145,7 +1154,7 @@ class InputContextRepository(ABC):
         for ctx in self.sensor_contexts:
             if ctx.id == ctx_id:
                 return ctx
-        raise InkModelException('No sensor context with id:={}.'.format(ctx_id))
+        raise InkModelException(f'No sensor context with id:={ctx_id}.')
 
     def add_input_provider(self, input_provider: InkInputProvider):
         """
@@ -1160,7 +1169,7 @@ class InputContextRepository(ABC):
 
     @property
     def ink_input_providers(self) -> List[InkInputProvider]:
-        """List of `InkInputProvider`s. (`List[InkInputProvider]`, read-only)"""
+        """List of `InkInputProvider`s. (`List[InkInputProvider]`)"""
         return self.__ink_input_providers
 
     def add_environment(self, environment: Environment):
@@ -1176,7 +1185,7 @@ class InputContextRepository(ABC):
 
     @property
     def environments(self) -> List[Environment]:
-        """List of Environments. (`List[Environment]`, read-only)"""
+        """List of Environments. (`List[Environment]`)"""
         return self.__environments
 
     def add_sensor_context(self, sensor_context: SensorContext):
@@ -1207,6 +1216,7 @@ class InputContextRepository(ABC):
             len(self.devices) > 0 or len(self.environments)
 
     def __repr__(self):
-        return '<InputContextData: [#context:={}, #providers:={}, #devices:={}, #environments:={}, #sensors:={}]>' \
-            .format(len(self.input_contexts), len(self.ink_input_providers), len(self.devices),
-                    len(self.environments), len(self.sensor_contexts))
+        return (f'<InputContextData: [#context:={len(self.input_contexts)}, '
+                f'#providers:={len(self.ink_input_providers)},'
+                f' #devices:={len(self.devices)}, #environments:={len(self.environments)}, '
+                f'#sensors:={len(self.sensor_contexts)}]>')
