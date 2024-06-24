@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright © 2021 Wacom Authors. All Rights Reserved.
+# Copyright © 2021-present Wacom Authors. All Rights Reserved.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -14,13 +14,18 @@
 #  limitations under the License.
 from abc import ABC
 from enum import Enum
-from typing import List, Tuple, Any
+from typing import List, Tuple, Any, Optional
 
 import uim.codec.format.UIM_3_0_0_pb2 as uim
+from uim.model.base import InkModelException
 
 
 class RotationMode(Enum):
-    """Brush rotation modes."""
+    """
+    RotationMode
+    ============
+    Brush rotation modes.
+    """
     NONE = 0
     """Indicates that the shape will not be rotated."""
     RANDOM = 1
@@ -30,7 +35,11 @@ class RotationMode(Enum):
 
 
 class BlendMode(Enum):
-    """The blend mode enum lists the different blend modes which can be applied to raster brushes."""
+    """
+    BlendMode
+    =========
+    The blend mode enum lists the different blend modes which can be applied to raster brushes.
+    """
 
     SOURCE_OVER = uim.SOURCE_OVER
     """This is the default setting and draws new shapes on top of the existing canvas content. Also known as NORMAL."""
@@ -50,6 +59,8 @@ class BlendMode(Enum):
 
 class BlendModeURIs(ABC):
     """
+    BlendModeURIs
+    =============
     URIs for the different blend modes.
     """
     SOURCE_OVER: str = "will://rasterization/3.0/blend-mode/SourceOver"
@@ -70,6 +81,8 @@ class BlendModeURIs(ABC):
 
 class BrushPolygonUri(ABC):
     """
+    BrushPolygonUri
+    ===============
     Represents a vector brush shape that is specified with a URI.
 
     Parameters
@@ -105,17 +118,20 @@ class BrushPolygonUri(ABC):
 
 class BrushPolygon(ABC):
     """
+    BrushPolygon
+    ============
     Describes vector brush prototype.
 
     Parameters
     ----------
-    points: list
+    points: Optional[List[Tuple[float, float]]] (optional) [default: None]
         List of points for polygon
-    indices: list
+    indices: Optional[List[int]] (optional) [default: None]
         List of indexes
     """
 
-    def __init__(self, min_scale: float, points: list = None, indices: list = None):
+    def __init__(self, min_scale: float, points: Optional[List[Tuple[float, float]]] = None,
+                 indices: Optional[List[int]] = None):
         self.__min_scale: float = min_scale
         self.__points: List[Tuple[float, float]] = points or []
         self.__indices: List[int] = indices or []
@@ -132,6 +148,7 @@ class BrushPolygon(ABC):
             return []
         if len(self.__points[0]) > 0:
             return [p[0] for p in self.points]
+        raise InkModelException("The points do not have x value.")
 
     @property
     def coord_y(self) -> List[float]:
@@ -140,6 +157,7 @@ class BrushPolygon(ABC):
             return []
         if len(self.__points[0]) > 1:
             return [p[1] for p in self.points]
+        raise InkModelException("The points do not have y value.")
 
     @property
     def coord_z(self) -> List[float]:
@@ -167,18 +185,21 @@ class BrushPolygon(ABC):
         return self.__min_scale
 
     def __repr__(self):
-        return '<VectorBrushPrototype : [#points:={}]>'.format(len(self.__points))
+        return f'<VectorBrushPrototype : [#points:={len(self.__points)}]>'
 
 
 class Brush(ABC):
-    """Abstract class for brushes."""
-    pass
+    """
+    Brush
+    -----
+    Abstract class for brushes.
+    """
 
 
 class VectorBrush(Brush):
     """
     VectorBrush
-    -----------
+    ===========
     A configuration which allows rendering of an interpolated Catmull-Rom spline as a vector spline by applying a
     specific polygon for each interpolated point, depending on its size and merging result afterwards.
 
@@ -188,7 +209,7 @@ class VectorBrush(Brush):
         Name of the brush
     prototypes: list
         Prototypes for brush
-    spacing: float
+    spacing: float (optional) [default: 1.]
         Spacing value
     """
 
@@ -223,13 +244,13 @@ class VectorBrush(Brush):
         return self.__spacing
 
     def __repr__(self):
-        return '<VectorBrush : [name:={}]>'.format(self.__name)
+        return f'<VectorBrush : [name:={self.__name}]>'
 
 
 class RasterBrush(Brush):
     """
     RasterBrush
-    -----------
+    ===========
     A configuration which allows rendering of an interpolated Catmull-Rom spline as a raster image by applying a
     specific sprite for each interpolated point, depending on its size.
 
@@ -243,27 +264,27 @@ class RasterBrush(Brush):
         The scattering along the curve normal.
     rotation: `RotationMode`
         The particle rotation mode of the brush.
-    shape_textures: list
+    shape_textures: Optional[List[bytes]] (optional) [default: None]
         List of png images that contains the shape texture.
-    shape_texture_uris: list
+    shape_texture_uris: Optional[List[str]] (optional) [default: None]
         List of URIs that contains the shape texture.
-    fill_texture: `bytes`
+    fill_texture: Optional[bytes]
         List of png image that contains the fill texture.
-    fill_texture_uri: `list`
+    fill_texture_uri: Optional[str] (optional) [default: None]
         List of URIs that describes the fill textures.
-    fill_width: `float`
+    fill_width: `float` (optional) [default: 0.]
         Width of the fill tile.
-    fill_height: `float`
+    fill_height: `float` (optional) [default: 0.]
         Height of the fill tile.
-    randomize_fill: `bool`
+    randomize_fill: `bool` (optional) [default: False]
         Specifies whether the fill texture is randomly displaced.
-    blend_mode: `BlendMode`
+    blend_mode: `BlendMode` (optional) [default: BlendMode.SOURCE_OVER]
         The applied blend mode.
     """
 
     def __init__(self, name: str, spacing: float, scattering: float, rotation: RotationMode,
-                 shape_textures: List[bytes] = None, shape_texture_uris: List[str] = None,
-                 fill_texture: bytes = None, fill_texture_uri: str = None,
+                 shape_textures: Optional[List[bytes]] = None, shape_texture_uris: Optional[List[str]] = None,
+                 fill_texture: Optional[bytes] = None, fill_texture_uri: Optional[str] = None,
                  fill_width: float = 0., fill_height: float = 0.,
                  randomize_fill: bool = False, blend_mode: BlendMode = BlendMode.SOURCE_OVER):
         self.__name: str = name
@@ -281,9 +302,7 @@ class RasterBrush(Brush):
 
     @property
     def name(self) -> str:
-        """ Brush descriptor
-        :return : name of brush
-        """
+        """ Name of the raster brush. (`str`, read-only)"""
         return self.__name
 
     @property
@@ -319,63 +338,62 @@ class RasterBrush(Brush):
 
     @property
     def fill_texture_uri(self) -> str:
-        """URIs identifying the fillTexture.
-        :return : list of URIs
-        """
+        """The fill texture URI. (`str`, read-only)"""
         return self.__fill_texture_uri
 
     @property
     def fill_width(self) -> float:
-        """Width of the fill tile.
-        :return : width
-        """
+        """Width of the fill tile. (`float`, read-only)"""
         return self.__fill_width
 
     @property
     def fill_height(self) -> float:
-        """Height of the fill tile.
-        :return : height
-        """
+        """Height of the fill tile. (`float`, read-only)"""
         return self.__fill_height
 
     @property
     def randomize_fill(self) -> bool:
-        """Specifies whether the fill texture is randomly displaced.
-        :return : bool - flag
-        """
+        """Specifies whether the fill texture is randomly displaced. (`bool`, read-only)"""
         return self.__randomize_fill
 
+    @property
+    def blend_mode(self) -> BlendMode:
+        """The applied blend mode. (`BlendMode`, read-only)"""
+        return self.__blend_mode
+
     def __repr__(self):
-        return '<RasterBrush : [name:={}]>'.format(self.name)
+        return f'<RasterBrush : [name:={self.name}]>'
 
 
-class Brushes(object):
+class Brushes:
     """
-        Brush descriptions, needed for uim rasterization.
+    Brushes
+    ========
+    Brush descriptions, needed for uim rasterization.
+
+    Parameters
+    ----------
+    vector_brushes: Optional[List[VectorBrush]] (optional) [default: None]
+        List of vector brushes
+    raster_brushes: Optional[List[RasterBrush] (optional) [default: None]
+        List of raster brushes
     """
 
-    def __init__(self, vector_brushes: List[VectorBrush] = None, raster_brushes: List[RasterBrush] = None):
-        """
-        Constructor.
-        :param vector_brushes: List of defined vector brushes.
-        :param raster_brushes: List of defined raster brushes.
-        """
+    def __init__(self, vector_brushes: Optional[List[VectorBrush]] = None,
+                 raster_brushes: Optional[List[RasterBrush]] = None):
         self.__vector_brushes: List[VectorBrush] = vector_brushes or []
         self.__raster_brushes: List[RasterBrush] = raster_brushes or []
 
     @property
     def vector_brushes(self) -> List[VectorBrush]:
         """
-        List of defined vector brushes.
-        :return: list
-        """
+        List of defined vector brushes. (`List[VectorBrush]`)"""
         return self.__vector_brushes
 
     @property
     def raster_brushes(self) -> List[RasterBrush]:
         """
-        List of defined raster brushes.
-        :return: list
+        List of defined raster brushes. (`List[RasterBrush]`)
         """
         return self.__raster_brushes
 
@@ -411,7 +429,7 @@ class Brushes(object):
         name: `str`
             Name of brush that should be remove.
         """
-        for v_i in range(len(self.__vector_brushes)):
+        for v_i, _ in enumerate(self.__vector_brushes):
             if self.__vector_brushes[v_i].name == name:
                 del self.__vector_brushes[v_i]
                 break
@@ -425,11 +443,10 @@ class Brushes(object):
         name: str
             Name of brush that should be remove
         """
-        for v_i in range(len(self.__raster_brushes)):
+        for v_i, _ in enumerate(self.__raster_brushes):
             if self.__raster_brushes[v_i].name == name:
                 del self.__raster_brushes[v_i]
                 break
 
     def __repr__(self):
-        return '<Brushes : [raster brush:=#{}, vector brush:=#{}]>'.format(len(self.__raster_brushes),
-                                                                           len(self.__vector_brushes))
+        return f'<Brushes : [raster brush:=#{len(self.__raster_brushes)}, vector brush:=#{len(self.__vector_brushes)}]>'

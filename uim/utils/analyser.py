@@ -1,10 +1,23 @@
 # -*- coding: utf-8 -*-
-# Copyright © 2023 Wacom. All rights reserved.
+# Copyright © 2023-present Wacom Authors. All Rights Reserved.
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
 from abc import ABC, abstractmethod
 from typing import List, Dict, Any, Optional
 
 import numpy as np
 
+from uim.model.base import InkModelException
 from uim.model.helpers.policy import HandleMissingDataPolicy
 from uim.model.ink import InkModel, InkTree, logger
 from uim.model.inkdata.strokes import Stroke
@@ -58,7 +71,6 @@ class ModelAnalyzer(ABC):
         summary: Dict[str, Any]
             Summary of the analysis
         """
-        pass
 
     @staticmethod
     def __assume_view_type_predicate__(model: InkModel, view: InkTree) -> Optional[str]:
@@ -74,7 +86,7 @@ class ModelAnalyzer(ABC):
             sd: SensorData = model.sensor_data.sensor_data_by_id(stroke.sensor_data_id)
             ic: InputContext = model.input_configuration.get_input_context(sd.input_context_id)
             sc: SensorContext = model.input_configuration.get_sensor_context(ic.sensor_context_id)
-        except Exception as e:
+        except InkModelException as e:
             logger.error(f"Error while extracting sensor data info: {e}")
             return
 
@@ -133,8 +145,7 @@ def get_channel_data_values(ink_model: InkModel, stroke: Stroke, ink_sensor_type
     if ink_sensor_type == InkSensorType.TIMESTAMP:
         sd: SensorData = ink_model.sensor_data.sensor_data_by_id(stroke.sensor_data_id)
         return [v + sd.timestamp for v in channel_data.values]
-    else:
-        return channel_data.values.copy()
+    return channel_data.values.copy()
 
 
 def get_channel_data_instance(ink_model: InkModel, stroke: Stroke, ink_sensor_type: InkSensorType) \
@@ -167,12 +178,28 @@ def get_channel_data_instance(ink_model: InkModel, stroke: Stroke, ink_sensor_ty
 
     if sd is None or sc is None or sd.get_data_by_id(sc.id) is None:
         return None
-    else:
-        return sd.get_data_by_id(sc.id)
+    return sd.get_data_by_id(sc.id)
 
 
 def as_strided_array(ink_model: InkModel, stroke: Stroke, handle_missing_data=HandleMissingDataPolicy.FILL_WITH_ZEROS) \
-        -> List[float]:
+        -> Optional[List[float]]:
+    """
+    Convert stroke to strided array.
+
+    Parameters
+    ----------
+    ink_model: InkModel
+        Ink model
+    stroke: Stroke
+        Stroke
+    handle_missing_data: HandleMissingDataPolicy
+        Handle missing data policy
+
+    Returns
+    -------
+    points: Optional[List[float]]
+        Strided array
+    """
     # Remove the first and last element, which are added by the spline producer
     xs: List[float] = stroke.splines_x[1:-1]
     ys: List[float] = stroke.splines_y[1:-1]
@@ -189,7 +216,7 @@ def as_strided_array(ink_model: InkModel, stroke: Stroke, handle_missing_data=Ha
         if handle_missing_data == HandleMissingDataPolicy.FILL_WITH_ZEROS:
             ts = [0 for i in range(len(xs))]
         elif handle_missing_data == HandleMissingDataPolicy.FILL_WITH_NAN:
-            NaN = float("NaN")
+            NaN = float("nan")
             ts = [NaN for i in range(len(xs))]
         elif handle_missing_data == HandleMissingDataPolicy.SKIP_STROKE:
             return None
@@ -203,7 +230,7 @@ def as_strided_array(ink_model: InkModel, stroke: Stroke, handle_missing_data=Ha
         if handle_missing_data == HandleMissingDataPolicy.FILL_WITH_ZEROS:
             ps = [0 for i in range(target_len)]
         elif handle_missing_data == HandleMissingDataPolicy.FILL_WITH_NAN:
-            NaN: float = float("NaN")
+            NaN: float = float("nan")
             ps = [NaN for i in range(target_len)]
         elif handle_missing_data == HandleMissingDataPolicy.SKIP_STROKE:
             return None
@@ -238,6 +265,4 @@ def as_strided_array(ink_model: InkModel, stroke: Stroke, handle_missing_data=Ha
             points.append(ps[map_i])
 
         i += 1
-
     return points
-

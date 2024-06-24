@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright © 2021 Wacom Authors. All Rights Reserved.
+# Copyright © 2023-present Wacom Authors. All Rights Reserved.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -13,10 +13,13 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 from abc import ABC
+from typing import List
 
 
 class Matrix4x4(ABC):
     """
+    Matrix4x4
+    ==========
     Collection of helpers for matrices.
 
     Representation of a 4x4 affine matrix
@@ -30,7 +33,45 @@ class Matrix4x4(ABC):
 
     @staticmethod
     def create_scale(scale: float) -> list:
+        """
+        Create a scale matrix.
+        Parameters
+        ----------
+        scale: float
+            Scale factor
+
+        Returns
+        -------
+        list
+            4x4 scale matrix
+        """
         return [[scale, 0, 0., 0.],
                 [0., scale, 0., 0.],
                 [0., 0, scale, 0.],
                 [0., 0, 0., 1.]]
+
+    @staticmethod
+    def create_translation(translation: List[float]) -> list:
+        """
+        Create a translation matrix.
+        Parameters
+        ----------
+        translation: List[float]
+            Translation vector
+
+        Returns
+        -------
+        list
+            4x4 translation matrix
+
+        Raises
+        ------
+        ValueError
+            Translation must be a 3D vector
+        """
+        if len(translation) != 3:
+            raise ValueError("Translation must be a 3D vector")
+        return [[1., 0., 0., translation[0]],
+                [0., 1., 0., translation[1]],
+                [0., 0., 1., translation[2]],
+                [0., 0., 0., 1.]]

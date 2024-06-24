@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright © 2021 Wacom Authors. All Rights Reserved.
+# Copyright © 2021-present Wacom Authors. All Rights Reserved.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -81,4 +81,4 @@ class BoundingBox(ABC):
         return BoundingBox(new_x, new_y, new_width, new_height)
 
     def __repr__(self):
-        return '<Bounding box : [x:={}, y:={}, width:={}, height:={}]>'.format(self.x, self.y, self.width, self.height)
+        return f'<Bounding box : [x:={self.x}, y:={self.y}, width:={self.width}, height:={self.height}]>'
