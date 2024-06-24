@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright © 2021-23 Wacom Authors. All Rights Reserved.
+# Copyright © 2021-present Wacom Authors. All Rights Reserved.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ import uuid
 import zipfile
 from chunk import Chunk
 from io import BytesIO
-from typing import Any, Tuple, Dict, List, Optional
+from typing import Any, Tuple, Dict, List, Optional, Union
 
 import numpy as np
 import varint
@@ -47,6 +47,9 @@ from uim.model.semantics.schema import CommonViews
 
 class WILL2Parser(Parser):
     """
+    WILL2Parser
+    ===========
+
     Parser for Wacom Ink Layer Language - Data and File format.
 
     Examples
@@ -126,7 +129,7 @@ class WILL2Parser(Parser):
         self.__y_channel: Optional[device.SensorChannel] = None
         self.__t_channel: Optional[device.SensorChannel] = None
 
-    def parse(self, path_or_stream: Any) -> InkModel:
+    def parse(self, path_or_stream: Union[str, bytes, memoryview, BytesIO, Path]) -> InkModel:
         """
         Parse the content of a WILL data or file format encoded ink file to the Universal Ink memory model.
 
@@ -149,8 +152,7 @@ class WILL2Parser(Parser):
         elif isinstance(path_or_stream, BytesIO):
             stream: BytesIO = path_or_stream
         else:
-            raise TypeError(
-                'parse() accepts Path, path (str) or stream (bytes, BytesIO), got {}'.format(type(path_or_stream)))
+            raise TypeError(f'parse() accepts Path, path (str) or stream (bytes, BytesIO), got {type(path_or_stream)}')
 
         version: Version = WILL2Parser.__get_version_from_stream__(stream)
         if version == SupportedFormats.WILL_DATA_VERSION_2_0_0:  # Data format
@@ -208,7 +210,7 @@ class WILL2Parser(Parser):
                             if created is not None:
                                 self.__document_creation_datetime = created.text
 
-                    if fname == 'sections/section0.svg' or fname == 'sections/section.svg':
+                    if fname in {'sections/section0.svg', 'sections/section.svg'}:
                         with f.open(fname) as fp:
                             root = etree.fromstring(fp.read())
                             view = root.find('{http://www.w3.org/2000/svg}view')
@@ -228,13 +230,12 @@ class WILL2Parser(Parser):
                             matrix = root.find('{http://www.w3.org/2000/svg}g')
                             if matrix is not None and 'transform' in matrix.attrib:
                                 matrix_array = matrix.attrib['transform'][7:-1].split(' ')
-                                '''
-                                The matrix(<a> <b> <c> <d> <e> <f>) transform function specifies a transformation
-                                in the form of a  transformation matrix of six values. matrix(a,b,c,d,e,f) is
-                                equivalent to applying the transformation matrix:
-                                ( a	 c	e
-                                  b	 d	f
-                                  0	 0	1 )'''
+                                # The matrix(<a> <b> <c> <d> <e> <f>) transform function specifies a transformation
+                                # in the form of a  transformation matrix of six values. matrix(a,b,c,d,e,f) is
+                                # equivalent to applying the transformation matrix:
+                                # ( a	 c	e
+                                #   b	 d	f
+                                #   0	 0	1 )
                                 rotmatrix: np.array = np.array(
                                     ((float(matrix_array[0]), float(matrix_array[2]), float(matrix_array[4])),
                                      (float(matrix_array[1]), float(matrix_array[3]), float(matrix_array[5])),
@@ -253,7 +254,7 @@ class WILL2Parser(Parser):
                             self.__matrix = scale.dot(rotmatrix.dot(rotmatrix2))
 
         except zipfile.BadZipFile as e:
-            raise FormatException(e)
+            raise FormatException(e) from e
         try:
             for path in self.__parse_protobuf__(Stream(self.__protobuf)):
                 paths.append(path)
@@ -384,27 +385,6 @@ class WILL2Parser(Parser):
         return os.path.splitext(filename)[-1].replace('.', '')
 
     @staticmethod
-    def unpack_will(filename_or_stream: Any, target_dir_name=None):
-        """
-        Unpack the WILL file codec (OPC).
-
-        Parameters
-        ----------
-        filename_or_stream: Any
-            File or stream
-        target_dir_name: str
-            Target directory for unpacking
-        """
-        stream = filename_or_stream
-        if isinstance(filename_or_stream, str):
-            target_dir_name = target_dir_name or filename_or_stream
-            target_dir_name = target_dir_name.replace('.will', '_will')
-            stream = open(filename_or_stream, 'rb')
-
-        with zipfile.ZipFile(stream, 'r') as zf:
-            zf.extractall(path=target_dir_name)
-
-    @staticmethod
     def __ensure_unique_path_ids__(paths):
         """
         Make sure every path has unique id.
@@ -515,36 +495,6 @@ class WILL2Parser(Parser):
         wire_type: Bits = bit_array[-3:bit_array.length]
         tag: Bits = bit_array[0:-3]
         return tag, wire_type
-
-    @staticmethod
-    def __read_value__(stream, wire_type: Bits) -> BitArray:
-        if wire_type.uint == 0:
-            return WILL2Parser.__decode_varint__(stream)
-
-        elif wire_type.uint == 1:
-            return
-
-        elif wire_type.uint == 2:
-            length = WILL2Parser.__decode_varint__(stream).uint
-            return stream.read(length)
-
-        elif wire_type.uint == 3:
-            return
-
-        elif wire_type.uint == 4:
-            return
-
-        elif wire_type.uint == 5:
-            return stream.read(4)
-
-    @staticmethod
-    def __proto_reader__(stream):
-        idx: int = 0
-        while idx < len(stream):
-            bit_array: BitArray = WILL2Parser.__decode_varint__(stream)
-            tag, wire_type = WILL2Parser.__decode_tag_wire_type__(bit_array)
-            value = WILL2Parser.__read_value__(stream, wire_type)
-            yield tag.uint, wire_type.uint, value
 
     @staticmethod
     def __default_ink_device__() -> device.InputDevice:
