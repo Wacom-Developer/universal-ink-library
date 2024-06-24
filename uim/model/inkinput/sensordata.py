@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright © 2021 Wacom Authors. All Rights Reserved.
+# Copyright © 2021-present Wacom Authors. All Rights Reserved.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 #  limitations under the License.
 import uuid
 from enum import Enum
-from typing import List
+from typing import List, Union, Optional
 
 from uim.model.base import UUIDIdentifier
 from uim.model.inkinput.inputdata import InkSensorType, SensorChannel, Unit, unit2unit
@@ -22,12 +22,15 @@ from uim.model.inkinput.inputdata import InkSensorType, SensorChannel, Unit, uni
 
 class InkState(Enum):
     """
-         The uim input data state defines the state of the Ink input data.
-         WILL 3.0 supports different modes:
-          - Writing on a plane,
-           - Hovering above a surface,
-           - Moving in air (VR/AR/MR) interaction,
-           - Only hovering in the air.
+    InkState
+    =========
+     The Universal Ink Model (UIM) input data state defines the state of the Ink input data.
+     UIM supports different modes:
+
+       - Writing on a plane,
+       - Hovering above a surface,
+       - Moving in air (VR/AR/MR) interaction,
+       - Only hovering in the air.
     """
     PLANE = 0              # Ink input data is writing on a surface.
     HOVERING = 1           # Hovering over a surface.
@@ -39,23 +42,25 @@ class InkState(Enum):
 
 class ChannelData(UUIDIdentifier):
     """
-        List of data items.
+    ChannelData
+    ===========
+
+    List of data items.
+
+    Parameters
+    ----------
+    sensor_channel_id: `uuid.UUID`
+        The sensor channel id.
+    values:Optional[List[Union[float, int]]] (optional) [default: None]
+        List of values. If not provided, an empty list is created.
     """
-    def __init__(self, sensor_channel_id: uuid.UUID, values: list = None):
-        """
-        Constructs channel data object.
-        :param sensor_channel_id: Referencing InkSensorChannel via id.
-        :param values: Sample values delta encoded with provided precision.
-        """
+    def __init__(self, sensor_channel_id: uuid.UUID, values: Optional[List[Union[float, int]]] = None):
         super().__init__(sensor_channel_id)
         self.__values: list = values or []
 
     @property
-    def values(self) -> list:
-        """Sample values delta encoded with provided precision.
-
-        :return: values
-        """
+    def values(self) -> List[Union[float, int]]:
+        """Sample values delta encoded with provided precision. (List[Union[float, int]])"""
         return self.__values
 
     @values.setter
@@ -63,13 +68,13 @@ class ChannelData(UUIDIdentifier):
         self.__values = values
 
     def __repr__(self):
-        return '<ChannelData : [id:={}, num channels:={}]>'.format(self.id, len(self.values))
+        return f'<ChannelData : [id:={self.id}, num channels:={len(self.values)}]>'
 
 
 class SensorData(UUIDIdentifier):
     """
     SensorData
-    ----------
+    ==========
     The SensorData Repository is a data repository, which holds a collection of SensorData instances.
 
     A data-frame structure represents a collection of raw input data sequences, produced by one or more on-board
@@ -78,20 +83,20 @@ class SensorData(UUIDIdentifier):
     Remark:
     --------
     Once a SensorData instance is added to the SensorData repository, it is considered immutable.
+
+    Parameters
+    ----------
+    sid: Optional[uuid.UUID] (optional) [default: None]
+        Sensor data identifier.
+    input_context_id: Optional[uuid.UUID] (optional) [default: None]
+        Referencing the InputContext via id.
+    state: Optional[InkState] (optional) [default: None]
+        The state of the input provider during the capturing of this data frame.
+    timestamp: Optional[int] (optional) [default: None]
+        Timestamp for first sample of the stroke, measured in milliseconds.
     """
-    def __init__(self, sid: uuid.UUID = None, input_context_id: uuid.UUID = None, state: InkState = None,
-                 timestamp: int = None):
-        """
-        Constructs a sensor data item.
-        :param sid: bytes -
-            Sensor data identifier.
-        :param input_context_id: bytes -
-            Referencing the InputContext via id.
-        :param state: InkState -
-            The state of the input provider during the capturing of this data frame.
-        :param timestamp: int -
-            Timestamp for first sample of the stroke, measured in milliseconds.
-        """
+    def __init__(self, sid: Optional[uuid.UUID] = None, input_context_id: Optional[uuid.UUID] = None,
+                 state: Optional[InkState] = None, timestamp: Optional[int] = None):
         super().__init__(sid)
         self.__input_context_id: uuid.UUID = input_context_id
         self.__state: InkState = state
@@ -101,41 +106,35 @@ class SensorData(UUIDIdentifier):
 
     @property
     def input_context_id(self) -> uuid.UUID:
-        """Id of the input context.
-
-        :return: reference id for the input context
-        """
+        """Id of the input context. (UUID, read-only)"""
         return self.__input_context_id
 
     @property
     def state(self) -> InkState:
-        """State of the uim sensor sequence.
-
-        :return: InkState enum instance
-        """
+        """State of the uim sensor sequence. (InkState, read-only)"""
         return self.__state
 
     @property
     def timestamp(self) -> int:
-        """Timestamp of the first data sample in this sequence.
-
-        :return: long timestamp
-        """
+        """Timestamp of the first data sample in this sequence. (int, read-only)"""
         return self.__timestamp
 
     @property
     def data_channels(self) -> List[ChannelData]:
-        """List of the different channels.
-
-        :return: list of DataChannel instances
-        """
+        """List of the different channels. (List[ChannelData], read-only)"""
         return [self.__map_channels[self.__map_idx[idx]] for idx in sorted(self.__map_idx.keys())]
 
     def get_data_by_id(self, channel_id: uuid.UUID) -> ChannelData:
         """Returns data channel.
-        :param channel_id: bytes -
-            id of the DataChannel
-        :return : data channel
+
+        Parameters
+        ----------
+        channel_id: `uuid.UUID`
+            The sensor channel id.
+        Returns
+        -------
+        ChannelData
+            The channel data.
         """
         if channel_id in self.__map_channels:
             return self.__map_channels[channel_id]
@@ -148,21 +147,27 @@ class SensorData(UUIDIdentifier):
     def add_timestamp_data(self, sensor_channel: SensorChannel, values: List[float]):
         """
         Adding timestamp data.
-        :param sensor_channel: SensorChannel -
-            The sensor channel which sourced the data.
-        :param values:
-            A list of timestamp values with the configured unit type.
-        :raises:
-            ValueError: Issue with the parameter
+
+        Parameters
+        ----------
+        sensor_channel: SensorChannel
+            Sensor channel.
+        values: List[float]
+            List of values.
+
+        Raises
+        ------
+        ValueError:
+            Issue with the parameter
         """
         if sensor_channel is None:
             raise ValueError("Sensor channel is null")
 
         if sensor_channel.type != InkSensorType.TIMESTAMP:
-            raise ValueError(f"The specified sensor channel must be of the {InkSensorType.Timestamp} type")
+            raise ValueError(f"The specified sensor channel must be of the {InkSensorType.TIMESTAMP} type")
 
         if values is None:
-            raise ValueError()
+            raise ValueError("Values are null")
 
         if len(values) == 0:
             return
@@ -172,19 +177,20 @@ class SensorData(UUIDIdentifier):
 
     def add_data(self, sensor_channel: SensorChannel, values: List[float]):
         """
-       Adding data.
-       :param sensor_channel: SensorChannel -
-           The sensor channel which sourced the data.
-       :param values:
-           A list of values.
-       :raises:
-           ValueError: Issue with the parameter
+        Adding data to sensor channel.
+
+        Parameters
+        ----------
+        sensor_channel: SensorChannel
+            Sensor channel.
+        values: List[float]
+            List of values.
        """
         if sensor_channel is None:
             raise ValueError("Sensor channel is null")
 
         if values is None:
-            raise ValueError()
+            raise ValueError("Values are null")
 
         if len(values) == 0:
             return
@@ -203,4 +209,4 @@ class SensorData(UUIDIdentifier):
         return True
 
     def __repr__(self):
-        return '<SensorData : [id:={}, num channels:={}]>'.format(self.id_h_form, len(self.data_channels))
+        return f'<SensorData : [id:={self.id_h_form}, num channels:={len(self.data_channels)}]>'
