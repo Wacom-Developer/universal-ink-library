@@ -3,8 +3,8 @@
 Package for the UIM model.
 This package contains the data model for the UIM.
 """
-
-__all__ = ['helpers', 'inkdata', 'inkinput', 'semantics',  'ink']
+from uim.model.base import UUIDIdentifier
+__all__ = ['helpers', 'inkdata', 'inkinput', 'semantics',  'ink', 'UUIDIdentifier']
 
 import uim.model.helpers
 import uim.model.inkdata
