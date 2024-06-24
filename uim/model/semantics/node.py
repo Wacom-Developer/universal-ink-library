@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright © 2021 Wacom Authors. All Rights Reserved.
+# Copyright © 2021-present Wacom Authors. All Rights Reserved.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -19,13 +19,14 @@ from typing import List, Any, Optional
 from typing import Tuple
 from uim.codec.parser.base import SupportedFormats
 from uim.model.base import UUIDIdentifier, InkModelException
-from uim.model.inkdata.strokes import Stroke
 from uim.model.semantics.structures import BoundingBox
 from uim.model.semantics.schema import CommonViews
 
 
 class URIBuilder(ABC):
     """
+    URIBuilder
+    ==========
     Generates URIs according to the ink model URI scheme.
     """
     SCHEME: str = "uim:"
@@ -36,19 +37,18 @@ class URIBuilder(ABC):
     @staticmethod
     def build_uri(sub_path: str, model_id: uuid.UUID = None):
         """
-        Build a URI for a model.
-
+        Creates a URI for the specified sub-path and model identifier.
         Parameters
         ----------
         sub_path: str
-            Sub path.
-        model_id: UUID
-            Unique ID of the model.
+            Sub-path
+        model_id: UUID [default=None]
+            Model identifier [optional]
 
         Returns
         -------
-        uri - `str`
-            Model URI
+        uri: str
+            URI
         """
         uri: str = URIBuilder.SCHEME
         if model_id is not None:
@@ -62,18 +62,19 @@ class URIBuilder(ABC):
 
         Parameters
         ----------
-        uimid: `UUID`
-            UUID of a node
-        model_id: UUID
+        uimid: UUID
+            UUID of the named entity
+        model_id: Optional[UUID] (optional) [default=None]
             ID of the model [optional]
 
         Returns
         -------
         uri: str
-            URI for a named entity
+            URI for the named entity with the ink model
         """
         if not isinstance(uimid, uuid.UUID):
             raise InkModelException("The named entity identifier should be a valid UUID.")
+
         return URIBuilder.build_uri('ne', model_id) + str(uimid)
 
     @staticmethod
@@ -83,15 +84,15 @@ class URIBuilder(ABC):
 
         Parameters
         ----------
-        uimid: `UUID`
-            UUID of a node
-        model_id: UUID
+        uimid: UUID
+            UUID of the named entity
+        model_id: Optional[UUID] (optional) [default=None]
             ID of the model [optional]
 
         Returns
         -------
         uri: str
-            URI for an entity
+            URI for the entity with the ink model
         """
         if not isinstance(uimid, uuid.UUID):
             raise InkModelException("The named entity identifier should be a valid UUID.")
@@ -101,24 +102,23 @@ class URIBuilder(ABC):
     def build_node_uri_from(node_uuid: uuid.UUID, view_name: str,
                             uri_format: SupportedFormats = SupportedFormats.UIM_VERSION_3_1_0) -> str:
         """
-        Creates a URI for a node in a view.
+        Build the node URI.
 
         Parameters
         ----------
-        node_uuid: `UUID`
-            UUID of a node
-        view_name: `str`
+        node_uuid: UUID
+            Node UUID
+        view_name: str
             Name of the view
-        uri_format: `SupportedFormats'
-            Target format
+        uri_format: SupportedFormats (optional) [default=SupportedFormats.UIM_VERSION_3_1_0]
+            URI format
 
         Returns
         -------
         uri: str
-            URI for an node within a specific view
+            URI for the node
         """
         node_uri: str = URIBuilder.build_uri('node')
-
         if view_name == CommonViews.LEGACY_HWR_VIEW.value:
             node_uri += 'hwr/' if uri_format == SupportedFormats.UIM_VERSION_3_1_0 else ''
         elif view_name == CommonViews.LEGACY_NER_VIEW.value:
@@ -130,42 +130,76 @@ class URIBuilder(ABC):
         return node_uri
 
     @staticmethod
-    def build_node_uri(ink_node: 'InkNode', uri_format: SupportedFormats) -> str:
+    def build_stroke_uri(stroke_uuid: uuid.UUID) -> str:
         """
-        Creates a URI for an ink node.
+        Build the stroke URI.
 
         Parameters
         ----------
-        ink_node: `InkNode`
+        stroke_uuid: UUID
+            Stroke UUID
+
+        Returns
+        -------
+        uri: str
+            URI for the stroke
+        """
+        return f"{URIBuilder.build_uri('stroke')}{str(stroke_uuid)}"
+
+    @staticmethod
+    def build_node_uri(ink_node: 'InkNode', uri_format: SupportedFormats) -> str:
+        """Creates a URI for an ink node.
+
+        Parameters
+        ----------
+        ink_node: InkNode
             Node in a tree
-        uri_format: `SupportedFormats`
+        uri_format: SupportedFormats
             URI format
 
         Returns
         -------
-            uri - `str`
-                Build a URI for the ink node
+        uri: str
+            URI for the node
         """
         if isinstance(ink_node, StrokeGroupNode):
             return URIBuilder.build_node_uri_from(ink_node.id, ink_node.view_name, uri_format)
-        elif isinstance(ink_node, StrokeNode):
+        if isinstance(ink_node, StrokeNode):
             stroke_node: StrokeNode = ink_node
             node_uri: str = URIBuilder.build_node_uri_from(stroke_node.stroke.id, stroke_node.view_name, uri_format)
             if stroke_node.fragment:
                 node_uri += f'#frag={stroke_node.fragment.from_point_index},{stroke_node.fragment.to_point_index}'
             return node_uri
+        raise InkModelException(f"Unknown type of InkNode. Type {type(ink_node)} is not supported.")
+
+    @staticmethod
+    def build_tree_uri(tree_name: str) -> str:
+        """
+        Build the tree URI.
+        Parameters
+        ----------
+        tree_name: str
+            Name of the tree
+
+        Returns
+        -------
+        uri: str
+            URI for the tree
+        """
+        return f"uim:tree/{tree_name}"
 
 
 class InkNode(UUIDIdentifier):
     """
-c
-    Node - the node message. Used for the definition of tree-context.
+    InkNode
+    =======
+    Represents a node in the ink tree. The node can be a `StrokeNode` or a `StrokeGroupNode`.
 
     The ink tree is built with a generic node structure. For building the tree the depth attribute reflects the
     depth within the tree. For serialization of the tree structure, the depth first pre-order tree serialization is
     applied.
 
-    Each node has an unique identifier id (uri) which is relevant for the semantic statements as an identifier for the
+    Each node has a unique identifier id (uri) which is relevant for the semantic statements as an identifier for the
     subject. The groupBoundingBox is optional for `StrokeGroupNode`s and assists with easier visual debugging or
     to highlight the relevant area for clickable options.
 
@@ -173,13 +207,12 @@ c
     ----------
     node_id: `UUID`
         Node ID as identifier.
-    :param group_bounding_box: Rectangle -
+    group_bounding_box: Optional[BoundingBox] (optional) [default=None]
         Bounding box (Group nodes only)
     """
 
     def __init__(self, node_id: uuid.UUID, group_bounding_box: Optional[BoundingBox] = None):
         super(UUIDIdentifier, self).__init__(node_id)
-        self.__id: uuid.UUID = node_id
         self.__group_bounding_box: Optional[BoundingBox] = group_bounding_box
         self.__parent: Optional[StrokeGroupNode] = None
         self.__tree: Optional['InkTree'] = None
@@ -258,7 +291,7 @@ c
 
     @abstractmethod
     def child_nodes_count(self) -> int:
-        """"
+        """
         Counts the number of child `InkNode`s.
         
         Returns
@@ -266,7 +299,7 @@ c
         number: int
             Number of child nodes
         """
-        pass
+        raise NotImplementedError()
 
     def is_assigned_to_a_tree(self) -> bool:
         """
@@ -290,7 +323,6 @@ c
         """
         if self.is_assigned_to_a_tree():
             raise InkModelException('Node already assigned to a tree.')
-        pass
 
     def __assert_assigned_to_a_tree__(self):
         """
@@ -322,10 +354,15 @@ class StrokeFragment(ABC):
         The index of the first path point, which is relevant for this node.
     to_point_index: int
         The index of the last path point, which is relevant for this node.
-    from_t_value: int
+    from_t_value: float
         The t parameter value of the first point of this node.
-    to_t_value: int
+    to_t_value: float
         The t parameter value of the last point of this node.
+
+    Raises
+    ------
+    ValueError
+        Thrown if the values are negative or out of the defined range.
     """
 
     def __init__(self, from_point_index: int, to_point_index: int, from_t_value: float, to_t_value: float):
@@ -394,7 +431,7 @@ class StrokeNode(InkNode):
     ----------
     stroke: `Stroke`
         Stroke which is referenced
-    fragment: `StrokeFragment`
+    fragment: Optional[`StrokeFragment`] (optional) [default: None]
         Fragment referencing only parts of the `Stroke`
 
     Examples
@@ -417,18 +454,18 @@ class StrokeNode(InkNode):
     >>> root.add(StrokeNode(stroke_1, StrokeFragment(0, 1, 0.0, 1.0)))
     """
 
-    def __init__(self, stroke: Stroke, fragment: StrokeFragment = None):
+    def __init__(self, stroke: 'Stroke', fragment: Optional[StrokeFragment] = None):
         super().__init__(node_id=stroke.id)
-        self.__ref_stroke: Stroke = stroke
+        self.__ref_stroke: 'Stroke' = stroke
         self.__fragment: StrokeFragment = fragment
 
     @property
-    def stroke(self) -> Stroke:
+    def stroke(self) -> 'Stroke':
         """References the strokes. (`Stroke`)"""
         return self.__ref_stroke
 
     @stroke.setter
-    def stroke(self, stroke: Stroke):
+    def stroke(self, stroke: 'Stroke'):
         self.__ref_stroke = stroke
 
     @property
@@ -461,7 +498,8 @@ class StrokeNode(InkNode):
 
     def __repr__(self):
         if self.stroke:
-            return '<StrokeNode: [stroke id:={}]>'.format(self.stroke.id if self.stroke is not None else '')
+            return f'<StrokeNode: [stroke id:={self.stroke.id}]>'
+        return "<StrokeNode: [stroke id:=None]>"
 
 
 class StrokeGroupNode(InkNode):
@@ -541,7 +579,7 @@ class StrokeGroupNode(InkNode):
         count: int = 0
         if self.child_nodes_count() > 0:
             for n in self.__children:
-                count = count + 1 if type(n) == StrokeGroupNode else 0
+                count = count + 1 if isinstance(n, StrokeGroupNode) else 0
         return count
 
     def child_stroke_nodes_count(self) -> int:
@@ -556,7 +594,7 @@ class StrokeGroupNode(InkNode):
         count: int = 0
         if self.child_nodes_count() > 0:
             for n in self.__children:
-                count = count + 1 if type(n) == StrokeNode else 0
+                count = count + 1 if isinstance(n, StrokeNode) else 0
         return count
 
     def sort_children(self, lambda_sort_func: Any, reverse: bool = False):
@@ -567,7 +605,7 @@ class StrokeGroupNode(InkNode):
         ----------
         lambda_sort_func: Any
             Sorting function for children.
-        reverse: bool
+        reverse: bool (optional) [default:=False]
             Flag for reversed order [default:=False]
         """
         self.__children = sorted(self.__children, key=functools.cmp_to_key(lambda_sort_func), reverse=reverse)
@@ -581,4 +619,4 @@ class StrokeGroupNode(InkNode):
         return URIBuilder().build_node_uri(self, uri_format)
 
     def __repr__(self):
-        return '<StrokeGroupNode: [uri:={}, children:={}]>'.format(self.uri, len(self.children))
+        return f'<StrokeGroupNode: [uri:={self.uri}, children:={len(self.children)}]>'

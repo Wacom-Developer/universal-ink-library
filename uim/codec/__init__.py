@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Codec parser.
+This package contains the Universal Ink Model codec and a decoder for the Wacom Ink Layer Language (WILL) format.
 """
 __all__ = ['context', 'parser', 'writer']
 
