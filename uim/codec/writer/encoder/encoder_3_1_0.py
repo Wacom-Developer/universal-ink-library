@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright © 2021-23 Wacom Authors. All Rights Reserved.
+# Copyright © 2021-present Wacom Authors. All Rights Reserved.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 import logging
-from typing import Any, List, Optional
+from typing import Any, List
 
 import bitstring
 
@@ -36,23 +36,14 @@ from uim.model.semantics import node
 from uim.model.semantics.node import BoundingBox, StrokeNode, StrokeGroupNode
 
 # Create the Logger
-logger: Optional[logging.Logger] = None
-
-if logger is None:
-    logger: logging.Logger = logging.getLogger(__name__)
-    logger.setLevel(logging.DEBUG)
-
-    ch = logging.StreamHandler()
-    ch.setLevel(logging.DEBUG)
-    # create formatter and add it to the handlers
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    ch.setFormatter(formatter)
-    # add the handlers to the logger
-    logger.addHandler(ch)
+logger: logging.Logger = logging.getLogger(__name__)
 
 
 class UIMEncoder310(CodecEncoder):
-    """Universal Ink Model. (v3.1.0)
+    """
+    UIMEncoder310
+    =============
+    Universal Ink Model. (v3.1.0)
 
     Formats the Universal Ink Model Data file codec.
     """
@@ -118,11 +109,31 @@ class UIMEncoder310(CodecEncoder):
                     sd.values.extend(conv)
             else:
                 conv: List[int] = UIMEncoder310.__encoding__(d.values, channel_ctx.precision, channel_ctx.resolution)
-                sd.values.extend(conv)
+                try:
+                    sd.values.extend(conv)
+                except ValueError as e:
+                    logger.error(f"Error in encoding: {e}")
+                    logger.error(f"Channel [ID:={d.id}, type:={channel_ctx.type}, resolution: {channel_ctx.resolution},"
+                                 f" precision: {channel_ctx.precision}]")
+                    raise e
 
     @classmethod
     def __serialize_tree_structure__(cls, root_obj: node.InkNode, tree: uim_3_1_0.InkTree, context: EncoderContext,
                                      main_tree: bool = False):
+        """
+        Serialize the tree structure.
+
+        Parameters
+        ----------
+        root_obj: node.InkNode
+            Root node
+        tree: uim_3_1_0.InkTree
+            Protobuf message
+        context: EncoderContext
+            Encoder context
+        main_tree: bool (default:=False)
+            Main tree flag
+        """
         enumerator = PreOrderEnumerator(root_obj)
         for ink_node in enumerator:
             node_message: uim_3_1_0.Node = tree.tree.add()
@@ -153,8 +164,13 @@ class UIMEncoder310(CodecEncoder):
     def __copy_properties__(cls, p1, p2: list):
         """
         Copy the properties.
-        :param p1: protobuf structure
-        :param p2: internal structure
+
+        Parameters
+        ----------
+        p1:
+            protobuf structure
+        p2: list
+            list of properties
         """
         for p in p2:
             prop = p1.add()
@@ -165,10 +181,12 @@ class UIMEncoder310(CodecEncoder):
     @classmethod
     def __copy_rectangle__(cls, r1: uim_3_1_0.Rectangle, r2: BoundingBox):
         """Copies the rectangle.
-
-        :param r1:
-        :param r2:
-        :return:
+        Parameters
+        ----------
+        r1: uim_3_1_0.Rectangle
+            Protobuf structure
+        r2: BoundingBox
+            Internal structure
         """
         r1.x = r2.x
         r1.y = r2.y
@@ -179,8 +197,14 @@ class UIMEncoder310(CodecEncoder):
     def __copy_sensor_channel_context__(cls, s1: uim_3_1_0.SensorChannelsContext, s2: device.SensorChannelsContext):
         """
         Copy the SensorChannelContext.
-        :param s1: protobuf structure
-        :param s2: internal structure
+
+        Parameters
+        ----------
+        s1: SensorChannelsContext
+            Protobuf structure
+        s2: SensorChannelsContext
+            Sensor channel context
+
         """
         s1.id = s2.id.bytes_le
         if s2.sampling_rate:
@@ -198,8 +222,13 @@ class UIMEncoder310(CodecEncoder):
     def __copy_sensor_channel__(cls, s1: uim_3_1_0.SensorChannel, s2: device.SensorChannel):
         """
         Copy the SensorChannel.
-        :param s1: protobuf structure
-        :param s2: internal structure
+
+        Parameters
+        ----------
+        s1: uim_3_1_0.SensorChannel
+            Protobuf structure
+        s2: device.SensorChannel
+            Sensor channel
         """
         s1.id = s2.id.bytes_le
         s1.type = s2.type.value
@@ -336,11 +365,25 @@ class UIMEncoder310(CodecEncoder):
         stream.append(header_content)
         stream.append(chunk_content)
         content: bytes = stream.tobytes()
-        assert (len(RIFF_HEADER) + 4 + riff_size) == len(content)
+        if (len(RIFF_HEADER) + 4 + riff_size) != len(content):
+            raise FormatException("Size of the RIFF header is not matching the content size.")
         return content
 
     @classmethod
     def __serialize_properties__(cls, context: EncoderContext) -> uim_3_1_0.Properties:
+        """
+        Serialize the properties.
+
+        Parameters
+        ----------
+        context: EncoderContext
+            Encoder context
+
+        Returns
+        -------
+        uim_3_1_0.Properties
+            Properties message
+        """
         properties: uim_3_1_0.Properties = uim_3_1_0.Properties()
         for p in context.ink_model.properties:
             prop = properties.properties.add()
@@ -351,6 +394,19 @@ class UIMEncoder310(CodecEncoder):
 
     @classmethod
     def __serialize_input_data__(cls, context: EncoderContext) -> uim_3_1_0.InputData:
+        """
+        Serialize the input data.
+
+        Parameters
+        ----------
+        context: EncoderContext
+            Encoder context
+
+        Returns
+        -------
+        uim_3_1_0.InputData
+            Input data message
+        """
         ctx_map: dict = {}
         sensor_ctx: dict = {}
         input_data: uim_3_1_0.InputData = uim_3_1_0.InputData()
@@ -406,6 +462,19 @@ class UIMEncoder310(CodecEncoder):
 
     @classmethod
     def __serialize_brushes__(cls, context: EncoderContext) -> uim_3_1_0.Brushes:
+        """
+        Serialize brush meta data.
+
+        Parameters
+        ----------
+        context: EncoderContext
+            Encoder context
+
+        Returns
+        -------
+        uim_3_1_0.Brushes
+            Brush message
+        """
         brushes: uim_3_1_0.Brushes = uim_3_1_0.Brushes()
         # Vector brushes
         for brush in context.ink_model.brushes.vector_brushes:
@@ -449,8 +518,17 @@ class UIMEncoder310(CodecEncoder):
     @classmethod
     def __serialize_properties_data__(cls, properties: PathPointProperties,
                                       proto_properties: uim_3_1_0.PathPointProperties):
-        # Construct Path.Style.PathPointsProperties message
+        """
+        Serialize the properties data.
 
+        Parameters
+        ----------
+        properties: PathPointProperties
+            Path point properties
+        proto_properties: uim_3_1_0.PathPointProperties
+            Protobuf message
+        """
+        # Construct Path.Style.PathPointsProperties message
         color: int = PathPointProperties.rgba(properties.red, properties.green, properties.blue, properties.alpha)
         proto_properties.color = color
 
@@ -473,6 +551,16 @@ class UIMEncoder310(CodecEncoder):
 
     @classmethod
     def __serialize_transform__(cls, context: EncoderContext, matrix4: uim_3_1_0.Matrix):
+        """
+        Serialize transform.
+
+        Parameters
+        ----------
+        context: EncoderContext
+            Encoder context
+        matrix4: uim_3_1_0.Matrix
+            Protobuf message
+        """
         transform = context.ink_model.transform
         matrix4.m00 = transform[0][0]
         matrix4.m01 = transform[0][1]
@@ -493,6 +581,18 @@ class UIMEncoder310(CodecEncoder):
 
     @classmethod
     def __serialize_ink_data__(cls, context: EncoderContext) -> uim_3_1_0.InkData:
+        """
+        Serialize the ink data.
+        Parameters
+        ----------
+        context: EncoderContext
+            Encoder context
+
+        Returns
+        -------
+        uim_3_1_0.InkData
+            Ink data message
+        """
         ink_data: uim_3_1_0.InkData = uim_3_1_0.InkData()
         ink_data.unitScaleFactor = context.ink_model.unit_scale_factor
         if not context.ink_model.default_transform:
@@ -593,6 +693,14 @@ class UIMEncoder310(CodecEncoder):
 
     @classmethod
     def __serialize_knowledge_graph__(cls, context: EncoderContext):
+        """
+        Serialize the knowledge graph.
+
+        Parameters
+        ----------
+        context: EncoderContext
+            Encoder context
+        """
         triple_store: uim_3_1_0.TripleStore = uim_3_1_0.TripleStore()
         # Statements
         for stmt in context.ink_model.knowledge_graph.statements:
@@ -607,6 +715,19 @@ class UIMEncoder310(CodecEncoder):
 
     @classmethod
     def __serialize_ink_structure__(cls, context: EncoderContext):
+        """
+        Serialize the ink structure.
+
+        Parameters
+        ----------
+        context: EncoderContext
+            Encoder context
+
+        Returns
+        -------
+        uim_3_1_0.InkStructure
+            Ink structure message
+        """
         ink_structure: uim_3_1_0.InkStructure = uim_3_1_0.InkStructure()
         # Main tree
         if context.ink_model.ink_tree:
