@@ -19,6 +19,8 @@ from uim.model.semantics.node import InkNode, StrokeGroupNode
 
 class StackItem:
     """
+    StackItem
+    =========
     Represents an item in the internal stack of the enumerator.
 
     Parameters
@@ -49,6 +51,8 @@ class StackItem:
 
 class PreOrderEnumerator:
     """
+    PreOrderEnumerator
+    ==================
     Depth first pre-order traversal of the DOM tree.
 
     Parameters

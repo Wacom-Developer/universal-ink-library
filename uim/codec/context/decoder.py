@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright © 2021-23 Wacom Authors. All Rights Reserved.
+# Copyright © 2021-present Wacom Authors. All Rights Reserved.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-from typing import List, Dict
+from typing import List, Dict, Any
 
 from uim.codec.context.version import Version
 from uim.model.helpers.treeiterator import PreOrderEnumerator
@@ -22,9 +22,14 @@ from uim.model.inkdata.strokes import Stroke, PathPointProperties
 from uim.model.semantics.node import StrokeGroupNode
 
 
-class DecoderContext(object):
+class DecoderContext:
     """
+    DecoderContext
+    ==============
     Decoder Context used while parsing an ink file.
+
+    The context is used to store the state of the parsing process, such as the parsed strokes
+    and the current state of the ink model.
 
     Parameters
     ----------
@@ -41,6 +46,7 @@ class DecoderContext(object):
         self.__strokes: List[Stroke] = []
         self.__stroke_id_map: Dict[str, int] = {}
         self.__path_properties: List[PathPointProperties] = []
+        self.__decoder_map: Dict[str, Any] = {}
 
     def register_stroke(self, stroke: Stroke, stroke_identifier: str):
         """
@@ -56,6 +62,22 @@ class DecoderContext(object):
         self.strokes.append(stroke)
         if stroke_identifier:
             self.__stroke_id_map[stroke_identifier] = len(self.strokes) - 1
+
+    def is_stroke_registered(self, identifier: str) -> bool:
+        """
+        Check if a stroke is already registered.
+
+        Parameters
+        ----------
+        identifier: str
+            Identifier from a different format
+
+        Returns
+        -------
+        bool
+            True if the stroke is already registered
+        """
+        return identifier in self.__stroke_id_map
 
     def stroke_by_identifier(self, identifier: str) -> Stroke:
         """
@@ -94,6 +116,11 @@ class DecoderContext(object):
     def strokes(self) -> List[Stroke]:
         """List of the parsed strokes. (`List[Stroke]`, read-only)"""
         return self.__strokes
+
+    @property
+    def decoder_map(self) -> Dict[str, Any]:
+        """Map of the decoder. (`Dict[str, Any]`, read-only)"""
+        return self.__decoder_map
 
     @property
     def path_point_properties(self) -> List[PathPointProperties]:

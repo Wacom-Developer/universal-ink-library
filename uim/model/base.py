@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright © 2021 Wacom Authors. All Rights Reserved.
+# Copyright © 2021-present Wacom Authors. All Rights Reserved.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -18,18 +18,26 @@ import uuid
 from abc import ABC, abstractmethod
 from enum import Enum
 
-from typing import List, Any
+from typing import List, Any, Optional
 
 # Global configuration
 node_registration_debug: bool = False
 
 
 class InkModelException(Exception):
-    pass
+    """
+    InkModel Exception
+    ==================
+    Exception raised for errors in the Ink Model.
+    """
 
 
 class IdentifiableMethod(Enum):
-    """Different ID encoding methods """
+    """
+    Identifiable Method
+    ===================
+    Different ID encoding methods
+    """
     UUID = 0
     MD5 = 1
 
@@ -37,7 +45,7 @@ class IdentifiableMethod(Enum):
 class Identifier(ABC):
     """
     Internal UIM 128bit Identifier (UimID)
-    --------------------------------------
+    =======================================
     UimID is a 128-bit number used internally by the implementations.
 
     It can be parsed from strings in the following formats:
@@ -73,14 +81,26 @@ class Identifier(ABC):
     The identifier's string representation varies based on the domain:
      - For MD5 hashes - "N" form
      - For Ink Model Internals (Strokes, Nodes, Group Nodes etc.) - "D" form
+
+    Parameters
+    ----------
+    identifier: uuid.UUID
+        Identifier of object
+     method: IdentifiableMethod (optional) [default: IdentifiableMethod.MD5]
+        Method used to generate the identifier
+
+    Raises
+    ------
+    TypeError
+        If identifier is not of type UUID
     """
     SEPARATOR: str = "\n"
 
     def __init__(self, identifier: uuid.UUID, method: IdentifiableMethod = IdentifiableMethod.MD5):
         self.__identifier: uuid.UUID = identifier
         self.__method: IdentifiableMethod = method
-        if identifier is not None and type(identifier) is not uuid.UUID:
-            raise TypeError('Identifier must be of type UUID. [Type: {}]'.format(type(identifier)))
+        if identifier is not None and not isinstance(identifier, uuid.UUID):
+            raise TypeError(f'Identifier must be of type UUID. [Type: {type(identifier)}]')
 
     @property
     def id(self) -> uuid.UUID:
@@ -88,6 +108,11 @@ class Identifier(ABC):
         if self.__identifier is None:
             self.__identifier = self.__generate_id__()
         return self.__identifier
+
+    @property
+    def method(self) -> IdentifiableMethod:
+        """Method used to generate the identifier. (`IdentifiableMethod`, read-only)"""
+        return self.__method
 
     @property
     def id_h_form(self) -> str:
@@ -132,13 +157,13 @@ class Identifier(ABC):
 
         Raises
         ------
-        FormatException
+        ValueError
             If UUID string is not valid.
         """
         try:
             return uuid.UUID(uuid_str)
         except ValueError as e:
-            raise InkModelException(f'{uuid_str} is not a valid UUID. [Exception:= {str(e)}]')
+            raise InkModelException(f'{uuid_str} is not a valid UUID. [Exception:= {str(e)}]') from e
 
     @classmethod
     def uimid_to_h_form(cls, uimid: uuid.UUID) -> str:
@@ -154,11 +179,6 @@ class Identifier(ABC):
         -------
         h_form: str
             h-form of UimID
-
-        Raises
-        ------
-        FormatException
-            If UUID string is not valid.
         """
         if uimid is None:
             return ''
@@ -205,11 +225,13 @@ class Identifier(ABC):
         try:
             return uuid.UUID(bytes_le=from_bytes)
         except ValueError as e:
-            raise InkModelException(f'Bytes: {from_bytes} cannot be converted to UUID. [Exception:= {str(e)}]')
+            raise InkModelException(f'Bytes: {from_bytes} cannot be converted to UUID. [Exception:= {str(e)}]') from e
 
 
 class HashIdentifier(Identifier):
     """
+    Hash Identifier
+    ===============
     MD5-hash based Unique Identifier Generation Algorithm
     -----------------------------------------------------
     The described algorithm allows generation of unique identifiers based on a tag (encoded as string value) and
@@ -226,12 +248,11 @@ class HashIdentifier(Identifier):
 
     Parameters
     ----------
-    identifier: `UUID`
+    identifier: Optional[uuid.UUID] (optional) [default: None]
         Identifier
-
     """
 
-    def __init__(self, identifier: uuid.UUID = None):
+    def __init__(self, identifier: Optional[uuid.UUID] = None):
         super().__init__(identifier=identifier, method=IdentifiableMethod.MD5)
 
     @abstractmethod
@@ -244,7 +265,6 @@ class HashIdentifier(Identifier):
         tokens: `List[Any]`
             List of tokenized items
         """
-        pass
 
     def __generate_id__(self) -> uuid.UUID:
         token: list = self.__tokenize__()
@@ -253,9 +273,15 @@ class HashIdentifier(Identifier):
             if t is None:
                 message += ''
             elif isinstance(t, float):
-                message += '{:.4f}'.format(t)
+                if t == 0.0:
+                    message += ''
+                else:
+                    message += f'{t:.4f}'
             elif isinstance(t, int):
-                message += str(t)
+                if t == 0:
+                    message += ''
+                else:
+                    message += str(t)
             elif isinstance(t, Enum):
                 message += str(t.name)
             elif isinstance(t, uuid.UUID):
@@ -272,14 +298,12 @@ class HashIdentifier(Identifier):
         md5_hash: str = hashlib.md5(message.encode(encoding='UTF-8', errors='strict')).hexdigest()
         return uuid.UUID(md5_hash)
 
-    def __invalidate__(self):
-        """Invalidate the hashed id if an internal value has changed."""
-        self.__id = None
-
 
 class UUIDIdentifier(Identifier):
     """
-    UUID Identifier.
+    UUID Identifier
+    ===============
+    Identifier based on UUID.
 
     Parameters
     ----------

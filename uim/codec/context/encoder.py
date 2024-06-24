@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright © 2021-23 Wacom Authors. All Rights Reserved.
+# Copyright © 2021-present Wacom Authors. All Rights Reserved.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -12,7 +12,6 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-
 import uuid
 from typing import List, Dict
 
@@ -20,13 +19,18 @@ from uim.codec.context.version import Version
 from uim.codec.parser.base import SupportedFormats, FormatException
 from uim.model.ink import InkModel
 from uim.model.inkdata.strokes import PathPointProperties
-from uim.model.semantics.node import StrokeGroupNode
 from uim.model.semantics.schema import CommonViews
 
 
-class EncoderContext(object):
+class EncoderContext:
     """
+    EncoderContext
+    ==============
+
     Context used while encoding an ink file.
+
+    The context is used to store the state of the encoding process, such as the encoded strokes and the
+    current state of the ink model.
 
     Parameters
     ----------
@@ -41,7 +45,6 @@ class EncoderContext(object):
         self.__ink_model: InkModel = ink_model
         self.__stroke_index_map: Dict[uuid.UUID, int] = {}
         self.__path_properties: List[PathPointProperties] = []
-        self.__stroke_uri: Dict[uuid.UUID, StrokeGroupNode] = {}
 
     @property
     def format_version(self) -> Version:
@@ -81,18 +84,15 @@ class EncoderContext(object):
                 Name of view depending on the format. UIM v3.1.0 and v3.0.0 have different conventions
         """
         if target_format == SupportedFormats.UIM_VERSION_3_1_0:
-            if view_name == CommonViews.HWR_VIEW.value or view_name == CommonViews.LEGACY_HWR_VIEW.value:
+            if view_name in (CommonViews.HWR_VIEW.value, CommonViews.LEGACY_HWR_VIEW.value):
                 return CommonViews.HWR_VIEW.value
-            elif view_name == CommonViews.NER_VIEW.value or view_name == CommonViews.LEGACY_NER_VIEW.value:
+            if view_name in (CommonViews.NER_VIEW.value, CommonViews.LEGACY_NER_VIEW.value):
                 return CommonViews.NER_VIEW.value
-            else:
-                return view_name
-        elif target_format == SupportedFormats.UIM_VERSION_3_0_0:
-            if view_name == CommonViews.HWR_VIEW.value or view_name == CommonViews.LEGACY_HWR_VIEW.value:
+            return view_name
+        if target_format == SupportedFormats.UIM_VERSION_3_0_0:
+            if view_name in (CommonViews.HWR_VIEW.value, CommonViews.LEGACY_HWR_VIEW.value):
                 return CommonViews.LEGACY_HWR_VIEW.value
-            elif view_name == CommonViews.NER_VIEW.value or view_name == CommonViews.LEGACY_NER_VIEW.value:
+            if view_name in (CommonViews.NER_VIEW.value, CommonViews.LEGACY_NER_VIEW.value):
                 return CommonViews.LEGACY_NER_VIEW.value
-            else:
-                return view_name
-        else:
-            raise FormatException(f"Not supported version. Format:={target_format}")
+            return view_name
+        raise FormatException(f"Not supported version. Format:={target_format}")

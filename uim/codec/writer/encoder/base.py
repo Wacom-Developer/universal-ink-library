@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright © 2021-23 Wacom Authors. All Rights Reserved.
+# Copyright © 2021-present Wacom Authors. All Rights Reserved.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -20,6 +20,8 @@ from uim.model.ink import InkModel
 
 class Codec(ABC):
     """
+    Codec
+    =====
     Abstract codec encoder class.
     """
 
@@ -45,11 +47,34 @@ class Codec(ABC):
 
 
 class CodecEncoder(Codec, ABC):
-    """Abstract content parser for the different versions of the Universal Ink Model."""
+    """
+    CodecEncoder
+    ============
+    Abstract content parser for the different versions of the Universal Ink Model (UIM).
+    """
 
     @classmethod
     def __encoding__(cls, data_list: List[float], precision: int, resolution: float = 1.,
                      ignore_first: bool = False) -> List[int]:
+        """
+        Encode the data list.
+
+        Parameters
+        ----------
+        data_list: List[float]
+            List of float values
+        precision: int
+            Precision of the encoding
+        resolution: float [optional] [default: 1.0]
+            Resolution of the encoding
+        ignore_first: bool [optional] [default: False]
+            Ignore the first value
+
+        Returns
+        -------
+        encoded - List[int]
+            Encoded list of integers
+        """
         # Encoding
         if len(data_list) == 0:
             return []

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright © 2021-23 Wacom Authors. All Rights Reserved.
+# Copyright © 2021-present Wacom Authors. All Rights Reserved.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -51,7 +51,11 @@ RESERVED: bytes = b'\x00'
 
 
 class ContentType(Enum):
-    """"Enum of RIFF chunk content types."""
+    """"
+    ContentType
+    ===========
+    Enum of RIFF chunk content types.
+    """
     BINARY = b'\x00'
     """Binary encoding of content, binary/octet-stream."""
     PROTOBUF = b'\x01'
@@ -63,7 +67,11 @@ class ContentType(Enum):
 
 
 class CompressionType(Enum):
-    """Enum of RIFF chunk supported compression types."""
+    """
+    CompressionType
+    ===============
+    Enum of RIFF chunk supported compression types.
+    """
     NONE = b'\x00'
     """Compression not applied"""
     ZIP = b'\x01'
@@ -73,15 +81,35 @@ class CompressionType(Enum):
 
 
 class MimeTypes:
-    """Mime types for ink formats."""
+    """
+    MimeTypes
+    =========
+    Mime types for ink formats.
+
+    The mime types are:
+    - Universal Ink Model
+    - WILL 3 documents
+    - WILL 2 documents
+    - WILL 2 strokes
+    """
     UNIVERSAL_INK_MODEL: str = "application/vnd.wacom-ink.model"  # Mime type for Universal Ink Models.
-    WILL3_DOCUMENT: str = "application/vnd.wacom-will3.document"  # Mime type for WILL 3 documents.
     WILL2_FILE_FORMAT: str = "application/vnd.wacom-will2.document"  # Mime type for WILL 2 documents.
     WILL2_STROKES_FORMAT: str = "application/vnd.wacom-will2.strokes"  # Mime type for WILL 2 strokes
 
 
 class FileExtension:
-    """File extension of ink content files."""
+    """
+    FileExtension
+    =============
+    File extension of ink content files.
+
+    The file extensions are:
+    - JSON
+    - UIM JSON
+    - UIM binary
+    - InkML
+    - WILL
+    """
     JSON_FORMAT_EXTENSION: str = '.json'
     """JSON file encoding."""
     UIM_JSON_FORMAT_EXTENSION: str = '.uim.json'

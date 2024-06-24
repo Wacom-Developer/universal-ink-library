@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright © 2021 Wacom Authors. All Rights Reserved.
+# Copyright © 2021-present Wacom Authors. All Rights Reserved.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -61,18 +61,19 @@ def catmull_rom(p_x: List[float], p_y: List[float], res: int = 2) -> Tuple[List[
 
     Parameters
     ----------
-    p_x: list
-        Array of x-coords
-    p_y: list
-        Array of y-coords
-    res: int
-        Resolution of a segment (including the start point, but not the endpoint of the segment)
+    p_x: List[float]
+        Array of x-coordinates
+    p_y: List[float]
+        Array of y-coordinates
+    res: int (optional) [default: 2]
+        Resolution of a segment (including the start point, but not the endpoint of the segment) in the spline
+        (default:= 2)
 
     Returns
     -------
-    interp_x: list
+    interp_x: List[float]
         List of interpolated x values
-    interp_y: list
+    interp_y: List[float]
         List of interpolated y values
 
     References
@@ -124,22 +125,22 @@ def catmull_rom(p_x: List[float], p_y: List[float], res: int = 2) -> Tuple[List[
     return x_intpol.tolist(), y_intpol.tolist()
 
 
-def linear_interpol(p_x: list, p_y: list) -> Tuple[List[float], List[float]]:
+def linear_interpol(p_x: List[float], p_y: List[float]) -> Tuple[List[float], List[float]]:
     """
     Linear interpolation of the first and the last point in array.
 
     Parameters
     ----------
-    p_x: list -
+    p_x: List[float]
         array of x-coordinates
-    p_y: list -
+    p_y: List[float]
         array of y-coordinates
 
     Returns
     --------
-    interp_x: list
+    interp_x: List[float]
         List of linear interpolated x coordinates
-    interp_y: list
+    interp_y: List[float]
         List of linear interpolated x coordinates
     """
     x_intpol = np.linspace(p_x[0], p_x[-1], 4)

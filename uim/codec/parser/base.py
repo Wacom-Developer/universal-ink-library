@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright © 2021-23 Wacom Authors. All Rights Reserved.
+# Copyright © 2021-present Wacom Authors. All Rights Reserved.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -14,19 +14,24 @@
 #  limitations under the License.
 from abc import ABC
 from enum import Enum
-from typing import Any, Union
+from io import BytesIO
+from pathlib import Path
+from typing import Union
 
 from uim.codec.context.version import Version
 
 UIM: str = "Universal Ink Model (UIM)"
 WILL_DATA: str = "Wacom Ink Layer Language (WILL) - Data Format"
 WILL_FILE: str = "Wacom Ink Layer Language (WILL) - File Format"
+INKML: str = "Ink Markup Language (InkML)"
 
 
 class SupportedFormats(Enum):
     """
+    SupportedFormats
+    ================
     Supported formats enum.
-    All formats that are currently support by the libary.
+    All formats that are currently support by the library.
     """
     # Not supported Format
     NOT_SUPPORTED: Version = Version(0, 0, 0, "Not supported")
@@ -36,24 +41,32 @@ class SupportedFormats(Enum):
     # Wacom Ink Layer Language
     WILL_DATA_VERSION_2_0_0: Version = Version(2, 0, 0, WILL_DATA)
     WILL_FILE_VERSION_2_0_0: Version = Version(2, 0, 0, WILL_FILE)
+    # InkML
+    INKML_VERSION: Version = Version(2011, 0, 0, INKML)
 
 
 class FormatException(Exception):
-    """Exception thrown while parsing ink files."""
-    pass
+    """
+    FormatException
+    ===============
+    Exception thrown while parsing ink files.
+    """
 
 
 class Parser(ABC):
     """
+    Parser
+    ======
+
     Parser is responsible to parse an ink file .
     """
-    def parse(self, path_or_stream: Any) -> 'InkModel':
+    def parse(self, path_or_stream: Union[str, bytes, memoryview, BytesIO, Path]) -> 'InkModel':
         """
         Parse the content of the ink file to the Universal Ink memory model.
 
         Parameters
         ----------
-        path_or_stream: Any
+        path_or_stream: Union[str, bytes, memoryview, BytesIO, Path]
             `Path` of file, path as str, stream, or byte array.
 
         Returns
@@ -65,13 +78,20 @@ class Parser(ABC):
 
 
 class EndOfStream(Exception):
-    """Exception thrown whenever the end of the stream has been reached."""
-    pass
-
-
-class Stream(object):
     """
-    Stream object.
+    EndOfStream
+    ===========
+
+    Exception thrown whenever the end of the stream has been reached.
+    """
+
+
+class Stream:
+    """
+    Stream
+    ======
+
+    Stream class to read bytes from byte array.
 
     Parameters
     ----------

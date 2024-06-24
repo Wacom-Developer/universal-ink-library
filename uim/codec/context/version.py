@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright © 2021-23 Wacom Authors. All Rights Reserved.
+# Copyright © 2021-present Wacom Authors. All Rights Reserved.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -17,6 +17,8 @@ from typing import Any
 
 class Version:
     """
+    Version
+    =======
     Version encodes the semantic versioning concept a version number MAJOR.MINOR.PATCH, increment the:
 
     Parameters
@@ -49,17 +51,17 @@ class Version:
 
     @property
     def major(self) -> int:
-        """MAJOR version. (`int`)"""
+        """MAJOR version. (`int`, read-only)"""
         return self.__major
 
     @property
     def minor(self) -> int:
-        """MINOR version.  (`int`)"""
+        """MINOR version.  (`int`, read-only)"""
         return self.__minor
 
     @property
     def patch(self) -> int:
-        """PATCH version. (`int`)"""
+        """PATCH version. (`int`, read-only)"""
         return self.__patch
 
     def __eq__(self, other: Any):

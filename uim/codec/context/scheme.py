@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright © 2021-23 Wacom Authors. All Rights Reserved.
+# Copyright © 2021-present Wacom Authors. All Rights Reserved.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -16,13 +16,14 @@
 
 class PrecisionScheme:
     """
+    PrecisionScheme
+    ===============
     Contains information for the decimal precision of data in different channels.
 
     Parameters
     ----------
-    mask_value: int
+    mask_value: int (optional) [default: 0]
         Mask value which encodes the path precision.
-
     """
 
     POSITION_SHIFT_BITS: int = 0
@@ -45,7 +46,7 @@ class PrecisionScheme:
 
     @property
     def position_precision(self) -> int:
-        """Gets or sets the data precision for position (X, Y, Z) channels. (`int`)"""
+        """Gets or sets the data precision for position (X, Y, Z) channels. (`int`, read-only)"""
         return (self.value >> PrecisionScheme.POSITION_SHIFT_BITS) & 0xF
 
     @property
