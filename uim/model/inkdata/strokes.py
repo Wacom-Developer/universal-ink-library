@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright © 2021 Wacom Authors. All Rights Reserved.
+# Copyright © 2021-present Wacom Authors. All Rights Reserved.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -13,21 +13,30 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 import ctypes
+import logging
 import uuid
 from abc import ABC
 from enum import Enum
-from typing import Tuple, List, Optional
+from logging import Logger
+from typing import Tuple, List, Optional, Dict, Any
 
 import numpy as np
 
 from uim.codec.context.scheme import PrecisionScheme
 from uim.model.base import UUIDIdentifier, HashIdentifier
+from uim.model.helpers.policy import HandleMissingDataPolicy
 from uim.model.inkdata.brush import BlendModeURIs
+from uim.model.inkinput.inputdata import InkSensorType
+from uim.model.semantics.node import URIBuilder
 from uim.model.semantics.structures import BoundingBox
+
+logger: Logger = logging.getLogger(__name__)
 
 
 class LayoutMask(Enum):
     """
+    LayoutMask
+    ==========
     Specifies the various geometric and appearance attributes of a path point as bit flags.
     """
     X = 0x1
@@ -89,8 +98,7 @@ class PathPointProperties(HashIdentifier):
     """
 
     def __init__(self, size: float = 0., red: float = 0., green: float = 0., blue: float = 0., alpha: float = 0.,
-                 rotation: float = 0.,
-                 scale_x: float = 0., scale_y: float = 0., scale_z: float = 0.,
+                 rotation: float = 0., scale_x: float = 0., scale_y: float = 0., scale_z: float = 0.,
                  offset_x: float = 0., offset_y: float = 0., offset_z: float = 0.):
         super().__init__()
         self.__size = size
@@ -268,18 +276,15 @@ class PathPointProperties(HashIdentifier):
     def offset_z(self, offset_z: float):
         self.__offset_z = offset_z
 
-    def __tokenize__(self) -> list:
+    def __tokenize__(self) -> List[float]:
         return [self.size, self.red, self.green, self.blue, self.alpha, self.rotation, self.scale_x, self.scale_y,
                 self.scale_z, self.offset_x, self.offset_y, self.offset_z]
 
     def __repr__(self):
-        return '<PathPointProperties: [size:={}, red:={}, green:={}, blue:={}, alpha:={}, rotation:={},' \
-               'scale x:={}, scale y:={}, scale z:={}, offset x:={}, offset y:={}, offset z:={}]>' \
-            .format(self.size,
-                    self.red, self.green, self.blue, self.alpha,
-                    self.rotation,
-                    self.scale_x, self.scale_y, self.scale_z,
-                    self.offset_x, self.offset_y, self.offset_z)
+        return (f'<PathPointProperties: [size:={self.size}, red:={self.red}, green:={self.green}, blue:={self.blue}, '
+                f'alpha:={self.alpha}, rotation:={self.rotation}, scale x:={self.scale_x}, scale y:={self.scale_y}, '
+                f'scale z:={self.scale_z}, offset x:={self.offset_x}, offset y:={self.offset_y}, '
+                f'offset z:={self.offset_z}]>')
 
 
 class Style(ABC):
@@ -336,10 +341,8 @@ class Style(ABC):
         self.__render_mode_URI = uri
 
     def __repr__(self):
-        return '<Style : [id:={}, particles_random_seed:={}, render mode:={}>' \
-            .format(self.__brush_uri,
-                    self.__particles_random_seed,
-                    self.__render_mode_URI)
+        return (f'<Style : [id:={self.__brush_uri}, particles_random_seed:={self.__particles_random_seed}, '
+                f'render mode:={self.__render_mode_URI}>')
 
 
 class Spline(ABC):
@@ -561,7 +564,7 @@ Default extended layout for strokes.
 class Stroke(UUIDIdentifier):
     """
     Stroke Geometry
-    ---------------
+    ===============
     The geometry of an ink stroke is represented by its Stroke.
     A Stroke is defined as a combination of:
 
@@ -656,23 +659,67 @@ class Stroke(UUIDIdentifier):
         self.__style: Style = style
         self.__random_seed: int = random_seed
         self.__properties_index: int = property_index
-        self.__timestamp_cache = None
-        self.__pressure_cache = None
+        self.__timestamp_cache: Optional[List[float]] = None
+        self.__pressure_cache: Optional[List[float]] = None
         self.__precision_scheme: Optional[PrecisionScheme] = None
         if spline is not None:
             self.__import__(spline)
 
-    def set_timestamp_values(self, timestamp_values):
+    @property
+    def uri(self) -> str:
+        """
+        The URI of the stroke. (`str`)
+        """
+        return URIBuilder().build_stroke_uri(self.id)
+
+    def set_timestamp_values(self, timestamp_values: List[float]):
+        """
+        Set the timestamp values.
+
+        Parameters
+        ----------
+        timestamp_values: list
+            List of timestamp values
+        """
         self.__timestamp_cache = timestamp_values
 
-    def get_timestamp_values(self):
+    def get_timestamp_values(self) -> Optional[List[float]]:
+        """
+        Get the timestamp values.
+
+        Returns
+        -------
+        Optional[List[float]]
+            List of timestamp values
+        """
         return self.__timestamp_cache
 
-    def set_pressure_values(self, pressure_values):
+    def set_pressure_values(self, pressure_values: List[float]):
+        """
+        Set the pressure values.
+
+        Parameters
+        ----------
+        pressure_values: List[float]
+            List of pressure values
+        """
         self.__pressure_cache = pressure_values
 
-    def get_pressure_values(self):
+    def get_pressure_values(self) -> Optional[List[float]]:
+        """
+        Get the pressure values.
+
+        Returns
+        -------
+        List[float]
+            List of pressure values
+        """
         return self.__pressure_cache
+
+    @property
+    def random_seed(self) -> int:
+        """Random seed used for randomly generated attributes of a stroke. (`int`)"""
+        return self.__random_seed
 
     @property
     def layout_mask(self) -> int:
@@ -944,6 +991,200 @@ class Stroke(UUIDIdentifier):
         y_min = self.spline_min_y
         y_max = self.spline_max_y
         return BoundingBox(x=x_min, y=y_min, width=x_max - x_min, height=y_max - y_min)
+
+    def get_spline_attribute_values(self, attribute_type: InkStrokeAttributeType) -> List[float]:
+        """
+        Get the spline attribute values.
+
+        Parameters
+        ----------
+        attribute_type: InkStrokeAttributeType
+            The attribute type.
+
+        Returns
+        -------
+        List[float]
+            List of values.
+        """
+        if attribute_type == InkStrokeAttributeType.SPLINE_X:
+            return self.splines_x
+        if attribute_type == InkStrokeAttributeType.SPLINE_Y:
+            return self.splines_y
+        if attribute_type == InkStrokeAttributeType.SPLINE_SIZES:
+            return self.sizes
+        if attribute_type == InkStrokeAttributeType.SPLINE_ALPHA:
+            return self.alpha
+        if attribute_type == InkStrokeAttributeType.SPLINE_RED:
+            return self.red
+        if attribute_type == InkStrokeAttributeType.SPLINE_BLUE:
+            return self.blue
+        if attribute_type == InkStrokeAttributeType.SPLINE_GREEN:
+            return self.green
+        if attribute_type == InkStrokeAttributeType.SPLINE_OFFSETS_X:
+            return self.offsets_x
+        if attribute_type == InkStrokeAttributeType.SPLINE_OFFSETS_Y:
+            return self.offsets_y
+        if attribute_type == InkStrokeAttributeType.SPLINE_ROTATIONS:
+            return self.rotations
+        if attribute_type == InkStrokeAttributeType.SPLINE_SCALES_X:
+            return self.scales_x
+        if attribute_type == InkStrokeAttributeType.SPLINE_SCALES_Y:
+            return self.scales_y
+        return []
+
+    def get_sensor_point(self, index: int, sensor_channel_values: List[float] = None) -> float:
+        """
+        Get the sensor point.
+
+        Parameters
+        ----------
+        index: int
+            The index.
+        sensor_channel_values: List[float]
+            The sensor channel values.
+
+        Returns
+        -------
+        float
+            The sensor point.
+
+        Raises
+        ------
+        ValueError
+            If the index is out of range.
+        """
+        if index >= len(self.splines_x) or index < 0:
+            raise ValueError(f"Index {index} out of range - [0, ${len(self.splines_x) - 1}]")
+
+        if self.sensor_data_offset == 0 and index > 0:
+            index -= 1
+
+        if len(self.sensor_data_mapping) > 0:
+            if index >= len(self.sensor_data_mapping):
+                sensor_point_index = self.sensor_data_mapping[-1]
+            else:
+                sensor_point_index = self.sensor_data_mapping[index]
+        else:
+            sensor_point_index = self.sensor_data_offset + index
+
+            if sensor_channel_values is not None and sensor_point_index >= len(sensor_channel_values):
+                sensor_point_index = len(sensor_channel_values) - 1
+        return sensor_channel_values[sensor_point_index]
+
+    @staticmethod
+    def __handle_missing_data__(spline_len: int, handle_missing_data_policy: HandleMissingDataPolicy) -> Any:
+        """
+        Handle missing data.
+
+        Parameters
+        ----------
+        spline_len: int
+            The spline length.
+        handle_missing_data_policy: HandleMissingDataPolicy
+            The policy to handle missing data.
+
+        Returns
+        -------
+        Any
+            The output handler.
+
+        Raises
+        ------
+        ValueError
+            If the handle_missing_data_policy is unknown.
+        """
+        if handle_missing_data_policy == HandleMissingDataPolicy.FILL_WITH_ZEROS:
+            return [0] * spline_len
+        if handle_missing_data_policy == HandleMissingDataPolicy.FILL_WITH_NAN:
+            nan = float("nan")
+            return [nan] * spline_len
+        if handle_missing_data_policy == HandleMissingDataPolicy.SKIP_STROKE:
+            return None
+        if handle_missing_data_policy == HandleMissingDataPolicy.THROW_EXCEPTION:
+            raise ValueError("There is no timestamp data for this stroke.")
+        raise ValueError(f"Unknown handle_missing_data_policy {handle_missing_data_policy}")
+
+    def as_strided_array_extended(self, ink_model: 'InkModel',
+                                  layout: Optional[List[InkStrokeAttributeType]] = None,
+                                  handle_missing_data: HandleMissingDataPolicy =
+                                  HandleMissingDataPolicy.FILL_WITH_ZEROS,
+                                  remove_duplicates_at_ends: bool = True) \
+            -> Optional[List[float]]:
+        """
+        Create a strided array of the stroke data with the given layout.
+        Parameters
+        ----------
+        ink_model: InkModel
+            The ink model.
+        layout: List[InkStrokeAttributeType]
+            The layout of the strided array.
+        handle_missing_data: HandleMissingDataPolicy
+            The policy to handle missing data.
+        remove_duplicates_at_ends: bool
+            Remove duplicates at the ends.
+        """
+        if layout is None:
+            layout = DEFAULT_EXTENDED_LAYOUT
+        attribute_type_values_map: Dict = {}
+        target_channel_len: int = len(self.splines_x)
+
+        start_index: int = 0
+        end_index = target_channel_len
+
+        if remove_duplicates_at_ends:
+            if self.splines_x[0] == self.splines_x[1] and self.splines_y[0] == self.splines_y[1]:
+                start_index = 1
+
+            if self.splines_x[-1] == self.splines_x[-2] and self.splines_y[-1] == self.splines_y[-2]:
+                end_index -= 1
+
+        for attribute_type in layout:
+            if attribute_type.is_spline_attribute():
+                attribute_values = self.get_spline_attribute_values(attribute_type)
+                if len(attribute_values) == 0:
+                    # Check if there is information for this attribute in the path_point_properties
+                    attr = attribute_type.resolve_path_point_property(self.style.path_point_properties)
+                    if attr is not None and attr != 0:
+                        attribute_values = [attr] * target_channel_len
+                    else:
+                        attribute_values = Stroke.__handle_missing_data__(target_channel_len, handle_missing_data)
+
+                attribute_type_values_map[attribute_type] = attribute_values
+                continue
+
+            if attribute_type.is_sensor_attribute():
+                attribute_values = None
+                if self.sensor_data_id is not None:
+                    channel_data = ink_model.get_channel_data_values(
+                        self, InkStrokeAttributeType.get_sensor_type_by_attribute(attribute_type))
+
+                    if channel_data is not None and len(channel_data) > 0:
+                        # This will also use offset and mapping to properly align the data
+                        attribute_values = [self.get_sensor_point(i, channel_data) for i in
+                                            range(0, target_channel_len)]
+
+                if attribute_values is None:
+                    output_handler = Stroke.__handle_missing_data__(target_channel_len, handle_missing_data)
+                    if output_handler is None:
+                        return None
+                    attribute_values = output_handler
+
+                attribute_type_values_map[attribute_type] = attribute_values
+
+            else:
+                raise ValueError(f"Don't know how to process attribute type {attribute_type}")
+
+            if len(attribute_values) > 0 and len(attribute_values) != target_channel_len:
+                raise ValueError(f"Mismatch in channel size for {attribute_type}.")
+
+            attribute_type_values_map[attribute_type] = attribute_values
+
+        result_strided_array = []
+        for i in range(start_index, end_index):
+            for attribute_type in layout:
+                result_strided_array.append(attribute_type_values_map[attribute_type][i])
+
+        return result_strided_array
 
     def __import__(self, spline: Spline):
         # The content from spline is imported with the appropriate Layout mask being set.
