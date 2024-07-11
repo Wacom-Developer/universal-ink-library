@@ -12,12 +12,17 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+import logging
+import math
 import uuid
 from enum import Enum
-from typing import List, Union, Optional
+from typing import List, Union, Optional, Any
 
 from uim.model.base import UUIDIdentifier
 from uim.model.inkinput.inputdata import InkSensorType, SensorChannel, Unit, unit2unit
+
+logger: logging.Logger = logging.getLogger(__name__)
+TOLERANCE_VALUE_COMPARISON: float = 1e-2
 
 
 class InkState(Enum):
@@ -67,6 +72,18 @@ class ChannelData(UUIDIdentifier):
     def values(self, values: list):
         self.__values = values
 
+    def __eq__(self, other: Any):
+        if not isinstance(other, ChannelData):
+            logger.warning(f'Comparing ChannelData with incompatible type: {type(other)}')
+            return False
+        if self.id != other.id:
+            logger.warning(f'Comparing ChannelData with different id: {self.id} != {other.id}')
+            return False
+        for v_org, v_diff in zip(self.values, other.values):
+            if v_org != v_diff:
+                logger.warning(f'Comparing ChannelData with different values: {v_org} != {v_diff}')
+                return False
+
     def __repr__(self):
         return f'<ChannelData : [id:={self.id}, num channels:={len(self.values)}]>'
 
@@ -106,8 +123,14 @@ class SensorData(UUIDIdentifier):
 
     @property
     def input_context_id(self) -> uuid.UUID:
-        """Id of the input context. (UUID, read-only)"""
+        """Id of the input context. (UUID)"""
         return self.__input_context_id
+
+    @input_context_id.setter
+    def input_context_id(self, value: uuid.UUID):
+        """[WARNING]: Setting the input context id is not recommended."""
+        logger.info(f"Setting input context id: {value}")
+        self.__input_context_id = value
 
     @property
     def state(self) -> InkState:
@@ -199,13 +222,27 @@ class SensorData(UUIDIdentifier):
 
     def __eq__(self, other):
         if not isinstance(other, SensorData):
+            logger.warning(f'Comparing SensorData with incompatible type: {type(other)}')
             return False
         if len(self.data_channels) != len(other.data_channels):
+            logger.warning(f'Comparing SensorData with different number of channels: {len(self.data_channels)} != '
+                           f'{len(other.data_channels)}')
             return False
         if self.input_context_id != other.input_context_id:
+            logger.warning(f'Comparing SensorData with different input context id: {self.input_context_id} != '
+                           f'{other.input_context_id}')
             return False
         if self.id != other.id:
+            logger.warning(f'Comparing SensorData with different id: {self.id} != {other.id}')
             return False
+        for dc_org, dc_diff in zip(self.data_channels, other.data_channels):
+            if dc_org.id != dc_diff.id:
+                logger.warning(f'Comparing SensorData with different channel id: {dc_org.id} != {dc_diff.id}')
+                return False
+            for v_org, v_diff in zip(dc_org.values, dc_diff.values):
+                if not math.isclose(v_org, v_diff, abs_tol=TOLERANCE_VALUE_COMPARISON):
+                    logger.warning(f'Comparing SensorData with different channel values: {v_org} != {v_diff}')
+                    return False
         return True
 
     def __repr__(self):
