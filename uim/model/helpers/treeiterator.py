@@ -45,9 +45,6 @@ class StackItem:
         """Index of the current node within its parent.  (`int`, read-only)"""
         return self.__index
 
-    def __repr__(self):
-        return f'<StackItem : [index:={self.index}, node-id:={self.node.id}]>'
-
 
 class PreOrderEnumerator:
     """
@@ -58,15 +55,12 @@ class PreOrderEnumerator:
     Parameters
     ----------
     node - `InkNode`
-        Reference to root node
+        The node that will be used as a root for the traversal.
     """
 
     def __init__(self, root: InkNode):
-        """
-        Initializes new instance of the enumerator with the specified parameters.
-        :param root: InkNode -
-            The node that will be used as a root for the traversal.
-        """
+        if root is None:
+            raise ValueError("Root node cannot be None")
         self.__root: InkNode = root
         self.__stack: List[StackItem] = []
         self.__current: Optional[InkNode] = None
