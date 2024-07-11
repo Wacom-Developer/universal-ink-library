@@ -81,16 +81,18 @@ class UIMEncoder310(CodecEncoder):
         RotationMode.TRAJECTORY: uim_3_1_0.TRAJECTORY
     }
 
-    def __init__(self):
-        pass
-
     @classmethod
     def __copy_sensor_data__(cls, s1: uim_3_1_0.SensorData, s2: sensor.SensorData, context: device.SensorContext):
         """
         Copy the SensorData.
-        :param s1: protobuf structure
-        :param s2: internal structure
-        :param context: context for sensor
+        Parameters
+        ----------
+        s1: uim_3_1_0.SensorData
+            Protobuf structure
+        s2: sensor.SensorData
+            Internal structure
+        context: device.SensorContext
+            Sensor context for the sensor
         """
         s1.id = s2.id.bytes_le
         s1.inputContextID = s2.input_context_id.bytes_le
@@ -104,8 +106,8 @@ class UIMEncoder310(CodecEncoder):
             channel_ctx: SensorChannel = context.get_channel_by_id(d.id)
             if channel_ctx.type == device.InkSensorType.TIMESTAMP:
                 if d.values:
-                    conv: List[int] = UIMEncoder310.__encoding__(d.values, 0, channel_ctx.resolution,
-                                                                 ignore_first=True)
+                    conv: List[int] = UIMEncoder310.__encoding__(d.values, channel_ctx.precision,
+                                                                 channel_ctx.resolution, ignore_first=True)
                     sd.values.extend(conv)
             else:
                 conv: List[int] = UIMEncoder310.__encoding__(d.values, channel_ctx.precision, channel_ctx.resolution)
@@ -283,8 +285,6 @@ class UIMEncoder310(CodecEncoder):
             InkModel object
         args: List[Any]
             Additional arguments
-        kwargs:
-            format:=[json|binary] : Use json representation, [default:=binary]
 
         Returns
         -------
@@ -295,6 +295,8 @@ class UIMEncoder310(CodecEncoder):
         ------
         InkModelException
             If the input data is not an InkModel object
+        FormatException
+            If the format is not matching the expected format
         """
         if not isinstance(ink_model, InkModel):
             raise InkModelException('Not an Ink Document object!')
@@ -532,15 +534,15 @@ class UIMEncoder310(CodecEncoder):
         color: int = PathPointProperties.rgba(properties.red, properties.green, properties.blue, properties.alpha)
         proto_properties.color = color
 
-        if properties.size != 1.0:
+        if properties.size != 0.0:
             proto_properties.size = properties.size
         if properties.rotation != 0.0:
             proto_properties.rotation = properties.rotation
-        if properties.scale_x != 1.0:
+        if properties.scale_x != 0.0:
             proto_properties.scaleX = properties.scale_x
-        if properties.scale_y != 1.0:
+        if properties.scale_y != 0.0:
             proto_properties.scaleY = properties.scale_y
-        if properties.scale_z != 1.0:
+        if properties.scale_z != 0.0:
             proto_properties.scaleZ = properties.scale_z
         if properties.offset_x != 0.0:
             proto_properties.offsetX = properties.offset_x
