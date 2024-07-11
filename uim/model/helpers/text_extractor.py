@@ -17,6 +17,7 @@ import uuid
 from typing import List, Tuple, Dict, Any, Optional
 
 from uim.codec.parser.uim import UIMParser
+from uim.model.helpers.schema_content_extractor import __collected_stroke_ids__
 from uim.model.helpers.treeiterator import PreOrderEnumerator
 from uim.model.ink import InkModel
 from uim.model.semantics.node import InkNode, StrokeGroupNode, StrokeNode
@@ -76,28 +77,6 @@ def uim_extract_text_and_semantics(uim_bytes: bytes, hwr_view: str = CommonViews
     uim_parser: UIMParser = UIMParser()
     ink_object: InkModel = uim_parser.parse(uim_bytes)
     return uim_extract_text_and_semantics_from(ink_object, hwr_view)
-
-
-def __collected_stroke_ids__(node: StrokeGroupNode) -> List[uuid.UUID]:
-    """
-    Collecting all stroke ids from the node.
-    Parameters
-    ----------
-    node: `StrokeGroupNode`
-        Stroke group node
-
-    Returns
-    -------
-    strokes: `List[uuid.UUID]`
-        List of stroke ids
-    """
-    strokes: List[uuid.UUID] = []
-    for child in node.children:
-        if isinstance(child, StrokeNode):
-            strokes.append(child.stroke.id)
-        elif isinstance(child, StrokeGroupNode):
-            strokes.extend(__collected_stroke_ids__(child))
-    return strokes
 
 
 def uim_extract_text_and_semantics_from(ink_model: InkModel, hwr_view: str = CommonViews.HWR_VIEW.value)\
