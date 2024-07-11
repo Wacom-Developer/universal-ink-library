@@ -99,8 +99,6 @@ class Identifier(ABC):
     def __init__(self, identifier: uuid.UUID, method: IdentifiableMethod = IdentifiableMethod.MD5):
         self.__identifier: uuid.UUID = identifier
         self.__method: IdentifiableMethod = method
-        if identifier is not None and not isinstance(identifier, uuid.UUID):
-            raise TypeError(f'Identifier must be of type UUID. [Type: {type(identifier)}]')
 
     @property
     def id(self) -> uuid.UUID:
@@ -108,6 +106,12 @@ class Identifier(ABC):
         if self.__identifier is None:
             self.__identifier = self.__generate_id__()
         return self.__identifier
+
+    def regenerate_id(self):
+        """
+        Regenerate the identifier.
+        """
+        self.__identifier = self.__generate_id__()
 
     @property
     def method(self) -> IdentifiableMethod:
@@ -157,7 +161,7 @@ class Identifier(ABC):
 
         Raises
         ------
-        ValueError
+        InkModelException
             If UUID string is not valid.
         """
         try:
@@ -273,15 +277,9 @@ class HashIdentifier(Identifier):
             if t is None:
                 message += ''
             elif isinstance(t, float):
-                if t == 0.0:
-                    message += ''
-                else:
-                    message += f'{t:.4f}'
+                message += f'{t:.4f}'
             elif isinstance(t, int):
-                if t == 0:
-                    message += ''
-                else:
-                    message += str(t)
+                message += str(t)
             elif isinstance(t, Enum):
                 message += str(t.name)
             elif isinstance(t, uuid.UUID):
