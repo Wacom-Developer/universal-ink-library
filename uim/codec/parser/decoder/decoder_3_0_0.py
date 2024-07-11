@@ -104,9 +104,6 @@ class UIMDecoder300(CodecDecoder):
         uim_3_0_0.TRAJECTORY: RotationMode.TRAJECTORY
     }
 
-    def __init__(self):
-        pass
-
     @classmethod
     def decode(cls, riff: BytesIO, size_head: int) -> InkModel:
         """
