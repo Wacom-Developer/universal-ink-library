@@ -19,7 +19,7 @@ import os
 from chunk import Chunk
 from io import BytesIO
 from pathlib import Path
-from typing import Tuple, Any, Union
+from typing import Tuple, Union
 
 from uim.codec.base import RIFF_HEADER, UIM_HEADER, HEAD_HEADER
 from uim.codec.parser.base import Parser, FormatException, SupportedFormats
@@ -50,9 +50,6 @@ class UIMParser(Parser):
     --------
     ´WILL2Parser´ - Parser for WILL files
     """
-
-    def __int__(self):
-        pass
 
     @staticmethod
     def __parse_version__(stream: BytesIO) -> Tuple[int, SupportedFormats]:
