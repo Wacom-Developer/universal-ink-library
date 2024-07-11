@@ -12,15 +12,21 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+import logging
 import uuid
 from abc import ABC
 from enum import Enum
+from logging import Logger
+from math import isclose
 from typing import List, Tuple, Any, Optional
 
 import numpy as np
 
 import uim.codec.format.UIM_3_0_0_pb2 as uim
 from uim.model.base import HashIdentifier, Identifier, UUIDIdentifier, InkModelException
+
+logger: Logger = logging.getLogger(__name__)
+TOLERANCE_VALUE_COMPARISON: float = 1e-2
 
 
 class DataType(Enum):
@@ -331,7 +337,7 @@ def unit2unit(source_unit: Unit, target_unit: Unit, value: float) -> float:
     if source_unit not in CONVERSION_SCALAR:
         raise ValueError(f'Source unit not supported. Unit:={source_unit}')
     if target_unit not in CONVERSION_SCALAR[source_unit]:
-        raise ValueError(f'Target unit not supported. Unit:={target_unit}')
+        raise ValueError(f'Target unit not supported. Unit:={target_unit} for source unit:={source_unit}')
     return CONVERSION_SCALAR[source_unit][target_unit] * value
 
 
@@ -430,6 +436,12 @@ class InputDevice(HashIdentifier):
     def __tokenize__(self):
         return ['InputDevice', self.properties]
 
+    def __eq__(self, other: Any):
+        if not isinstance(other, InputDevice):
+            logger.warning(f"Comparing InputDevice with different type: {type(other)}")
+            return False
+        return self.properties == other.properties
+
     def __repr__(self):
         return f'<InputDevice : [id:={self.id}, num properties:={self.properties}>'
 
@@ -453,25 +465,43 @@ class InputContext(HashIdentifier):
     def __init__(self, ctx_id: Optional[uuid.UUID] = None, environment_id: Optional[uuid.UUID] = None, 
                  sensor_context_id: Optional[uuid.UUID] = None):
         super().__init__(ctx_id)
-        self.__environment_id = environment_id
-        self.__sensor_context_id = sensor_context_id
+        self.__environment_id: Optional[uuid.UUID] = environment_id
+        self.__sensor_context_id: Optional[uuid.UUID]  = sensor_context_id
 
     def __tokenize__(self) -> list:
         return ["InputContext", self.environment_id, self.sensor_context_id]
 
     @property
-    def environment_id(self) -> uuid.UUID:
+    def environment_id(self) -> Optional[uuid.UUID] :
         """Reference to environment. (`UUID`, read-only)"""
         return self.__environment_id
 
     @property
-    def sensor_context_id(self) -> uuid.UUID:
+    def sensor_context_id(self) -> Optional[uuid.UUID] :
         """Reference for sensor context. (`UUID`, read-only)"""
         return self.__sensor_context_id
 
+    @sensor_context_id.setter
+    def sensor_context_id(self, value: uuid.UUID):
+        logger.warning(f"Sensor context id has been changed. This is not recommended. "
+                       f"Old value {self.__sensor_context_id}, new value {value}.")
+        self.__sensor_context_id = value
+
+    def __eq__(self, other: Any):
+        if not isinstance(other, InputContext):
+            logger.warning(f"Comparing InputContext with different type: {type(other)}")
+            return False
+        if self.environment_id != other.environment_id:
+            logger.warning(f"Environment id is different: {self.environment_id} != {other.environment_id}")
+            return False
+        if self.sensor_context_id != other.sensor_context_id:
+            logger.warning(f"Sensor context id is different: {self.sensor_context_id} != {other.sensor_context_id}")
+            return False
+        return True
+
     def __repr__(self):
-        env_id: str = Identifier.uimid_to_s_form(self.environment_id)
-        sc_id: str = Identifier.uimid_to_s_form(self.sensor_context_id)
+        env_id: str = Identifier.uimid_to_s_form(self.environment_id) if self.environment_id else "None"
+        sc_id: str = Identifier.uimid_to_s_form(self.sensor_context_id) if self.sensor_context_id else "None"
         return f'<InputContext : [id:={self.id_h_form}, environment id:={env_id}, sensor context id:={sc_id}>'
 
 
@@ -533,6 +563,12 @@ class Environment(HashIdentifier):
         """
         self.properties.append((key, value))
 
+    def __eq__(self, other: Any):
+        if not isinstance(other, Environment):
+            logger.warning(f"Comparing Environment with different type: {type(other)}")
+            return False
+        return self.properties == other.properties
+
     def __repr__(self):
         return f'<Environment: [id:={self.id.hex}, #properties:={self.properties}>'
 
@@ -572,7 +608,7 @@ class InkInputProvider(HashIdentifier):
         self.__properties: List[Tuple[str, str]] = properties or []
 
     def __tokenize__(self):
-        return ['InkInputProvider', TOKEN_MAP[self.type], self.properties]
+        return ['InkInputProvider', TOKEN_MAP.get(self.type), self.properties]
 
     @property
     def type(self) -> InkInputType:
@@ -583,6 +619,12 @@ class InkInputProvider(HashIdentifier):
     def properties(self) -> List[Tuple[str, str]]:
         """Properties of input data provider. (`List[Tuple[str, str]]`, read-only)"""
         return self.__properties
+
+    def __eq__(self, other):
+        if not isinstance(other, InkInputProvider):
+            logger.warning(f"Comparing InkInputProvider with different type: {type(other)}")
+            return False
+        return self.type == other.type and self.properties == other.properties
 
     def __repr__(self):
         return f'<InkInputProvider: [id:={self.id}, type:={self.type}, properties:={self.properties}]>'
@@ -728,6 +770,48 @@ class SensorChannel(HashIdentifier):
         """ Data type encoding. (`DataType`, read-only)"""
         return self.__data_type
 
+    def __eq__(self, other: Any):
+        if not isinstance(other, SensorChannel):
+            logger.warning(f"Comparing SensorChannel with different type: {type(other)}")
+            return False
+        if self.ink_input_provider != other.ink_input_provider:
+            logger.warning(f"Comparing SensorChannel with different ink input provider: {self.ink_input_provider} != "
+                           f"{other.ink_input_provider}")
+            return False
+        if self.input_device_id != other.input_device_id:
+            logger.warning(f"Comparing SensorChannel with different input device: {self.input_device_id} != "
+                           f"{other.input_device_id}")
+            return False
+        if self.name != other.name:
+            logger.warning(f"Comparing SensorChannel with different name: {self.name} != {other.name}")
+            return False
+        if self.index != other.index:
+            logger.warning(f"Comparing SensorChannel with different index: {self.index} != {other.index}")
+            return False
+        if self.data_type != other.data_type:
+            logger.warning(f"Comparing SensorChannel with different data type: {self.data_type} != {other.data_type}")
+            return False
+        if self.type != other.type:
+            logger.warning(f"Comparing SensorChannel with different type: {self.type} != {other.type}")
+            return False
+        if self.metric != other.metric:
+            logger.warning(f"Comparing SensorChannel with different metric: {self.metric} != {other.metric}")
+            return False
+        if self.resolution != other.resolution:
+            logger.warning(f"Comparing SensorChannel with different resolution: {self.resolution} != "
+                           f"{other.resolution}")
+            return False
+        if not isclose(self.min, other.min, abs_tol=TOLERANCE_VALUE_COMPARISON):
+            logger.warning(f"Comparing SensorChannel with different min: {self.min} != {other.min}")
+            return False
+        if not isclose(self.max, other.max, abs_tol=TOLERANCE_VALUE_COMPARISON):
+            logger.warning(f"Comparing SensorChannel with different max: {self.max} != {other.max}")
+            return False
+        if self.precision != other.precision:
+            logger.warning(f"Comparing SensorChannel with different precision: {self.precision} != {other.precision}")
+            return False
+        return True
+
     def __repr__(self):
         return (f'<SensorChannel: [id:={self.id.hex}, type:={self.__type}, metric:={self.__metric}, '
                 f'resolution:={self.__resolution}, min:={ self.__min}, max:={self.__max}, '
@@ -802,8 +886,8 @@ class SensorChannelsContext(HashIdentifier):
                  ink_input_provider_id: Optional[uuid.UUID] = None, input_device_id: Optional[uuid.UUID] = None):
         super().__init__(sid)
         self.__channels: List[SensorChannel] = channels or []
-        self.__sampling_rate_hint: int = sampling_rate_hint
-        self.__latency: int = latency
+        self.__sampling_rate_hint: int = sampling_rate_hint if sampling_rate_hint else 0
+        self.__latency: int = latency if latency else 0
         self.__ink_input_provider_id: uuid.UUID = ink_input_provider_id
         self.__input_device_id: uuid.UUID = input_device_id
         # Set bind channels to input provider and input device
@@ -828,12 +912,12 @@ class SensorChannelsContext(HashIdentifier):
     @property
     def sampling_rate(self) -> int:
         """Hint for sampling rate valid for all channels. (`int`, read-only)"""
-        return self.__sampling_rate_hint
+        return self.__sampling_rate_hint if self.__sampling_rate_hint else 0
 
     @property
     def latency(self) -> int:
         """Gets the latency measurement in milliseconds. (`int`, read-only)"""
-        return self.__latency
+        return self.__latency if self.__latency else 0
 
     @property
     def input_provider_id(self) -> uuid.UUID:
@@ -894,6 +978,31 @@ class SensorChannelsContext(HashIdentifier):
             if c.type == channel_type:
                 return c
         raise InkModelException(f'No channel available for the type: {channel_type}')
+
+    def __eq__(self, other: Any):
+        if not isinstance(other, SensorChannelsContext):
+            logger.warning(f"Comparing SensorChannelsContext with different type: {type(other)}")
+            return False
+        for c_1, c_2 in zip(self.channels, other.channels):
+            if c_1 != c_2:
+                logger.warning(f"SensorChannels are not equal: {c_1} != {c_2}")
+                return False
+        if len(self.channels) != len(other.channels):
+            logger.warning(f"Length of SensorChannels are not equal: {len(self.channels)} != {len(other.channels)}")
+            return False
+        if self.sampling_rate != other.sampling_rate:
+            logger.warning(f"Sampling rates are not equal: {self.sampling_rate} != {other.sampling_rate}")
+            return False
+        if self.latency != other.latency:
+            logger.warning(f"Latencies are not equal: {self.latency} != {other.latency}")
+            return False
+        if self.input_provider_id != other.input_provider_id:
+            logger.warning(f"Input provider ids are not equal: {self.input_provider_id} != {other.input_provider_id}")
+            return False
+        if self.input_device_id != other.input_device_id:
+            logger.warning(f"Input device ids are not equal: {self.input_device_id} != {other.input_device_id}")
+            return False
+        return True
 
     def __repr__(self):
         return (f'<SensorChannelsContext: [id:={self.id_h_form}, sampling rate hint:={self.sampling_rate}, '
@@ -1005,6 +1114,20 @@ class SensorContext(HashIdentifier):
             if c.has_channel_type(channel_type):
                 return c.get_channel_by_type(channel_type)
         raise InkModelException(f'No channel with channel type: {channel_type}.')
+
+    def __eq__(self, other: Any):
+        if not isinstance(other, SensorContext):
+            logger.warning(f"Comparing SensorContext with different type: {type(other)}")
+            return False
+        for sc_1, sc_2 in zip(self.sensor_channels_contexts, other.sensor_channels_contexts):
+            if sc_1 != sc_2:
+                logger.warning(f"SensorChannelsContexts are not equal: {sc_1} != {sc_2}")
+                return False
+        if len(self.sensor_channels_contexts) != len(other.sensor_channels_contexts):
+            logger.warning(f"Length of SensorChannelsContexts are not equal: {len(self.sensor_channels_contexts)} != "
+                           f"{len(other.sensor_channels_contexts)}")
+            return False
+        return True
 
     def __repr__(self):
         return f'<SensorContext: [context_id:={self.id}, sensor_channels_contexts:={self.sensor_channels_contexts}]>'
@@ -1215,8 +1338,55 @@ class InputContextRepository(ABC):
         return len(self.input_contexts) > 0 or len(self.sensor_contexts) > 0 or len(self.ink_input_providers) > 0 or \
             len(self.devices) > 0 or len(self.environments)
 
+    def __eq__(self, other: Any):
+        if not isinstance(other, InputContextRepository):
+            logger.warning(f"Comparing InputContextRepository with different type: {type(other)}")
+            return False
+        if len(self.input_contexts) != len(other.input_contexts):
+            logger.warning(f"Length of InputContexts are not equal: {len(self.input_contexts)} != "
+                           f"{len(other.input_contexts)}")
+            return False
+        for ic_1, ic_2 in zip(self.input_contexts, other.input_contexts):
+            if ic_1 != ic_2:
+                logger.warning(f"InputContexts are not equal: {ic_1} != {ic_2}")
+                return False
+
+        if len(self.sensor_contexts) != len(other.sensor_contexts):
+            logger.warning(f"Length of SensorContexts are not equal: {len(self.sensor_contexts)} !="
+                           f" {len(other.sensor_contexts)}")
+            return False
+        for sc_1, sc_2 in zip(self.sensor_contexts, other.sensor_contexts):
+            if sc_1 != sc_2:
+                logger.warning(f"SensorContexts are not equal: {sc_1} != {sc_2}")
+                return False
+
+        if len(self.ink_input_providers) != len(other.ink_input_providers):
+            logger.warning(f"Length of InkInputProviders are not equal: {len(self.ink_input_providers)} != "
+                           f"{len(other.ink_input_providers)}")
+            return False
+        for ip_1, ip_2 in zip(self.ink_input_providers, other.ink_input_providers):
+            if ip_1 != ip_2:
+                logger.warning(f"InkInputProviders are not equal: {ip_1} != {ip_2}")
+                return False
+        if len(self.devices) != len(other.devices):
+            logger.warning(f"Length of InputDevices are not equal: {len(self.devices)} != {len(other.devices)}")
+            return False
+        for dev_1, dev_2 in zip(self.devices, other.devices):
+            if dev_1 != dev_2:
+                logger.warning(f"InputDevices are not equal: {dev_1} != {dev_2}")
+                return False
+        if len(self.environments) != len(other.environments):
+            logger.warning(f"Length of Environments are not equal: {len(self.environments)} !="
+                           f" {len(other.environments)}")
+            return False
+        for env_1, env_2 in zip(self.environments, other.environments):
+            if env_1 != env_2:
+                logger.warning(f"Environments are not equal: {env_1} != {env_2}")
+                return False
+        return True
+
     def __repr__(self):
-        return (f'<InputContextData: [#context:={len(self.input_contexts)}, '
+        return (f'<InputContextRepository: [#context:={len(self.input_contexts)}, '
                 f'#providers:={len(self.ink_input_providers)},'
                 f' #devices:={len(self.devices)}, #environments:={len(self.environments)}, '
                 f'#sensors:={len(self.sensor_contexts)}]>')
