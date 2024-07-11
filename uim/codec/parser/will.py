@@ -17,6 +17,7 @@ import pathlib
 import struct
 import time
 import uuid
+import warnings
 import zipfile
 from chunk import Chunk
 from io import BytesIO
@@ -62,6 +63,10 @@ class WILL2Parser(Parser):
     See also
     --------
     ´UIMParser´ - Parser for UIM files
+
+    Notes
+    -----
+    The WILL2Parser is deprecated and will be removed in a future version.
     """
     # Constants for meta data WILL File format
     APP_VERSION: str = '{http://schemas.willfileformat.org/2015/relationships/extended-properties}AppVersion'
@@ -105,11 +110,8 @@ class WILL2Parser(Parser):
     """ Sampling rate of 120 Hz roughly 8 ms."""
 
     def __init__(self):
-        self.__version: Optional[str] = None
         self.__paths: list = []
         self.__protobuf = None
-        self.__source: str = ''
-
         self.__document_application: str = WILL2Parser.DEFAULT_APPLICATION_NAME
         self.__document_application_version: str = str(WILL2Parser.DEFAULT_APPLICATION_VERSION)
         self.__viewport_x: float = 0.0
@@ -128,6 +130,11 @@ class WILL2Parser(Parser):
         self.__x_channel: Optional[device.SensorChannel] = None
         self.__y_channel: Optional[device.SensorChannel] = None
         self.__t_channel: Optional[device.SensorChannel] = None
+        warnings.warn(
+            f"WILL Parser is deprecated and will be removed in a future version.",
+            category=DeprecationWarning,
+            stacklevel=2
+        )
 
     def parse(self, path_or_stream: Union[str, bytes, memoryview, BytesIO, Path]) -> InkModel:
         """
@@ -228,6 +235,8 @@ class WILL2Parser(Parser):
                                 self.__viewport_height = float(root.attrib['height'])
 
                             matrix = root.find('{http://www.w3.org/2000/svg}g')
+                            rotation_matrix: np.array = np.identity(3)
+                            rotation_matrix_2: np.array = np.identity(3)
                             if matrix is not None and 'transform' in matrix.attrib:
                                 matrix_array = matrix.attrib['transform'][7:-1].split(' ')
                                 # The matrix(<a> <b> <c> <d> <e> <f>) transform function specifies a transformation
@@ -236,22 +245,20 @@ class WILL2Parser(Parser):
                                 # ( a	 c	e
                                 #   b	 d	f
                                 #   0	 0	1 )
-                                rotmatrix: np.array = np.array(
+                                rotation_matrix: np.array = np.array(
                                     ((float(matrix_array[0]), float(matrix_array[2]), float(matrix_array[4])),
                                      (float(matrix_array[1]), float(matrix_array[3]), float(matrix_array[5])),
                                      (0., 0., 1.)))
 
                                 sub = matrix.find('{http://www.w3.org/2000/svg}g')
                                 if sub is not None and 'transform' in sub.attrib:
-                                    matrix_array = sub.attrib['transform'][7:-1].split(' ')
-                                    rotmatrix2: np.array = np.array(
+                                    matrix_array_2 = sub.attrib['transform'][7:-1].split(' ')
+                                    rotation_matrix: np.array = np.array(
                                         ((float(matrix_array[0]), float(matrix_array[2]), float(matrix_array[4])),
                                          (float(matrix_array[1]), float(matrix_array[3]), float(matrix_array[5])),
                                          (0., 0., 1.)))
-                                else:
-                                    rotmatrix2: np.array = np.identity(3)
                             scale: np.array = device.unit2unit_matrix(device.Unit.DIP, device.Unit.M)
-                            self.__matrix = scale.dot(rotmatrix.dot(rotmatrix2))
+                            self.__matrix = scale.dot(rotation_matrix.dot(matrix_array_2))
 
         except zipfile.BadZipFile as e:
             raise FormatException(e) from e
@@ -337,6 +344,8 @@ class WILL2Parser(Parser):
         statements: list = [
             (schema.DOCUMENT_TITLE_OBJECT, self.__document_title),
             (schema.DOCUMENT_CREATION_DATE_OBJECT, self.__document_creation_datetime),
+            (schema.DOCUMENT_APPLICATION_OBJECT, self.__document_application),
+            (schema.DOCUMENT_APPLICATION_VERSION_OBJECT, self.__document_application_version),
             (schema.DOCUMENT_X_MIN_PROPERTY, str(self.__viewport_x)),
             (schema.DOCUMENT_Y_MIN_PROPERTY, str(self.__viewport_y)),
             (schema.DOCUMENT_WIDTH_PROPERTY, str(self.__viewport_width)),
