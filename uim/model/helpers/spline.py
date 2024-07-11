@@ -143,5 +143,7 @@ def linear_interpol(p_x: List[float], p_y: List[float]) -> Tuple[List[float], Li
     interp_y: List[float]
         List of linear interpolated x coordinates
     """
+    if len(p_x) < 2:
+        raise ValueError("At least two points are required for linear interpolation.")
     x_intpol = np.linspace(p_x[0], p_x[-1], 4)
     return x_intpol.tolist(), np.interp(x_intpol, p_x, p_y).tolist()
