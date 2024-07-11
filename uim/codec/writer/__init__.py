@@ -9,5 +9,3 @@ This package contains different encoders for ink formats:
 __all__ = ['encoder']
 
 from uim.codec.writer import encoder
-
-
