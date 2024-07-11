@@ -13,8 +13,10 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 import ctypes
+import logging
 import uuid
 from io import BytesIO
+from logging import Logger
 from typing import Any, List, Tuple, Optional, Dict
 
 import uim.codec.format.UIM_3_1_0_pb2 as uim_3_1_0
@@ -33,6 +35,9 @@ from uim.model.inkinput.inputdata import InkSensorType, InputContext, SensorCont
 from uim.model.inkinput.sensordata import SensorData, ChannelData, InkState
 from uim.model.semantics.node import BoundingBox, StrokeGroupNode, StrokeNode, StrokeFragment
 from uim.model.semantics.schema import CommonViews
+
+# Logger
+logger: Logger = logging.getLogger(__name__)
 
 
 class UIMDecoder310(CodecDecoder):
@@ -199,6 +204,7 @@ class UIMDecoder310(CodecDecoder):
         input_data: uim_3_1_0.InputData
             Protobuf structure for input data (sensor data)s
         """
+        context.decoder_map['ignore'] = []
         input_context_data: uim_3_1_0.InputContextData = input_data.inputContextData
         # Parse Input Contexts
         for inputContext in input_context_data.inputContexts:
@@ -249,6 +255,10 @@ class UIMDecoder310(CodecDecoder):
                     input_provider_uuid: Optional[uuid.UUID] = None
                     if sensorChannelsContext.inkInputProviderID:
                         input_provider_uuid = Identifier.from_bytes(sensorChannelsContext.inkInputProviderID)
+                    if sensorChannel.type not in UIMDecoder310.MAP_CHANNEL_TYPE:
+                        logger.warning(f"Unknown channel type {sensorChannel.type}")
+                        context.decoder_map['ignore'].append(Identifier.from_bytes(sensorChannel.id))
+                        continue
                     sensor_channel: SensorChannel = SensorChannel(
                         Identifier.from_bytes(sensorChannel.id),
                         UIMDecoder310.MAP_CHANNEL_TYPE[sensorChannel.type],
@@ -299,8 +309,11 @@ class UIMDecoder310(CodecDecoder):
             )
             # Adding all channels
             for dataChannel in sensorData.dataChannels:
+                identifier: uuid.UUID = Identifier.from_bytes(dataChannel.sensorChannelID)
+                if identifier in context.decoder_map['ignore']:
+                    continue
                 sensor_type: SensorChannel = sensor_ctx.get_channel_by_id(
-                    Identifier.from_bytes(dataChannel.sensorChannelID)
+                    identifier
                 )
                 if sensor_type.type == InkSensorType.TIMESTAMP:
                     ctx: SensorChannel = sensor_ctx.get_channel_by_id(
@@ -441,13 +454,12 @@ class UIMDecoder310(CodecDecoder):
             context.strokes.append(stroke)
         # Unit scale
         context.ink_model.unit_scale_factor = ink_data.unitScaleFactor
-        if ink_data.transform.m00 > 0:
-            context.ink_model.transform = [
-                [ink_data.transform.m00, ink_data.transform.m01, ink_data.transform.m02, ink_data.transform.m03],
-                [ink_data.transform.m10, ink_data.transform.m11, ink_data.transform.m12, ink_data.transform.m13],
-                [ink_data.transform.m20, ink_data.transform.m21, ink_data.transform.m22, ink_data.transform.m23],
-                [ink_data.transform.m30, ink_data.transform.m31, ink_data.transform.m32, ink_data.transform.m33]
-            ]
+        context.ink_model.transform = [
+            [ink_data.transform.m00, ink_data.transform.m01, ink_data.transform.m02, ink_data.transform.m03],
+            [ink_data.transform.m10, ink_data.transform.m11, ink_data.transform.m12, ink_data.transform.m13],
+            [ink_data.transform.m20, ink_data.transform.m21, ink_data.transform.m22, ink_data.transform.m23],
+            [ink_data.transform.m30, ink_data.transform.m31, ink_data.transform.m32, ink_data.transform.m33]
+        ]
 
     @classmethod
     def parse_knowledge(cls, context: DecoderContext, triple_store: uim_3_1_0.TripleStore):
