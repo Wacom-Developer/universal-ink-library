@@ -9,9 +9,10 @@
     - Iterate over the Ink Tree
 """
 
-__all__ = ['spline', 'text_extractor', 'treeiterator', 'policy']
+__all__ = ['spline', 'text_extractor', 'treeiterator', 'policy', 'boundingbox']
 
 from uim.model.helpers import spline
 from uim.model.helpers import text_extractor
 from uim.model.helpers import treeiterator
 from uim.model.helpers import policy
+from uim.model.helpers import boundingbox
