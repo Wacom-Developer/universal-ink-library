@@ -13,6 +13,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 from abc import ABC
+from typing import Any
 
 
 class BoundingBox(ABC):
@@ -79,6 +80,11 @@ class BoundingBox(ABC):
         new_width: float = max(self.width, self.width + self.x - bb.x)
         new_height: float = max(self.height, self.height + self.y - bb.y)
         return BoundingBox(new_x, new_y, new_width, new_height)
+
+    def __eq__(self, other: Any):
+        if not isinstance(other, BoundingBox):
+            return False
+        return self.x == other.x and self.y == other.y and self.width == other.width and self.height == other.height
 
     def __repr__(self):
         return f'<Bounding box : [x:={self.x}, y:={self.y}, width:={self.width}, height:={self.height}]>'
