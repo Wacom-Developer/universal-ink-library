@@ -24,14 +24,32 @@
 """
 __author__ = "Markus Weber"
 __copyright__ = "Copyright 2021 Wacom. All rights reserved."
-__credits__ = ["Markus Weber"]
+__credits__ = ["Markus Weber", "Zahari Pastarmadjiev", "Alexander Petrov", "Ilia Parvanov", "Hristo Stanulov"]
 __license__ = "Apache 2.0 License"
 __maintainer__ = ["Markus Weber"]
 __email__ = "markus.weber@wacom.com"
 __status__ = "beta"
-__version__ = "1.1.0"
+__version__ = "2.0.0"
 
-__all__ = ['codec', 'model', 'utils']
+import logging
+from typing import Optional
+
+logger: Optional[logging.Logger] = None
+
+if logger is None:
+    logger: logging.Logger = logging.getLogger(__name__)
+    logger.setLevel(logging.DEBUG)
+
+    ch = logging.StreamHandler()
+    ch.setLevel(logging.INFO)
+    # create formatter and add it to the handlers
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    ch.setFormatter(formatter)
+    # add the handlers to the logger
+    logger.addHandler(ch)
+    logger.info('Completed configuring logger()!')
+
+__all__ = ['codec', 'model', 'utils', 'logger']
 
 from uim import model
 from uim import codec

@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 import pathlib
+import sys
 
 from setuptools import setup, find_packages
 
-import sys
 CURRENT_PYTHON = sys.version_info[:2]
 REQUIRED_PYTHON = (3, 6)
 
@@ -27,7 +27,7 @@ if CURRENT_PYTHON < REQUIRED_PYTHON:
 
 # The directory containing this file
 HERE = pathlib.Path(__file__).parent
-VERSION: str = "1.1.0"
+VERSION: str = "2.0.0"
 
 # The text of the README file
 README = (HERE / "README.md").read_text()
@@ -51,9 +51,7 @@ setup(
         "bitstring>=3.1.7",
         "protobuf<4.0.0",
         "varint>=1.0.2",
-        "python-dateutil>=2.8.1",
-        "lxml>=4.6.3",
-        "Jinja2==3.1.2"
+        "lxml>=4.6.3"
     ],
     extras_require={
     },
@@ -71,9 +69,10 @@ setup(
         'Intended Audience :: Science/Research',
         # Python Version
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3.9'
-    ],
-    )
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11'
+    ]
+)
