@@ -12,12 +12,17 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+import logging
 from abc import ABC
 from enum import Enum
-from typing import List, Tuple, Any, Optional
+from math import isclose
+from typing import List, Tuple, Any, Optional, Union
 
 import uim.codec.format.UIM_3_0_0_pb2 as uim
 from uim.model.base import InkModelException
+
+logger: logging.Logger = logging.getLogger(__name__)
+TOLERANCE_VALUE_COMPARISON: float = 1e-2
 
 
 class RotationMode(Enum):
@@ -115,6 +120,16 @@ class BrushPolygonUri(ABC):
         """
         return self.__min_scale
 
+    def __eq__(self, other: Any):
+        if not isinstance(other, BrushPolygonUri):
+            logger.warning(f'Cannot compare BrushPolygonUri with {type(other)}')
+            return False
+        return self.shape_uri == other.shape_uri and isclose(self.min_scale, other.min_scale,
+                                                             abs_tol=TOLERANCE_VALUE_COMPARISON)
+
+    def __repr__(self):
+        return f'<VectorBrushPrototypeUri : [uri:={self.__uri}, min scale:={self.min_scale}]>'
+
 
 class BrushPolygon(ABC):
     """
@@ -146,7 +161,7 @@ class BrushPolygon(ABC):
         """List of coordinates for x value. (`List[float]`, read-only)"""
         if len(self.__points) == 0:
             return []
-        if len(self.__points[0]) > 0:
+        if isinstance(self.__points[0], tuple) and len(self.__points[0]) > 0:
             return [p[0] for p in self.points]
         raise InkModelException("The points do not have x value.")
 
@@ -155,7 +170,7 @@ class BrushPolygon(ABC):
         """List of coordinates for y value. (`List[float]`, read-only)"""
         if len(self.__points) == 0:
             return []
-        if len(self.__points[0]) > 1:
+        if isinstance(self.__points[0], tuple) and len(self.__points[0]) > 1:
             return [p[1] for p in self.points]
         raise InkModelException("The points do not have y value.")
 
@@ -164,7 +179,7 @@ class BrushPolygon(ABC):
         """List of coordinates for z value. (`List[float]`, read-only)"""
         if len(self.__points) == 0:
             return []
-        if len(self.__points[0]) > 2:
+        if isinstance(self.__points[0], tuple) and len(self.__points[0]) > 2:
             return [p[2] for p in self.points]
         return []
 
@@ -183,6 +198,23 @@ class BrushPolygon(ABC):
         This value is used by the brush applier in order to pick the proper shape according to the actual brush scale.
         """
         return self.__min_scale
+
+    def __eq__(self, other: Any):
+        if not isinstance(other, BrushPolygon):
+            logger.warning(f'Cannot compare BrushPolygon with {type(other)}')
+            return False
+        if self.__min_scale != other.min_scale:
+            logger.warning(f'BrushPolygon min scale mismatch: {self.min_scale} != {other.min_scale}')
+            return False
+        if self.__indices != other.indices:
+            logger.warning(f'BrushPolygon indices mismatch: {self.indices} != {other.indices}')
+            return False
+        for p1, p2 in zip(self.points, other.points):
+            if not (isclose(p1[0], p2[0], abs_tol=TOLERANCE_VALUE_COMPARISON) and
+                    isclose(p1[1], p2[1], abs_tol=TOLERANCE_VALUE_COMPARISON)):
+                logger.warning(f'BrushPolygon point mismatch: {p1} != {p2}')
+                return False
+        return True
 
     def __repr__(self):
         return f'<VectorBrushPrototype : [#points:={len(self.__points)}]>'
@@ -224,7 +256,7 @@ class VectorBrush(Brush):
         return self.__name
 
     @property
-    def prototypes(self) -> List[Any]:
+    def prototypes(self) -> List[Union[BrushPolygon, BrushPolygonUri]]:
         """ Polygon prototype for the brush. (`List[Any]`,  read-only).
 
         Notes
@@ -242,6 +274,12 @@ class VectorBrush(Brush):
     def spacing(self) -> float:
         """Spacing value. (`float`, read-only)"""
         return self.__spacing
+
+    def __eq__(self, other: Any):
+        if not isinstance(other, VectorBrush):
+            logger.warning(f'Cannot compare VectorBrush with {type(other)}')
+            return False
+        return self.name == other.name and self.prototypes == other.prototypes and self.spacing == other.spacing
 
     def __repr__(self):
         return f'<VectorBrush : [name:={self.__name}]>'
@@ -360,6 +398,50 @@ class RasterBrush(Brush):
     def blend_mode(self) -> BlendMode:
         """The applied blend mode. (`BlendMode`, read-only)"""
         return self.__blend_mode
+
+    def __eq__(self, other: Any):
+        if not isinstance(other, RasterBrush):
+            logger.warning(f'Cannot compare RasterBrush with {type(other)}')
+            return False
+        if self.name != other.name:
+            logger.warning(f'RasterBrush name mismatch: {self.__name} != {other.name}')
+            return False
+        if not isclose(self.spacing, other.spacing, abs_tol=TOLERANCE_VALUE_COMPARISON):
+            logger.warning(f'RasterBrush spacing mismatch: {self.spacing} != {other.spacing}')
+            return False
+        if not isclose(self.scattering, other.scattering, abs_tol=TOLERANCE_VALUE_COMPARISON):
+            logger.warning(f'RasterBrush scattering mismatch: {self.scattering} != {other.scattering}')
+            return False
+        if self.rotation != other.rotation:
+            logger.warning(f'RasterBrush rotation mismatch: {self.rotation} != {other.rotation}')
+            return False
+        if self.shape_textures != other.shape_textures:
+            logger.warning(f'RasterBrush shape textures mismatch: {self.shape_textures} != {other.shape_textures}')
+            return False
+        if self.shape_texture_uris != other.shape_texture_uris:
+            logger.warning(f'RasterBrush shape texture URIs mismatch: {self.shape_texture_uris} != '
+                           f'{other.shape_texture_uris}')
+            return False
+        if self.fill_texture != other.fill_texture:
+            logger.warning(f'RasterBrush fill texture mismatch: {self.fill_texture} != {other.fill_texture}')
+            return False
+        if self.fill_texture_uri != other.fill_texture_uri:
+            logger.warning(f'RasterBrush fill texture URI mismatch: {self.fill_texture_uri} != '
+                           f'{other.fill_texture_uri}')
+            return False
+        if not isclose(self.fill_width, other.fill_width, abs_tol=TOLERANCE_VALUE_COMPARISON):
+            logger.warning(f'RasterBrush fill width mismatch: {self.fill_width} != {other.fill_width}')
+            return False
+        if not isclose(self.fill_height, other.fill_height, abs_tol=TOLERANCE_VALUE_COMPARISON):
+            logger.warning(f'RasterBrush fill height mismatch: {self.fill_height} != {other.fill_height}')
+            return False
+        if self.randomize_fill != other.randomize_fill:
+            logger.warning(f'RasterBrush randomize fill mismatch: {self.randomize_fill} != {other.randomize_fill}')
+            return False
+        if self.blend_mode != other.blend_mode:
+            logger.warning(f'RasterBrush blend mode mismatch: {self.blend_mode} != {other.blend_mode}')
+            return False
+        return True
 
     def __repr__(self):
         return f'<RasterBrush : [name:={self.name}]>'
