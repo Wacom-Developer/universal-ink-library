@@ -18,7 +18,8 @@ import uuid
 from abc import ABC
 from enum import Enum
 from logging import Logger
-from typing import Tuple, List, Optional, Dict, Any
+from math import isclose
+from typing import Tuple, List, Optional, Dict, Any, Union
 
 import numpy as np
 
@@ -31,6 +32,8 @@ from uim.model.semantics.node import URIBuilder
 from uim.model.semantics.structures import BoundingBox
 
 logger: Logger = logging.getLogger(__name__)
+TOLERANCE_VALUE_COMPARISON: float = 1e-2
+HIGH_TOLERANCE_VALUE_COMPARISON: float = 1e-1
 
 
 class LayoutMask(Enum):
@@ -280,6 +283,48 @@ class PathPointProperties(HashIdentifier):
         return [self.size, self.red, self.green, self.blue, self.alpha, self.rotation, self.scale_x, self.scale_y,
                 self.scale_z, self.offset_x, self.offset_y, self.offset_z]
 
+    def __eq__(self, other: Any):
+        if not isinstance(other, PathPointProperties):
+            logger.warning(f"Cannot compare PathPointProperties with {type(other)}")
+            return False
+        if not isclose(self.size, other.size, abs_tol=TOLERANCE_VALUE_COMPARISON):
+            logger.warning(f"Size mismatch: {self.size} != {other.size}")
+            return False
+        if not isclose(self.red, other.red, abs_tol=HIGH_TOLERANCE_VALUE_COMPARISON):
+            logger.warning(f"Red mismatch: {self.red} != {other.red}")
+            return False
+        if not isclose(self.green, other.green, abs_tol=HIGH_TOLERANCE_VALUE_COMPARISON):
+            logger.warning(f"Green mismatch: {self.green} != {other.green}")
+            return False
+        if not isclose(self.blue, other.blue, abs_tol=HIGH_TOLERANCE_VALUE_COMPARISON):
+            logger.warning(f"Blue mismatch: {self.blue} != {other.blue}")
+            return False
+        if not isclose(self.alpha, other.alpha, abs_tol=HIGH_TOLERANCE_VALUE_COMPARISON):
+            logger.warning(f"Alpha mismatch: {self.alpha} != {other.alpha}")
+            return False
+        if not isclose(self.rotation, other.rotation, abs_tol=TOLERANCE_VALUE_COMPARISON):
+            logger.warning(f"Rotation mismatch: {self.rotation} != {other.rotation}")
+            return False
+        if not isclose(self.scale_x, other.scale_x, abs_tol=TOLERANCE_VALUE_COMPARISON):
+            logger.warning(f"Scale x mismatch: {self.scale_x} != {other.scale_x}")
+            return False
+        if not isclose(self.scale_y, other.scale_y, abs_tol=TOLERANCE_VALUE_COMPARISON):
+            logger.warning(f"Scale y mismatch: {self.scale_y} != {other.scale_y}")
+            return False
+        if not isclose(self.scale_z, other.scale_z, abs_tol=TOLERANCE_VALUE_COMPARISON):
+            logger.warning(f"Scale z mismatch: {self.scale_z} != {other.scale_z}")
+            return False
+        if not isclose(self.offset_x, other.offset_x, abs_tol=TOLERANCE_VALUE_COMPARISON):
+            logger.warning(f"Offset x mismatch: {self.offset_x} != {other.offset_x}")
+            return False
+        if not isclose(self.offset_y, other.offset_y, abs_tol=TOLERANCE_VALUE_COMPARISON):
+            logger.warning(f"Offset y mismatch: {self.offset_y} != {other.offset_y}")
+            return False
+        if not isclose(self.offset_z, other.offset_z, abs_tol=TOLERANCE_VALUE_COMPARISON):
+            logger.warning(f"Offset z mismatch: {self.offset_z} != {other.offset_z}")
+            return False
+        return True
+
     def __repr__(self):
         return (f'<PathPointProperties: [size:={self.size}, red:={self.red}, green:={self.green}, blue:={self.blue}, '
                 f'alpha:={self.alpha}, rotation:={self.rotation}, scale x:={self.scale_x}, scale y:={self.scale_y}, '
@@ -318,7 +363,7 @@ class Style(ABC):
 
     @property
     def path_point_properties(self) -> PathPointProperties:
-        """Static values of properties which do not exist per per path point. (`PathPointProperties`, read-only)"""
+        """Static values of properties which do not exist per path point. (`PathPointProperties`, read-only)"""
         return self.__properties
 
     @property
@@ -339,6 +384,26 @@ class Style(ABC):
     @render_mode_uri.setter
     def render_mode_uri(self, uri: str):
         self.__render_mode_URI = uri
+
+    def __eq__(self, other: Any):
+        if not isinstance(other, Style):
+            logger.warning(f"Cannot compare Style with {type(other)}")
+            return False
+        if not isclose(self.particles_random_seed, other.particles_random_seed):
+            logger.warning(f"Particles random seed mismatch: {self.particles_random_seed} != "
+                           f"{other.particles_random_seed}")
+            return False
+        if self.brush_uri != other.brush_uri:
+            logger.warning(f"Brush URI mismatch: {self.brush_uri} != {other.brush_uri}")
+            return False
+        if self.render_mode_uri != other.render_mode_uri:
+            logger.warning(f"Render mode URI mismatch: {self.render_mode_uri} != {other.render_mode_uri}")
+            return False
+        if self.path_point_properties != other.path_point_properties:
+            logger.warning(f"Path point properties mismatch: {self.path_point_properties} != "
+                           f"{other.path_point_properties}")
+            return False
+        return True
 
     def __repr__(self):
         return (f'<Style : [id:={self.__brush_uri}, particles_random_seed:={self.__particles_random_seed}, '
@@ -368,9 +433,9 @@ class Spline(ABC):
         Final parameter
     """
 
-    def __init__(self, layout_mask: int, data: List[float], ts: float = 0., tf: float = 1.):
+    def __init__(self, layout_mask: int, data: List[Union[float, int]], ts: float = 0., tf: float = 1.):
         self.__layout_mask: int = layout_mask
-        self.__data: List[float] = data
+        self.__data: List[Union[float, int]] = data
         self.__ts: float = ts
         self.__tf: float = tf
 
@@ -655,7 +720,7 @@ class Stroke(UUIDIdentifier):
         self.__tangent_y: List[float] = []
         self.__sensor_data_id: uuid.UUID = sensor_data_id
         self.__sensor_data_offset: int = sensor_data_offset or 0
-        self._sensor_data_mapping: list = sensor_data_mapping or []
+        self.__sensor_data_mapping: list = sensor_data_mapping or []
         self.__style: Style = style
         self.__random_seed: int = random_seed
         self.__properties_index: int = property_index
@@ -934,6 +999,28 @@ class Stroke(UUIDIdentifier):
         self.__offset_z = offset
 
     @property
+    def tangent_x(self) -> List[float]:
+        """
+        List of tangent x values. (`List[float]`)
+        """
+        return self.__tangent_x
+
+    @tangent_x.setter
+    def tangent_x(self, tangent_x: List[float]):
+        self.__tangent_x = tangent_x
+
+    @property
+    def tangent_y(self) -> List[float]:
+        """
+        List of tangent y values. (`List[float]`)
+        """
+        return self.__tangent_y
+
+    @tangent_y.setter
+    def tangent_y(self, tangent_y: List[float]):
+        self.__tangent_y = tangent_y
+
+    @property
     def sensor_data_offset(self) -> int:
         """Index of points mapping between raw and processed paths. (`int`)"""
         return self.__sensor_data_offset
@@ -947,7 +1034,7 @@ class Stroke(UUIDIdentifier):
     def sensor_data_mapping(self) -> List[int]:
         """Explicit mapping between indices of Path and SensorData, used when input rate is very high and
         provides unwanted points. (`List[int]`)"""
-        return self._sensor_data_mapping
+        return self.__sensor_data_mapping
 
     @property
     def style(self) -> Style:
@@ -1243,6 +1330,110 @@ class Stroke(UUIDIdentifier):
             if spline.layout_mask & LayoutMask.TANGENT_Y.value:
                 self.__tangent_y.append(spline.data[idx])
                 idx += 1
+
+    def __eq__(self, other: Any):
+        if not isinstance(other, Stroke):
+            logger.warning(f"Cannot compare Stroke with {type(other)}")
+            return False
+        if self.id != other.id:
+            logger.warning(f"Stroke id mismatch: {self.id} != {other.id}")
+            return False
+        if self.sensor_data_id != other.sensor_data_id:
+            logger.warning(f"Stroke sensor data id mismatch: {self.sensor_data_id} != {other.sensor_data_id}")
+            return False
+        if self.start_parameter != other.start_parameter:
+            logger.warning(f"Stroke start parameter mismatch: {self.start_parameter} != {other.start_parameter}")
+            return False
+        if self.end_parameter != other.end_parameter:
+            logger.warning(f"Stroke end parameter mismatch: {self.end_parameter} != {other.end_parameter}")
+            return False
+        if len(self.splines_x) != len(other.splines_x) or len(self.splines_x) != len(other.splines_x) or\
+            len(self.splines_z) != len(other.splines_z) or len(self.scales_x) != len(other.scales_x) or\
+            len(self.scales_y) != len(other.scales_y) or len(self.scales_z) != len(other.scales_z) or\
+            len(self.offsets_x) != len(other.offsets_x) or len(self.offsets_y) != len(other.offsets_y) or\
+            len(self.offsets_z) != len(other.offsets_z) or len(self.tangent_x) != len(other.tangent_x) or\
+            len(self.tangent_y) != len(other.tangent_y) or len(self.sizes) != len(other.sizes):
+            logger.warning("Missmatch of length of internal arrays.")
+            return False
+        # Due to floating point precision, we need to use isclose
+        for v1, v2 in zip(self.splines_x, other.splines_x):
+            if not isclose(v1, v2, abs_tol=TOLERANCE_VALUE_COMPARISON):
+                logger.warning(f"Stroke spline x mismatch: {v1} != {v2}")
+                return False
+        for v1, v2 in zip(self.splines_y, other.splines_y):
+            if not isclose(v1, v2, abs_tol=TOLERANCE_VALUE_COMPARISON):
+                logger.warning(f"Stroke spline y mismatch: {v1} != {v2}")
+                return False
+        for v1, v2 in zip(self.splines_z, other.splines_z):
+            if not isclose(v1, v2, abs_tol=TOLERANCE_VALUE_COMPARISON):
+                logger.warning(f"Stroke spline z mismatch: {v1} != {v2}")
+                return False
+        for v1, v2 in zip(self.sizes, other.sizes):
+            if not isclose(v1, v2, abs_tol=TOLERANCE_VALUE_COMPARISON):
+                logger.warning(f"Stroke size mismatch: {v1} != {v2}")
+                return False
+        for v1, v2 in zip(self.rotations, other.rotations):
+            if not isclose(v1, v2, abs_tol=TOLERANCE_VALUE_COMPARISON):
+                logger.warning(f"Stroke rotation mismatch: {v1} != {v2}")
+                return False
+        if self.red != other.red:
+            logger.warning(f"Stroke red mismatch: {self.red} != {other.red}")
+            return False
+        if self.green != other.green:
+            logger.warning(f"Stroke green mismatch: {self.green} != {other.green}")
+            return False
+        if self.blue != other.blue:
+            logger.warning(f"Stroke blue mismatch: {self.blue} != {other.blue}")
+            return False
+        if self.alpha != other.alpha:
+            logger.warning(f"Stroke alpha mismatch: {self.alpha} != {other.alpha}")
+            return False
+        for v1, v2 in zip(self.scales_x, other.scales_x):
+            if not isclose(v1, v2, abs_tol=TOLERANCE_VALUE_COMPARISON):
+                logger.warning(f"Stroke scale x mismatch: {v1} != {v2}")
+                return False
+        for v1, v2 in zip(self.scales_y, other.scales_y):
+            if not isclose(v1, v2, abs_tol=TOLERANCE_VALUE_COMPARISON):
+                logger.warning(f"Stroke scale y mismatch: {v1} != {v2}")
+                return False
+        for v1, v2 in zip(self.scales_z, other.scales_z):
+            if not isclose(v1, v2, abs_tol=TOLERANCE_VALUE_COMPARISON):
+                logger.warning(f"Stroke scale z mismatch: {v1} != {v2}")
+                return False
+        for v1, v2 in zip(self.offsets_x, other.offsets_x):
+            if not isclose(v1, v2, abs_tol=TOLERANCE_VALUE_COMPARISON):
+                logger.warning(f"Stroke offset x mismatch: {v1} != {v2}")
+                return False
+        for v1, v2 in zip(self.offsets_y, other.offsets_y):
+            if not isclose(v1, v2, abs_tol=TOLERANCE_VALUE_COMPARISON):
+                logger.warning(f"Stroke offset y mismatch: {v1} != {v2}")
+                return False
+        for v1, v2 in zip(self.offsets_z, other.offsets_z):
+            if not isclose(v1, v2, abs_tol=TOLERANCE_VALUE_COMPARISON):
+                logger.warning(f"Stroke offset z mismatch: {v1} != {v2}")
+                return False
+        for v1, v2 in zip(self.tangent_x, other.tangent_x):
+            if not isclose(v1, v2, abs_tol=TOLERANCE_VALUE_COMPARISON):
+                logger.warning(f"Stroke tangent x mismatch: {v1} != {v2}")
+                return False
+        for v1, v2 in zip(self.tangent_y, other.tangent_y):
+            if not isclose(v1, v2, abs_tol=TOLERANCE_VALUE_COMPARISON):
+                logger.warning(f"Stroke tangent y mismatch: {v1} != {v2}")
+                return False
+        if self.sensor_data_offset != other.sensor_data_offset:
+            logger.warning(f"Stroke sensor data offset mismatch: {self.sensor_data_offset} != {other.sensor_data_offset}")
+            return False
+        if self.sensor_data_mapping != other.sensor_data_mapping:
+            logger.warning(f"Stroke sensor data mapping mismatch: {self.sensor_data_mapping} != "
+                           f"{other.sensor_data_mapping}")
+            return False
+        if self.style != other.style:
+            logger.warning(f"Stroke style mismatch: {self.style} != {other.style}")
+            return False
+        if self.random_seed != other.random_seed:
+            logger.warning(f"Stroke random seed mismatch: {self.random_seed} != {other.random_seed}")
+            return False
+        return True
 
     def __repr__(self):
         return f'<Stroke : [id:={self.id_h_form}], [num points:={self.points_count}, layout mask:={self.layout_mask}]>'
