@@ -107,7 +107,7 @@ def uim_schema_semantics_from(ink_model: InkModel, semantic_view: str = schema.C
         if node.uri in entity_map:
             path_ids: List[uuid.UUID] = __collected_stroke_ids__(node)
             entry: Dict[str, Any] = {
-                'path_id': path_ids,
+                'path_id': path_ids, 'node_uri': node.uri, 'parent_uri': node.parent.uri if node.parent else None,
                 'bounding_box': {
                     'x': node.group_bounding_box.x,
                     'y': node.group_bounding_box.y,
