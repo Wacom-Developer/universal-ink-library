@@ -60,7 +60,7 @@ class StatisticsAnalyzer(ModelAnalyzer):
 
     @staticmethod
     def analyze(model: InkModel, ignore_predicates: Optional[List[str]] = None,
-                ignore_properties: Optional[List[str]] = None):
+                ignore_properties: Optional[List[str]] = None) -> Dict[str, Any]:
         """
         Analyze the model and compute statistics.
         Parameters
@@ -72,6 +72,15 @@ class StatisticsAnalyzer(ModelAnalyzer):
         ignore_properties: Optional[List[str]]
             List of properties to ignore.
 
+        Returns
+        -------
+        stats: Dict[str, Any]
+            The computed statistics.
+
+        Raises
+        ------
+        StatisticsError
+            If an error occurs while analyzing the model.
         """
         # Init stats
         stats: Dict[str, Any] = {
