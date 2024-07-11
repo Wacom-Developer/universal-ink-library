@@ -12,8 +12,12 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+import logging
 from enum import Enum
-from typing import List, Optional
+from logging import Logger
+from typing import List, Optional, Any
+
+logger: Logger = logging.getLogger(__name__)
 
 # Class tag
 IS: str = '@'
@@ -25,6 +29,11 @@ NODE_ENTITY_URI_PREFIX: str = 'uim:ne/{}'
 WILL_NAMESPACE: str = "will://"
 DOCUMENT_NAMESPACE: str = WILL_NAMESPACE + "document/3.0/"
 DOCUMENT_TITLE_OBJECT: str = DOCUMENT_NAMESPACE + 'Title'
+DOCUMENT_AUTHOR_OBJECT: str = DOCUMENT_NAMESPACE + 'Author'
+DOCUMENT_APPLICATION_OBJECT: str = DOCUMENT_NAMESPACE + 'Application'
+DOCUMENT_APPLICATION_VERSION_OBJECT: str = DOCUMENT_NAMESPACE + 'ApplicationVersion'
+DOCUMENT_LOCALE_OBJECT: str = DOCUMENT_NAMESPACE + 'Locale'
+
 DOCUMENT_CREATION_DATE_OBJECT: str = DOCUMENT_NAMESPACE + 'CreationData'
 DOCUMENT_X_MIN_PROPERTY: str = DOCUMENT_NAMESPACE + 'hasMinX'
 DOCUMENT_Y_MIN_PROPERTY: str = DOCUMENT_NAMESPACE + 'hasMiny'
@@ -137,7 +146,7 @@ class MathSchema(SegmentationSchema):
     # Properties
     LATEX_REPRESENTATION: str = 'hasLatex'
     MATHML_REPRESENTATION: str = 'hasMathML'
-
+    
     # Term
     COMPOUND_TERM: str = f'{MATH_NAMESPACE}CompoundTerm'
     # Properties
@@ -161,14 +170,14 @@ class MathSchema(SegmentationSchema):
     # Matrix / Matrix Row Properties
     MATRIX_ROW_PROP: str = 'hasRow'
     MATRIX_ROW_CELL_PROP: str = 'hasCell'
-
+    
     # Square Root Class
     ROOT: str = f'{MATH_NAMESPACE}Root'
     # Square Root Properties
     ROOT_DEGREE_PROP: str = 'degree'
     ROOT_EXPRESSION_PROP: str = 'hasChild'
     ROOT_SIGN_PROP: str = 'rootSign'
-
+    
     # Fraction Class
     FRACTION: str = f'{MATH_NAMESPACE}Fraction'
     # Fraction Properties
@@ -186,15 +195,15 @@ class MathSchema(SegmentationSchema):
     HAS_UNDERSCRIPT: str = "underScript"
     HAS_PRESUBSCRIPT: str = "preSubScript"
     HAS_PRESUPERSCRIPT: str = "preSuperScript"
-
+    
     FENCED: str = f"{MATH_NAMESPACE}Fenced"
     SYSTEM: str = f"{MATH_NAMESPACE}System"
-
+    
     VERTICAL_FENCED: str = f"{MATH_NAMESPACE}Cases"
     HAS_BRACKET: str = 'hasBracket'
     HAS_OPENING_BRACKET_PROP: str = 'openingBracket'
     HAS_CLOSING_BRACKET_PROP: str = 'closingBracket'
-
+    
     # Fraction Line
     FRACTION_LINE: str = f'{MATH_NAMESPACE}FractionLine'
     # Brackets
@@ -203,8 +212,6 @@ class MathSchema(SegmentationSchema):
     RELATION: str = f'{MATH_NAMESPACE}Relation'
     # Operator
     OPERATOR: str = f'{MATH_NAMESPACE}Operator'
-
-
 # ----------------------------------------------- Math structure -------------------------------------------------------
 
 
@@ -215,17 +222,17 @@ class MathStructureSchema(SegmentationSchema):
     The Math structure schema is used to represent the structure of mathematical expressions in the ink model.
     """
     MATH_STRUCTURE_VERSION: str = "0.1"
-
+    
     MATH_STRUCTURES_NAMESPACE: str = f'will:math-structures/{MATH_STRUCTURE_VERSION}/'
     MATH_BLOCK_STRUCTURES: str = f'{MATH_STRUCTURES_NAMESPACE}MathBlock'
-
+    
     HAS_CHILD: str = "hasChild"
     HAS_ENTITY_LABEL: str = "hasEntityLabel"
     HAS_ENTITY_TYPE: str = "hasEntityType"
     IS_STRUCTURAL_ENTITY: str = "isStructuralEntity"
     IS_BASE_ENTITY: str = "isBaseEntity"
     MATH_ITEM: str = "MathItem"
-
+    
     HAS_LATEX: str = "hasLatex"
     HAS_MATH_ML: str = "hasMathML"
     HAS_ASCII_MATH: str = "hasASCIIMath"
@@ -245,7 +252,7 @@ class MathStructureSchema(SegmentationSchema):
     DENOMINATOR: str = "denominator"
     STRUCTURES_FRACTION_LINE: str = "fractionLine"
     FRACTION_TYPE: str = "fractionType"
-
+    
     STRUCTURES_SUBSCRIPT: str = f"{MATH_STRUCTURES_NAMESPACE}Subscript"
     STRUCTURES_SUPERSCRIPT: str = f"{MATH_STRUCTURES_NAMESPACE}Superscript"
     STRUCTURES_SUB_SUPER_SCRIPT: str = f"{MATH_STRUCTURES_NAMESPACE}SubSuperScript"
@@ -255,13 +262,13 @@ class MathStructureSchema(SegmentationSchema):
     STRUCTURES_UNDER_SCRIPT: str = f"{MATH_STRUCTURES_NAMESPACE}UnderScript"
     STRUCTURES_OVER_SCRIPT: str = f"{MATH_STRUCTURES_NAMESPACE}OverScript"
     STRUCTURES_UNDER_OVER_SCRIPT: str = f"{MATH_STRUCTURES_NAMESPACE}UnderOverScript"
-
+    
     ROW: str = "Row"
     STRUCTURES_ROW_LIST: str = f"{MATH_STRUCTURES_NAMESPACE}RowList"
     STRUCTURES_ROW: str = f"{MATH_STRUCTURES_NAMESPACE}Row"
     STRUCTURES_MATRIX: str = f"{MATH_STRUCTURES_NAMESPACE}Matrix"
     ROWS: str = "rows"
-
+    
     MATRIX_TYPE: str = "matrixType"
     STRUCTURES_GROUP: str = f"{MATH_STRUCTURES_NAMESPACE}Group"
     STRUCTURES_OPERATION: str = f"{MATH_STRUCTURES_NAMESPACE}Operation"
@@ -357,26 +364,27 @@ class SemanticTriple:
     def object(self, obj: str):
         self.__object = obj
 
+    def __eq__(self, other: Any):
+        if not isinstance(other, SemanticTriple):
+            logger.warning(f'Cannot compare {type(other)} with {type(self)}')
+            return False
+        return (self.subject == other.subject and
+                self.predicate == other.predicate and
+                self.object == other.object)
+
     def __repr__(self):
         return (f'<Semantic triple : [subject:={self.__subject}, predicate:={self.__predicate}, '
                 f'object:={self.__object}]>')
 
     def __dict__(self):
-        return {'subject': self.__subject, 'predicate': self.__predicate, 'object': self.__object}
-
-    def __eq__(self, obj):
-        if not isinstance(obj, SemanticTriple):
-            return False
-        return (self.subject == obj.subject and
-                self.predicate == obj.predicate and
-                self.object == obj.object)
-
-    def __json__(self):
-        return {
+        return  {
             'subject': self.subject,
             'predicate': self.predicate,
             'object': self.object,
         }
+
+    def __json__(self):
+        return self.__dict__()
 
 
 class TripleStore:
