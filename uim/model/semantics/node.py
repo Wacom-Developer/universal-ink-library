@@ -13,6 +13,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 import functools
+import logging
 import uuid
 from abc import ABC, abstractmethod
 from typing import List, Any, Optional
@@ -21,6 +22,8 @@ from uim.codec.parser.base import SupportedFormats
 from uim.model.base import UUIDIdentifier, InkModelException
 from uim.model.semantics.structures import BoundingBox
 from uim.model.semantics.schema import CommonViews
+
+logger: logging.Logger = logging.getLogger(__name__)
 
 
 class URIBuilder(ABC):
@@ -213,7 +216,9 @@ class InkNode(UUIDIdentifier):
 
     def __init__(self, node_id: uuid.UUID, group_bounding_box: Optional[BoundingBox] = None):
         super(UUIDIdentifier, self).__init__(node_id)
-        self.__group_bounding_box: Optional[BoundingBox] = group_bounding_box
+        self.__group_bounding_box: BoundingBox = group_bounding_box if group_bounding_box else BoundingBox(x=0, y=0,
+                                                                                                           width=0,
+                                                                                                           height=0)
         self.__parent: Optional[StrokeGroupNode] = None
         self.__tree: Optional['InkTree'] = None
         self.__transient_tag: Optional[str] = None
@@ -228,14 +233,14 @@ class InkNode(UUIDIdentifier):
         self.__transient_tag = value
 
     @property
-    def tree(self) -> 'InkTree':
+    def tree(self) -> Optional['InkTree']:
         """Reference to  the respective `InkTree`. (`InkTree`, read-only)"""
         if self.__tree is None and not self.is_root():
             self.__tree = self.parent.tree
         return self.__tree
 
     @tree.setter
-    def tree(self, value: 'InkTree'):
+    def tree(self, value: Optional['InkTree']):
         self.__tree = value
 
     @property
@@ -245,9 +250,13 @@ class InkNode(UUIDIdentifier):
         return self.__tree.root
 
     @property
-    def parent(self) -> 'StrokeGroupNode':
-        """Reference to the parent node (`StrokeGroupNode`) of the `InkTree`. (`InkNode`, read-only)"""
+    def parent(self) -> Optional['StrokeGroupNode']:
+        """Reference to the parent node (`StrokeGroupNode`) of the `InkTree`. (`InkNode`)"""
         return self.__parent
+
+    @parent.setter
+    def parent(self, value: Optional['StrokeGroupNode']):
+        self.__parent = value
 
     def is_root(self) -> bool:
         """
@@ -336,9 +345,6 @@ class InkNode(UUIDIdentifier):
         if not self.is_assigned_to_a_tree():
             raise InkModelException("Node not yet assigned to a tree.")
 
-    def __repr__(self):
-        return f'<Node: [id:={self.id},  uri:={self.uri}]>'
-
 
 class StrokeFragment(ABC):
     """
@@ -419,6 +425,30 @@ class StrokeFragment(ABC):
     def to_t_value(self, value: float):
         self.__to_t_value = value
 
+    def __eq__(self, other: Any):
+        if not isinstance(other, StrokeFragment):
+            logger.warning(f"Comparing StrokeFragment with {type(other)}")
+            return False
+        if self.from_point_index != other.from_point_index:
+            logger.warning(f"StrokeFragment from_point_index is different. {self.from_point_index} != "
+                           f"{other.from_point_index}")
+            return False
+        if self.to_point_index != other.to_point_index:
+            logger.warning(f"StrokeFragment to_point_index is different. {self.to_point_index} != "
+                           f"{other.to_point_index}")
+            return False
+        if self.from_t_value != other.from_t_value:
+            logger.warning(f"StrokeFragment from_t_value is different. {self.from_t_value} != {other.from_t_value}")
+            return False
+        if self.to_t_value != other.to_t_value:
+            logger.warning(f"StrokeFragment to_t_value is different. {self.to_t_value} != {other.to_t_value}")
+            return False
+        return True
+
+    def __repr__(self):
+        return f'<StrokeFragment: [from_point_index:={self.from_point_index}, to_point_index:={self.to_point_index}, ' \
+               f'from_t_value:={self.from_t_value}, to_t_value:={self.to_t_value}]>'
+
 
 class StrokeNode(InkNode):
     """
@@ -496,10 +526,20 @@ class StrokeNode(InkNode):
     def __generate_uri__(self):
         return URIBuilder().build_node_uri(self, SupportedFormats.UIM_VERSION_3_1_0)
 
+    def __eq__(self, other: Any):
+        if not isinstance(other, StrokeNode):
+            logger.warning(f"Comparing StrokeNode with {type(other)}")
+            return False
+        if self.stroke != other.stroke:
+            logger.warning(f"StrokeNode is different. {self.stroke} != {other.stroke}")
+            return False
+        if self.fragment != other.fragment:
+            logger.warning(f"StrokeNode fragment is different. {self.fragment} != {other.fragment}")
+            return False
+        return self.id == other.id
+
     def __repr__(self):
-        if self.stroke:
-            return f'<StrokeNode: [stroke id:={self.stroke.id}]>'
-        return "<StrokeNode: [stroke id:=None]>"
+        return f'<StrokeNode: [stroke id:={self.stroke.id}]>'
 
 
 class StrokeGroupNode(InkNode):
@@ -537,7 +577,7 @@ class StrokeGroupNode(InkNode):
         if node.parent is not None:
             raise InkModelException(f"Trying to add an ink node as a child, which has already a parent. Node: {node}")
 
-        node._InkNode__parent = self
+        node.parent = self
         self.__children.append(node)
 
         if node.is_assigned_to_a_tree():
@@ -555,6 +595,8 @@ class StrokeGroupNode(InkNode):
             The child node to be removed.
         """
         self.__children.remove(node)
+        node.tree = None
+        node.parent = None
 
     def child_nodes_count(self) -> int:
         """
@@ -594,7 +636,7 @@ class StrokeGroupNode(InkNode):
         count: int = 0
         if self.child_nodes_count() > 0:
             for n in self.__children:
-                count = count + 1 if isinstance(n, StrokeNode) else 0
+                count += 1 if isinstance(n, StrokeNode) else 0
         return count
 
     def sort_children(self, lambda_sort_func: Any, reverse: bool = False):
@@ -617,6 +659,12 @@ class StrokeGroupNode(InkNode):
 
     def __generate_uri__(self, uri_format: SupportedFormats = SupportedFormats.UIM_VERSION_3_1_0) -> str:
         return URIBuilder().build_node_uri(self, uri_format)
+
+    def __eq__(self, other: Any):
+        if not isinstance(other, StrokeGroupNode):
+            logger.warning(f"Comparing StrokeGroupNode with {type(other)}")
+            return False
+        return self.id == other.id
 
     def __repr__(self):
         return f'<StrokeGroupNode: [uri:={self.uri}, children:={len(self.children)}]>'
