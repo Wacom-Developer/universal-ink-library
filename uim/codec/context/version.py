@@ -67,8 +67,8 @@ class Version:
     def __eq__(self, other: Any):
         """Overrides the default implementation"""
         if isinstance(other, Version):
-            return self.major == other.major and self.minor == other.minor and self.patch == other.patch \
-                   and self.ink_format == other.ink_format
+            return (self.major == other.major and self.minor == other.minor and self.patch == other.patch
+                    and self.ink_format == other.ink_format)
         return False
 
     def __repr__(self):

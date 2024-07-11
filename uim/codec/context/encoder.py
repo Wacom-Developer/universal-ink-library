@@ -13,12 +13,11 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 import uuid
-from typing import List, Dict
+from typing import Dict
 
 from uim.codec.context.version import Version
 from uim.codec.parser.base import SupportedFormats, FormatException
 from uim.model.ink import InkModel
-from uim.model.inkdata.strokes import PathPointProperties
 from uim.model.semantics.schema import CommonViews
 
 
@@ -44,7 +43,6 @@ class EncoderContext:
         self.__format_version: Version = version
         self.__ink_model: InkModel = ink_model
         self.__stroke_index_map: Dict[uuid.UUID, int] = {}
-        self.__path_properties: List[PathPointProperties] = []
 
     @property
     def format_version(self) -> Version:
@@ -60,11 +58,6 @@ class EncoderContext:
     def stroke_index_map(self) -> Dict[uuid.UUID, int]:
         """Stroke index map. (`Dict[uuid.UUID, int]`, read-only)"""
         return self.__stroke_index_map
-
-    @property
-    def path_point_properties(self) -> List[PathPointProperties]:
-        """List of the path point properties. (`List[PathPointProperties]`, read-only)"""
-        return self.__path_properties
 
     @staticmethod
     def view_name(view_name: str, target_format: SupportedFormats) -> str:
@@ -88,11 +81,5 @@ class EncoderContext:
                 return CommonViews.HWR_VIEW.value
             if view_name in (CommonViews.NER_VIEW.value, CommonViews.LEGACY_NER_VIEW.value):
                 return CommonViews.NER_VIEW.value
-            return view_name
-        if target_format == SupportedFormats.UIM_VERSION_3_0_0:
-            if view_name in (CommonViews.HWR_VIEW.value, CommonViews.LEGACY_HWR_VIEW.value):
-                return CommonViews.LEGACY_HWR_VIEW.value
-            if view_name in (CommonViews.NER_VIEW.value, CommonViews.LEGACY_NER_VIEW.value):
-                return CommonViews.LEGACY_NER_VIEW.value
             return view_name
         raise FormatException(f"Not supported version. Format:={target_format}")
