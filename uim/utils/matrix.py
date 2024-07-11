@@ -32,7 +32,7 @@ class Matrix4x4(ABC):
     """
 
     @staticmethod
-    def create_scale(scale: float) -> list:
+    def create_scale(scale: float) -> List[List[float]]:
         """
         Create a scale matrix.
         Parameters
@@ -42,7 +42,7 @@ class Matrix4x4(ABC):
 
         Returns
         -------
-        list
+        List[List[float]]
             4x4 scale matrix
         """
         return [[scale, 0, 0., 0.],
@@ -51,7 +51,7 @@ class Matrix4x4(ABC):
                 [0., 0, 0., 1.]]
 
     @staticmethod
-    def create_translation(translation: List[float]) -> list:
+    def create_translation(translation: List[float]) -> List[List[float]]:
         """
         Create a translation matrix.
         Parameters
@@ -61,7 +61,7 @@ class Matrix4x4(ABC):
 
         Returns
         -------
-        list
+        List[List[float]]
             4x4 translation matrix
 
         Raises
