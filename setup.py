@@ -54,7 +54,6 @@ setup(
         "lxml>=4.6.3"
     ],
     extras_require={
-        'pdoc3'
     },
     tests_require=(
         'pytest',
