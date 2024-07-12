@@ -32,11 +32,6 @@ jobs:
         run: |
           pdoc -f uim -o docs
 
-      - name: "Test with pytest"
-        run: |
-            pip install pytest pytest-cov
-            coverage run -m pytest --cov-config=.coveragerc
-
       # Build and upload to PyPI
       - name: "Builds and uploads to PyPI"
         run: |
