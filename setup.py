@@ -54,15 +54,18 @@ setup(
         "lxml>=4.6.3"
     ],
     extras_require={
+        'pdoc3'
     },
     tests_require=(
         'pytest',
-        'pytest-mock',
-        'pytest-cov'
+        'pytest-cov',
+        'coverage'
     ),
     classifiers=[
         # Status
-        'Development Status :: 3 - Beta',
+        'Development Status :: 4 - Beta',
+        # License
+        'License :: OSI Approved :: Apache Software License'
         # Audience
         'Intended Audience :: Developers',
         'Intended Audience :: Education',
@@ -71,6 +74,9 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
-        'Programming Language :: Python :: 3.11'
+        'Programming Language :: Python :: 3.11',
+        # Topic
+        'Topic :: File Formats',
+        'Topic :: Utilities'
     ]
 )
