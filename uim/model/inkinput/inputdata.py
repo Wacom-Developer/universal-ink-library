@@ -436,6 +436,15 @@ class InputDevice(HashIdentifier):
     def __tokenize__(self):
         return ['InputDevice', self.properties]
 
+    def __dict__(self):
+        return {
+            "id": str(self.id),
+            "properties": dict(self.properties)
+        }
+
+    def __json__(self):
+        return self.__dict__()
+
     def __eq__(self, other: Any):
         if not isinstance(other, InputDevice):
             logger.warning(f"Comparing InputDevice with different type: {type(other)}")
@@ -486,6 +495,16 @@ class InputContext(HashIdentifier):
         logger.warning(f"Sensor context id has been changed. This is not recommended. "
                        f"Old value {self.__sensor_context_id}, new value {value}.")
         self.__sensor_context_id = value
+
+    def __dict__(self):
+        return {
+            'id': str(self.id),
+            'environment_id': str(self.environment_id),
+            'sensor_context_id': str(self.sensor_context_id)
+        }
+
+    def __json__(self):
+        return self.__dict__()
 
     def __eq__(self, other: Any):
         if not isinstance(other, InputContext):
@@ -563,6 +582,15 @@ class Environment(HashIdentifier):
         """
         self.properties.append((key, value))
 
+    def __dict__(self):
+        return {
+            'id': str(self.id),
+            'properties': dict(self.properties)
+        }
+
+    def __json__(self):
+        return self.__dict__()
+
     def __eq__(self, other: Any):
         if not isinstance(other, Environment):
             logger.warning(f"Comparing Environment with different type: {type(other)}")
@@ -619,6 +647,16 @@ class InkInputProvider(HashIdentifier):
     def properties(self) -> List[Tuple[str, str]]:
         """Properties of input data provider. (`List[Tuple[str, str]]`, read-only)"""
         return self.__properties
+
+    def __dict__(self):
+        return {
+            'id': str(self.id),
+            'type': self.type.name,
+            'properties': dict(self.properties)
+        }
+
+    def __json__(self):
+        return self.__dict__()
 
     def __eq__(self, other):
         if not isinstance(other, InkInputProvider):
@@ -769,6 +807,25 @@ class SensorChannel(HashIdentifier):
     def data_type(self) -> DataType:
         """ Data type encoding. (`DataType`, read-only)"""
         return self.__data_type
+
+    def __dict__(self):
+        return {
+            'id': str(self.id),
+            'type': self.type.name,
+            'metric': self.metric.name,
+            'resolution': self.resolution,
+            'min': self.min,
+            'max': self.max,
+            'precision': self.precision,
+            'index': self.index,
+            'name': self.name,
+            'data_type': self.data_type.name,
+            'ink_input_provider': str(self.ink_input_provider),
+            'input_device_id': str(self.input_device_id)
+        }
+
+    def __json__(self):
+        return self.__dict__()
 
     def __eq__(self, other: Any):
         if not isinstance(other, SensorChannel):
@@ -979,6 +1036,19 @@ class SensorChannelsContext(HashIdentifier):
                 return c
         raise InkModelException(f'No channel available for the type: {channel_type}')
 
+    def __dict__(self):
+        return {
+            'id': str(self.id),
+            'channels': [c.__dict__() for c in self.channels],
+            'sampling_rate': self.sampling_rate,
+            'latency': self.latency,
+            'input_provider_id': str(self.input_provider_id),
+            'input_device_id': str(self.input_device_id)
+        }
+
+    def __json__(self):
+        return self.__dict__()
+
     def __eq__(self, other: Any):
         if not isinstance(other, SensorChannelsContext):
             logger.warning(f"Comparing SensorChannelsContext with different type: {type(other)}")
@@ -1114,6 +1184,15 @@ class SensorContext(HashIdentifier):
             if c.has_channel_type(channel_type):
                 return c.get_channel_by_type(channel_type)
         raise InkModelException(f'No channel with channel type: {channel_type}.')
+
+    def __dict__(self):
+        return {
+            'id': str(self.id),
+            'sensor_channels_contexts': [c.__dict__() for c in self.sensor_channels_contexts]
+        }
+
+    def __json__(self):
+        return self.__dict__()
 
     def __eq__(self, other: Any):
         if not isinstance(other, SensorContext):
@@ -1337,6 +1416,18 @@ class InputContextRepository(ABC):
         """
         return len(self.input_contexts) > 0 or len(self.sensor_contexts) > 0 or len(self.ink_input_providers) > 0 or \
             len(self.devices) > 0 or len(self.environments)
+
+    def __dict__(self):
+        return {
+            "environments": [env.__dict__() for env in self.environments],
+            "devices": [dev.__dict__() for dev in self.devices],
+            "ink_input_providers": [ink.__dict__() for ink in self.ink_input_providers],
+            "input_contexts": [ctx.__dict__() for ctx in self.input_contexts],
+            "sensor_contexts": [sc.__dict__() for sc in self.sensor_contexts]
+        }
+
+    def __json__(self):
+        return self.__dict__()
 
     def __eq__(self, other: Any):
         if not isinstance(other, InputContextRepository):

@@ -81,6 +81,17 @@ class BoundingBox(ABC):
         new_height: float = max(self.height, self.height + self.y - bb.y)
         return BoundingBox(new_x, new_y, new_width, new_height)
 
+    def __dict__(self):
+        return {
+            'x': self.x,
+            'y': self.y,
+            'width': self.width,
+            'height': self.height
+        }
+
+    def __json__(self):
+        return self.__dict__()
+
     def __eq__(self, other: Any):
         if not isinstance(other, BoundingBox):
             return False

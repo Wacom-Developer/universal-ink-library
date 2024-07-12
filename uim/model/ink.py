@@ -21,7 +21,6 @@ from typing import List, Any, Dict, Tuple, Optional, Union
 import numpy
 
 from uim.codec.context.version import Version
-from uim.codec.parser.base import FormatException
 from uim.model.base import InkModelException, UUIDIdentifier, node_registration_debug
 from uim.model.helpers.policy import HandleMissingDataPolicy
 from uim.model.helpers.treeiterator import PreOrderEnumerator
@@ -119,6 +118,17 @@ class SensorDataRepository(ABC):
         self.__map_id = {}
         for idx, el in enumerate(self.sensor_data):
             self.__map_id[el.id] = idx
+
+    def __dict__(self):
+        return {
+            'sensor_data': [sd.__dict__() for sd in self.sensor_data]
+        }
+
+    def __json__(self):
+        return self.__dict__()
+
+    def __iter__(self):
+        return iter(self.sensor_data)
 
     def __eq__(self, other: Any):
         if not isinstance(other, SensorDataRepository):
@@ -247,6 +257,15 @@ class InkTree(ABC):
         else:
             for n in PreOrderEnumerator(node):
                 self.unregister_node(n)
+
+    def __dict__(self):
+        return {
+            'name': self.name,
+            'root': self.root.__dict__()
+        }
+
+    def __json__(self):
+        return self.__dict__()
 
     def __eq__(self, other: Any):
         if not isinstance(other, InkTree):
@@ -1067,7 +1086,8 @@ class InkModel(ABC):
 
     def get_strokes_as_strided_array_extended(self, layout: Optional[List[InkStrokeAttributeType]] = None,
                                               policy: HandleMissingDataPolicy =
-                                              HandleMissingDataPolicy.FILL_WITH_ZEROS) \
+                                              HandleMissingDataPolicy.FILL_WITH_ZEROS,
+                                              include_stroke_idx: bool = False) \
             -> Tuple[List[List[float]], List[InkStrokeAttributeType]]:
         """
         Returns all the strokes in the document, where each stroke is an array with stride len(layout)
@@ -1078,6 +1098,8 @@ class InkModel(ABC):
             Layout of the extended stroke data
         policy: HandleMissingDataPolicy
             Policy to handle missing data
+        include_stroke_idx: bool (default: False)
+            Flag if stroke idx should be included in the output
 
         Returns
         -------
@@ -1098,10 +1120,13 @@ class InkModel(ABC):
         strokes = self.strokes
         result: List[List[float]] = []
 
-        for stroke in strokes:
+        for idx, stroke in enumerate(strokes):
             points = stroke.as_strided_array_extended(self, layout=layout, handle_missing_data=policy)
             if points:
-                result.append(points)
+                if include_stroke_idx:
+                    result.append([float(idx)] + points)
+                else:
+                    result.append(points)
         return result, layout
 
     def sensor_data_lookup(self, stroke: Stroke, ink_sensor_type: InkSensorType,
@@ -1725,6 +1750,23 @@ class InkModel(ABC):
                 return False
 
         return True
+
+    def __dict__(self):
+        return {
+            "version": self.version.__dict__() if self.version is not None else {},
+            "transform": self.transform.tolist() if self.transform is not None else [],
+            "properties": [dict(p) for p in self.properties],
+            "input_configuration": self.input_configuration.__dict__(),
+            "sensor_data": self.sensor_data.__dict__(),
+            "brushes": self.brushes.__dict__(),
+            "strokes": [s.__dict__() for s in self.strokes],
+            "ink_tree": self.ink_tree.__dict__() if self.ink_tree is not None else {},
+            "views": [v.__dict__() for v in self.views],
+            "knowledge_graph": self.knowledge_graph.__dict__(),
+        }
+
+    def __json__(self):
+        return self.__dict__()
 
     def __repr__(self):
         parts: str = ''

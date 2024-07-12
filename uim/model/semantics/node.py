@@ -345,6 +345,16 @@ class InkNode(UUIDIdentifier):
         if not self.is_assigned_to_a_tree():
             raise InkModelException("Node not yet assigned to a tree.")
 
+    def __dict__(self):
+        return {
+            'id': str(self.id),
+            'uri': self.uri,
+            'groupBoundingBox': self.group_bounding_box.__dict__() if self.group_bounding_box else None
+        }
+
+    def __json__(self):
+        return self.__dict__()
+
 
 class StrokeFragment(ABC):
     """
@@ -445,6 +455,17 @@ class StrokeFragment(ABC):
             return False
         return True
 
+    def __dict__(self):
+        return {
+            'from_point_index': self.from_point_index,
+            'to_point_index': self.to_point_index,
+            'from_t_value': self.from_t_value,
+            'to_t_value': self.to_t_value
+        }
+
+    def __json__(self):
+        return self.__dict__()
+
     def __repr__(self):
         return f'<StrokeFragment: [from_point_index:={self.from_point_index}, to_point_index:={self.to_point_index}, ' \
                f'from_t_value:={self.from_t_value}, to_t_value:={self.to_t_value}]>'
@@ -525,6 +546,18 @@ class StrokeNode(InkNode):
 
     def __generate_uri__(self):
         return URIBuilder().build_node_uri(self, SupportedFormats.UIM_VERSION_3_1_0)
+
+    def __dict__(self):
+        return {
+            'type': 'StrokeNode',  # 'type' is added to distinguish between StrokeNode and StrokeGroupNode in the JSON
+            'id': str(self.id),
+            'uri': self.uri,
+            'stroke_id': str(self.stroke.id) if self.stroke is not None else None,
+            'fragment': self.fragment.__dict__() if self.fragment else None
+        }
+
+    def __json__(self):
+        return self.__dict__()
 
     def __eq__(self, other: Any):
         if not isinstance(other, StrokeNode):
@@ -659,6 +692,18 @@ class StrokeGroupNode(InkNode):
 
     def __generate_uri__(self, uri_format: SupportedFormats = SupportedFormats.UIM_VERSION_3_1_0) -> str:
         return URIBuilder().build_node_uri(self, uri_format)
+
+    def __dict__(self):
+        return {
+            'type': 'StrokeGroupNode',
+            # 'type' is added to distinguish between StrokeNode and StrokeGroupNode in the JSON
+            'id': str(self.id),
+            'uri': self.uri,
+            'children': [child.__dict__() for child in self.__children]
+        }
+
+    def __json__(self):
+        return self.__dict__()
 
     def __eq__(self, other: Any):
         if not isinstance(other, StrokeGroupNode):

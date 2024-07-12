@@ -535,6 +535,11 @@ class TripleStore:
             return triples[0].object
         return None
 
+    def __dict__(self):
+        return {
+            'statements': [s.__dict__() for s in self.__triple_statement]
+        }
+
     def __iter__(self):
         return iter(self.__triple_statement)
 

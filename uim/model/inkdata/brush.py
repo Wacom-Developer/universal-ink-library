@@ -120,6 +120,15 @@ class BrushPolygonUri(ABC):
         """
         return self.__min_scale
 
+    def __dict__(self):
+        return {
+            "uri": self.shape_uri,
+            "min_scale": self.min_scale
+        }
+
+    def __json__(self):
+        return self.__dict__()
+
     def __eq__(self, other: Any):
         if not isinstance(other, BrushPolygonUri):
             logger.warning(f'Cannot compare BrushPolygonUri with {type(other)}')
@@ -199,6 +208,18 @@ class BrushPolygon(ABC):
         """
         return self.__min_scale
 
+    def __dict__(self):
+        return {
+            "indices": self.indices,
+            "min_scale": self.min_scale,
+            "coord_x": self.coord_x,
+            "coord_y": self.coord_y,
+            "coord_z": self.coord_z
+        }
+
+    def __json__(self):
+        return self.__dict__()
+
     def __eq__(self, other: Any):
         if not isinstance(other, BrushPolygon):
             logger.warning(f'Cannot compare BrushPolygon with {type(other)}')
@@ -274,6 +295,16 @@ class VectorBrush(Brush):
     def spacing(self) -> float:
         """Spacing value. (`float`, read-only)"""
         return self.__spacing
+
+    def __dict__(self):
+        return {
+            'name': self.name,
+            'prototypes': [p.__dict__() for p in self.prototypes],
+            'spacing': self.spacing
+        }
+
+    def __json__(self):
+        return self.__dict__()
 
     def __eq__(self, other: Any):
         if not isinstance(other, VectorBrush):
@@ -398,6 +429,23 @@ class RasterBrush(Brush):
     def blend_mode(self) -> BlendMode:
         """The applied blend mode. (`BlendMode`, read-only)"""
         return self.__blend_mode
+
+    def __dict__(self):
+        return {
+            'name': self.name,
+            'spacing': self.spacing,
+            'scattering': self.scattering,
+            'rotation': self.rotation,
+            'shape_texture_uris': self.shape_texture_uris,
+            'fill_texture_uri': self.fill_texture_uri,
+            'fill_width': self.fill_width,
+            'fill_height': self.fill_height,
+            'randomize_fill': self.randomize_fill,
+            'blend_mode': self.blend_mode
+        }
+
+    def __json__(self):
+        return self.__dict__()
 
     def __eq__(self, other: Any):
         if not isinstance(other, RasterBrush):
@@ -529,6 +577,35 @@ class Brushes:
             if self.__raster_brushes[v_i].name == name:
                 del self.__raster_brushes[v_i]
                 break
+
+    def __dict__(self):
+        return {
+            'vector_brushes': [b.__dict__() for b in self.vector_brushes],
+            'raster_brushes': [b.__dict__() for b in self.raster_brushes]
+        }
+
+    def __json__(self):
+        return self.__dict__()
+
+    def __eq__(self, other: Any):
+        if not isinstance(other, Brushes):
+            logger.warning(f'Cannot compare Brushes with {type(other)}')
+            return False
+        if len(self.vector_brushes) != len(other.vector_brushes):
+            logger.warning(f'VectorBrushes length mismatch: {len(self.vector_brushes)} != {len(other.vector_brushes)}')
+            return False
+        for v1, v2 in zip(self.vector_brushes, other.vector_brushes):
+            if v1 != v2:
+                logger.warning(f'VectorBrush mismatch: {v1} != {v2}')
+                return False
+        if len(self.raster_brushes) != len(other.raster_brushes):
+            logger.warning(f'RasterBrushes length mismatch: {len(self.raster_brushes)} != {len(other.raster_brushes)}')
+            return False
+        for r1, r2 in zip(self.raster_brushes, other.raster_brushes):
+            if r1 != r2:
+                logger.warning(f'RasterBrush mismatch: {r1} != {r2}')
+                return False
+        return True
 
     def __repr__(self):
         return f'<Brushes : [raster brush:=#{len(self.__raster_brushes)}, vector brush:=#{len(self.__vector_brushes)}]>'

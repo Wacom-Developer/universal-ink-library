@@ -327,5 +327,8 @@ class UUIDIdentifier(Identifier):
     def __generate_id__(self) -> uuid.UUID:
         return UUIDIdentifier.id_generator()
 
+    def __hash__(self):
+        return hash(self.id)
+
     def __repr__(self):
         return f'<UUIDIdentifiable : [s-form:={self.id_s_form}, h-form:={self.id_h_form}]>'

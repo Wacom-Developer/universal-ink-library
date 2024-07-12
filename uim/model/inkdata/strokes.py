@@ -283,6 +283,25 @@ class PathPointProperties(HashIdentifier):
         return [self.size, self.red, self.green, self.blue, self.alpha, self.rotation, self.scale_x, self.scale_y,
                 self.scale_z, self.offset_x, self.offset_y, self.offset_z]
 
+    def __dict__(self):
+        return {
+            "size": self.size,
+            "red": self.red,
+            "green": self.green,
+            "blue": self.blue,
+            "alpha": self.alpha,
+            "rotation": self.rotation,
+            "scale_x": self.scale_x,
+            "scale_y": self.scale_y,
+            "scale_z": self.scale_z,
+            "offset_x": self.offset_x,
+            "offset_y": self.offset_y,
+            "offset_z": self.offset_z
+        }
+
+    def __json__(self):
+        return self.__dict__()
+
     def __eq__(self, other: Any):
         if not isinstance(other, PathPointProperties):
             logger.warning(f"Cannot compare PathPointProperties with {type(other)}")
@@ -384,6 +403,17 @@ class Style(ABC):
     @render_mode_uri.setter
     def render_mode_uri(self, uri: str):
         self.__render_mode_URI = uri
+
+    def __dict__(self):
+        return {
+            "path_point_properties": self.path_point_properties.__json__(),
+            "brush_uri": self.__brush_uri,
+            "particles_random_seed": self.__particles_random_seed,
+            "render_mode_uri": self.__render_mode_URI
+        }
+
+    def __json__(self):
+        return self.__dict__()
 
     def __eq__(self, other: Any):
         if not isinstance(other, Style):
@@ -1330,6 +1360,38 @@ class Stroke(UUIDIdentifier):
             if spline.layout_mask & LayoutMask.TANGENT_Y.value:
                 self.__tangent_y.append(spline.data[idx])
                 idx += 1
+
+    def __dict__(self):
+        return {
+            "id": str(self.id),
+            "sensor_data_id": str(self.sensor_data_id),
+            "sensor_data_offset": self.sensor_data_offset,
+            "sensor_data_mapping": self.sensor_data_mapping,
+            "style": self.style.__dict__(),
+            "random_seed": self.random_seed,
+            "start_parameter": self.start_parameter,
+            "end_parameter": self.end_parameter,
+            "splines_x": self.splines_x,
+            "splines_y": self.splines_y,
+            "splines_z": self.splines_z,
+            "sizes": self.sizes,
+            "rotations": self.rotations,
+            "red": self.red,
+            "green": self.green,
+            "blue": self.blue,
+            "alpha": self.alpha,
+            "scales_x": self.scales_x,
+            "scales_y": self.scales_y,
+            "scales_z": self.scales_z,
+            "offsets_x": self.offsets_x,
+            "offsets_y": self.offsets_y,
+            "offsets_z": self.offsets_z,
+            "tangent_x": self.tangent_x,
+            "tangent_y": self.tangent_y
+        }
+
+    def __json__(self):
+        return self.__dict__()
 
     def __eq__(self, other: Any):
         if not isinstance(other, Stroke):

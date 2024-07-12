@@ -72,6 +72,15 @@ class ChannelData(UUIDIdentifier):
     def values(self, values: list):
         self.__values = values
 
+    def __dict__(self):
+        return {
+            'id': str(self.id),
+            'values': self.values
+        }
+
+    def __json__(self):
+        return self.__dict__()
+
     def __eq__(self, other: Any):
         if not isinstance(other, ChannelData):
             logger.warning(f'Comparing ChannelData with incompatible type: {type(other)}')
@@ -219,6 +228,18 @@ class SensorData(UUIDIdentifier):
             return
         channel_data: ChannelData = self.get_data_by_id(sensor_channel.id)
         channel_data.values = values
+
+    def __dict__(self):
+        return {
+            'id': str(self.id),
+            'input_context_id': str(self.input_context_id),
+            'state': self.state.name if self.state is not None else None,
+            'timestamp': self.timestamp,
+            'data_channels': [dc.__dict__() for dc in self.data_channels]
+        }
+
+    def __json__(self):
+        return self.__dict__()
 
     def __eq__(self, other):
         if not isinstance(other, SensorData):

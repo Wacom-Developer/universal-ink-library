@@ -71,5 +71,16 @@ class Version:
                     and self.ink_format == other.ink_format)
         return False
 
+    def __dict__(self):
+        return {
+            'ink_format': self.ink_format,
+            'major': self.major,
+            'minor': self.minor,
+            'path': self.patch
+        }
+
+    def __json__(self):
+        return self.__dict__()
+
     def __repr__(self):
         return f'Version: {self.ink_format} {self.major}.{self.minor}.{self.patch} ({self.ink_format})'
