@@ -380,7 +380,7 @@ class UIMDecoder310(CodecDecoder):
                 sid=Identifier.from_bytes(s.id),
                 sensor_data_offset=s.sensorDataOffset,
                 sensor_data_id=sensor_id,
-                sensor_data_mapping=s.sensorDataMapping,
+                sensor_data_mapping=list(s.sensorDataMapping),
                 random_seed=s.randomSeed,
                 property_index=s.propertiesIndex
             )
