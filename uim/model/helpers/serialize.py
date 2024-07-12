@@ -37,11 +37,7 @@ class UniversalInkModelEncoder(JSONEncoder):
 
     def default(self, obj: Any):
         if hasattr(obj, '__json__'):
-            try:
-                return obj.__json__()
-            except Exception as e:
-                print(f'Error while serializing object {obj} to JSON: {e}')
-                return None
+            return obj.__json__()
         return super().default(obj)
 
 
