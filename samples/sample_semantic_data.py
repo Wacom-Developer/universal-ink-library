@@ -12,6 +12,8 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+from pathlib import Path
+
 from uim.codec.parser.uim import UIMParser
 from uim.model.helpers.text_extractor import uim_extract_text_and_semantics_from
 from uim.model.ink import InkModel
@@ -19,7 +21,8 @@ from uim.model.semantics.schema import CommonViews
 
 if __name__ == '__main__':
     parser: UIMParser = UIMParser()
-    ink_model: InkModel = parser.parse('../ink/uim_3.1.0/2) Digital Ink is processable 1 (3.1 delta).uim')
+    ink_model: InkModel = parser.parse(Path(__file__).parent / '..' / 'ink' / 'uim_3.1.0' /
+                                       '2) Digital Ink is processable 1 (3.1 delta).uim')
     if ink_model.has_knowledge_graph() and ink_model.has_tree(CommonViews.HWR_VIEW.value):
         # The sample
         words, entities, text = uim_extract_text_and_semantics_from(ink_model, hwr_view=CommonViews.HWR_VIEW.value)

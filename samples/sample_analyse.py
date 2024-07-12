@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright © 2023 Wacom Authors. All Rights Reserved.
+# Copyright © 2023-present Wacom Authors. All Rights Reserved.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -12,6 +12,7 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+from pathlib import Path
 from typing import Dict, Any
 
 from uim.codec.parser.uim import UIMParser
@@ -45,9 +46,8 @@ def print_model_stats(key: str, value: Any, indent: str = ""):
 
 if __name__ == '__main__':
     parser: UIMParser = UIMParser()
-    # Parse UIM v3.0.0
-    ink_model: InkModel = parser.parse('../ink/uim_3.1.0/2) Digital Ink is processable 1 (3.1 delta).uim')
-
+    ink_model: InkModel = parser.parse(Path(__file__).parent / '..' / 'ink' / 'uim_3.1.0' /
+                                       '2) Digital Ink is processable 1 (3.1 delta).uim')
     model_analyser: StatisticsAnalyzer = StatisticsAnalyzer()
     stats: Dict[str, Any] = model_analyser.analyze(ink_model)
     for key_str, value_str in stats.items():

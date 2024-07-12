@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright © 2021 Wacom Authors. All Rights Reserved.
+# Copyright © 2021-present Wacom Authors. All Rights Reserved.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -12,6 +12,7 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+from pathlib import Path
 from typing import Dict
 from uuid import UUID
 
@@ -23,7 +24,8 @@ from uim.model.inkinput.sensordata import SensorData
 if __name__ == '__main__':
     parser: UIMParser = UIMParser()
     # This file contains ink from different providers: PEN, TOUCH, MOUSE
-    ink_model: InkModel = parser.parse('../ink/uim_3.1.0/6) Different Input Providers.uim')
+    ink_model: InkModel = parser.parse(Path(__file__).parent / '..' / 'ink' / 'uim_3.1.0' /
+                                       '6) Different Input Providers.uim')
     mapping_type: Dict[UUID, InkInputType] = {}
     if ink_model.has_ink_structure():
         print('InkInputProviders:')
