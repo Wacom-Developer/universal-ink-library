@@ -715,7 +715,7 @@ class SensorChannel(HashIdentifier):
     --------
     >>> from uim.model.inkinput.inputdata import SensorChannel, InkSensorType
     >>> # Create a group of sensor channels
-    >>> sensor_channels_tablet: list = [
+    >>> sensor_channels: list = [
     >>>     SensorChannel(channel_type=InkSensorType.TIMESTAMP, metric=InkSensorMetricType.TIME, resolution=1.0),
     >>>     SensorChannel(channel_type=InkSensorType.X, metric=InkSensorMetricType.LENGTH, resolution=1.0),
     >>>     SensorChannel(channel_type=InkSensorType.Y, metric=InkSensorMetricType.LENGTH, resolution=1.0)
@@ -927,13 +927,13 @@ class SensorChannelsContext(HashIdentifier):
     >>> input_device.properties.append(("dev.manufacturer", "Apple"))
     >>>
     >>> # Create a group of sensor channels
-    >>> sensor_channels_tablet: list = [
+    >>> sensor_channels: list = [
     >>>     SensorChannel(channel_type=InkSensorType.TIMESTAMP, metric=InkSensorMetricType.TIME, resolution=1.0),
     >>>     SensorChannel(channel_type=InkSensorType.X, metric=InkSensorMetricType.LENGTH, resolution=1.0),
     >>>     SensorChannel(channel_type=InkSensorType.Y, metric=InkSensorMetricType.LENGTH, resolution=1.0)
     >>> ]
     >>>
-    >>> scc_tablet: SensorChannelsContext = SensorChannelsContext(channels=sensor_channels_tablet,
+    >>> scc_tablet: SensorChannelsContext = SensorChannelsContext(channels=sensor_channels,
     >>>                                                           ink_input_provider_id=provider.id,
     >>>                                                           input_device_id=input_device.id)
     """
@@ -955,8 +955,8 @@ class SensorChannelsContext(HashIdentifier):
     def __tokenize__(self) -> list:
         token: list = ["SensorChannelsContext"]
         token.extend([c.id for c in self.channels])
-        token.append(self.sampling_rate)
-        token.append(self.latency)
+        token.append(self.sampling_rate if self.sampling_rate != 0 else '')
+        token.append(self.latency if self.latency != 0 else '')
         token.append(self.input_provider_id)
         token.append(self.input_device_id)
         return token
