@@ -5,7 +5,7 @@ import sys
 from setuptools import setup, find_packages
 
 CURRENT_PYTHON = sys.version_info[:2]
-REQUIRED_PYTHON = (3, 6)
+REQUIRED_PYTHON = (3, 8)
 
 # This check and everything above must remain compatible with Python 3.6.
 if CURRENT_PYTHON < REQUIRED_PYTHON:
@@ -50,8 +50,7 @@ setup(
         "numpy>=1.16.4",
         "bitstring>=3.1.7",
         "protobuf<4.0.0",
-        "varint>=1.0.2",
-        "lxml>=4.6.3"
+        "varint>=1.0.2"
     ],
     extras_require={
     },
@@ -62,15 +61,13 @@ setup(
     ),
     classifiers=[
         # Status
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 3 - Beta',
         # Audience
         'Intended Audience :: Developers',
         'Intended Audience :: Education',
         'Intended Audience :: Science/Research',
         # Python Version
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11'
