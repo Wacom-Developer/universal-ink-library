@@ -17,13 +17,10 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-
       # Sets up python
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v5
         with:
-          python-version: 3.8
+          python-version: 3.10
       # Install dependencies
       - name: "Installs dependencies"
         run: |
@@ -34,6 +31,11 @@ jobs:
       - name: "Build API documentation"
         run: |
           pdoc -f uim -o docs
+
+      - name: "Test with pytest"
+        run: |
+            pip install pytest pytest-cov
+            coverage run -m pytest --cov-config=.coveragerc
 
       # Build and upload to PyPI
       - name: "Builds and uploads to PyPI"
