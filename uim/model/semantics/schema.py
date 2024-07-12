@@ -67,6 +67,7 @@ class SegmentationSchema:
     GENERATED_BY: str = 'generatedBy'
     HAS_CONTENT: str = "hasContent"
     HAS_ALTERNATIVE: str = "hasAltContent"
+    HAS_LANGUAGE: str = "hasLanguage"
     BORDER: str = SEGMENTATION_SCHEMA + 'Border'
     CONNECTOR: str = SEGMENTATION_SCHEMA + 'Connector'
     CORRECTION: str = SEGMENTATION_SCHEMA + 'Correction'
@@ -117,7 +118,6 @@ class NamedEntityRecognitionSchema(SegmentationSchema):
     HAS_ARTICLE_URL: str = "hasArticleUrl"
     HAS_URI: str = "hasURI"
     HAS_SOURCE: str = "hasSource"
-    HAS_LANGUAGE: str = "hasLanguage"
     HAS_LABEL: str = "hasLabel"
     HAS_ABSTRACT: str = "hasAbstractText"
     HAS_CREATION_DATE: str = "hasCreationDate"
