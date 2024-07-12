@@ -1,9 +1,18 @@
+2024/07/12 - RELEASE 2.0.0
+==========================
+- Refactor schema handling in uim.model.semantics.schema package
+- Support __eq__ for all classes in uim.model package, to enable comparison of UIM models
+- Fixing several bugs in parsing of UIM files
+- Improve API documentation
+- Adding serialization to JSON file for human readable UIM model representation
+- Adding helper function to create csv file from sensor data
+
+
 2023/09/11 - RELEASE 1.1.0
 ==========================
 - Fix: Azimuth and Altitude values are now correctly set in the UIM model
 - Rename syntax package to schema and using new naming convention for the schema
 - Add a analysis package to provide a set of functions to analyze the UIM model
-
 
 2022/10/7 - RELEASE 1.0.6
 ==========================
