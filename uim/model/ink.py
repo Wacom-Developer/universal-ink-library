@@ -378,13 +378,13 @@ class InkModel(ABC):
     >>> ink_model.input_configuration.devices.append(input_device)
     >>>
     >>> # Create a group of sensor channels
-    >>> sensor_channels_tablet: list = [
+    >>> sensor_channels: list = [
     >>>     SensorChannel(channel_type=InkSensorType.TIMESTAMP, metric=InkSensorMetricType.TIME, resolution=1.0),
     >>>     SensorChannel(channel_type=InkSensorType.X, metric=InkSensorMetricType.LENGTH, resolution=1.0),
     >>>     SensorChannel(channel_type=InkSensorType.Y, metric=InkSensorMetricType.LENGTH, resolution=1.0)
     >>> ]
     >>>
-    >>> scc_tablet: SensorChannelsContext = SensorChannelsContext(channels=sensor_channels_tablet,
+    >>> scc_tablet: SensorChannelsContext = SensorChannelsContext(channels=sensor_channels,
     >>>                                                           ink_input_provider_id=provider.id,
     >>>                                                           input_device_id=input_device.id)
     >>>
@@ -416,9 +416,9 @@ class InkModel(ABC):
     >>> sensor_data_0: SensorData = SensorData(UUIDIdentifier.id_generator(), input_context_id=input_context.id,
     >>>                                        state=InkState.PLANE)
     >>>
-    >>> sensor_data_0.add_timestamp_data(sensor_channels_tablet[0], [0, 1, 2, 4, 5])
-    >>> sensor_data_0.add_data(sensor_channels_tablet[1],  [100.4, 103.7, 110.1])
-    >>> sensor_data_0.add_data(sensor_channels_tablet[2],  [200.1, 202.0, 207.0])
+    >>> sensor_data_0.add_timestamp_data(sensor_channels[0], [0, 1, 2, 4, 5])
+    >>> sensor_data_0.add_data(sensor_channels[1],  [100.4, 103.7, 110.1])
+    >>> sensor_data_0.add_data(sensor_channels[2],  [200.1, 202.0, 207.0])
     >>>
     >>> sensor_data_0.add_timestamp_data(sensor_channels_bluetooth[0], [0, 1, 2])
     >>>
@@ -1755,7 +1755,7 @@ class InkModel(ABC):
         return {
             "version": self.version.__dict__() if self.version is not None else {},
             "transform": self.transform.tolist() if self.transform is not None else [],
-            "properties": [dict(p) for p in self.properties],
+            "properties": dict(self.properties) if self.properties is not None else {},
             "input_configuration": self.input_configuration.__dict__(),
             "sensor_data": self.sensor_data.__dict__(),
             "brushes": self.brushes.__dict__(),
