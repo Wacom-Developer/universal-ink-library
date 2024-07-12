@@ -20,17 +20,13 @@ jobs:
       # Sets up python
       - uses: actions/setup-python@v5
         with:
-          python-version: 3.10
+          python-version: "3.x"
       # Install dependencies
       - name: "Installs dependencies"
         run: |
           python3 -m pip install --upgrade pip
           python3 -m pip install setuptools wheel twine pdoc3 
           python3 -m pip install -r requirements.txt
-
-      - name: "Build API documentation"
-        run: |
-          pdoc -f uim -o docs
 
       # Build and upload to PyPI
       - name: "Builds and uploads to PyPI"
