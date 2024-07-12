@@ -50,7 +50,8 @@ setup(
         "numpy>=1.16.4",
         "bitstring>=3.1.7",
         "protobuf<4.0.0",
-        "varint>=1.0.2"
+        "varint>=1.0.2",
+        "lxml>=4.6.3"
     ],
     extras_require={
     },
