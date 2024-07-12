@@ -603,7 +603,7 @@ Classes
     --------
     >>> from uim.model.inkinput.inputdata import SensorChannel, InkSensorType
     >>> # Create a group of sensor channels
-    >>> sensor_channels_tablet: list = [
+    >>> sensor_channels: list = [
     >>>     SensorChannel(channel_type=InkSensorType.TIMESTAMP, metric=InkSensorMetricType.TIME, resolution=1.0),
     >>>     SensorChannel(channel_type=InkSensorType.X, metric=InkSensorMetricType.LENGTH, resolution=1.0),
     >>>     SensorChannel(channel_type=InkSensorType.Y, metric=InkSensorMetricType.LENGTH, resolution=1.0)
@@ -706,13 +706,13 @@ Classes
     >>> input_device.properties.append(("dev.manufacturer", "Apple"))
     >>>
     >>> # Create a group of sensor channels
-    >>> sensor_channels_tablet: list = [
+    >>> sensor_channels: list = [
     >>>     SensorChannel(channel_type=InkSensorType.TIMESTAMP, metric=InkSensorMetricType.TIME, resolution=1.0),
     >>>     SensorChannel(channel_type=InkSensorType.X, metric=InkSensorMetricType.LENGTH, resolution=1.0),
     >>>     SensorChannel(channel_type=InkSensorType.Y, metric=InkSensorMetricType.LENGTH, resolution=1.0)
     >>> ]
     >>>
-    >>> scc_tablet: SensorChannelsContext = SensorChannelsContext(channels=sensor_channels_tablet,
+    >>> scc_tablet: SensorChannelsContext = SensorChannelsContext(channels=sensor_channels,
     >>>                                                           ink_input_provider_id=provider.id,
     >>>                                                           input_device_id=input_device.id)
 

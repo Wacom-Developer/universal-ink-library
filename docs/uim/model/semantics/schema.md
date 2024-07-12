@@ -420,9 +420,6 @@ Classes
     `HAS_LABEL: str`
     :
 
-    `HAS_LANGUAGE: str`
-    :
-
     `HAS_NAMED_ENTITY: str`
     :
 
@@ -518,6 +515,9 @@ Classes
     :
 
     `HAS_CONTENT: str`
+    :
+
+    `HAS_LANGUAGE: str`
     :
 
     `LINE: str`

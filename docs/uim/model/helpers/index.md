@@ -13,6 +13,7 @@ Sub-modules
 * uim.model.helpers.boundingbox
 * uim.model.helpers.policy
 * uim.model.helpers.schema_content_extractor
+* uim.model.helpers.serialize
 * uim.model.helpers.spline
 * uim.model.helpers.text_extractor
 * uim.model.helpers.treeiterator

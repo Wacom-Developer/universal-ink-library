@@ -74,13 +74,13 @@ Classes
     >>> ink_model.input_configuration.devices.append(input_device)
     >>>
     >>> # Create a group of sensor channels
-    >>> sensor_channels_tablet: list = [
+    >>> sensor_channels: list = [
     >>>     SensorChannel(channel_type=InkSensorType.TIMESTAMP, metric=InkSensorMetricType.TIME, resolution=1.0),
     >>>     SensorChannel(channel_type=InkSensorType.X, metric=InkSensorMetricType.LENGTH, resolution=1.0),
     >>>     SensorChannel(channel_type=InkSensorType.Y, metric=InkSensorMetricType.LENGTH, resolution=1.0)
     >>> ]
     >>>
-    >>> scc_tablet: SensorChannelsContext = SensorChannelsContext(channels=sensor_channels_tablet,
+    >>> scc_tablet: SensorChannelsContext = SensorChannelsContext(channels=sensor_channels,
     >>>                                                           ink_input_provider_id=provider.id,
     >>>                                                           input_device_id=input_device.id)
     >>>
@@ -112,9 +112,9 @@ Classes
     >>> sensor_data_0: SensorData = SensorData(UUIDIdentifier.id_generator(), input_context_id=input_context.id,
     >>>                                        state=InkState.PLANE)
     >>>
-    >>> sensor_data_0.add_timestamp_data(sensor_channels_tablet[0], [0, 1, 2, 4, 5])
-    >>> sensor_data_0.add_data(sensor_channels_tablet[1],  [100.4, 103.7, 110.1])
-    >>> sensor_data_0.add_data(sensor_channels_tablet[2],  [200.1, 202.0, 207.0])
+    >>> sensor_data_0.add_timestamp_data(sensor_channels[0], [0, 1, 2, 4, 5])
+    >>> sensor_data_0.add_data(sensor_channels[1],  [100.4, 103.7, 110.1])
+    >>> sensor_data_0.add_data(sensor_channels[2],  [200.1, 202.0, 207.0])
     >>>
     >>> sensor_data_0.add_timestamp_data(sensor_channels_bluetooth[0], [0, 1, 2])
     >>>
@@ -541,7 +541,7 @@ Classes
         layout: List[InkStrokeAttributeType]]
             Layout structure
 
-    `get_strokes_as_strided_array_extended(self, layout: Optional[List[uim.model.inkdata.strokes.InkStrokeAttributeType]] = None, policy: uim.model.helpers.policy.HandleMissingDataPolicy = HandleMissingDataPolicy.FILL_WITH_ZEROS) ‑> Tuple[List[List[float]], List[uim.model.inkdata.strokes.InkStrokeAttributeType]]`
+    `get_strokes_as_strided_array_extended(self, layout: Optional[List[uim.model.inkdata.strokes.InkStrokeAttributeType]] = None, policy: uim.model.helpers.policy.HandleMissingDataPolicy = HandleMissingDataPolicy.FILL_WITH_ZEROS, include_stroke_idx: bool = False) ‑> Tuple[List[List[float]], List[uim.model.inkdata.strokes.InkStrokeAttributeType]]`
     :   Returns all the strokes in the document, where each stroke is an array with stride len(layout)
         
         Parameters
@@ -550,6 +550,8 @@ Classes
             Layout of the extended stroke data
         policy: HandleMissingDataPolicy
             Policy to handle missing data
+        include_stroke_idx: bool (default: False)
+            Flag if stroke idx should be included in the output
         
         Returns
         -------
