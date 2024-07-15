@@ -63,8 +63,6 @@ setup(
     classifiers=[
         # Status
         'Development Status :: 4 - Beta',
-        # License
-        'License :: OSI Approved :: Apache Software License v2.0'
         # Audience
         'Intended Audience :: Developers',
         'Intended Audience :: Education',
