@@ -18,12 +18,12 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v2
 
       # Sets up python
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v2
         with:
-         python-version: 3.9
+          python-version: 3.8
       # Install dependencies
       - name: "Installs dependencies"
         run: |
