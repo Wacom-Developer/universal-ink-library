@@ -40,14 +40,14 @@ LEGACY_NE_MAPPING: Dict[str, str] = {
 }
 
 NE_MAPPING: Dict[str, str] = {
-    NamedEntityRecognitionSchema.HAS_LANGUAGE: 'language',
-    NamedEntityRecognitionSchema.HAS_PROVIDER: 'provider',
-    NamedEntityRecognitionSchema.HAS_CREATION_DATE: 'creationDate',
-    NamedEntityRecognitionSchema.HAS_ABSTRACT: 'description',
-    NamedEntityRecognitionSchema.HAS_IMAGE: 'image',
-    NamedEntityRecognitionSchema.HAS_URI: 'uri',
-    NamedEntityRecognitionSchema.HAS_LABEL: 'label',
-    NamedEntityRecognitionSchema.HAS_ONTOLOGY_TYPE: 'ontologyType'
+    NamedEntityRecognitionSchema.HAS_LANGUAGE.lower(): 'language',
+    NamedEntityRecognitionSchema.HAS_PROVIDER.lower(): 'provider',
+    NamedEntityRecognitionSchema.HAS_CREATION_DATE.lower(): 'creationDate',
+    NamedEntityRecognitionSchema.HAS_ABSTRACT_TEXT.lower(): 'description',
+    NamedEntityRecognitionSchema.HAS_THUMBNAIL_URL.lower(): 'image',
+    NamedEntityRecognitionSchema.HAS_URI.lower(): 'uri',
+    NamedEntityRecognitionSchema.HAS_LABEL.lower(): 'label',
+    NamedEntityRecognitionSchema.HAS_ENTITY_TYPE.lower(): 'ontologyType'
 }
 
 
@@ -65,9 +65,12 @@ def uim_extract_text_and_semantics(uim_bytes: bytes, hwr_view: str = CommonViews
 
     Returns
     -------
-    text: `List[dict]`
-        List of text lines. Each line has its own dict containing the  bounding box, and all words
-    entities.
+    words: `List[dict]`
+        List of words. Each word has its own dict containing the text, bounding box, and all alternatives.
+    entities: `Dict[str, List[dict]]`
+        Dictionary of entities. Each entity has its own dict containing the label, instance, and path ids.
+    text: `str`
+        Text extracted from the Universal Ink Model.
 
     Raises
     ------
@@ -148,7 +151,7 @@ def uim_extract_text_and_semantics_from(ink_model: InkModel, hwr_view: str = Com
 
     # Iterate for triples with triple list and look for words
     for s in ink_model.knowledge_graph.statements:
-        if s.predicate.startswith(SegmentationSchema.HAS_ALTERNATIVE):
+        if s.predicate.startswith(SegmentationSchema.HAS_ALT_CONTENT):
             if s.subject not in text_alternatives:
                 text_alternatives[s.subject] = []
             text_alternatives[s.subject].append(s.object)
@@ -157,7 +160,7 @@ def uim_extract_text_and_semantics_from(ink_model: InkModel, hwr_view: str = Com
                 text_alternatives[s.subject] = []
             text_alternatives[s.subject].append(s.object)
         # Collect all words
-        if s.object == SegmentationSchema.WORD:
+        if s.object in [SegmentationSchema.WORD_OF_STROKES, SegmentationSchema.WORD]:
             all_statements = ink_model.knowledge_graph.all_statements_for(s.subject,
                                                                           predicate=SegmentationSchema.HAS_CONTENT)
             if len(all_statements) == 1:
@@ -172,10 +175,10 @@ def uim_extract_text_and_semantics_from(ink_model: InkModel, hwr_view: str = Com
             entity: Dict[str, Any] = {'instance': s.object}
             entity_map[s.subject] = entity
             for st in all_statements:
-                if st.predicate.startswith('hasPart'):
+                if st.predicate.lower().startswith('haspart'):
                     entity_map[st.object] = entity
-                elif st.predicate in NE_MAPPING:
-                    entity[NE_MAPPING[st.predicate]] = st.object
+                elif st.predicate.lower() in NE_MAPPING:
+                    entity[NE_MAPPING[st.predicate.lower()]] = st.object
         # Collect all entities for the legacy view
         if s.predicate == LEGACY_HAS_NAMED_ENTITY:
             all_statements = ink_model.knowledge_graph.all_statements_for(s.object)
@@ -215,7 +218,7 @@ def uim_extract_text_and_semantics_from(ink_model: InkModel, hwr_view: str = Com
                     # Position
                     pos += 1
                 if word_node.uri in entity_map:
-                    uri: str = entity_map[word_node.uri]['uri']
+                    uri: str = entity_map[word_node.uri].get('uri', '')
                     if uri not in entities:
                         entities[uri] = []
                     entry: Dict[str, Any] = {

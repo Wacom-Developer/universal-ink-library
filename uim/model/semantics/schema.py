@@ -51,57 +51,138 @@ DEVICE_MANUFACTURER_PROPERTY: str = INK_INPUT_DEVICE + "Manufacturer"
 DEVICE_MODEL_PROPERTY: str = INK_INPUT_DEVICE + "Model"
 
 
-class SegmentationSchema:
+class BaseSchema:
+    """
+    BaseSchema
+    ==========
+    Universal Ink Model base schema. Core structures that are used in several schemas.
+    """
+    STRUCTURE_VERSION: str = "1.1"
+    STRUCTURES_NAMESPACE: str = f"will:uim/{STRUCTURE_VERSION}/"
+    # -------------------------------------------- Classes -------------------------------------------------------------
+    INK_MODEL: str = f"{STRUCTURES_NAMESPACE}InkModel"
+    INK_NODE: str = f"{STRUCTURES_NAMESPACE}InkNode"
+    ROOT: str = f"{STRUCTURES_NAMESPACE}Root"
+    STROKE_NODE: str = f"{STRUCTURES_NAMESPACE}StrokeNode"
+    STROKE_GROUP_NODE: str = f"{STRUCTURES_NAMESPACE}StrokeGroupNode"
+    # -------------------------------------------- Properties ----------------------------------------------------------
+    HAS_SCHEMA_INCLUDE: str = f"hasSchemaInclude"
+    HAS_ROOT: str = f"hasRoot"
+    HAS_CHILD: str = f"hasChild"
+    HAS_PARENT: str = f"hasParent"
+    HAS_REPRESENTS_VIEW: str = f"representsView"
+    HAS_GENERATED_BY: str = f"generatedBy"
+    HAS_PARENT_INK_MODEL: str = f"hasParentInkModel"
+    HAS_STROKE: str = f"hasStroke"
+
+
+class SimplifiedSegmentationSchema(BaseSchema):
+    """
+    SimplifiedSegmentationSchema
+    ============================
+    Universal Ink Model simplified content type segmentation schema.
+    """
+    STRUCTURE_VERSION: str = "0.1"
+    STRUCTURES_NAMESPACE: str = f"will:smpl-seg/{STRUCTURE_VERSION}/"
+    # -------------------------------------------- Classes -------------------------------------------------------------
+    ROOT: str = f"{STRUCTURES_NAMESPACE}Root"
+    SIMPLIFIED_BLOCK: str = f"{STRUCTURES_NAMESPACE}SimplifiedBlock"
+    TEXT: str = f"{STRUCTURES_NAMESPACE}Text"
+    MATH: str = f"{STRUCTURES_NAMESPACE}Math"
+    MATH_REFERENCE: str = f"{STRUCTURES_NAMESPACE}MathReference"
+    UNLABELLED: str = f"{STRUCTURES_NAMESPACE}Unlabelled"
+    GARBAGE: str = f"{STRUCTURES_NAMESPACE}Garbage"
+    DRAWING: str = f"{STRUCTURES_NAMESPACE}Drawing"
+    DIAGRAM: str = f"{STRUCTURES_NAMESPACE}Diagram"
+    ANNOTATION: str = f"{STRUCTURES_NAMESPACE}Annotation"
+    # -------------------------------------------- Properties ----------------------------------------------------------
+    HAS_PARENT: str = f"hasParent"
+    HAS_CONTENT: str = f"hasContent"
+    HAS_CONTENT_SCORE: str = f"hasContentScore"
+    HAS_ALT_CONTENT: str = f"hasAltContent"
+    HAS_ALT_CONTENT_SCORE: str = f"hasAltContentScore"
+    HAS_LANGUAGE: str = f"hasLanguage"
+    HAS_DIRECTION: str = f"hasDirection"
+    HAS_CATEGORY_HINT: str = f"categoryHint"
+
+
+class SegmentationSchema(BaseSchema):
     """
     SegmentationSchema
     ==================
     The segmentation schema is used to segment the content of the ink model.
     """
-    # Content segmentation schema
-    SEGMENTATION_SCHEMA_VERSION: str = '0.3'
-    SEGMENTATION_SCHEMA: str = f'will:seg/{SEGMENTATION_SCHEMA_VERSION}'
-    ROOT: str = f'{SEGMENTATION_SCHEMA}/Root'
-    PART_OF_NAMED_ENTITY: str = "isPartOfNamedEntity"
-    PART_OF_POS_ENTITY: str = "isPartOfPOSEntity"
-    REPRESENTS_VIEW: str = 'representsView'
-    GENERATED_BY: str = 'generatedBy'
-    HAS_CONTENT: str = "hasContent"
-    HAS_ALTERNATIVE: str = "hasAltContent"
-    HAS_LANGUAGE: str = "hasLanguage"
-    BORDER: str = SEGMENTATION_SCHEMA + 'Border'
-    CONNECTOR: str = SEGMENTATION_SCHEMA + 'Connector'
-    CORRECTION: str = SEGMENTATION_SCHEMA + 'Correction'
-    DIAGRAM: str = SEGMENTATION_SCHEMA + 'Diagram'
-    DIAGRAM_CONNECTOR: str = SEGMENTATION_SCHEMA + 'DiagramConnector'
-    DIAGRAM_PART: str = SEGMENTATION_SCHEMA + 'DiagramPart'
-    DRAWING: str = SEGMENTATION_SCHEMA + 'Drawing'
-    DRAWING_ITEM_GROUP: str = SEGMENTATION_SCHEMA + 'DrawingItemGroup'
-    DRAWING_ITEM: str = SEGMENTATION_SCHEMA + 'DrawingItem'
-    GARBAGE: str = SEGMENTATION_SCHEMA + 'Garbage'
-    LIST: str = SEGMENTATION_SCHEMA + 'List'
-    LIST_ITEM: str = SEGMENTATION_SCHEMA + 'ListItem'
-    LIST_ITEM_BODY: str = 'body'
-    UNLABELLED: str = SEGMENTATION_SCHEMA + 'Unlabelled'
-    UNLABELLED_BLOCK: str = SEGMENTATION_SCHEMA + 'UnlabelledBlock'
-    UNLABELLED_ITEM_GROUP: str = SEGMENTATION_SCHEMA + 'UnlabelledItemGroup'
-    UNLABELLED_ITEM: str = SEGMENTATION_SCHEMA + 'UnlabelledItem'
-    MARKING: str = SEGMENTATION_SCHEMA + 'Marking'
-    MARKING_TYPE_UNDERLINING: str = 'underlining'
-    MARKING_TYPE_PREDICATE: str = 'markingType'
-    MARKING_TYPE_ENCIRCLING: str = 'encircling'
-    MATH_BLOCK: str = SEGMENTATION_SCHEMA + 'MathBlock'
-    MATH_ITEM_GROUP: str = SEGMENTATION_SCHEMA + 'MathItemGroup'
-    MATH_ITEM: str = SEGMENTATION_SCHEMA + 'MathItem'
-    SEGMENTATION_ROOT: str = SEGMENTATION_SCHEMA + 'Root'
-    TABLE: str = SEGMENTATION_SCHEMA + 'Table'
-    EXTENDED_TEXT_REGION: str = SEGMENTATION_SCHEMA + 'ExtendedTextRegion'
-    LINE: str = SEGMENTATION_SCHEMA + 'Line'
-    TEXT_REGION: str = f'{SEGMENTATION_SCHEMA}/TextRegion'
-    TEXT_LINE: str = f'{SEGMENTATION_SCHEMA}/TextLine'
-    WORD: str = f'{SEGMENTATION_SCHEMA}/WordOfStrokes'
-    CHEMISTRY_BLOCK: str = SEGMENTATION_SCHEMA + 'ChemistryBlock'
-    PHYSICS_BLOCK: str = SEGMENTATION_SCHEMA + 'PhysicsBlock'
-    CHEMICAL_STRUCTURE: str = SEGMENTATION_SCHEMA + 'ChemicalStructure'
+    SEG_STRUCTURE_VERSION: str = "0.3"
+    SEG_STRUCTURES_NAMESPACE: str = f"will:seg/{SEG_STRUCTURE_VERSION}/"
+    # -------------------------------------------- Classes -------------------------------------------------------------
+    ROOT: str = f"{SEG_STRUCTURES_NAMESPACE}Root"
+    CONTENT_BLOCK: str = f"{SEG_STRUCTURES_NAMESPACE}ContentBlock"
+    TEXT_REGION: str = f"{SEG_STRUCTURES_NAMESPACE}TextRegion"
+    TEXT_LINE: str = f"{SEG_STRUCTURES_NAMESPACE}TextLine"
+    WORD: str = f"{SEG_STRUCTURES_NAMESPACE}Word"
+    WORD_OF_STROKES: str = f"{SEG_STRUCTURES_NAMESPACE}WordOfStrokes"
+    EXTENDED_TEXT_REGION: str = f"{SEG_STRUCTURES_NAMESPACE}ExtendedTextRegion"
+    LINE: str = f"{SEG_STRUCTURES_NAMESPACE}Line"
+    UNLABELLED_BLOCK: str = f"{SEG_STRUCTURES_NAMESPACE}UnlabelledBlock"
+    UNLABELLED_ITEM_GROUP: str = f"{SEG_STRUCTURES_NAMESPACE}UnlabelledItemGroup"
+    UNLABELLED_ITEM: str = f"{SEG_STRUCTURES_NAMESPACE}UnlabelledItem"
+    DRAWING: str = f"{SEG_STRUCTURES_NAMESPACE}Drawing"
+    DRAWING_ITEM_GROUP: str = f"{SEG_STRUCTURES_NAMESPACE}DrawingItemGroup"
+    DRAWING_ITEM: str = f"{SEG_STRUCTURES_NAMESPACE}DrawingItem"
+    EXPRESSION_BLOCK: str = f"{SEG_STRUCTURES_NAMESPACE}ExpressionBlock"
+    GENERIC_EXPRESSION_BLOCK: str = f"{SEG_STRUCTURES_NAMESPACE}GenericExpressionBlock"
+    GENERIC_EXPRESSION_ITEM_GROUP: str = f"{SEG_STRUCTURES_NAMESPACE}GenericExpressionItemGroup"
+    GENERIC_EXPRESSION_ITEM: str = f"{SEG_STRUCTURES_NAMESPACE}GenericExpressionItem"
+    MATH_BLOCK: str = f"{SEG_STRUCTURES_NAMESPACE}MathBlock"
+    MATH_ITEM_GROUP: str = f"{SEG_STRUCTURES_NAMESPACE}MathItemGroup"
+    MATH_ITEM: str = f"{SEG_STRUCTURES_NAMESPACE}MathItem"
+    CHEMISTRY_BLOCK: str = f"{SEG_STRUCTURES_NAMESPACE}ChemistryBlock"
+    CHEMISTRY_ITEM_GROUP: str = f"{SEG_STRUCTURES_NAMESPACE}ChemistryItemGroup"
+    CHEMISTRY_ITEM: str = f"{SEG_STRUCTURES_NAMESPACE}ChemistryItem"
+    PHYSICS_BLOCK: str = f"{SEG_STRUCTURES_NAMESPACE}PhysicsBlock"
+    PHYSICS_ITEM_GROUP: str = f"{SEG_STRUCTURES_NAMESPACE}PhysicsItemGroup"
+    PHYSICS_ITEM: str = f"{SEG_STRUCTURES_NAMESPACE}PhysicsItem"
+    CONTENT_BLOCK_OF_STROKE_NODES: str = f"{SEG_STRUCTURES_NAMESPACE}ContentBlockOfStrokeNodes"
+    CHEMICAL_STRUCTURE: str = f"{SEG_STRUCTURES_NAMESPACE}ChemicalStructure"
+    SIGNATURE: str = f"{SEG_STRUCTURES_NAMESPACE}Signature"
+    GARBAGE: str = f"{SEG_STRUCTURES_NAMESPACE}Garbage"
+    UNLABELED: str = f"{SEG_STRUCTURES_NAMESPACE}Unlabeled"
+    DOODLE: str = f"{SEG_STRUCTURES_NAMESPACE}Doodle"
+    DIAGRAM: str = f"{SEG_STRUCTURES_NAMESPACE}Diagram"
+    DIAGRAM_CONNECTOR: str = f"{SEG_STRUCTURES_NAMESPACE}DiagramConnector"
+    DIAGRAM_PART: str = f"{SEG_STRUCTURES_NAMESPACE}DiagramPart"
+    TABLE: str = f"{SEG_STRUCTURES_NAMESPACE}Table"
+    BORDER: str = f"{SEG_STRUCTURES_NAMESPACE}Border"
+    LIST: str = f"{SEG_STRUCTURES_NAMESPACE}List"
+    LIST_ITEM: str = f"{SEG_STRUCTURES_NAMESPACE}ListItem"
+    LIST_ITEM_BULLET: str = f"{SEG_STRUCTURES_NAMESPACE}ListItemBullet"
+    ANNOTATION: str = f"{SEG_STRUCTURES_NAMESPACE}Annotation"
+    MARKING: str = f"{SEG_STRUCTURES_NAMESPACE}Marking"
+    CONNECTOR: str = f"{SEG_STRUCTURES_NAMESPACE}Connector"
+    CORRECTION: str = f"{SEG_STRUCTURES_NAMESPACE}Correction"
+    # -------------------------------------------- Properties ----------------------------------------------------------
+    HAS_CHILD: str = f"hasChild"
+    HAS_PARENT: str = f"hasParent"
+    HAS_LANGUAGE: str = f"hasLanguage"
+    HAS_CONTENT: str = f"hasContent"
+    HAS_ALT_CONTENT: str = f"hasAltContent"
+    HAS_CATEGORY_HINT: str = f"categoryHint"
+    HAS_LATEX: str = f"hasLatex"
+    HAS_MATH_M_L: str = f"hasMathML"
+    HAS_ASCII_MATH: str = f"hasASCIIMath"
+    HAS_ENTITY_LABEL: str = f"hasEntityLabel"
+    HAS_ENTITY_TYPE: str = f"hasEntityType"
+    HAS_IS_STRUCTURAL_ENTITY: str = f"isStructuralEntity"
+    HAS_IS_BASE_ENTITY: str = f"isBaseEntity"
+    HAS_BULLET: str = f"bullet"
+    HAS_BODY: str = f"body"
+    HAS_MARKING_TYPE: str = f"markingType"
+    HAS_ANNOTATES: str = f"annotates"
+    HAS_CONNECTOR_TYPE: str = f"connectorType"
+    HAS_CONNECTS: str = f"connects"
+    HAS_CORRECTION_TYPE: str = f"correctionType"
+    HAS_SOURCE: str = f"source"
+    HAS_MODIFIER: str = f"modifier"
 
 
 class NamedEntityRecognitionSchema(SegmentationSchema):
@@ -110,111 +191,55 @@ class NamedEntityRecognitionSchema(SegmentationSchema):
     ============================
     The Named Entity Recognition schema is used to recognize named entities in the ink model.
     """
-    # Named Entity Recognition schema
-    NER_SCHEMA_VERSION: str = '0.1'
-    NER_SCHEMA: str = f"will:ner/{NER_SCHEMA_VERSION}"
-    NAMED_ENTITY: str = f'{NER_SCHEMA}/NamedEntity'
-    HAS_TOPIC_ENTITY: str = 'hasDocumentCategory'
-    HAS_ARTICLE_URL: str = "hasArticleUrl"
-    HAS_URI: str = "hasURI"
-    HAS_SOURCE: str = "hasSource"
-    HAS_LABEL: str = "hasLabel"
-    HAS_ABSTRACT: str = "hasAbstractText"
-    HAS_CREATION_DATE: str = "hasCreationDate"
-    HAS_PROVIDER: str = "hasProvider"
-    HAS_ONTOLOGY_TYPE: str = "hasProvidedOntologyType"
-    HAS_NAMED_ENTITY: str = "hasNamedEntity"
-    HAS_ARTICLE: str = "hasAbstractText"
-    HAS_THUMB: str = "hasThumbnailUrl"
-    HAS_IMAGE: str = "hasImageUrl"
-    HAS_TYPE: str = "hasProvidedEntityType"
-    HAS_CONFIDENCE: str = "hasConfidence"
-    HAS_UNIQUE_ID: str = "hasUniqueId"
+    NER_STRUCTURE_VERSION: str = '0.1'
+    NER_STRUCTURE: str = f"will:ner/{NER_STRUCTURE_VERSION}/"
+    # -------------------------------------------- Classes -------------------------------------------------------------
+    NAMED_ENTITY: str = f'{NER_STRUCTURE}NamedEntity'
+    # -------------------------------------------- Properties ----------------------------------------------------------
+    HAS_NAMED_ENTITY: str = f"hasNamedEntity"
+    HAS_IS_PART_OF_NAMED_ENTITY: str = f"isPartOfNamedEntity"
+    HAS_URI: str = f"hasUri"
+    HAS_IRI: str = f"hasIri"
+    HAS_URN: str = f"hasUrn"
+    HAS_UNIQUE_ID: str = f"hasUniqueId"
+    HAS_IS_REFERENCE: str = f"isReference"
+    HAS_PART: str = f"hasPart"
+    HAS_CREATION_DATE: str = f"hasCreationDate"
+    HAS_EXPIRATION_DATE: str = f"hasExpirationDate"
+    HAS_LABEL: str = f"hasLabel"
+    HAS_LANGUAGE: str = f"hasLanguage"
+    HAS_PROVIDER: str = f"hasProvider"
+    HAS_SOURCE: str = f"hasSource"
+    HAS_CONFIDENCE: str = f"hasConfidence"
+    HAS_NORM_CONFIDENCE: str = f"hasNormConfidence"
+    HAS_ABSTRACT_TEXT: str = f"hasAbstractText"
+    HAS_ARTICLE_URL: str = f"hasArticleUrl"
+    HAS_WEBSITE_URL: str = f"hasWebsiteUrl"
+    HAS_IMAGE_URL: str = f"hasImageUrl"
+    HAS_THUMBNAIL_URL: str = f"hasThumbnailUrl"
+    HAS_PROVIDED_ENTITY_TYPE: str = f"hasProvidedEntityType"
+    HAS_PROVIDED_CATEGORY: str = f"hasProvidedCategory"
+    HAS_PROVIDED_ONTOLOGY_TYPE: str = f"hasProvidedOntologyType"
 
 
-# --------------------------------------------- Math Constants ---------------------------------------------------------
-class MathSchema(SegmentationSchema):
+class PartOfSpeechSchema(SegmentationSchema):
     """
-    MathSchema
-    ==========
-    The Math schema is used to represent mathematical expressions in the ink model.
+    PosSchema
+    ===================
+    Part of Speech (POS) schema to tag handwritten text with part of POS tags.
     """
-    # Math schema
-    MATH_SCHEMA_VERSION: str = "0.6"
-    MATH_NAMESPACE: str = f'will:math/{MATH_SCHEMA_VERSION}/'
-    MATH_BLOCK: str = f'{SegmentationSchema.SEGMENTATION_SCHEMA}MathBlock'
-    # Properties
-    LATEX_REPRESENTATION: str = 'hasLatex'
-    MATHML_REPRESENTATION: str = 'hasMathML'
-    
-    # Term
-    COMPOUND_TERM: str = f'{MATH_NAMESPACE}CompoundTerm'
-    # Properties
-    HAS_REPRESENTATION_PROP: str = 'representation'
-    # Number class
-    NUMBER: str = f'{MATH_NAMESPACE}Number'
-    # Properties
-    NUMBER_TYPE_PROP: str = 'numberType'
-    NUMERIC_REPRESENTATION_PROP: str = 'representation'
-    # Symbol class
-    SYMBOL: str = f'{MATH_NAMESPACE}Symbol'
-    HAS_SYMBOL_TYPE: str = 'symbolType'
-    # Expression class
-    EXPRESSION: str = f'{MATH_NAMESPACE}Expression'
-    # Expression Properties
-    HAS_CHILD_PROP: str = 'hasChild'
-    ITEMS_PROP: str = 'items'
-    # Matrix Class
-    MATRIX: str = f'{MATH_NAMESPACE}Matrix'
-    MATRIX_ROW: str = f'{MATH_NAMESPACE}Row'
-    # Matrix / Matrix Row Properties
-    MATRIX_ROW_PROP: str = 'hasRow'
-    MATRIX_ROW_CELL_PROP: str = 'hasCell'
-    
-    # Square Root Class
-    ROOT: str = f'{MATH_NAMESPACE}Root'
-    # Square Root Properties
-    ROOT_DEGREE_PROP: str = 'degree'
-    ROOT_EXPRESSION_PROP: str = 'hasChild'
-    ROOT_SIGN_PROP: str = 'rootSign'
-    
-    # Fraction Class
-    FRACTION: str = f'{MATH_NAMESPACE}Fraction'
-    # Fraction Properties
-    FRACTION_NUMERATOR_PROP: str = 'numerator'
-    FRACTION_DENOMINATOR_PROP: str = 'denominator'
-    HAS_FRACTION_OPERATOR_PROP: str = 'operator'
-    FRACTION_TYPE_PROP: str = "fractionType"
-    # Indexed Class
-    INDEXED: str = f'{MATH_NAMESPACE}Indexed'
-    OPENING_BRACKET: str = "openingBracket"
-    CLOSING_BRACKET: str = "closingBracket"
-    HAS_SUPERSCRIPT: str = "superScript"
-    HAS_SUBSCRIPT: str = "subScript"
-    HAS_OVERSCRIPT: str = "overScript"
-    HAS_UNDERSCRIPT: str = "underScript"
-    HAS_PRESUBSCRIPT: str = "preSubScript"
-    HAS_PRESUPERSCRIPT: str = "preSuperScript"
-    
-    FENCED: str = f"{MATH_NAMESPACE}Fenced"
-    SYSTEM: str = f"{MATH_NAMESPACE}System"
-    
-    VERTICAL_FENCED: str = f"{MATH_NAMESPACE}Cases"
-    HAS_BRACKET: str = 'hasBracket'
-    HAS_OPENING_BRACKET_PROP: str = 'openingBracket'
-    HAS_CLOSING_BRACKET_PROP: str = 'closingBracket'
-    
-    # Fraction Line
-    FRACTION_LINE: str = f'{MATH_NAMESPACE}FractionLine'
-    # Brackets
-    BRACKETS: str = f'{MATH_NAMESPACE}Brackets'
-    # Relation
-    RELATION: str = f'{MATH_NAMESPACE}Relation'
-    # Operator
-    OPERATOR: str = f'{MATH_NAMESPACE}Operator'
+    POS_STRUCTURE_VERSION: str = "0.1"
+    POS_STRUCTURES_NAMESPACE: str = f"will:pos/{POS_STRUCTURE_VERSION}/"
+    # -------------------------------------------- Classes -------------------------------------------------------------
+    PART_OF_SPEECH: str = f"{POS_STRUCTURES_NAMESPACE}PartOfSpeech"
+    # -------------------------------------------- Properties ----------------------------------------------------------
+    HAS_POS_ENTITY: str = f"hasPOSEntity"
+    HAS_IS_PART_OF_POS_ENTITY: str = f"isPartOfPOSEntity"
+    HAS_PART: str = f"hasPart"
+    HAS_TAG: str = f"hasTag"
+
+
 # ----------------------------------------------- Math structure -------------------------------------------------------
-
-
 class MathStructureSchema(SegmentationSchema):
     """
     MathStructureSchema
@@ -222,70 +247,74 @@ class MathStructureSchema(SegmentationSchema):
     The Math structure schema is used to represent the structure of mathematical expressions in the ink model.
     """
     MATH_STRUCTURE_VERSION: str = "0.1"
-    
-    MATH_STRUCTURES_NAMESPACE: str = f'will:math-structures/{MATH_STRUCTURE_VERSION}/'
-    MATH_BLOCK_STRUCTURES: str = f'{MATH_STRUCTURES_NAMESPACE}MathBlock'
-    
-    HAS_CHILD: str = "hasChild"
-    HAS_ENTITY_LABEL: str = "hasEntityLabel"
-    HAS_ENTITY_TYPE: str = "hasEntityType"
-    IS_STRUCTURAL_ENTITY: str = "isStructuralEntity"
-    IS_BASE_ENTITY: str = "isBaseEntity"
-    MATH_ITEM: str = "MathItem"
-    
-    HAS_LATEX: str = "hasLatex"
-    HAS_MATH_ML: str = "hasMathML"
-    HAS_ASCII_MATH: str = "hasASCIIMath"
-    STRUCTURES_EXPRESSION_LIST: str = f"{MATH_STRUCTURES_NAMESPACE}ExpressionList"
-    STRUCTURES_SYSTEM: str = f"{MATH_STRUCTURES_NAMESPACE}System"
-    HAS_EXPRESSIONS: str = "expressions"
-    STRUCTURES_CASES: str = f"{MATH_STRUCTURES_NAMESPACE}Cases"
-    EXPRESSIONS: str = "expressions"
-    STRUCTURES_RADICAL: str = f"{MATH_STRUCTURES_NAMESPACE}Radical"
-    INDEX: str = "index"
-    RADICAL_SYMBOL: str = "radicalSymbol"
-    RADICAND: str = "radicand"
-    STRUCTURES_FENCE: str = f"{MATH_STRUCTURES_NAMESPACE}Fence"
-    BODY: str = "body"
-    STRUCTURES_FRACTION: str = f"{MATH_STRUCTURES_NAMESPACE}Fraction"
-    NUMERATOR: str = "numerator"
-    DENOMINATOR: str = "denominator"
-    STRUCTURES_FRACTION_LINE: str = "fractionLine"
-    FRACTION_TYPE: str = "fractionType"
-    
-    STRUCTURES_SUBSCRIPT: str = f"{MATH_STRUCTURES_NAMESPACE}Subscript"
-    STRUCTURES_SUPERSCRIPT: str = f"{MATH_STRUCTURES_NAMESPACE}Superscript"
-    STRUCTURES_SUB_SUPER_SCRIPT: str = f"{MATH_STRUCTURES_NAMESPACE}SubSuperScript"
-    STRUCTURES_PRE_SUPER_SCRIPT: str = f"{MATH_STRUCTURES_NAMESPACE}PreSuperScript"
-    STRUCTURES_PRE_SUB_SCRIPT: str = f"{MATH_STRUCTURES_NAMESPACE}PreSubScript"
-    STRUCTURES_PRE_SUB_SUPER_SCRIPT: str = f"{MATH_STRUCTURES_NAMESPACE}PreSubSuperScript"
-    STRUCTURES_UNDER_SCRIPT: str = f"{MATH_STRUCTURES_NAMESPACE}UnderScript"
-    STRUCTURES_OVER_SCRIPT: str = f"{MATH_STRUCTURES_NAMESPACE}OverScript"
-    STRUCTURES_UNDER_OVER_SCRIPT: str = f"{MATH_STRUCTURES_NAMESPACE}UnderOverScript"
-    
-    ROW: str = "Row"
-    STRUCTURES_ROW_LIST: str = f"{MATH_STRUCTURES_NAMESPACE}RowList"
-    STRUCTURES_ROW: str = f"{MATH_STRUCTURES_NAMESPACE}Row"
-    STRUCTURES_MATRIX: str = f"{MATH_STRUCTURES_NAMESPACE}Matrix"
-    ROWS: str = "rows"
-    
-    MATRIX_TYPE: str = "matrixType"
-    STRUCTURES_GROUP: str = f"{MATH_STRUCTURES_NAMESPACE}Group"
-    STRUCTURES_OPERATION: str = f"{MATH_STRUCTURES_NAMESPACE}Operation"
-    OPERATION_TYPE: str = "operationType"
-    STRUCTURES_RELATION: str = f"{MATH_STRUCTURES_NAMESPACE}Relation"
-    STRUCTURES_SYMBOL: str = f"{MATH_STRUCTURES_NAMESPACE}Symbol"
-    REPRESENTATION: str = "representation"
-    SYMBOL_TYPE: str = "symbolType"
-    STRUCTURES_MATHEMATICAL_TERM: str = f"{MATH_STRUCTURES_NAMESPACE}MathematicalTerm"
-    STRUCTURES_UNIT: str = f"{MATH_STRUCTURES_NAMESPACE}Unit"
+    MATH_STRUCTURES_NAMESPACE: str = f"will:math-structures/{MATH_STRUCTURE_VERSION}/"
+    MATH_BLOCK_STRUCTURES: str = f"{MATH_STRUCTURES_NAMESPACE}MathBlock"
+    # -------------------------------------------- Classes -------------------------------------------------------------
+    MATH_BLOCK: str = f"{MATH_STRUCTURES_NAMESPACE}MathBlock"
+    MATH_ITEM_GROUP: str = f"{MATH_STRUCTURES_NAMESPACE}MathItemGroup"
+    MATH_ITEM: str = f"{MATH_STRUCTURES_NAMESPACE}MathItem"
+    EXPRESSION_LIST: str = f"{MATH_STRUCTURES_NAMESPACE}ExpressionList"
+    NUMBER: str = f"{MATH_STRUCTURES_NAMESPACE}Number"
+    SYSTEM: str = f"{MATH_STRUCTURES_NAMESPACE}System"
+    CASES: str = f"{MATH_STRUCTURES_NAMESPACE}Cases"
+    RADICAL: str = f"{MATH_STRUCTURES_NAMESPACE}Radical"
+    FENCE: str = f"{MATH_STRUCTURES_NAMESPACE}Fence"
+    FRACTION: str = f"{MATH_STRUCTURES_NAMESPACE}Fraction"
+    SUBSCRIPT: str = f"{MATH_STRUCTURES_NAMESPACE}Subscript"
+    SUPERSCRIPT: str = f"{MATH_STRUCTURES_NAMESPACE}Superscript"
+    SUB_SUPER_SCRIPT: str = f"{MATH_STRUCTURES_NAMESPACE}SubSuperScript"
+    PRE_SUPER_SCRIPT: str = f"{MATH_STRUCTURES_NAMESPACE}PreSuperScript"
+    PRE_SUB_SCRIPT: str = f"{MATH_STRUCTURES_NAMESPACE}PreSubScript"
+    PRE_SUB_SUPER_SCRIPT: str = f"{MATH_STRUCTURES_NAMESPACE}PreSubSuperScript"
+    UNDER_SCRIPT: str = f"{MATH_STRUCTURES_NAMESPACE}UnderScript"
+    OVER_SCRIPT: str = f"{MATH_STRUCTURES_NAMESPACE}OverScript"
+    UNDER_OVER_SCRIPT: str = f"{MATH_STRUCTURES_NAMESPACE}UnderOverScript"
+    ROW: str = f"{MATH_STRUCTURES_NAMESPACE}Row"
+    ROW_LIST: str = f"{MATH_STRUCTURES_NAMESPACE}RowList"
+    MATRIX: str = f"{MATH_STRUCTURES_NAMESPACE}Matrix"
+    GROUP: str = f"{MATH_STRUCTURES_NAMESPACE}Group"
+    OPERATION: str = f"{MATH_STRUCTURES_NAMESPACE}Operation"
+    RELATION: str = f"{MATH_STRUCTURES_NAMESPACE}Relation"
+    SYMBOL: str = f"{MATH_STRUCTURES_NAMESPACE}Symbol"
+    MATHEMATICAL_TERM: str = f"{MATH_STRUCTURES_NAMESPACE}MathematicalTerm"
+    UNIT: str = f"{MATH_STRUCTURES_NAMESPACE}Unit"
     OPERATOR_SYMBOL: str = f"{MATH_STRUCTURES_NAMESPACE}OperatorSymbol"
     RELATION_SYMBOL: str = f"{MATH_STRUCTURES_NAMESPACE}RelationSymbol"
-    STRUCTURES_SEPARATOR: str = f"{MATH_STRUCTURES_NAMESPACE}Separator"
-    SEPARATOR_TYPE: str = "separatorType"
-    STRUCTURES_NUMBER: str = f"{MATH_STRUCTURES_NAMESPACE}Number"
-    STRUCTURES_DIGIT: str = f"{MATH_STRUCTURES_NAMESPACE}Digit"
-    STRUCTURES_NUMBER_ITEM: str = f"{MATH_STRUCTURES_NAMESPACE}NumberItem"
+    SEPARATOR: str = f"{MATH_STRUCTURES_NAMESPACE}Separator"
+    DIGIT: str = f"{MATH_STRUCTURES_NAMESPACE}Digit"
+    NUMBER_ITEM: str = f"{MATH_STRUCTURES_NAMESPACE}NumberItem"
+    # -------------------------------------------- Properties ----------------------------------------------------------
+    HAS_CHILD: str = f"hasChild"
+    HAS_ENTITY_LABEL: str = f"hasEntityLabel"
+    HAS_ENTITY_TYPE: str = f"hasEntityType"
+    IS_STRUCTURAL_ENTITY: str = f"isStructuralEntity"
+    IS_BASE_ENTITY: str = f"isBaseEntity"
+    HAS_LATEX: str = f"hasLatex"
+    HAS_MATHML: str = f"hasMathML"
+    HAS_ASCII_MATH: str = f"hasASCIIMath"
+    HAS_EXPRESSIONS: str = f"expressions"
+    HAS_OPENING_BRACKET: str = f"openingBracket"
+    HAS_CLOSING_BRACKET: str = f"closingBracket"
+    HAS_INDEX: str = f"index"
+    HAS_RADICAL_SYMBOL: str = f"radicalSymbol"
+    HAS_RADICAND: str = f"radicand"
+    HAS_BODY: str = f"body"
+    HAS_NUMERATOR: str = f"numerator"
+    HAS_DENOMINATOR: str = f"denominator"
+    HAS_FRACTION_LINE: str = f"fractionLine"
+    HAS_FRACTION_TYPE: str = f"fractionType"
+    HAS_SUBSCRIPT: str = f"subScript"
+    HAS_SUPERSCRIPT: str = f"superScript"
+    HAS_PRE_SUPERSCRIPT: str = f"preSuperScript"
+    HAS_PRE_SUBSCRIPT: str = f"preSubScript"
+    HAS_UNDERSCRIPT: str = f"underScript"
+    HAS_OVERSCRIPT: str = f"overScript"
+    HAS_ROWS: str = f"rows"
+    HAS_MATRIX_TYPE: str = f"matrixType"
+    HAS_OPERATION_TYPE: str = f"operationType"
+    HAS_REPRESENTATION: str = f"representation"
+    HAS_SYMBOL_TYPE: str = f"symbolType"
+    HAS_SEPARATOR_TYPE: str = f"separatorType"
 
 
 class CommonRDF:
