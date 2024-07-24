@@ -26,14 +26,13 @@ import pytest
 
 from uim.codec.parser.base import SupportedFormats
 from uim.codec.parser.uim import UIMParser
-from uim.codec.writer.encoder.encoder_3_1_0 import UIMEncoder310
 from uim.model import UUIDIdentifier
 from uim.model.helpers.policy import HandleMissingDataPolicy
 from uim.model.helpers.schema_content_extractor import uim_schema_semantics_from
 from uim.model.helpers.text_extractor import uim_extract_text_and_semantics_from, uim_extract_text_and_semantics
 from uim.model.ink import InkModel, InkTree, ViewTree
-from uim.model.inkdata.brush import VectorBrush, BrushPolygonUri, BlendModeURIs
-from uim.model.inkdata.strokes import Spline, LayoutMask, Style, Stroke, InkStrokeAttributeType, PathPointProperties
+from uim.model.inkdata.brush import VectorBrush, BrushPolygonUri
+from uim.model.inkdata.strokes import Spline, LayoutMask, Style, Stroke, InkStrokeAttributeType
 from uim.model.inkinput.inputdata import InkSensorType, InputDevice, Environment, InkInputProvider, InkInputType, \
     SensorChannel, InkSensorMetricType, SensorChannelsContext, SensorContext, InputContext
 from uim.model.inkinput.sensordata import SensorData, InkState, ChannelData
@@ -281,17 +280,17 @@ def test_uim_3_1_0_math_structures():
             assert isinstance(element, Dict)
             assert 'type' in element
             assert element['type'] in [schema.SegmentationSchema.ROOT, schema.MathStructureSchema.MATH_BLOCK_STRUCTURES,
-                                       schema.MathStructureSchema.STRUCTURES_SYMBOL,
-                                       schema.MathStructureSchema.STRUCTURES_NUMBER,
-                                       schema.MathStructureSchema.STRUCTURES_DIGIT,
-                                       schema.MathStructureSchema.STRUCTURES_OPERATION,
-                                       schema.MathStructureSchema.STRUCTURES_GROUP,
-                                       schema.MathStructureSchema.STRUCTURES_FRACTION,
-                                       schema.MathStructureSchema.STRUCTURES_RELATION,
-                                       schema.MathStructureSchema.STRUCTURES_FENCE,
-                                       schema.MathStructureSchema.STRUCTURES_MATHEMATICAL_TERM,
-                                       schema.MathStructureSchema.STRUCTURES_SEPARATOR,
-                                       schema.MathStructureSchema.STRUCTURES_SUPERSCRIPT,
+                                       schema.MathStructureSchema.SYMBOL,
+                                       schema.MathStructureSchema.NUMBER,
+                                       schema.MathStructureSchema.DIGIT,
+                                       schema.MathStructureSchema.OPERATION,
+                                       schema.MathStructureSchema.GROUP,
+                                       schema.MathStructureSchema.FRACTION,
+                                       schema.MathStructureSchema.RELATION,
+                                       schema.MathStructureSchema.FENCE,
+                                       schema.MathStructureSchema.MATHEMATICAL_TERM,
+                                       schema.MathStructureSchema.SEPARATOR,
+                                       schema.MathStructureSchema.SUPERSCRIPT,
                                        schema.MathStructureSchema.RELATION_SYMBOL,
                                        schema.MathStructureSchema.OPERATOR_SYMBOL]
             for path_id in element['path_id']:
@@ -319,6 +318,8 @@ def test_uim_3_1_0_semantics(path: Path):
         reference_text: Dict[str, str] = {}
     if ink_model.has_knowledge_graph() and ink_model.has_tree(CommonViews.HWR_VIEW.value):
         words, entities, text = uim_extract_text_and_semantics_from(ink_model, CommonViews.HWR_VIEW.value)
+        if words is None or len(words) == 0:
+            print()
         assert len(words) > 0
         assert len(entities) > 0
         assert len(text) > 0
