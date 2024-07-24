@@ -1,3 +1,9 @@
+2024/07/24 - RELEASE 2.0.1
+==========================
+- Setting default transformation matrix to identity matrix if not provided in the UIM model
+- Refactor the schema constants for different schemas
+
+
 2024/07/12 - RELEASE 2.0.0
 ==========================
 - Refactor schema handling in uim.model.semantics.schema package
