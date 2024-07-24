@@ -33,6 +33,7 @@ from uim.model.inkinput.inputdata import InkSensorType, InputContext, SensorCont
 from uim.model.inkinput.sensordata import SensorData, ChannelData, InkState
 from uim.model.semantics.node import BoundingBox, StrokeNode, StrokeGroupNode
 from uim.model.semantics.schema import CommonViews
+from uim.utils.matrix import Matrix4x4
 
 
 class UIMDecoder300(CodecDecoder):
@@ -558,3 +559,6 @@ class UIMDecoder300(CodecDecoder):
             [t.m30, t.m31, t.m32, t.m33],
         ]
         ink_object.transform = matrix
+        # if the transform is not set, set it to identity
+        if (ink_object.transform == 0).all():
+            ink_object.transform = Matrix4x4.create_scale(1.)

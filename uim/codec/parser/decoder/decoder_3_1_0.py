@@ -35,6 +35,7 @@ from uim.model.inkinput.inputdata import InkSensorType, InputContext, SensorCont
 from uim.model.inkinput.sensordata import SensorData, ChannelData, InkState
 from uim.model.semantics.node import BoundingBox, StrokeGroupNode, StrokeNode, StrokeFragment
 from uim.model.semantics.schema import CommonViews
+from uim.utils.matrix import Matrix4x4
 
 # Logger
 logger: Logger = logging.getLogger(__name__)
@@ -460,6 +461,10 @@ class UIMDecoder310(CodecDecoder):
             [ink_data.transform.m20, ink_data.transform.m21, ink_data.transform.m22, ink_data.transform.m23],
             [ink_data.transform.m30, ink_data.transform.m31, ink_data.transform.m32, ink_data.transform.m33]
         ]
+        # if the transform is not set, set it to identity
+        if (context.ink_model.transform == 0).all():
+            context.ink_model.transform = Matrix4x4.create_scale(1. if ink_data.unitScaleFactor == 0.0
+                                                                 else ink_data.unitScaleFactor)
 
     @classmethod
     def parse_knowledge(cls, context: DecoderContext, triple_store: uim_3_1_0.TripleStore):
