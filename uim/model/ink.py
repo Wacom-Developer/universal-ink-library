@@ -633,9 +633,10 @@ class InkModel(ABC):
     def strokes(self) -> List[Stroke]:
         """List of all strokes. (`List[Stroke]`, read-only)"""
         strokes: List[Stroke] = []
-        for node in PreOrderEnumerator(self.ink_tree.root):
-            if isinstance(node, StrokeNode):
-                strokes.append(node.stroke)
+        if self.ink_tree is not None:
+            for node in PreOrderEnumerator(self.ink_tree.root):
+                if isinstance(node, StrokeNode):
+                    strokes.append(node.stroke)
         return strokes
 
     def stroke_by_id(self, stroke_uuid: uuid.UUID) -> Stroke:
