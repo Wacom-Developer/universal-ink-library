@@ -1,3 +1,8 @@
+2024/07/29 - RELEASE 2.0.2
+==========================
+- Minor improvements in the UIM model avoiding None exception, when iterating empty model
+- Rename constant 
+
 2024/07/24 - RELEASE 2.0.1
 ==========================
 - Setting default transformation matrix to identity matrix if not provided in the UIM model
