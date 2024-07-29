@@ -168,7 +168,7 @@ class SegmentationSchema(BaseSchema):
     HAS_ALT_CONTENT: str = f"hasAltContent"
     HAS_CATEGORY_HINT: str = f"categoryHint"
     HAS_LATEX: str = f"hasLatex"
-    HAS_MATH_M_L: str = f"hasMathML"
+    HAS_MATHML: str = f"hasMathML"
     HAS_ASCII_MATH: str = f"hasASCIIMath"
     HAS_ENTITY_LABEL: str = f"hasEntityLabel"
     HAS_ENTITY_TYPE: str = f"hasEntityType"
