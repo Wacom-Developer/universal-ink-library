@@ -18,7 +18,7 @@ from abc import ABC
 from enum import Enum
 from logging import Logger
 from math import isclose
-from typing import List, Tuple, Any, Optional
+from typing import List, Tuple, Any, Optional, Dict
 
 import numpy as np
 
@@ -123,10 +123,10 @@ class Unit(Enum):
     LOGICAL_VALUE = 60
     """logical value"""
 
-
 # --------------------------------- Conversion values ------------------------------------------------------------------
 
-CONVERSION_SCALAR = {
+
+CONVERSION_SCALAR: Dict[Unit, Dict[Unit, float]] = {
     # Length units
     Unit.M: {
         Unit.M: 1.,
@@ -241,6 +241,19 @@ class InkSensorType(Enum):
 
 # --------------------------------- Token mapping ----------------------------------------------------------------------
 
+DEFAULT_UNITS: Dict[InkSensorType, Unit] = {
+    InkSensorType.X: Unit.M,
+    InkSensorType.Y: Unit.M,
+    InkSensorType.Z: Unit.M,
+    InkSensorType.TIMESTAMP: Unit.S,
+    InkSensorType.PRESSURE: Unit.N,
+    InkSensorType.AZIMUTH: Unit.RAD,
+    InkSensorType.ALTITUDE: Unit.RAD,
+    InkSensorType.ROTATION: Unit.RAD
+}
+'''
+The default units for the sensor types.
+'''
 
 TOKEN_MAP: dict = {
     InkInputType.PEN: InkInputType.PEN.name,
