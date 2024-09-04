@@ -29,7 +29,7 @@ __license__ = "Apache 2.0 License"
 __maintainer__ = ["Markus Weber"]
 __email__ = "markus.weber@wacom.com"
 __status__ = "beta"
-__version__ = "2.0.3"
+__version__ = "2.0.4"
 
 import logging
 from typing import Optional

@@ -1,5 +1,6 @@
-2024/09/04 - RELEASE 2.0.3
+2024/09/04 - RELEASE 2.0.4
 ==========================
+- Extend export to choose the units for the CSV file
 - Adding a new export function for CSV
 
 2024/07/29 - RELEASE 2.0.2

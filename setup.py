@@ -27,7 +27,7 @@ if CURRENT_PYTHON < REQUIRED_PYTHON:
 
 # The directory containing this file
 HERE = pathlib.Path(__file__).parent
-VERSION: str = "2.0.3"
+VERSION: str = "2.0.4"
 
 # The text of the README file
 README = (HERE / "README.md").read_text()
