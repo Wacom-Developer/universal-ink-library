@@ -273,7 +273,7 @@ if __name__ == '__main__':
     hwr_root: StrokeGroupNode = StrokeGroupNode(UUIDIdentifier.id_generator())
     hwr_tree.root = hwr_root
     ink_model.knowledge_graph.append(schema.SemanticTriple(hwr_root.uri, schema.IS, schema.SegmentationSchema.ROOT))
-    ink_model.knowledge_graph.append(schema.SemanticTriple(hwr_root.uri, schema.SegmentationSchema.REPRESENTS_VIEW,
+    ink_model.knowledge_graph.append(schema.SemanticTriple(hwr_root.uri, schema.SegmentationSchema.HAS_REPRESENTS_VIEW,
                                                            schema.CommonViews.HWR_VIEW.value))
 
     # Here you can add the same strokes as in the main tree, but you can organize them in a different way
@@ -307,7 +307,7 @@ if __name__ == '__main__':
     # Create a named entity
     named_entity_uri: str = uri_builder.build_named_entity_uri(UUIDIdentifier.id_generator())
     ink_model.knowledge_graph.append(schema.SemanticTriple(word.uri,
-                                                           schema.NamedEntityRecognitionSchema.PART_OF_NAMED_ENTITY,
+                                                           schema.NamedEntityRecognitionSchema.HAS_PART,
                                                            named_entity_uri))
 
     # Add knowledge for the named entity
@@ -322,7 +322,8 @@ if __name__ == '__main__':
                                                            schema.NamedEntityRecognitionSchema.HAS_ARTICLE_URL,
                                                        'https://en.wikipedia.org/wiki/Ink'))
     ink_model.knowledge_graph.append(schema.SemanticTriple(named_entity_uri,
-                                                           schema.NamedEntityRecognitionSchema.HAS_UNIQUE_ID, 'Q127418'))
+                                                           schema.NamedEntityRecognitionSchema.HAS_UNIQUE_ID,
+                                                           'Q127418'))
     # Save the model, this will overwrite an existing file
     with open('3_1_0_vector.uim', 'wb') as uim:
         # unicode(data) auto-decodes data to unicode if str
