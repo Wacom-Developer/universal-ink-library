@@ -1,3 +1,7 @@
+2024/09/04 - RELEASE 2.0.3
+==========================
+- Adding a new export function for CSV
+
 2024/07/29 - RELEASE 2.0.2
 ==========================
 - Minor improvements in the UIM model avoiding None exception, when iterating empty model
