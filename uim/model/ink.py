@@ -27,7 +27,7 @@ from uim.model.helpers.treeiterator import PreOrderEnumerator
 from uim.model.inkdata.brush import Brushes
 from uim.model.inkdata.strokes import Stroke, InkStrokeAttributeType, DEFAULT_EXTENDED_LAYOUT, DEFAULT_SENSORDATA
 from uim.model.inkinput.inputdata import SensorChannel, \
-    InkSensorType, InkSensorMetricType, InputContext, InputContextRepository
+    InkSensorType, InkSensorMetricType, InputContext, InputContextRepository, Unit, DEFAULT_UNITS
 from uim.model.inkinput.sensordata import SensorData, ChannelData
 from uim.model.semantics import schema
 from uim.model.semantics.node import InkNode, BoundingBox, StrokeNode, StrokeGroupNode, StrokeFragment
@@ -1158,7 +1158,7 @@ class InkModel(ABC):
         """
         result: List[List[float]] = []
         header: List[str] = ['IDX', 'STATE']
-        header.extend([l.name for l in layout])
+        header.extend([f'{l.name} (in {DEFAULT_UNITS.get(l, Unit.UNDEFINED).name})' for l in layout])
         if layout is None:
             layout = DEFAULT_SENSORDATA
         if policy not in [HandleMissingDataPolicy.THROW_EXCEPTION,
