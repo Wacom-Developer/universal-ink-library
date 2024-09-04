@@ -16,14 +16,14 @@ import csv
 import json
 from json import JSONEncoder
 from pathlib import Path
-from typing import Union, Any, Optional, List
+from typing import Union, Any, Optional, List, Dict
 
 from uim.model.base import Identifier
 from uim.model.helpers.policy import HandleMissingDataPolicy
 from uim.model.ink import InkModel, SensorDataRepository
 from uim.model.inkdata.brush import Brushes
 from uim.model.inkdata.strokes import Style, InkStrokeAttributeType
-from uim.model.inkinput.inputdata import InputContextRepository, InkSensorType
+from uim.model.inkinput.inputdata import InputContextRepository, InkSensorType, Unit, unit2unit, si_unit
 from uim.model.semantics.node import StrokeFragment
 
 
@@ -112,6 +112,7 @@ def serialize_sensor_data_csv(ink_model: InkModel, path: Path, layout: Optional[
 
 
 def serialize_raw_sensor_data_csv(ink_model: InkModel, path: Path, layout: Optional[List[InkSensorType]] = None,
+                                  unit_map: Optional[dict[InkSensorType, Unit]] = None,
                                   policy: HandleMissingDataPolicy = HandleMissingDataPolicy.FILL_WITH_ZEROS,
                                   delimiter: str = ','):
     """
@@ -125,6 +126,8 @@ def serialize_raw_sensor_data_csv(ink_model: InkModel, path: Path, layout: Optio
         Path to save the CSV file
     layout: List[InkSensorType]
         Layout of the CSV file
+    unit_map: dict[InkSensorType, Unit]
+        Defines the unit for each sensor type for the CSV file
     policy: HandleMissingDataPolicy
         Policy to handle missing data
     delimiter: str
@@ -133,9 +136,23 @@ def serialize_raw_sensor_data_csv(ink_model: InkModel, path: Path, layout: Optio
     if not path.parent.exists():
         path.parent.mkdir(parents=True)
     sensor_strided_array, header = ink_model.get_sensor_data_as_strided_array(layout=layout, policy=policy)
+    # The header will start with idx and state so we need to add 2 to index
+    index_map: Dict[InkSensorType, int] = {layout[i]: i + 2 for i in range(len(layout))}
+    inverse_index_map: Dict[int, InkSensorType] = {val: key for key, val in index_map.items()}
     with path.open('w') as csvfile:
         csv_writer = csv.writer(csvfile, delimiter=delimiter, quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        for i in range(2, len(header)):
+            sd_type: InkSensorType = inverse_index_map[i]
+            if unit_map is not None and sd_type in unit_map:
+                header[i] = f"{sd_type.name} (in {unit_map[sd_type].name})"
+
         csv_writer.writerow(header)
         for row in sensor_strided_array:
-            for i in range(1, len(row), len(layout)):
-                csv_writer.writerow(row)
+            if unit_map is not None:
+                for j in range(0, len(layout)):
+                    sensor_type: InkSensorType = layout[j]
+                    value_index: int = index_map[sensor_type]
+                    if sensor_type in unit_map:
+                        target: Unit = unit_map[sensor_type]
+                        row[value_index] = unit2unit(si_unit(target), target, row[value_index])
+            csv_writer.writerow(row)
