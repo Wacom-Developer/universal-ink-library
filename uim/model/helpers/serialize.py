@@ -23,7 +23,7 @@ from uim.model.helpers.policy import HandleMissingDataPolicy
 from uim.model.ink import InkModel, SensorDataRepository
 from uim.model.inkdata.brush import Brushes
 from uim.model.inkdata.strokes import Style, InkStrokeAttributeType
-from uim.model.inkinput.inputdata import InputContextRepository
+from uim.model.inkinput.inputdata import InputContextRepository, InkSensorType
 from uim.model.semantics.node import StrokeFragment
 
 
@@ -109,3 +109,33 @@ def serialize_sensor_data_csv(ink_model: InkModel, path: Path, layout: Optional[
             idx: int = int(row[0])
             for i in range(1, len(row), len(layout_export)):
                 csv_writer.writerow([idx] + row[i: i + len(layout_export)])
+
+
+def serialize_raw_sensor_data_csv(ink_model: InkModel, path: Path, layout: Optional[List[InkSensorType]] = None,
+                                  policy: HandleMissingDataPolicy = HandleMissingDataPolicy.FILL_WITH_ZEROS,
+                                  delimiter: str = ','):
+    """
+    Serialize the sensor data only using raw data to a CSV file.
+
+    Parameters
+    ----------
+    ink_model: InkModel
+        Ink model
+    path: Path
+        Path to save the CSV file
+    layout: List[InkSensorType]
+        Layout of the CSV file
+    policy: HandleMissingDataPolicy
+        Policy to handle missing data
+    delimiter: str
+        Delimiter
+    """
+    if not path.parent.exists():
+        path.parent.mkdir(parents=True)
+    sensor_strided_array, header = ink_model.get_sensor_data_as_strided_array(layout=layout, policy=policy)
+    with path.open('w') as csvfile:
+        csv_writer = csv.writer(csvfile, delimiter=delimiter, quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        csv_writer.writerow(header)
+        for row in sensor_strided_array:
+            for i in range(1, len(row), len(layout)):
+                csv_writer.writerow(row)
