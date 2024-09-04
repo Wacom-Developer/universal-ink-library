@@ -25,7 +25,7 @@ from uim.model.base import InkModelException, UUIDIdentifier, node_registration_
 from uim.model.helpers.policy import HandleMissingDataPolicy
 from uim.model.helpers.treeiterator import PreOrderEnumerator
 from uim.model.inkdata.brush import Brushes
-from uim.model.inkdata.strokes import Stroke, InkStrokeAttributeType, DEFAULT_EXTENDED_LAYOUT
+from uim.model.inkdata.strokes import Stroke, InkStrokeAttributeType, DEFAULT_EXTENDED_LAYOUT, DEFAULT_SENSORDATA
 from uim.model.inkinput.inputdata import SensorChannel, \
     InkSensorType, InkSensorMetricType, InputContext, InputContextRepository
 from uim.model.inkinput.sensordata import SensorData, ChannelData
@@ -1129,6 +1129,78 @@ class InkModel(ABC):
                 else:
                     result.append(points)
         return result, layout
+
+    def get_sensor_data_as_strided_array(self, layout: Optional[List[InkSensorType]] = None,
+                                         policy: HandleMissingDataPolicy = HandleMissingDataPolicy.FILL_WITH_ZEROS) \
+            -> Tuple[List[List[Any]], List[str]]:
+        """
+        Returns all the sensor data in the document, where each sensor data is an array with stride len(layout)
+
+        Parameters
+        ----------
+        layout: List[InkSensorType]
+            Layout of the sensor data
+        policy: HandleMissingDataPolicy
+            Policy to handle missing data. Options are:
+            - HandleMissingDataPolicy.SKIP_STROKE: Skip the stroke if sensor data is missing
+            - HandleMissingDataPolicy.THROW_EXCEPTION: Throw an exception if sensor data is missing
+            - HandleMissingDataPolicy.FILL_WITH_ZEROS: Fill the missing data with zeros
+
+        Returns
+        -------
+        array: List[List]
+            Strided array.
+
+        Raises
+        ------
+        ValueError
+            If the policy is not supported.
+        """
+        result: List[List[float]] = []
+        header: List[str] = ['IDX', 'STATE']
+        header.extend([l.name for l in layout])
+        if layout is None:
+            layout = DEFAULT_SENSORDATA
+        if policy not in [HandleMissingDataPolicy.THROW_EXCEPTION,
+                          HandleMissingDataPolicy.FILL_WITH_ZEROS]:
+            raise ValueError(f"Unsupported policy: {policy}")
+
+        for idx, sd in enumerate(self.sensor_data.sensor_data):
+            input_context: InputContext = self.input_configuration.get_input_context(sd.input_context_id)
+            num_samples: int = 0
+            if input_context is not None:
+                sensor_context = self.input_configuration.get_sensor_context(input_context.sensor_context_id)
+                if sensor_context is not None:
+                    mapping: Dict[InkSensorType, Union[List[float], float]] = {}
+                    for sensor_type in layout:
+                        if sensor_context.has_channel_type(sensor_type):
+                            sc = sensor_context.get_channel_by_type(sensor_type)
+                            mapping[sensor_type] = sd.get_data_by_id(sc.id).values
+                            if num_samples > 0:
+                                if 0 < len(mapping[sensor_type]) != num_samples:
+                                    raise ValueError("Sensor data does not have the same number of samples for all "
+                                                     "channels.")
+                            else:
+                                num_samples = len(mapping[sensor_type])
+                        else:
+                            if policy == HandleMissingDataPolicy.SKIP_STROKE:
+                                continue
+                            if policy == HandleMissingDataPolicy.THROW_EXCEPTION:
+                                raise ValueError(f"Sensor data does not have channel type {sensor_type}")
+                            if policy == HandleMissingDataPolicy.FILL_WITH_ZEROS:
+                                mapping[sensor_type] = 0.0
+                    for i in range(num_samples):
+                        row: List[Any] = [idx, sd.state.name]
+                        for sensor_type in layout:
+                            if isinstance(mapping[sensor_type], list):
+                                if len(mapping[sensor_type]) > 0:
+                                    row.append(mapping[sensor_type][i])
+                                else:
+                                    row.append(0.)
+                            else:
+                                row.append(mapping[sensor_type])
+                        result.append(row)
+        return result, header
 
     def sensor_data_lookup(self, stroke: Stroke, ink_sensor_type: InkSensorType,
                            return_channel_data_instance: bool = False) -> Union[List[float], ChannelData]:

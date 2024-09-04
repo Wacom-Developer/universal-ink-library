@@ -655,6 +655,13 @@ DEFAULT_EXTENDED_LAYOUT: List[InkStrokeAttributeType] = [
 Default extended layout for strokes.
 """
 
+DEFAULT_SENSORDATA: List[InkSensorType] = [
+    InkSensorType.X, InkSensorType.Y, InkSensorType.TIMESTAMP, InkSensorType.PRESSURE
+]
+"""
+Default sensor data for strokes.
+"""
+
 
 class Stroke(UUIDIdentifier):
     """
