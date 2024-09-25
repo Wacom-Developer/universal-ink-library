@@ -285,6 +285,8 @@ class UIMEncoder310(CodecEncoder):
             InkModel object
         args: List[Any]
             Additional arguments
+        kwargs: Dict[str, Any]
+            Keyword arguments
 
         Returns
         -------
