@@ -135,11 +135,11 @@ class SensorDataRepository(ABC):
             logger.warning(f"Comparing SensorDataRepository with incompatible type {type(other)}")
             return False
         if len(self.sensor_data) != len(other.sensor_data):
-            logger.warning(f"SensorDataRepository sensor data length not equal.")
+            logger.warning("SensorDataRepository sensor data length not equal.")
             return False
         for s1, s2 in zip(self.sensor_data, other.sensor_data):
             if s1 != s2:
-                logger.warning(f"SensorDataRepository sensor data not equal.")
+                logger.warning("SensorDataRepository sensor data not equal.")
                 return False
         return True
 
@@ -325,20 +325,18 @@ class InkModel(ABC):
 
     Examples
     --------
-    >>> from uim.codec.parser.uim import UIMParser
+    >>> from uim.codec.parser.base import SupportedFormats
     >>> from uim.codec.writer.encoder.encoder_3_1_0 import UIMEncoder310
-    >>> from uim.model.base import UUIDIdentifier, Identifier, InkModelException
-    >>> from uim.model.ink import InkModel, InkTree
-    >>> from uim.model.inkdata.brush import VectorBrush, BrushPolygon, BrushPolygonUri, RasterBrush, RotationMode, \
-    >>>      BlendMode
-    >>> from uim.model.inkdata.strokes import Spline, Style, Stroke, LayoutMask, PathPointProperties
-    >>> from uim.model.inkinput.inputdata import Environment, InkInputProvider, InkInputType, InputDevice, \
-    >>>      SensorChannel, \
-    >>>     InkSensorType, InkSensorMetricType, SensorChannelsContext, SensorContext, InputContext
+    >>> from uim.model.base import UUIDIdentifier
+    >>> from uim.model.helpers.serialize import json_encode
+    >>> from uim.model.ink import InkModel, InkTree, ViewTree
+    >>> from uim.model.inkdata.brush import VectorBrush, BrushPolygon, BrushPolygonUri
+    >>> from uim.model.inkdata.strokes import Spline, Style, Stroke, LayoutMask
+    >>> from uim.model.inkinput.inputdata import Environment, InkInputProvider, InkInputType, InputDevice, SensorChannel, \
+    >>>     InkSensorType, InkSensorMetricType, SensorChannelsContext, SensorContext, InputContext, unit2unit, Unit
     >>> from uim.model.inkinput.sensordata import SensorData, InkState
     >>> from uim.model.semantics import schema
-    >>> from uim.model.semantics.node import StrokeGroupNode, StrokeNode, StrokeFragment, URIBuilder
-    >>> from uim.model.semantics.schema import SemanticTriple, CommonViews, HAS_NAMED_ENTITY
+    >>> from uim.model.semantics.node import StrokeGroupNode, StrokeNode, URIBuilder
     >>> from uim.utils.matrix import Matrix4x4
     >>> # Creates an ink model from the scratch.
     >>> ink_model: InkModel = InkModel()
@@ -1247,10 +1245,10 @@ class InkModel(ABC):
         y_max: float = 0.
         if isinstance(node, StrokeNode):
             stroke_node: StrokeNode = node
-            x_min: float = min(stroke_node.stroke.spline_min_x, x_min)
-            x_max: float = max(stroke_node.stroke.spline_max_x, x_max)
-            y_min: float = min(stroke_node.stroke.spline_min_y, y_min)
-            y_max: float = max(stroke_node.stroke.spline_max_y, y_max)
+            x_min: float = float(min(stroke_node.stroke.spline_min_x, x_min))
+            x_max: float = float(max(stroke_node.stroke.spline_max_x, x_max))
+            y_min: float = float(min(stroke_node.stroke.spline_min_y, y_min))
+            y_max: float = float(max(stroke_node.stroke.spline_max_y, y_max))
             node.group_bounding_box = BoundingBox(x_min, y_min, x_max - x_min, y_max - y_min)
         elif isinstance(node, StrokeGroupNode):
             for child_node in node.children:
