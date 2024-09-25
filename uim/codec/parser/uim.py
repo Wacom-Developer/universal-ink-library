@@ -246,7 +246,7 @@ class UIMParser(Parser):
             # Read file
             with io.open(path, 'rb') as fp:
                 if json_encoding:
-                    logger.info('JSON decoder chosen.')
+                    logger.debug('JSON decoder chosen.')
                     # Content parser
                     return UIMDecoder300.decode_json(fp)
         raise ValueError(f"Unsupported format. Type must be str or Path, but is {type(path)}.")
@@ -301,7 +301,7 @@ class UIMParser(Parser):
             # Read package size
             size_packet: bytes = riff.read(4)
             riff_size: int = ctypes.c_uint32(int.from_bytes(size_packet, byteorder='little')).value
-        logger.info(f'Data packet size: {riff_size}')
+        logger.debug(f'Data packet size: {riff_size}')
         size_head, version = UIMParser.__parse_version__(riff)
         if version == SupportedFormats.UIM_VERSION_3_0_0:
             return UIMDecoder300.decode(riff, size_head)
