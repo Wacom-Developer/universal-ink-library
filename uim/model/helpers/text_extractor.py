@@ -20,7 +20,7 @@ from uim.codec.parser.uim import UIMParser
 from uim.model.helpers.schema_content_extractor import __collected_stroke_ids__
 from uim.model.helpers.treeiterator import PreOrderEnumerator
 from uim.model.ink import InkModel
-from uim.model.semantics.node import InkNode, StrokeGroupNode, StrokeNode
+from uim.model.semantics.node import InkNode
 from uim.model.semantics.schema import CommonViews, SegmentationSchema, NamedEntityRecognitionSchema
 
 SEMANTIC_PREFIX: str = 'will://semantic/3.0/'
