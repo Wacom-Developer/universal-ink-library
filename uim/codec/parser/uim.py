@@ -16,11 +16,11 @@ import ctypes
 import io
 import logging
 import os
-from chunk import Chunk
+import struct
+
 from io import BytesIO
 from pathlib import Path
 from typing import Tuple, Union
-
 from uim.codec.base import RIFF_HEADER, UIM_HEADER, HEAD_HEADER
 from uim.codec.parser.base import Parser, FormatException, SupportedFormats
 from uim.codec.parser.decoder.decoder_3_0_0 import UIMDecoder300
@@ -29,6 +29,134 @@ from uim.model.ink import InkModel
 
 # Create the Logger
 logger: logging.Logger = logging.getLogger(__name__)
+
+
+class Chunk:
+    """
+    Chunk
+    =====
+    Copied from Chunk source code from Python as it will not be available from Python 3.13.
+
+    A Chunk is a simple container for a chunk of data in a RIFF file.
+
+    Parameters
+    ----------
+    file: file
+        File object
+    align: bool
+        Whether to align to word (2-byte) boundaries
+    bigendian: bool
+        Whether the file is big endian
+    inclheader: bool
+        Whether the header is included in the chunk
+    """
+    def __init__(self, file, align=True, bigendian: bool = True, inclheader: bool = False):
+        self.closed = False
+        self.align = align      # whether to align to word (2-byte) boundaries
+        if bigendian:
+            strflag = '>'
+        else:
+            strflag = '<'
+        self.file = file
+        self.chunkname = file.read(4)
+        if len(self.chunkname) < 4:
+            raise EOFError
+        try:
+            self.chunksize = struct.unpack_from(strflag+'L', file.read(4))[0]
+        except struct.error:
+            raise EOFError from None
+        if inclheader:
+            self.chunksize = self.chunksize - 8 # subtract header
+        self.size_read = 0
+        try:
+            self.offset = self.file.tell()
+        except (AttributeError, OSError):
+            self.seekable = False
+        else:
+            self.seekable = True
+
+    def getname(self):
+        """Return the name (ID) of the current chunk."""
+        return self.chunkname
+
+    def getsize(self):
+        """Return the size of the current chunk."""
+        return self.chunksize
+
+    def close(self):
+        if not self.closed:
+            try:
+                self.skip()
+            finally:
+                self.closed = True
+
+    def seek(self, pos, whence=0):
+        """Seek to specified position into the chunk.
+        Default position is 0 (start of chunk).
+        If the file is not seekable, this will result in an error.
+        """
+
+        if self.closed:
+            raise ValueError("I/O operation on closed file")
+        if not self.seekable:
+            raise OSError("cannot seek")
+        if whence == 1:
+            pos = pos + self.size_read
+        elif whence == 2:
+            pos = pos + self.chunksize
+        if pos < 0 or pos > self.chunksize:
+            raise RuntimeError
+        self.file.seek(self.offset + pos, 0)
+        self.size_read = pos
+
+    def read(self, size=-1):
+        """Read at most size bytes from the chunk.
+        If size is omitted or negative, read until the end
+        of the chunk.
+        """
+
+        if self.closed:
+            raise ValueError("I/O operation on closed file")
+        if self.size_read >= self.chunksize:
+            return b''
+        if size < 0:
+            size = self.chunksize - self.size_read
+        if size > self.chunksize - self.size_read:
+            size = self.chunksize - self.size_read
+        data = self.file.read(size)
+        self.size_read = self.size_read + len(data)
+        if self.size_read == self.chunksize and \
+           self.align and \
+           (self.chunksize & 1):
+            dummy = self.file.read(1)
+            self.size_read = self.size_read + len(dummy)
+        return data
+
+    def skip(self):
+        """Skip the rest of the chunk.
+        If you are not interested in the contents of the chunk,
+        this method should be called so that the file points to
+        the start of the next chunk.
+        """
+
+        if self.closed:
+            raise ValueError("I/O operation on closed file")
+        if self.seekable:
+            try:
+                n = self.chunksize - self.size_read
+                # maybe fix alignment
+                if self.align and (self.chunksize & 1):
+                    n = n + 1
+                self.file.seek(n, 1)
+                self.size_read = self.size_read + n
+                return
+            except OSError:
+                pass
+        while self.size_read < self.chunksize:
+            n = min(8192, self.chunksize - self.size_read)
+            dummy = self.read(n)
+            if not dummy:
+                raise EOFError
 
 
 class UIMParser(Parser):
@@ -69,7 +197,7 @@ class UIMParser(Parser):
         Raises
         ------
         FormatException
-            Raises if the file is not an UIM file.
+            Raises if the file is not a UIM file.
         """
         head: bytes = stream.read(4)
         if head != UIM_HEADER:
@@ -150,11 +278,11 @@ class UIMParser(Parser):
                 raise FormatException(f'UIM file with path: {str(path_or_stream)} does not exist.')
             # Read file
             with io.open(path_or_stream, 'rb') as fp:
-                logger.info('RIFF decoder chosen.')
+                logger.debug('RIFF decoder chosen.')
                 riff_file: Chunk = Chunk(fp, bigendian=False)
                 if riff_file.getname() != RIFF_HEADER:
                     raise FormatException('File does not start with RIFF id')
-                logger.info(f'Data packet size: {riff_file.getsize()}')
+                logger.debug(f'Data packet size: {riff_file.getsize()}')
                 riff: BytesIO = BytesIO(riff_file.read())
                 riff_size: int = riff_file.getsize()
         else:
