@@ -8,7 +8,7 @@ This package contains different parsers for ink formats:
 - Wacom Ink Layer Language (WILL)
 
 """
-__all__ = ['decoder', 'uim', 'will']
+__all__ = ['decoder', 'uim', 'will', 'inkml', 'iotpaper']
 
 from uim.codec.parser import will
 from uim.codec.parser import uim
