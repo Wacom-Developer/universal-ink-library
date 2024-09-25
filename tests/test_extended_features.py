@@ -66,8 +66,6 @@ def uim_310_files() -> list:
     return [f for f in uim310_data_dir.iterdir() if f.is_file() and f.name.endswith('.uim')]
 
 
-
-
 def simulate_pressure(num_points: int, max_pressure: float = 1.0, noise_level: float = 0.1):
     x = np.linspace(0, np.pi, num_points)
     pressure = (np.sin(x) + 1) / 2 * max_pressure
@@ -390,10 +388,9 @@ def test_interpolation():
         InkStrokeAttributeType.SENSOR_PRESSURE
     ]
     ink_model = created_model(num_point=100, number_strokes=2)
-    process_layout: List[InkStrokeAttributeType] = [l for l in InkStrokeAttributeType]
     for stroke in ink_model.strokes:
         strokes_as_strided_array = stroke.as_strided_array_extended(ink_model)
-        resampled_stroke = SplineHandler.process(strokes_as_strided_array, process_layout, 15, calculator)
+        resampled_stroke = SplineHandler.process(strokes_as_strided_array, layout, 15, calculator)
         assert len(resampled_stroke) > 0
 
 
