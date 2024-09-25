@@ -1,3 +1,8 @@
+2024/09/25 - RELEASE 2.1.0
+==========================
+- Adding parser for InkML files
+
+
 2024/09/04 - RELEASE 2.0.4
 ==========================
 - Extend export to choose the units for the CSV file
