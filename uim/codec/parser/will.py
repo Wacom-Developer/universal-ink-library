@@ -120,7 +120,6 @@ class WILL2Parser(Parser):
         self.__viewport_height: float = 480.0
         self.__document_title: str = ''
         self.__document_creation_datetime: str = ''
-        self.__ink_device_model_guess: str = WILL2Parser.INK_DEVICE_BAMBOO_SLATE
         self.__matrix = np.identity(3)
         self.__default_input_provider: device.InkInputProvider = WILL2Parser.__default_input_provider__()
         self.__default_environment: device.Environment = WILL2Parser.__default_environment__()
@@ -131,7 +130,7 @@ class WILL2Parser(Parser):
         self.__y_channel: Optional[device.SensorChannel] = None
         self.__t_channel: Optional[device.SensorChannel] = None
         warnings.warn(
-            f"WILL Parser is deprecated and will be removed in a future version.",
+            "WILL Parser is deprecated and will be removed in a future version.",
             category=DeprecationWarning,
             stacklevel=2
         )
@@ -236,7 +235,6 @@ class WILL2Parser(Parser):
 
                             matrix = root.find('{http://www.w3.org/2000/svg}g')
                             rotation_matrix: np.array = np.identity(3)
-                            rotation_matrix_2: np.array = np.identity(3)
                             if matrix is not None and 'transform' in matrix.attrib:
                                 matrix_array = matrix.attrib['transform'][7:-1].split(' ')
                                 # The matrix(<a> <b> <c> <d> <e> <f>) transform function specifies a transformation
