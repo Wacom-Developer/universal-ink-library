@@ -74,7 +74,7 @@ def serialize_json(ink_model: InkModel, path: Path):
     """
     if not path.parent.exists():
         path.parent.mkdir(parents=True)
-    with open(path, 'w') as fp:
+    with open(path, 'w', encoding='utf-8') as fp:
         json.dump(ink_model, fp, cls=UniversalInkModelEncoder, indent=4)
 
 
