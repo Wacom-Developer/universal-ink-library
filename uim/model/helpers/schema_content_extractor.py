@@ -115,10 +115,10 @@ def uim_schema_semantics_from(ink_model: InkModel, semantic_view: str = schema.C
             entry: Dict[str, Any] = {
                 'path_id': path_ids, 'node_uri': node.uri, 'parent_uri': node.parent.uri if node.parent else None,
                 'bounding_box': {
-                    'x': node.group_bounding_box.x,
-                    'y': node.group_bounding_box.y,
-                    'width': node.group_bounding_box.width,
-                    'height': node.group_bounding_box.height
+                    'x': float(node.group_bounding_box.x),
+                    'y': float(node.group_bounding_box.y),
+                    'width': float(node.group_bounding_box.width),
+                    'height': float(node.group_bounding_box.height)
                 },
                 'type': entity_map[node.uri]['type'],
                 'attributes': entity_map[node.uri]['attributes']
