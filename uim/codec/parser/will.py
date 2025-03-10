@@ -19,7 +19,6 @@ import time
 import uuid
 import warnings
 import zipfile
-from chunk import Chunk
 from io import BytesIO
 from typing import Any, Tuple, Dict, List, Optional, Union
 
@@ -34,6 +33,7 @@ from uim.codec.format.WILL_2_0_0_pb2 import Path
 from uim.codec.context.version import Version
 from uim.codec.parser.base import Parser, FormatException, SupportedFormats
 from uim.codec.parser.base import Stream, EndOfStream
+from uim.codec.parser.uim import Chunk
 from uim.model.base import UUIDIdentifier
 from uim.model.ink import InkModel
 from uim.model.inkdata import brush
@@ -110,6 +110,11 @@ class WILL2Parser(Parser):
     """ Sampling rate of 120 Hz roughly 8 ms."""
 
     def __init__(self):
+        warnings.warn(
+            f"{self.__class__.__name__} is deprecated and will be removed in a future version.",
+            DeprecationWarning,
+            stacklevel=2
+        )
         self.__paths: list = []
         self.__protobuf = None
         self.__document_application: str = WILL2Parser.DEFAULT_APPLICATION_NAME
