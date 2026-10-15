@@ -24,8 +24,7 @@ from uim.model.inkinput.sensordata import SensorData
 if __name__ == '__main__':
     parser: UIMParser = UIMParser()
     # This file contains ink from different providers: PEN, TOUCH, MOUSE
-    ink_model: InkModel = parser.parse(Path(__file__).parent / '..' / 'ink' / 'uim_3.1.0' /
-                                       '6) Different Input Providers.uim')
+    ink_model: InkModel = parser.parse("/Users/markus/develop/github/ink-dashboard/samples/Created at 5-20 PM_1.uim")
     mapping_type: Dict[UUID, InkInputType] = {}
     if ink_model.has_ink_structure():
         print('InkInputProviders:')
