@@ -1,3 +1,7 @@
+2026/15/10 - RELEASE 2.1.2
+==========================
+- Pin bitstring dependency to <5.0.0 
+
 2025/03/10 - RELEASE 2.1.1
 ==========================
 - Fix for WILL Parser to support Python 3.13
