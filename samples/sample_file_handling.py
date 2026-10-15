@@ -13,8 +13,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 import io
-
-from zipp import Path
+from pathlib import Path
 
 from uim.codec.parser.uim import UIMParser
 from uim.codec.parser.will import WILL2Parser
