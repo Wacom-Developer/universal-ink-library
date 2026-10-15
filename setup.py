@@ -27,7 +27,7 @@ if CURRENT_PYTHON < REQUIRED_PYTHON:
 
 # The directory containing this file
 HERE = pathlib.Path(__file__).parent
-VERSION: str = "2.1.1"
+VERSION: str = "2.1.2"
 
 # The text of the README file
 README = (HERE / "README.md").read_text()
@@ -48,7 +48,7 @@ setup(
     include_package_data=True,
     install_requires=[
         "numpy>=1.16.4",
-        "bitstring>=3.1.7",
+        "bitstring<5.0.0",
         "protobuf<4.0.0",
         "varint>=1.0.2",
         "lxml>=4.6.3",
